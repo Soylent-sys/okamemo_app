@@ -1,0 +1,14 @@
+FROM ruby:3.2.2-bullseye
+
+ENV LANG C.UTF-8
+ENV TZ Asia/Tokyo
+ENV APP_ROOT /okamemo_app
+
+RUN mkdir $APP_ROOT
+WORKDIR $APP_ROOT
+
+COPY . $APP_ROOT
+
+RUN gem install bundler -v 2.4.15
+RUN bundle -v \
+  && bundle install

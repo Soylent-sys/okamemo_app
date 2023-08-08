@@ -1,0 +1,24 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/app_ci/Dockerfile.ci
+    container_name: app
+    volumes:
+      - .:/okamemo_app
+    depends_on:
+      - db
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: password
+      MYSQL_HOST: db
+    ports:
+      - '3000:3000'
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s"
+  db:
+    image: mysql:8.0.33
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - '33066:3306'
+    command: --default-authentication-plugin=mysql_native_password

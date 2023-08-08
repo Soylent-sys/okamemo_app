@@ -1,0 +1,14 @@
+# 環境変数の除外
+.env
+**/.env
+
+# git関係のファイル除外
+.git/
+
+# log、tmpの除外
+log
+tmp
+**/tmp
+
+# node_modulesの除外
+node_modules/

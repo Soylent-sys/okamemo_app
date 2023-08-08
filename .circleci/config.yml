@@ -1,0 +1,119 @@
+version: 2.1
+
+# AWS用のorbsを利用する(バージョンは最新のものを使う)
+orbs:
+  aws-ecr: circleci/aws-ecr@8.2.1
+  aws-ecs: circleci/aws-ecs@3.2.0
+
+jobs:
+  # rspec用のジョブ
+  rspec:
+    # docker compose を利用するため、仮想マシンを利用する。
+    machine:
+      image: ubuntu-2204:current
+    # 作業用のディレクトリを設定
+    working_directory: ~/test_rspec
+    # タスクを定義
+    steps:
+      # リポジトリを作業用のディレクトリにpull
+      - checkout
+      # 処理を実行
+      # CI用のcompose.ci.yamlを標準コマンドで使用するように設定。
+      - run:
+          name: Setup environment variable
+          command: |
+            echo "export COMPOSE_FILE=compose.ci.yaml" >> $BASH_ENV
+      # docker composeで各種コマンドを順次実行する。
+      - run:
+          name: Dockerコンテナのビルドを実行
+          command: docker compose build --no-cache
+      - run:
+          name: Dockerコンテナの起動
+          command: docker compose up -d
+      # Dockerコンテナ起動後、すぐにDBを作成しようとするとエラーが発生する可能性があるため、少し待機する。
+      - run:
+          name: DB接続前の待機時間 10s
+          command: sleep 10
+      - run:
+          name: DBを作成
+          command: docker compose exec app rails db:create
+      - run:
+          name: マイグレーションを実行
+          command: docker compose exec app rails db:migrate
+      - run:
+          name: RSpecの実行
+          command: docker compose exec app rspec
+      - run:
+          name: 起動中のDockerコンテナを停止して削除
+          command: docker compose down
+  # rubocop用のジョブ
+  rubocop:
+    docker:
+      - image: cimg/ruby:3.2.2
+    working_directory: ~/test_rubocop
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gemfiles-{{ .Branch }}-
+            - gemfiles-main-
+      - run: bundle config --local path vendor/bundle
+      - run:
+          name: bundle install
+          command: bundle check || bundle install --jobs=8 --clean
+      - run:
+          name: Run rubocop
+          command: bundle exec rubocop --parallel
+      - save_cache:
+          key: gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+workflows:
+  test-and-deploy-wf:
+    jobs:
+      # テストを実行
+      - rspec
+      - rubocop
+      # ECRにWebサーバー用のDockerイメージをビルドしてプッシュ
+      - aws-ecr/build-and-push-image:
+          # ジョブ名を設定
+          name: build-and-push-image-web
+          # Dockerfileのパス
+          dockerfile: ./docker/web_prod/Dockerfile.prod
+          # ECRのリポジトリ
+          repo: okamemo_web_nginx
+          tag: "latest"
+          # ジョブの実行条件
+          requires:
+            - rspec
+            - rubocop
+          filters:
+            branches:
+              only: main
+      # ECRにアプリ用のDockerイメージをビルドしてプッシュ
+      - aws-ecr/build-and-push-image:
+          # ジョブ名を設定
+          name: build-and-push-image-app
+          # Dockerfileのパス
+          dockerfile: ./docker/app_prod/Dockerfile.prod
+          # ECRのリポジトリ
+          repo: okamemo_app_rails
+          tag: "latest"
+          # build-and-push-image-webが完了後に実行
+          requires:
+            - build-and-push-image-web
+      # ECSのサービスを更新
+      - aws-ecs/deploy-service-update:
+          # ジョブ名を設定
+          name: deploy-ecs
+          # クラスター名
+          cluster: okamemo-app-cluster
+          # サービス名
+          service-name: okamemo-app-service
+          # タスク定義名
+          family: okamemo-app-task
+          # build-and-push-image-appが完了後に実行
+          requires:
+            - build-and-push-image-app
