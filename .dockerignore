@@ -12,3 +12,9 @@ tmp
 
 # node_modulesの除外
 node_modules/
+
+# Terraform関連ファイルを除外
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfplan
