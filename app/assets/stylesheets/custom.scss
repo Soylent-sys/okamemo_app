@@ -1,0 +1,286 @@
+/* default */
+
+* {
+  font-weight: 700 !important;
+}
+
+h1 span, h2 span, h4 span {
+  display: inline-block;
+}
+
+/* accessories */
+
+.okame-picture {
+  max-width: 150px;
+  height: auto;
+}
+
+/** 下左吹き出し **/
+.arrow_box_bottom_left {
+  position: relative;
+  background: #fff;
+  border: 4px solid #666;
+  border-radius: 2em;
+  margin: 2em;
+}
+.arrow_box_bottom_left:after, .arrow_box_bottom_left:before {
+  top: 100%;
+  left: 15%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.arrow_box_bottom_left:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-top-color: #fff;
+  border-width: 10px;
+  margin-left: -10px;
+}
+.arrow_box_bottom_left:before {
+  border-color: rgba(51, 51, 51, 0);
+  border-top-color: #666;
+  border-width: 16px;
+  margin-left: -16px;
+}
+
+/** 下右吹き出し **/
+.arrow_box_bottom_right {
+  position: relative;
+  background: #fff;
+  border: 4px solid #666;
+  border-radius: 2em;
+  margin: 2em;
+}
+.arrow_box_bottom_right:after, .arrow_box_bottom_right:before {
+  top: 100%;
+  left: 85%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.arrow_box_bottom_right:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-top-color: #fff;
+  border-width: 10px;
+  margin-left: -10px;
+}
+.arrow_box_bottom_right:before {
+  border-color: rgba(51, 51, 51, 0);
+  border-top-color: #666;
+  border-width: 16px;
+  margin-left: -16px;
+}
+
+/** 左吹き出し **/
+.arrow_box_left {
+  position: relative;
+  background: #fff;
+  border: 4px solid #666;
+  padding:2em 1.5em;
+  border-radius:5px;
+  margin:2em;
+}
+.arrow_box_left:after, .arrow_box_left:before {
+  right: 100%;
+  top: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.arrow_box_left:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-right-color: #fff;
+  border-width: 10px;
+  margin-top: -10px;
+}
+.arrow_box_left:before {
+  border-color: rgba(51, 51, 51, 0);
+  border-right-color: #666;
+  border-width: 16px;
+  margin-top: -16px;
+}
+
+/* body */
+
+body {
+  background-color: rgb(255, 229, 136);
+}
+
+/* Header */
+
+.okame-nav-logo {
+  max-width: 300px;
+  height: auto;
+}
+
+@media screen and (max-width: 576px) {
+  .okame-nav-logo {
+    max-width: 200px;
+    height: auto;
+  }
+}
+
+.layouts-header {
+  background-color: rgb(255, 187, 28);
+}
+
+/** ハンバーガーメニューのカスタマイズ **/
+.navbar-toggler {
+  border-color: rgba(0,0,0,0);
+
+  &:focus {
+    box-shadow:none !important;
+  }
+
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3e%3cpath stroke='rgba(255,237,121,1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    width: 2.5em;
+    height: 2.5em;
+  }
+
+  .navbar-toggler-icon::after {
+    display: inline-block;
+    position: relative;
+    content: "MENU";
+    color: rgba(255,237,121,1);
+    font-size: large;
+    width: max-content;
+    top: 15px;
+    right: 58px;
+  }
+
+  @media screen and (max-width: 320px) {
+    .navbar-toggler-icon::after {
+      display: none;
+    }
+  }
+}
+
+/* footer */
+
+.layouts-footer {
+  background-color: rgb(255, 187, 28);
+}
+
+.layouts-footer p {
+  margin: 0;
+}
+
+.footer-top-link {
+  text-decoration: none;
+  color: rgb(255,237,121);
+}
+
+.footer-top-link .link-icon {
+  font-size: larger;
+}
+
+/* TOP page */
+
+@media screen and (max-width: 992px) {
+  .top-logo {
+    max-width: 320px;
+    height: auto;
+  }
+}
+
+.arrow_box_bottom_left, .arrow_box_bottom_right {
+  width: max-content;
+
+  @media screen and (max-width: 576px) {
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .introduction h6 {
+    font-size: 15px;
+  }
+
+  .instructions-* h3 {
+    font-size: 20px;
+  }
+
+  .instructions-* h5 {
+    font-size: 18px;
+  }
+}
+
+.ul-recommend li {
+  padding-left: 1.5em;
+  margin-bottom: .7rem;
+
+  @media screen and (max-width: 576px) {
+    padding-left: 1em;
+  }
+}
+
+.ul-recommend li::before {
+  font-family: "bootstrap-icons";
+  content: "\F633";
+  color: #ffb03f;
+  position: absolute;
+  left : 2.8em;
+
+  @media screen and (max-width: 576px) {
+    left : 1em;
+  }
+}
+
+.ul-recommend li span {
+  display: inline-block;
+}
+
+.instructions-1 {
+  background-color: rgb(255, 247, 165);
+}
+
+.instructions-2 {
+  background-color: rgb(255, 219, 126);
+}
+
+.instructions-3 {
+  background-color: rgb(255, 181, 116);
+}
+
+.instructions-4 {
+  background-color: rgb(255, 148, 116);
+}
+
+.other-features {
+  border: 5px solid #ffb03f;
+}
+
+.ul-other-features li {
+  padding-left: 1.5em;
+  margin-bottom: .7rem;
+
+  @media screen and (max-width: 576px) {
+    padding-left: 1em;
+  }
+}
+
+.ul-other-features li::before {
+  font-family: "bootstrap-icons";
+  content: "\F3E2";
+  color: #ffb03f;
+  position: absolute;
+  left : 4.4em;
+
+  @media screen and (max-width: 992px) {
+    left : 2.8em;
+  }
+
+  @media screen and (max-width: 576px) {
+    left : 1.8em;
+  }
+}

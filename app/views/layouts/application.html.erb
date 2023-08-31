@@ -12,7 +12,9 @@
   </head>
 
   <body>
+    <%= render 'layouts/header' %>
     <%= yield %>
+    <%= render 'layouts/footer' %>
     <%= javascript_importmap_tags %>
   </body>
 </html>
