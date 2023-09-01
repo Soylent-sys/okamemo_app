@@ -194,7 +194,7 @@ body {
 }
 
 .arrow_box_bottom_left, .arrow_box_bottom_right {
-  width: max-content;
+  width: fit-content;
 
   @media screen and (max-width: 576px) {
     width: auto;
