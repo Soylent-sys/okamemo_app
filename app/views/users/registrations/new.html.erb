@@ -1,0 +1,46 @@
+<% provide(:page_title, "ユーザー登録") %>
+<%= render "users/shared/error_messages", resource: resource %>
+<div class="container py-5">
+  <%= form_with model: @user, url: user_registration_path, id: 'new user', class: "new_user col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
+    <h2 class="mb-4">ユーザー登録</h2>
+    <div class="field form-floating mb-3">
+      <%= f.text_field :name, autofocus: true, autocomplete: "off", placeholder: "おかメちゃん", class: "form-control #{"is-invalid" if f.object.errors[:name].present?}" %>
+      <%= f.label :name do %>
+        <i class="bi bi-person-fill"></i>&nbsp;&thinsp;ニックネーム
+      <% end %>
+      <small class="form-text text-muted"><i class="bi bi-info-square"></i> ニックネームは最大20文字まで入力できます</small>
+    </div>
+
+    <div class="field form-floating mb-4">
+      <%= f.email_field :email, autocomplete: "email", placeholder: "email@example.com", class: "form-control #{"is-invalid" if f.object.errors[:email].present?}" %>
+      <%= f.label :email do %>
+        <i class="bi bi-envelope"></i>&nbsp;&thinsp;Eメールアドレス
+      <% end %>
+    </div>
+
+    <div class="field form-floating mb-3">
+      <%= f.password_field :password, autocomplete: "new-password", placeholder: "password", class: "form-control #{"is-invalid" if f.object.errors[:password].present?}" %>
+      <%= f.label :password do %>
+        <i class="bi bi-lock-fill"></i>&nbsp;&thinsp;パスワード
+      <% end %>
+      <% if @minimum_password_length %>
+        <small class="form-text text-muted"><i class="bi bi-info-square"></i> パスワードは<%= @minimum_password_length %> 文字以上で設定してください</small>
+      <% end %>
+    </div>
+
+    <div class="field form-floating mb-5">
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "password", class: "form-control #{"is-invalid" if f.object.errors[:password_confirmation].present?}" %>
+      <%= f.label :password_confirmation do %>
+        <i class="bi bi-lock-fill"></i>&nbsp;&thinsp;パスワード（確認用）
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.submit "ユーザー登録", class: "w-100 btn btn-lg btn-primary" %>
+    </div>
+  <% end %>
+  <div class="col-xl-6 col-md-8 p-md-5 p-4 mx-auto rounded-3 form-other-bg">
+    <h4 class="mb-4">すでに登録済みの方はコチラ</h4>
+    <%= render "users/shared/links" %>
+  </div>
+</div>

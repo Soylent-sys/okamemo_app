@@ -1,0 +1,34 @@
+<% provide(:page_title, "ログイン") %>
+<div class="container py-5">
+  <%= form_with model: @user, url: user_session_path, id: 'new user', class: "new_user col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
+    <h2 class="mb-4">ログイン</h2>
+    <div class="field form-floating mb-4">
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "email@example.com", class: "form-control #{"is-invalid" if alert.present?}" %>
+      <%= f.label :email do %>
+        <i class="bi bi-envelope"></i>&nbsp;&thinsp;Eメールアドレス
+      <% end %>
+    </div>
+
+    <div class="field form-floating mb-3">
+      <%= f.password_field :password, autocomplete: "new-password", placeholder: "password", class: "form-control #{"is-invalid" if alert.present?}" %>
+      <%= f.label :password do %>
+        <i class="bi bi-lock-fill"></i>&nbsp;&thinsp;パスワード
+      <% end %>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="field mb-3">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.submit "ログイン", class: "w-100 btn btn-lg btn-success" %>
+    </div>
+  <% end %>
+  <div class="col-xl-6 col-md-8 p-md-5 p-4 mx-auto rounded-3 form-other-bg">
+    <h4 class="mb-4">登録がまだの方・他に問題のある方はコチラ</h4>
+    <%= render "users/shared/links" %>
+  </div>
+</div>

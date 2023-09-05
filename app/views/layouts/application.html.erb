@@ -13,8 +13,7 @@
 
   <body>
     <%= render 'layouts/header' %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <%= render 'shared/flash' %>
     <%= yield %>
     <%= render 'layouts/footer' %>
     <%= javascript_importmap_tags %>

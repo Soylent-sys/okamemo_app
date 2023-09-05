@@ -8,11 +8,29 @@ h1 span, h2 span, h4 span {
   display: inline-block;
 }
 
+.form-bg {
+  background-color: #fff8ca;
+}
+
+.form-other-bg {
+  background-color: #fff;
+}
+
 /* accessories */
 
 .okame-picture {
   max-width: 150px;
   height: auto;
+}
+
+.position-flash {
+  position: sticky;
+  top: 71.11px;
+  z-index: 999;
+
+  @media screen and (max-width: 767px) {
+    top: 76px;
+  }
 }
 
 /** 下左吹き出し **/
