@@ -1,16 +1,22 @@
-<h2><%= t('.resend_confirmation_instructions') %></h2>
+<% provide(:page_title, "アカウント確認メールの再送") %>
+<%= render "users/shared/error_messages", resource: resource %>
+<div class="container py-5">
+  <%= form_with model: @user, url: user_confirmation_path, id: 'new user', class: "new_user col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
+    <h2 class="mb-4">アカウント確認メールの再送</h2>
+    <div class="field form-floating mb-4">
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "email@example.com", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: "form-control #{"is-invalid" if f.object.errors[:email].present?}" %>
+      <%= f.label :email do %>
+        <i class="bi bi-envelope"></i>&nbsp;&thinsp;Eメールアドレス
+      <% end %>
+    </div>
 
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+    <div>
+      <%= f.submit "確認メール再送", class: "w-100 btn btn-lg btn-custom-send" %>
+    </div>
+  <% end %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+  <div class="col-xl-6 col-md-8 p-md-5 p-4 mx-auto rounded-3 form-other-bg">
+    <h4 class="mb-4">ログイン・ユーザー登録したい方<br>または他に問題のある方はコチラ</h4>
+    <%= render "users/shared/links" %>
   </div>
-
-  <div class="actions">
-    <%= f.submit t('.resend_confirmation_instructions') %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</div>
