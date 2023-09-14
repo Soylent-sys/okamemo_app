@@ -13,11 +13,11 @@ module DeviseHelper
   def bootstrap_alert_icon(message_type)
     case message_type
     when "alert"
-      "bi-exclamation-triangle-fill"
+      "fas fa-circle-exclamation"
     when "notice"
-      "bi-check-circle-fill"
+      "fas fa-circle-check"
     when "error"
-      "bi-exclamation-diamond-fill"
+      "fas fa-triangle-exclamation"
     end
   end
 end

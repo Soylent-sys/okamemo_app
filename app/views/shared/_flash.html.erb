@@ -1,5 +1,5 @@
 <% flash.each do |message_type, message| %>
   <div class="alert alert-<%= bootstrap_alert(message_type) %> position-flash rounded-0">
-    <i class="bi <%= bootstrap_alert_icon(message_type) %>"></i>&nbsp;<%= message %>
+    <i class="<%= bootstrap_alert_icon(message_type) %>"></i>&nbsp;<%= message %>
   </div>
 <% end %>

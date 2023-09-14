@@ -8,17 +8,17 @@
     <div class="field form-floating mb-3">
       <%= f.password_field :password, autocomplete: "new-password", placeholder: "password", class: "form-control #{"is-invalid" if f.object.errors[:password].present?}" %>
       <%= f.label :password do %>
-        <i class="bi bi-lock-fill"></i>&nbsp;&thinsp;パスワード
+        <i class="fas fa-lock"></i>&nbsp;&thinsp;パスワード
       <% end %>
       <% if @minimum_password_length %>
-        <small class="form-text text-muted"><i class="bi bi-info-square"></i> パスワードは<%= @minimum_password_length %> 文字以上で設定してください</small>
+        <small class="form-text text-muted"><i class="fas fa-circle-info"></i>  パスワードは<%= @minimum_password_length %> 文字以上で半角の英字と数字を含めてください</small>
       <% end %>
     </div>
 
     <div class="field form-floating mb-5">
       <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "password", class: "form-control #{"is-invalid" if f.object.errors[:password_confirmation].present?}" %>
       <%= f.label :password_confirmation do %>
-        <i class="bi bi-lock-fill"></i>&nbsp;&thinsp;パスワード（確認用）
+        <i class="fas fa-lock"></i>&nbsp;&thinsp;パスワード（確認用）
       <% end %>
     </div>
 
@@ -28,7 +28,7 @@
   <% end %>
 
   <div class="col-xl-6 col-md-8 p-md-5 p-4 mx-auto rounded-3 form-other-bg">
-    <h4 class="mb-4">ログイン・ユーザー登録したい方<br>または他に問題のある方はコチラ</h4>
+    <h4 class="mb-4">ログイン・ユーザー登録する方<br>他に問題のある方はコチラ</h4>
     <%= render "users/shared/links" %>
   </div>
 </div>

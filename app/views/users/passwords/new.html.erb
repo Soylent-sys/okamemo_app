@@ -6,7 +6,7 @@
     <div class="field form-floating mb-4">
       <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "email@example.com", class: "form-control #{"is-invalid" if f.object.errors[:email].present?}" %>
       <%= f.label :email do %>
-        <i class="bi bi-envelope"></i>&nbsp;&thinsp;Eメールアドレス
+        <i class="far fa-envelope"></i>&nbsp;&thinsp;Eメールアドレス
       <% end %>
     </div>
 
@@ -16,7 +16,7 @@
   <% end %>
 
   <div class="col-xl-6 col-md-8 p-md-5 p-4 mx-auto rounded-3 form-other-bg">
-    <h4 class="mb-4">ログイン・ユーザー登録したい方<br>または他に問題のある方はコチラ</h4>
+    <h4 class="mb-4">ログイン・ユーザー登録したい方<br>他に問題のある方はコチラ</h4>
     <%= render "users/shared/links" %>
   </div>
 </div>

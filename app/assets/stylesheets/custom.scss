@@ -16,6 +16,10 @@ h1 span, h2 span, h4 span {
   background-color: #fff;
 }
 
+.menu-bg {
+  background-color: #fff1da;
+}
+
 .btn-custom-send {
   background-color: rgba(255, 136, 9, 0.8);
   color: #fff;
@@ -30,6 +34,11 @@ h1 span, h2 span, h4 span {
 
 .okame-picture {
   max-width: 150px;
+  height: auto;
+}
+
+.okame-nav-picture {
+  max-width: 100px;
   height: auto;
 }
 
@@ -135,6 +144,12 @@ h1 span, h2 span, h4 span {
   border-right-color: #666;
   border-width: 16px;
   margin-top: -16px;
+}
+
+/* FontAwesome */
+
+.far {
+  font-weight: 400 !important;
 }
 
 /* body */
@@ -253,8 +268,8 @@ body {
 }
 
 .ul-recommend li::before {
-  font-family: "bootstrap-icons";
-  content: "\F633";
+  font-family: "Font Awesome 6 Free";
+  content: "\f00c";
   color: #ffb03f;
   position: absolute;
   left : 2.8em;
@@ -298,8 +313,8 @@ body {
 }
 
 .ul-other-features li::before {
-  font-family: "bootstrap-icons";
-  content: "\F3E2";
+  font-family: "Font Awesome 6 Free";
+  content: "\f013";
   color: #ffb03f;
   position: absolute;
   left : 4.4em;
@@ -311,4 +326,9 @@ body {
   @media screen and (max-width: 576px) {
     left : 1.8em;
   }
+}
+
+.icon-profile-edit {
+  color: #666;
+  font-size: 7em;
 }
