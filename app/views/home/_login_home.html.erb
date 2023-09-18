@@ -52,7 +52,7 @@
           </div>
         <% end %>
       </li>
-      <% if current_user.admin == true %>
+      <% if current_user.admin? %>
         <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
           <%= link_to '#', class: "text-decoration-none menu-admin-link" do %>
             <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-admin-bg faa-parent animated-hover">
