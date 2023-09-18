@@ -1,43 +1,64 @@
-<h2><%= t('.title', resource: resource_name.to_s.humanize) %></h2>
+<% provide(:page_title, "ユーザー設定") %>
+<% provide(:okame_info, "ユーザーアカウントの設定を変更できるよ！\nアカウントの削除もここからできるけれど削除するとデータが全部消えちゃうから気をつけてね！") %>
+<%= render "users/shared/error_messages", resource: resource %>
+<%= render 'shared/navigation' %>
+<div class="mt-1 mb-4 ms-sm-5 ms-3">
+  <%= link_to :back, class: "h5 back-link text-decoration-none" do %>
+    <i class="fa-solid fa-circle-left link-icon"></i><span class="ms-1">もどる</span>
+  <% end %>
+</div>
+<div class="container pb-5">
+  <%= form_with model: @user, url: user_registration_path, method: "put", id: 'edit user', class: "edit_user col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
+    <h2 class="mb-4">ユーザー情報の編集</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div class="mb-1 email-change-info"><i class="fas fa-circle-check"></i> <%= t('.currently_waiting_confirmation_for_email', email: resource.unconfirmed_email) %></div>
+    <% end %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <div class="field form-floating mb-3">
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "email@example.com", class: "form-control #{"is-invalid" if f.object.errors[:email].present?}" %>
+      <%= f.label :email do %>
+        <i class="far fa-envelope"></i>&nbsp;&thinsp;Eメールアドレス
+      <% end %>
+      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> このメールアドレスに確認用のメールが送信されます</small>
+    </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div><%= t('.currently_waiting_confirmation_for_email', email: resource.unconfirmed_email) %></div>
+    <div class="field form-floating mb-3">
+      <%= f.password_field :password, autocomplete: "new-password", placeholder: "password", class: "form-control #{"is-invalid" if f.object.errors[:password].present?}" %>
+      <%= f.label :password do %>
+        <i class="fas fa-lock"></i>&nbsp;&thinsp;パスワード
+      <% end %>
+      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> <%= t('.leave_blank_if_you_don_t_want_to_change_it') %></small>
+      <br>
+      <% if @minimum_password_length %>
+        <small class="form-text text-muted"><i class="fas fa-circle-info"></i> パスワードは<%= @minimum_password_length %> 文字以上で半角の英字と数字を含めてください</small>
+      <% end %>
+    </div>
+
+    <div class="field form-floating mb-4">
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "password", class: "form-control #{"is-invalid" if f.object.errors[:password_confirmation].present?}" %>
+      <%= f.label :password_confirmation do %>
+        <i class="fas fa-lock"></i>&nbsp;&thinsp;パスワード（確認用）
+      <% end %>
+    </div>
+
+    <div class="field form-floating mb-5">
+      <%= f.password_field :current_password, autocomplete: "current-password", placeholder: "password", class: "form-control #{"is-invalid" if f.object.errors[:current_password].present?}" %>
+      <%= f.label :current_password do %>
+        <i class="fas fa-unlock"></i>&nbsp;&thinsp;現在のパスワード
+      <% end %>
+      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> <%= t('.we_need_your_current_password_to_confirm_your_changes') %></small>
+    </div>
+
+    <div>
+      <%= f.submit "更新", class: "w-100 btn btn-lg btn-custom-send" %>
+    </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :password %> <i>(<%= t('.leave_blank_if_you_don_t_want_to_change_it') %>)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
-    <% end %>
+  <div class="col-xl-6 col-md-8 p-md-5 p-4 mx-auto rounded-3 form-other-bg">
+    <h2 class="mb-4">ユーザーアカウントの削除</h2>
+    <div>
+      <%= button_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure'), turbo_confirm: t('.are_you_sure') }, method: :delete, class: "w-100 btn btn-lg btn-danger" %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(<%= t('.we_need_your_current_password_to_confirm_your_changes') %>)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit t('.update') %>
-  </div>
-<% end %>
-
-<h3><%= t('.cancel_my_account') %></h3>
-
-<div><%= t('.unhappy') %> <%= button_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure'), turbo_confirm: t('.are_you_sure') }, method: :delete %></div>
-
-<%= link_to t('devise.shared.links.back'), :back %>
+</div>
