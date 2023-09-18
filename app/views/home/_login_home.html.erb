@@ -1,0 +1,59 @@
+<% provide(:page_title, "メインメニュー") %>
+<% provide(:okame_info, "ようこそ！ #{current_user.name} さん！\nここはメインメニューだよ。やりたいことをメニューから選んでね！") %>
+<%= render 'shared/navigation' %>
+<div class="container">
+  <ul class="list-unstyled">
+    <div class="row justify-content-center align-items-center p-md-5 px-3 pb-4">
+      <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
+        <%= link_to '#', class: "text-decoration-none menu-link" do %>
+          <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
+            <i class="mb-md-3 me-md-0 me-2 far fa-pen-to-square menu-icon faa-pulse faa-fast"></i>
+            <h5 class="mb-0 pe-md-0 pe-3">お買い物の登録</h5>
+          </div>
+        <% end %>
+      </li>
+      <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
+        <%= link_to '#', class: "text-decoration-none menu-link" do %>
+          <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
+            <i class="mb-md-3 me-md-0 me-2 fas fa-cart-shopping menu-icon faa-tada"></i>
+            <h5 class="mb-0 pe-md-0 pe-3">お買い物モード</h5>
+          </div>
+        <% end %>
+      </li>
+      <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
+        <%= link_to '#', class: "text-decoration-none menu-link" do %>
+          <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
+            <i class="mb-md-3 me-md-0 me-2 fas fa-receipt menu-icon faa-rising faa-slow"></i>
+            <h5 class="mb-0 pe-md-0 pe-3">お買い物の履歴</h5>
+          </div>
+        <% end %>
+      </li>
+      <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
+        <%= link_to '#', class: "text-decoration-none menu-link" do %>
+          <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
+            <i class="mb-md-3 me-md-0 me-2 far fa-paper-plane menu-icon faa-float faa-fast"></i>
+            <h5 class="mb-0 pe-md-0 pe-3">通知メール登録</h5>
+          </div>
+        <% end %>
+      </li>
+      <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
+        <%= link_to edit_user_registration_path, class: "text-decoration-none menu-link" do %>
+          <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
+            <i class="mb-md-3 me-md-0 me-2 fas fa-user-pen menu-icon faa-bounce faa-fast"></i>
+            <h5 class="mb-0 pe-md-0 pe-3">ユーザー設定</h5>
+          </div>
+        <% end %>
+      </li>
+      <% if current_user.admin == true %>
+        <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
+          <%= link_to '#', class: "text-decoration-none menu-admin-link" do %>
+            <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-admin-bg faa-parent animated-hover">
+              <i class="mb-md-3 me-md-0 me-2 fas fa-gear menu-admin-icon faa-spin faa-slow"></i>
+              <h5 class="mb-0 pe-md-0 pe-3">管理者機能</h5>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+    </div>
+  </ul>
+</div>

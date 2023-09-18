@@ -20,6 +20,26 @@ h1 span, h2 span, h4 span {
   background-color: #fff1da;
 }
 
+.menu-admin-bg {
+  background-color: #666;
+}
+
+.menu-link {
+  color: #666;
+}
+
+.menu-admin-link {
+  color: #fff1da;
+}
+
+.back-link {
+  color: #666;
+}
+
+.back-link .link-icon {
+  font-size: larger;
+}
+
 .btn-custom-send {
   background-color: rgba(255, 136, 9, 0.8);
   color: #fff;
@@ -328,7 +348,26 @@ body {
   }
 }
 
-.icon-profile-edit {
+.menu-icon {
   color: #666;
   font-size: 7em;
+
+  @media screen and (max-width: 767px) {
+    font-size: 3em;
+  }
+}
+
+.menu-admin-icon {
+  color: #fff1da;
+  font-size: 7em;
+
+  @media screen and (max-width: 767px) {
+    font-size: 3em;
+  }
+}
+
+/* user registrations edit */
+
+.email-change-info {
+  color: green;
 }
