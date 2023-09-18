@@ -44,6 +44,14 @@
           </div>
         <% end %>
       </li>
+      <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
+        <%= button_to destroy_user_session_path, method: :delete, data: { turbo_confirm: "ログアウトしますか?" }, class: "btn p-0 w-100 menu-link menu-logout-btn" do %>
+          <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
+            <i class="mb-md-3 me-md-0 me-2 fas fa-person-running menu-icon faa-passing"></i>
+            <h5 class="mb-0 pe-md-0 pe-3">ログアウト</h5>
+          </div>
+        <% end %>
+      </li>
       <% if current_user.admin == true %>
         <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
           <%= link_to '#', class: "text-decoration-none menu-admin-link" do %>

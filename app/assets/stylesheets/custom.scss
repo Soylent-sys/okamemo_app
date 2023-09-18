@@ -32,6 +32,18 @@ h1 span, h2 span, h4 span {
   color: #fff1da;
 }
 
+.menu-logout-btn {
+  border: none;
+}
+
+.menu-logout-btn:hover {
+  color: #666;
+}
+
+.menu-logout-btn:active {
+  color: #666 !important;
+}
+
 .back-link {
   color: #666;
 }
