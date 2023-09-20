@@ -16,34 +16,6 @@ h1 span, h2 span, h4 span {
   background-color: #fff;
 }
 
-.menu-bg {
-  background-color: #fff1da;
-}
-
-.menu-admin-bg {
-  background-color: #666;
-}
-
-.menu-link {
-  color: #666;
-}
-
-.menu-admin-link {
-  color: #fff1da;
-}
-
-.menu-logout-btn {
-  border: none;
-}
-
-.menu-logout-btn:hover {
-  color: #666;
-}
-
-.menu-logout-btn:active {
-  color: #666 !important;
-}
-
 .back-link {
   color: #666;
 }
@@ -60,6 +32,10 @@ h1 span, h2 span, h4 span {
 .btn-custom-send:hover {
   background-color: rgba(255, 136, 9, 1);
   color: #fff;
+}
+
+.btn-close-cs:focus {
+  box-shadow: none;
 }
 
 /* accessories */
@@ -240,6 +216,19 @@ body {
   }
 }
 
+.nav-menu-icon {
+  color: rgb(255, 243, 167);
+  font-size: 2em;
+}
+
+.nav-menu-mb:active {
+  color: #666;
+}
+
+.nav-menu-logout-btn {
+  border: none;
+}
+
 /* footer */
 
 .layouts-footer {
@@ -360,8 +349,62 @@ body {
   }
 }
 
-.menu-icon {
+.menu-bg {
+  background-color: #fff1da;
+}
+
+.menu-bg:active {
+  @media screen and (max-width: 767px) {
+    background-color: #666;
+  }
+}
+
+.menu-admin-bg {
+  background-color: #666;
+}
+
+.menu-admin-bg:active {
+  @media screen and (max-width: 767px) {
+    background-color: #fff1da;
+  }
+}
+
+.menu-link {
   color: #666;
+}
+
+.menu-link:active {
+  @media screen and (max-width: 767px) {
+    color: #fff1da;
+  }
+}
+
+.menu-admin-link {
+  color: #fff1da;
+}
+
+.menu-admin-link:active {
+  @media screen and (max-width: 767px) {
+    color: #666;
+  }
+}
+
+.menu-logout-btn {
+  border: none;
+}
+
+.menu-logout-btn:hover {
+  color: #666;
+}
+
+.menu-logout-btn:active {
+  color: #666 !important;
+  @media screen and (max-width: 767px) {
+    color: #fff1da !important;
+  }
+}
+
+.menu-icon {
   font-size: 7em;
 
   @media screen and (max-width: 767px) {
@@ -369,12 +412,23 @@ body {
   }
 }
 
+.menu-icon:active {
+  @media screen and (max-width: 767px) {
+    color: #fff1da !important;
+  }
+}
+
 .menu-admin-icon {
-  color: #fff1da;
   font-size: 7em;
 
   @media screen and (max-width: 767px) {
     font-size: 3em;
+  }
+}
+
+.menu-admin-icon:active {
+  @media screen and (max-width: 767px) {
+    color: #666 !important;
   }
 }
 
