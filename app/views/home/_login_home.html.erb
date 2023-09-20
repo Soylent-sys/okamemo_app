@@ -2,74 +2,72 @@
 <% provide(:okame_info, "ようこそ！ #{current_user.name} さん！\nここはメインメニューだよ。やりたいことをメニューから選んでね！") %>
 <%= render 'shared/navigation' %>
 <div class="container">
-  <ul class="list-unstyled">
-    <div class="row justify-content-center align-items-center p-md-5 px-3 pb-4">
-      <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
-        <%= link_to '#', class: "text-decoration-none menu-link" do %>
-          <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
-            <i class="mb-md-3 me-md-0 me-2 far fa-pen-to-square menu-icon faa-pulse faa-fast"></i>
-            <h5 class="mb-0 pe-md-0 pe-3">お買い物の登録</h5>
-          </div>
-        <% end %>
-      </li>
-      <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
-        <%= link_to '#', class: "text-decoration-none menu-link" do %>
-          <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
-            <i class="mb-md-3 me-md-0 me-2 fas fa-cart-shopping menu-icon faa-tada"></i>
-            <h5 class="mb-0 pe-md-0 pe-3">お買い物モード</h5>
-          </div>
-        <% end %>
-      </li>
-      <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
-        <%= link_to '#', class: "text-decoration-none menu-link" do %>
-          <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
-            <i class="mb-md-3 me-md-0 me-2 fas fa-receipt menu-icon faa-rising faa-slow"></i>
-            <h5 class="mb-0 pe-md-0 pe-3">お買い物の履歴</h5>
-          </div>
-        <% end %>
-      </li>
-      <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
-        <%= link_to '#', class: "text-decoration-none menu-link" do %>
-          <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
-            <i class="mb-md-3 me-md-0 me-2 far fa-paper-plane menu-icon faa-float faa-fast"></i>
-            <h5 class="mb-0 pe-md-0 pe-3">通知メール登録</h5>
-          </div>
-        <% end %>
-      </li>
-      <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
-        <%= link_to '#', class: "text-decoration-none menu-link" do %>
-          <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
-            <i class="mb-md-3 me-md-0 me-2 fas fa-apple-whole menu-icon faa-shake"></i>
-            <h5 class="mb-0 pe-md-0 pe-3">アイテム登録</h5>
-          </div>
-        <% end %>
-      </li>
-      <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
-        <%= link_to edit_user_registration_path, class: "text-decoration-none menu-link" do %>
-          <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
-            <i class="mb-md-3 me-md-0 me-2 fas fa-user-pen menu-icon faa-bounce faa-fast"></i>
-            <h5 class="mb-0 pe-md-0 pe-3">ユーザー設定</h5>
-          </div>
-        <% end %>
-      </li>
-      <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
-        <%= button_to destroy_user_session_path, method: :delete, data: { turbo_confirm: "ログアウトしますか?" }, class: "btn p-0 w-100 menu-link menu-logout-btn" do %>
-          <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
-            <i class="mb-md-3 me-md-0 me-2 fas fa-person-walking-arrow-right menu-icon faa-passing"></i>
-            <h5 class="mb-0 pe-md-0 pe-3">ログアウト</h5>
-          </div>
-        <% end %>
-      </li>
-      <% if current_user.admin? %>
-        <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
-          <%= link_to '#', class: "text-decoration-none menu-admin-link" do %>
-            <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-admin-bg faa-parent animated-hover">
-              <i class="mb-md-3 me-md-0 me-2 fas fa-gear menu-admin-icon faa-spin faa-slow"></i>
-              <h5 class="mb-0 pe-md-0 pe-3">管理者機能</h5>
-            </div>
-          <% end %>
-        </li>
+  <ul class="row justify-content-center align-items-center p-md-5 px-3 pb-4 list-unstyled">
+    <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
+      <%= link_to '#', class: "text-decoration-none menu-link" do %>
+        <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
+          <i class="mb-md-3 me-md-0 me-2 far fa-pen-to-square menu-icon faa-pulse faa-fast"></i>
+          <span class="h5 d-md-block mb-0 pe-md-0 pe-3">お買い物の登録</span>
+        </div>
       <% end %>
-    </div>
+    </li>
+    <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
+      <%= link_to '#', class: "text-decoration-none menu-link" do %>
+        <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
+          <i class="mb-md-3 me-md-0 me-2 fas fa-cart-shopping menu-icon faa-tada"></i>
+          <span class="h5 d-md-block mb-0 pe-md-0 pe-3">お買い物モード</span>
+        </div>
+      <% end %>
+    </li>
+    <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
+      <%= link_to '#', class: "text-decoration-none menu-link" do %>
+        <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
+          <i class="mb-md-3 me-md-0 me-2 fas fa-receipt menu-icon faa-rising faa-slow"></i>
+          <span class="h5 d-md-block mb-0 pe-md-0 pe-3">お買い物の履歴</span>
+        </div>
+      <% end %>
+    </li>
+    <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
+      <%= link_to '#', class: "text-decoration-none menu-link" do %>
+        <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
+          <i class="mb-md-3 me-md-0 me-2 far fa-paper-plane menu-icon faa-float faa-fast"></i>
+          <span class="h5 d-md-block mb-0 pe-md-0 pe-3">通知メール登録</span>
+        </div>
+      <% end %>
+    </li>
+    <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
+      <%= link_to '#', class: "text-decoration-none menu-link" do %>
+        <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
+          <i class="mb-md-3 me-md-0 me-2 fas fa-apple-whole menu-icon faa-shake"></i>
+          <span class="h5 d-md-block mb-0 pe-md-0 pe-3">アイテム登録</span>
+        </div>
+      <% end %>
+    </li>
+    <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
+      <%= link_to edit_user_registration_path, class: "text-decoration-none menu-link" do %>
+        <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
+          <i class="mb-md-3 me-md-0 me-2 fas fa-user-pen menu-icon faa-bounce faa-fast"></i>
+          <span class="h5 d-md-block mb-0 pe-md-0 pe-3">ユーザー設定</span>
+        </div>
+      <% end %>
+    </li>
+    <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
+      <%= button_to destroy_user_session_path, method: :delete, data: { turbo_confirm: "ログアウトしますか?" }, class: "btn p-0 w-100 menu-link menu-logout-btn" do %>
+        <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">
+          <i class="mb-md-3 me-md-0 me-2 fas fa-person-walking-arrow-right menu-icon faa-passing"></i>
+          <span class="h5 d-md-block mb-0 pe-md-0 pe-3">ログアウト</span>
+        </div>
+      <% end %>
+    </li>
+    <% if current_user.admin? %>
+      <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
+        <%= link_to '#', class: "text-decoration-none menu-admin-link" do %>
+          <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-admin-bg faa-parent animated-hover">
+            <i class="mb-md-3 me-md-0 me-2 fas fa-gear menu-admin-icon faa-spin faa-slow"></i>
+            <span class="h5 d-md-block mb-0 pe-md-0 pe-3">管理者機能</span>
+          </div>
+        <% end %>
+      </li>
+    <% end %>
   </ul>
 </div>
