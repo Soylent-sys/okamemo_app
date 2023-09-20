@@ -1,5 +1,5 @@
 <% if resource.errors.any? %>
-  <div id="error_explanation" class="alert alert-danger position-flash rounded-0" data-turbo-cache="false">
+  <div id="error_explanation" class="alert alert-danger  alert-dismissible position-flash rounded-0" data-turbo-cache="false">
     <h4>
       <i class="fas fa-triangle-exclamation"></i>
       <%= I18n.t("errors.messages.not_saved",
@@ -12,5 +12,6 @@
         <li><%= message %></li>
       <% end %>
     </ul>
+    <button type="button" class="btn-close btn-close-cs" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 <% end %>
