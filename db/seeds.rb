@@ -1,3 +1,12 @@
+# Userモデルの初期データ（管理ユーザー）
+User.create!(
+  name: "管理ユーザー",
+  admin: true,
+  email: "#{ENV['ADMIN_USER_EMAIL']}",
+  password: "#{ENV['ADMIN_USER_PASSWORD']}",
+  confirmed_at: Time.now
+)
+
 # Categoryモデルのデータ
 Category.create!(
   [
