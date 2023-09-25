@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    attributes:
+      category:
+        name: カテゴリー名
+        hiragana: ひらがな（カテゴリー名）
+      item:
+        name: アイテム名
+        hiragana: ひらがな（アイテム名）
