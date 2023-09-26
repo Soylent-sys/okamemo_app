@@ -12,4 +12,5 @@ Rails.application.routes.draw do
     edit: 'edit/profile',
   }
   root 'home#index'
+  resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
 end
