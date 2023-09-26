@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-  has_many :items
+  has_many :items, dependent: :delete_all
 
   MAX_LENGTH_EMAIL = 255
   MAX_LENGTH_NAME = 20
