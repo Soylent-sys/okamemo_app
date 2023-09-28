@@ -34,8 +34,103 @@ h1 span, h2 span, h4 span {
   color: #fff;
 }
 
+.btn-custom-send:active {
+  background-color: rgb(232, 123, 7) !important;
+  border-color: rgb(232, 123, 7) !important;
+  color: #cbcbcb !important;
+}
+
 .btn-close-cs:focus {
   box-shadow: none;
+}
+
+.position-under-header {
+  position: sticky;
+  top: 71.11px;
+  z-index: 998;
+
+  @media screen and (max-width: 767px) {
+    top: 76px;
+  }
+}
+
+.position-items {
+  position: sticky;
+  top: 131.704px;
+  z-index: 997;
+  overflow-y: auto;
+  height: 70vh;
+
+  @media screen and (max-width: 767px) {
+    top: 136.594px;
+  }
+}
+
+.category-item-head {
+  background-color: #ffe588;
+}
+
+.category-item-head h4 {
+  @media screen and (max-width: 375px) {
+    font-size: larger;
+  }
+}
+
+.category-window {
+  background-color: rgb(88, 204, 92);
+}
+
+.category-window .nav-link {
+  color: #666;
+  font-size: larger;
+
+  @media screen and (max-width: 375px) {
+    font-size: medium;
+  }
+}
+
+.category-window-heading {
+  color: #fff;
+}
+
+.category-bg {
+  background-color: #fff;
+  border-radius: 0.375rem;
+}
+
+.item-window {
+  background-color: #ffbb1c;
+}
+
+.item-window-heading {
+  color: #fff;
+}
+
+.item-bg {
+  background-color: #fff1da;
+}
+
+.item-space {
+  width: 260px;
+}
+
+.item-name-space {
+  width: 150px;
+}
+
+.border-1rem-up {
+  border-radius: 1rem 1rem 0 0;
+}
+
+.border-1rem-down {
+  border-radius: 0 0 1rem 1rem;
+}
+
+/* bootstrap custom */
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: green;
 }
 
 /* accessories */
@@ -436,4 +531,22 @@ body {
 
 .email-change-info {
   color: green;
+}
+
+/* item index */
+
+.edit-icon {
+  color: rgb(59, 188, 59);
+}
+
+.edit-icon:active {
+  color: #005b00;
+}
+
+.delete-icon {
+  color: rgb(219, 61, 61);
+}
+
+.delete-icon:active {
+  color: rgb(69, 13, 13);
 }
