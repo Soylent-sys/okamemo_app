@@ -4,19 +4,19 @@
 <div class="d-flex justify-content-between">
   <div class="mt-1 mb-4 ms-sm-5 ms-3">
     <%= link_to :back, class: "h5 back-link text-decoration-none" do %>
-      <i class="fa-solid fa-circle-left link-icon"></i><span class="ms-1">もどる</span>
+      <i class="fas fa-circle-left link-icon"></i><span class="ms-1">もどる</span>
     <% end %>
   </div>
   <div>
-    <%= link_to '#', class: "btn btn-lg btn-custom-send me-sm-4 me-2" do %>
-      <i class="fa-solid fa-circle-plus me-2"></i>アイテム登録
+    <%= link_to new_item_path, class: "btn btn-lg btn-custom-send me-sm-4 me-2" do %>
+      <i class="fas fa-circle-plus me-2"></i>アイテム登録
     <% end %>
   </div>
 </div>
 <div class="container-fluid">
   <div class="row d-flex align-items-start px-1 pt-3 position-under-header category-item-head">
-    <div class="col-xl-2 col-sm-3 col-5 category-window border-1rem-up"><h4 class="py-2 my-auto category-window-heading"><i class="fa-solid fa-tree me-2"></i>カテゴリー</h4></div>
-    <div class="col-xl-10 col-sm-9 col-7 item-window rounded-4"><h4 class="py-2 my-auto item-window-heading"><i class="fa-solid fa-apple-whole me-2"></i>登録アイテム</h4></div>
+    <div class="col-xl-2 col-sm-3 col-5 category-window border-1rem-up"><h4 class="py-2 my-auto category-window-heading"><i class="fas fa-tree me-2"></i>カテゴリー</h4></div>
+    <div class="col-xl-10 col-sm-9 col-7 item-window rounded-4"><h4 class="py-2 my-auto item-window-heading"><i class="fas fa-apple-whole me-2"></i>登録アイテム</h4></div>
   </div>
   <div class="row d-flex align-items-start px-1 mb-3">
     <div class="col-xl-2 col-sm-3 col-5 px-2 pb-2 category-window border-1rem-down">
@@ -39,12 +39,12 @@
                   <div class="d-sm-flex d-block">
                     <div class="me-sm-4 me-0 mb-sm-0 mb-3">
                       <%= link_to '#' do %>
-                        <i class="h4 fa-solid fa-pencil m-0 edit-icon"></i>
+                        <i class="h4 fas fa-pencil m-0 edit-icon"></i>
                       <% end %>
                     </div>
                     <div>
                       <%= link_to '#' do %>
-                        <i class="h4 fa-solid fa-trash-can m-0 delete-icon"></i>
+                        <i class="h4 fas fa-trash-can m-0 delete-icon"></i>
                       <% end %>
                     </div>
                   </div>

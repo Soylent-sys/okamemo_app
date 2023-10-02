@@ -5,5 +5,6 @@ ja:
         name: カテゴリー名
         hiragana: ひらがな（カテゴリー名）
       item:
+        category: カテゴリー
         name: アイテム名
         hiragana: ひらがな（アイテム名）

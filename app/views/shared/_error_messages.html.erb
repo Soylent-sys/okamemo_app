@@ -1,0 +1,16 @@
+<% if model.errors.any? %>
+  <div id="error_explanation" class="alert alert-danger alert-dismissible position-flash rounded-0" data-turbo-cache="false">
+    <h4>
+      <i class="fas fa-triangle-exclamation"></i>
+      <%= I18n.t("errors.messages.not_saved",
+                 count: model.errors.count)
+       %>
+    </h4>
+    <ul>
+      <% model.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+    <button type="button" class="btn-close btn-close-cs" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
