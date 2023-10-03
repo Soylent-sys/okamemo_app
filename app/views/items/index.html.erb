@@ -43,7 +43,7 @@
                       <% end %>
                     </div>
                     <div>
-                      <%= link_to '#' do %>
+                      <%= button_to item_path(item.id), method: :delete, data: { turbo_confirm: "本当に削除しますか？" } do %>
                         <i class="h4 fas fa-trash-can m-0 delete-icon"></i>
                       <% end %>
                     </div>

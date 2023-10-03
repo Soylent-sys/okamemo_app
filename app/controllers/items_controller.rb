@@ -32,6 +32,13 @@ class ItemsController < ApplicationController
     end
   end
 
+  def destroy
+    @item = Item.find(params[:id])
+    @item.destroy
+    flash[:notice] = "アイテムが削除されました。"
+    redirect_to items_url
+  end
+
   private
 
   def set_categories

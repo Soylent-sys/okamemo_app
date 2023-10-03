@@ -24,6 +24,12 @@ h1 span, h2 span, h4 span {
   font-size: larger;
 }
 
+button {
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
 .btn-custom-send {
   background-color: rgba(255, 136, 9, 0.8);
   color: #fff;
