@@ -38,7 +38,7 @@
                   <div class="item-name-space"><%= item.name %></div>
                   <div class="d-sm-flex d-block">
                     <div class="me-sm-4 me-0 mb-sm-0 mb-3">
-                      <%= link_to '#' do %>
+                      <%= link_to edit_item_path(item.id) do %>
                         <i class="h4 fas fa-pencil m-0 edit-icon"></i>
                       <% end %>
                     </div>

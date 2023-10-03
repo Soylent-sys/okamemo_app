@@ -1,0 +1,36 @@
+<% provide(:page_title, "アイテム編集") %>
+<% provide(:okame_info, "ここではアイテムを編集できるよ！\n「カテゴリー」「アイテム名」「ひらがな」の変更したい項目を編集して「更新する」ボタンを押してね。") %>
+<%= render "shared/error_messages", model: @item %>
+<%= render 'shared/navigation' %>
+<div class="mt-1 mb-4 ms-sm-5 ms-3">
+  <%= link_to :back, class: "h5 back-link text-decoration-none" do %>
+    <i class="fas fa-circle-left link-icon"></i><span class="ms-1">もどる</span>
+  <% end %>
+</div>
+<div class="container">
+  <%= form_with model: @item, url: item_path, method: "put", class: "col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
+    <h2 class="mb-4">アイテムの編集</h2>
+
+    <%= f.collection_select :category_id, @categories, :id, :name, {include_blank: "カテゴリーを選択"}, {class: "form-select form-select-lg mb-5 #{"is-invalid" if f.object.errors[:category].present?}"} %>
+
+    <div class="field form-floating mb-3">
+      <%= f.text_field :name, autocomplete: "off", placeholder: "アイテム", class: "form-control #{"is-invalid" if f.object.errors[:name].present?}" %>
+      <%= f.label :name do %>
+        <i class="fas fa-apple-whole"></i>&nbsp;&thinsp;アイテム名
+      <% end %>
+      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> アイテム名は最大20文字まで入力できます</small>
+    </div>
+
+    <div class="field form-floating mb-5">
+      <%= f.text_field :hiragana, autocomplete: "off", placeholder: "ひらがな", class: "form-control #{"is-invalid" if f.object.errors[:hiragana].present?}" %>
+      <%= f.label :hiragana do %>
+        <i class="far fa-comment-dots"></i>&nbsp;&thinsp;ひらがな（アイテム名）
+      <% end %>
+      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> ひらがな（アイテム名）は最大20文字、平仮名で入力してください</small>
+    </div>
+
+    <div>
+      <%= f.submit "更新する", class: "w-100 btn btn-lg btn-custom-send" %>
+    </div>
+  <% end %>
+</div>
