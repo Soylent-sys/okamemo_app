@@ -44,7 +44,7 @@
                         <% end %>
                       </div>
                       <div>
-                        <%= button_to item_path(item.id), method: :delete, data: { turbo_confirm: "本当に削除しますか？" } do %>
+                        <%= button_to item_path(item.id), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？", turbo_confirm_title: "アイテムの削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: 'btn btn-danger' } } do %>
                           <i class="h4 fas fa-trash-can m-0 delete-icon"></i>
                         <% end %>
                       </div>

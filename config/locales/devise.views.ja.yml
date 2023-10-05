@@ -93,7 +93,7 @@ ja:
     registrations:
       destroyed: アカウントを削除しました。またのご利用をお待ちしております。
       edit:
-        are_you_sure: アカウントを削除すると、登録済みのお買い物リストや履歴などは全て削除されます。本当によろしいですか？
+        are_you_sure: アカウントを削除すると、ユーザー情報や登録済みのお買い物リスト・履歴などのデータは全て削除されます。また、削除すると元には戻せません。本当によろしいですか？
         cancel_my_account: アカウント削除
         currently_waiting_confirmation_for_email: "%{email} の確認待ち"
         leave_blank_if_you_don_t_want_to_change_it: 空欄のままなら変更はされません
