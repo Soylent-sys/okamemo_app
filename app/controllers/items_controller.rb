@@ -1,8 +1,9 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_categories, only: [:index, :new, :create, :edit, :update]
+  before_action :set_all_categories, only: [:new, :create, :edit, :update]
 
   def index
+    @categories = Category.created_item_categories(current_user.id)
   end
 
   def new
@@ -46,7 +47,7 @@ class ItemsController < ApplicationController
 
   private
 
-  def set_categories
+  def set_all_categories
     @categories = Category.all
   end
 
