@@ -11,7 +11,7 @@
   <%= form_with model: @item, url: item_path, method: "put", class: "col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
     <h2 class="mb-4">アイテムの編集</h2>
 
-    <%= f.collection_select :category_id, @categories, :id, :name, {include_blank: "カテゴリーを選択"}, {class: "form-select form-select-lg mb-5 #{"is-invalid" if f.object.errors[:category].present?}"} %>
+    <%= f.collection_select :category_id, @categories, :id, :name, {}, class: "form-select form-select-lg mb-5 #{"is-invalid" if f.object.errors[:category].present?}" %>
 
     <div class="field form-floating mb-3">
       <%= f.text_field :name, autocomplete: "off", placeholder: "アイテム", class: "form-control #{"is-invalid" if f.object.errors[:name].present?}" %>

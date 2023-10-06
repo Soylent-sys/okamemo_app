@@ -13,7 +13,7 @@
 
     <%= f.hidden_field :user_id, value: current_user.id %>
 
-    <%= f.collection_select :category_id, @categories, :id, :name, {include_blank: "カテゴリーを選択"}, {class: "form-select form-select-lg mb-5 #{"is-invalid" if f.object.errors[:category].present?}"} %>
+    <%= f.collection_select :category_id, @categories, :id, :name, {prompt: "カテゴリーを選択"}, {class: "form-select form-select-lg mb-5 #{"is-invalid" if f.object.errors[:category].present?}"} %>
 
     <div class="field form-floating mb-3">
       <%= f.text_field :name, autocomplete: "off", placeholder: "アイテム", class: "form-control #{"is-invalid" if f.object.errors[:name].present?}" %>
