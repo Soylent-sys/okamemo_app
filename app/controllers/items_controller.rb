@@ -20,7 +20,11 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @item = Item.find(params[:id])
+    @item = Item.find_by(id: params[:id])
+    unless @item.present? && @item.item_author?(current_user.id)
+      flash[:error] = "指定されたアイテムは存在しません。"
+      redirect_to items_url
+    end
   end
 
   def update

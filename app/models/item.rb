@@ -11,4 +11,8 @@ class Item < ApplicationRecord
   validates :hiragana, presence: true, uniqueness: { scope: [:user_id, :category_id], message: "は同じカテゴリーの中で二つ以上登録できません。" },
                        length: { maximum: MAX_LENGTH_HIRAGANA },
                        format: { with: VALID_HIRAGANA_REGEX, message: "の項目はひらがなで入力してください。" }
+
+  def item_author?(current_user_id)
+    self.user_id == current_user_id
+  end
 end
