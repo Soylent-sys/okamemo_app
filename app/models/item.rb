@@ -2,6 +2,8 @@ class Item < ApplicationRecord
   belongs_to :user
   belongs_to :category
 
+  scope :sorted, -> { order(:category_id, :hiragana) }
+
   MAX_LENGTH_NAME = 20
   MAX_LENGTH_HIRAGANA = 20
   VALID_HIRAGANA_REGEX = /\A[ぁ-んー－]+\z/
