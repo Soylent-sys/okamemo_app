@@ -11,9 +11,9 @@ class Category < ApplicationRecord
     def created_item_categories(current_user_id)
       all_categories = Category.all
       user = User.find(current_user_id)
-      all_categories.filter_map {
-        |category| category if user.items.where(category_id: category.id).present?
-      }
+      all_categories.filter_map do |category|
+        category if user.items.where(category_id: category.id).present?
+      end
     end
   end
 end
