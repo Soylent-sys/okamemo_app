@@ -21,15 +21,16 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @item = Item.find_by(id: params[:id])
-    unless @item.present? && @item.item_author?(current_user.id)
+    @item = current_user.items.find_by(id: params[:id])
+    if @item.blank?
       flash[:error] = "指定されたアイテムは存在しません。"
       redirect_to items_url
     end
   end
 
   def update
-    @item = Item.find(params[:id])
+    @item = current_user.items.find(params[:id])
+    item_params.delete(:user_id)
     if @item.update(item_params)
       flash[:notice] = "アイテムの更新が完了しました。"
       redirect_to items_url
@@ -39,7 +40,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    @item = Item.find(params[:id])
+    @item = current_user.items.find(params[:id])
     @item.destroy
     flash[:notice] = "アイテムが削除されました。"
     redirect_to items_url
