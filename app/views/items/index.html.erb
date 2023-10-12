@@ -36,12 +36,12 @@
                   <div class="item-name-space"><%= item.name %></div>
                   <div class="d-sm-flex d-block">
                     <div class="text-center me-sm-3 me-0 mb-sm-0 mb-3">
-                      <%= link_to edit_item_path(item.id) do %>
+                      <%= link_to edit_item_path(item.hashid) do %>
                         <i class="h4 fas fa-pencil m-0 edit-icon"></i>
                       <% end %>
                     </div>
                     <div>
-                      <%= button_to item_path(item.id), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？", turbo_confirm_title: "アイテムの削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: 'btn btn-danger' } } do %>
+                      <%= button_to item_path(item.hashid), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？", turbo_confirm_title: "アイテムの削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: 'btn btn-danger' } } do %>
                         <i class="h4 fas fa-trash-can m-0 delete-icon"></i>
                       <% end %>
                     </div>
