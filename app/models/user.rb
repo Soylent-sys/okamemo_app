@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
 
   has_many :items, dependent: :delete_all
+  has_many :buys, dependent: :delete_all
+  has_many :shopping_records, dependent: :destroy
 
   MAX_LENGTH_EMAIL = 255
   MAX_LENGTH_NAME = 20
