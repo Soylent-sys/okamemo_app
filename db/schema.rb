@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_16_055855) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_16_061152) do
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "hiragana", default: "", null: false
@@ -31,6 +31,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_055855) do
     t.index ["hiragana", "user_id", "category_id"], name: "index_items_on_hiragana_and_user_id_and_category_id", unique: true
     t.index ["name", "user_id", "category_id"], name: "index_items_on_name_and_user_id_and_category_id", unique: true
     t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
+  create_table "shopping_locations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "shopping_record_id", null: false
+    t.float "latitude", null: false
+    t.float "longitude", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shopping_record_id"], name: "index_shopping_locations_on_shopping_record_id"
   end
 
   create_table "shopping_records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -63,5 +72,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_055855) do
 
   add_foreign_key "items", "categories"
   add_foreign_key "items", "users"
+  add_foreign_key "shopping_locations", "shopping_records"
   add_foreign_key "shopping_records", "users"
 end
