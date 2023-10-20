@@ -11,7 +11,7 @@
   <%= form_with model: @item, url: items_path, class: "col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
     <h2 class="mb-4">アイテムの登録</h2>
 
-    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :user_id, value: current_user.hashid %>
 
     <%= f.collection_select :category_id, @categories, :id, :name, {prompt: "カテゴリーを選択"}, {class: "form-select form-select-lg mb-5 #{"is-invalid" if f.object.errors[:category].present?}"} %>
 

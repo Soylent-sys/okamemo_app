@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
+  include Hashid::Rails
+
   has_many :items, dependent: :delete_all
   has_many :buys, dependent: :delete_all
   has_many :shopping_records, dependent: :destroy
