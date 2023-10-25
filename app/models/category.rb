@@ -9,11 +9,9 @@ class Category < ApplicationRecord
 
   class << self
     def created_item_categories(current_user_id)
-      all_categories = Category.all
       user = User.find(current_user_id)
-      all_categories.filter_map do |category|
-        category if user.items.where(category_id: category.id).present?
-      end
+      category_ids = user.items.select(:category_id).distinct.order(:category_id).pluck(:category_id)
+      Category.where(id: category_ids)
     end
   end
 end
