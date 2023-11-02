@@ -11,11 +11,7 @@ class ItemsController < ApplicationController
   end
 
   def create
-    # item_paramsのハッシュ化されているuser_idをデコードしてitem_params[:user_id]に上書き
-    user_id = current_user.class.decode_id(params[:item][:user_id])
-    i_params = item_params
-    i_params[:user_id] = user_id
-    @item = Item.new(i_params)
+    @item = Item.new(item_params)
     if @item.save
       flash[:notice] = "アイテム登録が完了しました。"
       redirect_to items_url
@@ -57,6 +53,6 @@ class ItemsController < ApplicationController
   end
 
   def item_params
-    params.require(:item).permit(:user_id, :category_id, :name, :hiragana)
+    params.require(:item).permit(:category_id, :name, :hiragana).merge(user_id: current_user.id)
   end
 end
