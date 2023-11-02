@@ -2,11 +2,8 @@
 <% provide(:okame_info, "ここではアイテムを編集できるよ！\n「カテゴリー」「アイテム名」「ひらがな」の変更したい項目を編集して「更新する」ボタンを押してね。") %>
 <%= render "shared/error_messages", model: @item %>
 <%= render 'shared/navigation' %>
-<div class="mt-1 mb-4 ms-sm-5 ms-3">
-  <%= link_to :back, class: "h5 back-link text-decoration-none" do %>
-    <i class="fas fa-circle-left link-icon"></i><span class="ms-1">もどる</span>
-  <% end %>
-</div>
+<% provide(:back_link_path, items_path) %>
+<%= render 'shared/back_link' %>
 <div class="container">
   <%= form_with model: @item, url: item_path, method: "put", class: "col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
     <h2 class="mb-4">アイテムの編集</h2>

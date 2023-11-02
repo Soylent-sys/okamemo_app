@@ -2,11 +2,8 @@
 <% provide(:okame_info, "ユーザーアカウントの設定を変更できるよ！\nアカウントの削除もここからできるけれど削除するとデータが全部消えちゃうから気をつけてね！") %>
 <%= render "users/shared/error_messages", resource: resource %>
 <%= render 'shared/navigation' %>
-<div class="mt-1 mb-4 ms-sm-5 ms-3">
-  <%= link_to :back, class: "h5 back-link text-decoration-none" do %>
-    <i class="fas fa-circle-left link-icon"></i><span class="ms-1">もどる</span>
-  <% end %>
-</div>
+<% provide(:back_link_path, root_path) %>
+<%= render 'shared/back_link' %>
 <div class="container pb-5">
   <%= form_with model: @user, url: user_registration_path, method: "put", id: 'edit user', class: "edit_user col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
     <h2 class="mb-4">ユーザー情報の編集</h2>

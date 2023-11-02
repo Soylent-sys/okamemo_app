@@ -2,11 +2,8 @@
 <% provide(:okame_info, "ここでは新しいアイテムを登録できるよ！\n登録する「カテゴリー」を選択して「アイテム名」と「ひらがな」を入力したら「アイテム登録」ボタンを押してね。") %>
 <%= render "shared/error_messages", model: @item %>
 <%= render 'shared/navigation' %>
-<div class="mt-1 mb-4 ms-sm-5 ms-3">
-  <%= link_to :back, class: "h5 back-link text-decoration-none" do %>
-    <i class="fas fa-circle-left link-icon"></i><span class="ms-1">もどる</span>
-  <% end %>
-</div>
+<% provide(:back_link_path, items_path) %>
+<%= render 'shared/back_link' %>
 <div class="container">
   <%= form_with model: @item, url: items_path, class: "col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
     <h2 class="mb-4">アイテムの登録</h2>

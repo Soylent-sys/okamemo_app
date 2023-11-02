@@ -2,11 +2,8 @@
 <% provide(:okame_info, "新しいアイテムを登録したり、登録済みのアイテムを編集できるよ！\n新しく登録する時は「アイテム登録」ボタン、編集は登録したアイテムの「えんぴつ」ボタン、削除は「ゴミ箱」ボタンを押してね。") %>
 <%= render 'shared/navigation' %>
 <div class="d-flex justify-content-between">
-  <div class="mt-1 mb-4 ms-sm-5 ms-3">
-    <%= link_to :back, class: "h5 back-link text-decoration-none" do %>
-      <i class="fas fa-circle-left link-icon"></i><span class="ms-1">もどる</span>
-    <% end %>
-  </div>
+  <% provide(:back_link_path, root_path) %>
+  <%= render 'shared/back_link' %>
   <div>
     <%= link_to new_item_path, class: "btn btn-lg btn-custom-send me-sm-4 me-2" do %>
       <i class="fas fa-circle-plus me-2"></i>アイテム登録
