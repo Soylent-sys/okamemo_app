@@ -1,0 +1,39 @@
+<% provide(:page_title, "お買い物の登録") %>
+<% provide(:okame_info, "登録内容を確認するよ！\nこの内容でよかったら「お買い物を登録」のボタンを押してね。") %>
+<%= render 'shared/navigation' %>
+<%= render 'shared/page_title' %>
+<div class="col-xl-6 col-md-8 col-11 p-md-5 p-4 mb-5 mx-auto rounded-2 form-bg confirm-window-text">
+  <h2 class="mb-md-4 mb-3">登録内容の確認</h2>
+  <div class="p-3 mb-4 rounded-2 confirm-window">
+    <h4><i class="fas fa-book"></i>&nbsp;&thinsp;タイトル</h4>
+    <span class="h5 d-block ps-3"><%= @shopping_record_form.title %></span>
+  </div>
+  <div class="p-3 rounded-2 confirm-window">
+    <h4 class="py-2 mb-0"><i class="fas fa-apple-whole me-2"></i>買う予定のアイテム</h4>
+    <ol class="h5">
+      <% wish_items(@shopping_record_form).each do |item| %>
+        <li class="ps-2 mb-2"><%= item.name %></li>
+      <% end %>
+    </ol>
+  </div>
+</div>
+<div class="d-flex justify-content-center text-center mb-4">
+  <div class="me-5">
+    <%= form_with model: @shopping_record_form, url: shopping_records_path, local: true do |f| %>
+      <%= f.hidden_field :title, value: @shopping_record_form.title %>
+      <% @shopping_record_form.hashids.each do |hashid| %>
+        <%= f.hidden_field :hashids, multiple: true, value: hashid %>
+      <% end %>
+      <%= f.submit "お買い物を登録", class: "btn btn-lg btn-custom-send" %>
+    <% end %>
+  </div>
+  <div>
+    <%= form_with model: @shopping_record_form, url: shopping_new_back_path, local: true do |f| %>
+      <%= f.hidden_field :title, value: @shopping_record_form.title %>
+      <% @shopping_record_form.hashids.each do |hashid| %>
+        <%= f.hidden_field :hashids, multiple: true, value: hashid %>
+      <% end %>
+      <%= f.submit "もどる", class: "btn btn-lg btn-secondary" %>
+    <% end %>
+  </div>
+</div>

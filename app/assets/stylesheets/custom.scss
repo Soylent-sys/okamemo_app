@@ -86,6 +86,10 @@ button {
   background-color: rgb(88, 204, 92);
 }
 
+.category-window .pb-c {
+  padding-bottom: 2rem;
+}
+
 .category-window .nav-link {
   color: #666;
   font-size: larger;
@@ -112,16 +116,34 @@ button {
   color: #fff;
 }
 
+.confirm-window {
+  background-color: #fff;
+}
+
+.confirm-window-text {
+  color: #444;
+}
+
 .item-bg {
   background-color: #fff1da;
 }
 
 .item-space {
   width: 260px;
+  @media screen and (max-width: 519px) {
+    width: 200px;
+  }
 }
 
 .item-name-space {
   width: 150px;
+}
+
+.item-name-space-shopping {
+  width: 200px;
+  @media screen and (max-width: 520px) {
+    width: 150px;
+  }
 }
 
 .border-1rem-up {
@@ -134,6 +156,56 @@ button {
 
 .not-added-area {
   height: 70vh;
+}
+
+.head-title {
+  background-color: #fff;
+  color: #434343;
+}
+
+.custom-checkbox {
+  input[type="checkbox"] {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  input[type="checkbox"] {
+    vertical-align: middle;
+    position: relative;
+  }
+
+  input[type="checkbox"]::before,
+  input[type="checkbox"]::after {
+    content: "";
+    display: block;
+  }
+
+  input[type="checkbox"]::after {
+    font-family: "Font Awesome 6 Free";
+    font-size: xx-large;
+    content: "\f00c";
+    cursor: pointer;
+    color: rgb(59, 188, 59);
+    opacity: 0;
+    @media screen and (max-width: 519px) {
+      font-size: x-large;
+    }
+  }
+
+  input[type="checkbox"]:checked::after {
+    opacity: 1
+  }
+}
+
+.item-pointer {
+  cursor: pointer;
 }
 
 /* bootstrap custom */
