@@ -8,3 +8,8 @@ ja:
         category: カテゴリー
         name: アイテム名
         hiragana: ひらがな（アイテム名）
+  activemodel:
+    attributes:
+      shopping_record_form:
+        title: タイトル
+        hashids: アイテム
