@@ -12,5 +12,9 @@ Rails.application.routes.draw do
     edit: 'edit/profile',
   }
   root 'home#index'
+  get 'shopping/new', to: 'shopping_records#new'
+  post 'shopping/new/back', to: 'shopping_records#back_new'
+  post 'shopping/new/confirm', to: 'shopping_records#confirm'
+  resources :shopping_records, only: [:create, :update, :destroy]
   resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
 end
