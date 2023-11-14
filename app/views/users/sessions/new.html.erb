@@ -1,7 +1,8 @@
 <% provide(:page_title, "ログイン") %>
-<div class="container py-5">
+<%= render 'shared/page_title' %>
+<div class="container my-4">
   <%= form_with model: @user, url: user_session_path, id: 'new user', class: "new_user col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
-    <h2 class="mb-4">ログイン</h2>
+    <h2 class="mb-4">ユーザー情報の入力</h2>
     <div class="field form-floating mb-4">
       <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "email@example.com", class: "form-control #{"is-invalid" if alert.present?}" %>
       <%= f.label :email do %>

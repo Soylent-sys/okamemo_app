@@ -1,8 +1,9 @@
 <% provide(:page_title, "メインメニュー") %>
 <% provide(:okame_info, "ようこそ！ #{current_user.name} さん！\nここはメインメニューだよ。やりたいことをメニューから選んでね！") %>
 <%= render 'shared/navigation' %>
+<%= render 'shared/page_title' %>
 <div class="container">
-  <ul class="row justify-content-center align-items-center p-md-5 px-3 pb-4 list-unstyled">
+  <ul class="row justify-content-center align-items-center p-md-4 px-3 py-4 list-unstyled">
     <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">
       <%= link_to shopping_new_path, class: "text-decoration-none menu-link" do %>
         <div class="justify-content-center align-items-center d-md-block d-flex px-2 py-4 rounded-4 text-center menu-bg faa-parent animated-hover">

@@ -4,6 +4,7 @@
 <%= render 'shared/navigation' %>
 <% provide(:back_link_path, items_path) %>
 <%= render 'shared/back_link' %>
+<%= render 'shared/page_title' %>
 <div class="container">
   <%= form_with model: @item, url: item_path, method: "put", class: "col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
     <h2 class="mb-4">アイテムの編集</h2>

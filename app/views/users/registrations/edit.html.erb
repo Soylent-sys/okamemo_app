@@ -4,6 +4,7 @@
 <%= render 'shared/navigation' %>
 <% provide(:back_link_path, root_path) %>
 <%= render 'shared/back_link' %>
+<%= render 'shared/page_title' %>
 <div class="container pb-5">
   <%= form_with model: @user, url: user_registration_path, method: "put", id: 'edit user', class: "edit_user col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
     <h2 class="mb-4">ユーザー情報の編集</h2>
