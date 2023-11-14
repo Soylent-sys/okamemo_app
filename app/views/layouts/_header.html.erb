@@ -76,7 +76,7 @@
               </li>
             <% end %>
             <li class="nav-item">
-              <%= button_to destroy_user_session_path, method: :delete, form: { data: { turbo_confirm: "ログアウトしますか？", turbo_confirm_title: "ログアウト", turbo_confirm_submit_text: "ログアウトする", turbo_confirm_button_class: 'btn btn-secondary' } }, class: "btn p-0 w-lg-100 nav-menu-logout-btn" do %>
+              <%= button_to destroy_user_session_path, method: :delete, form: { data: { turbo_confirm: t('.confirm_to_logout'), turbo_confirm_title: "ログアウト", turbo_confirm_submit_text: "ログアウトする", turbo_confirm_button_class: 'btn btn-secondary' } }, class: "btn p-0 w-lg-100 nav-menu-logout-btn" do %>
                 <i class="nav-link d-lg-block d-none fas fa-person-walking-arrow-right nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ログアウト"></i>
                 <div class="d-lg-none d-inline-flex ms-2 mb-3 nav-menu-icon nav-menu-mb">
                   <i class="fas fa-person-walking-arrow-right mx-1"></i>

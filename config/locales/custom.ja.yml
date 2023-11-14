@@ -13,3 +13,12 @@ ja:
       shopping_record_form:
         title: タイトル
         hashids: アイテム
+  home:
+    login_home:
+      confirm_to_logout: ログアウトしますか？
+  items:
+    index:
+      confirm_to_delete: 本当に削除しますか？
+  layouts:
+    header:
+      confirm_to_logout: ログアウトしますか？
