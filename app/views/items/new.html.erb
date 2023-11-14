@@ -1,5 +1,5 @@
-<% provide(:page_title, "アイテム登録") %>
-<% provide(:okame_info, "ここでは新しいアイテムを登録できるよ！\n登録する「カテゴリー」を選択して「アイテム名」と「ひらがな」を入力したら「アイテム登録」ボタンを押してね。") %>
+<% provide(:page_title, "アイテム一覧") %>
+<% provide(:okame_info, "ここでは新しいアイテムを登録できるよ！\n登録する「カテゴリー」を選択して「アイテム名」と「ひらがな」を入力したら「登録」ボタンを押してね。") %>
 <%= render "shared/error_messages", model: @item %>
 <%= render 'shared/navigation' %>
 <% provide(:back_link_path, items_path) %>
@@ -28,7 +28,7 @@
     </div>
 
     <div>
-      <%= f.submit "アイテム登録", class: "w-100 btn btn-lg btn-custom-send" %>
+      <%= f.submit "登録", class: "w-100 btn btn-lg btn-custom-send" %>
     </div>
   <% end %>
 </div>
