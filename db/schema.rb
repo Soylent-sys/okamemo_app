@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_16_062855) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_15_070857) do
   create_table "buys", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "shopping_record_id", null: false
@@ -19,6 +19,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_062855) do
     t.boolean "purchased", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["item_hiragana"], name: "index_buys_on_item_hiragana"
+    t.index ["item_name"], name: "index_buys_on_item_name"
     t.index ["shopping_record_id"], name: "index_buys_on_shopping_record_id"
     t.index ["user_id"], name: "index_buys_on_user_id"
   end
