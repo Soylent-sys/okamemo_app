@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pagy::Frontend
+
   BASE_TITLE = "おかメchan".freeze
 
   def full_title(title: '')
