@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   get 'shopping/new', to: 'shopping_records#new'
   post 'shopping/new/back', to: 'shopping_records#back_new'
   post 'shopping/new/confirm', to: 'shopping_records#confirm'
+  get 'shopping/index', to: 'shopping_records#index'
+  get 'shopping/:id/progress', to: 'shopping_records#edit', as: 'shopping_progress'
+  post 'shopping/progress/back', to: 'shopping_records#back_edit'
+  post 'shopping/progress/confirm', to: 'shopping_records#edit_confirm'
   resources :shopping_records, only: [:create, :update, :destroy]
   resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
 end
