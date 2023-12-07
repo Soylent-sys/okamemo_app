@@ -204,6 +204,43 @@ button {
   }
 }
 
+.custom-checkbox-ok {
+  input[type="checkbox"] {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  input[type="checkbox"] {
+    vertical-align: middle;
+    position: relative;
+  }
+
+  input[type="checkbox"]::before,
+  input[type="checkbox"]::after {
+    content: "";
+    display: block;
+  }
+
+  input[type="checkbox"]::after {
+    font-size: x-large;
+    content: "OK!";
+    cursor: pointer;
+    color: rgb(59, 188, 59);
+    opacity: 0;
+  }
+
+  input[type="checkbox"]:checked::after {
+    opacity: 1
+  }
+}
+
 .item-pointer {
   cursor: pointer;
 }
@@ -213,6 +250,34 @@ button {
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
   background-color: green;
+}
+
+/* pagination */
+
+.pagy-bootstrap-nav ul {
+  gap: 8px;
+  margin-top: 1.25rem;
+  @media screen and (max-width: 519px) {
+    gap: 6px;
+    margin-top: 1.5rem;
+  }
+}
+
+.pagy-bootstrap-nav .pagination a {
+  border: none;
+  color: #666;
+  font-size: 1.25rem;
+  padding: 0.5rem 1.25rem 0.5rem 1.25rem;
+  @media screen and (max-width: 519px) {
+    font-size: 0.9rem;
+    padding: 0.75rem 0.7rem 0.7rem 0.75rem;
+  }
+}
+
+.pagy-bootstrap-nav .pagination .active a {
+  background-color: rgba(255, 136, 9, 0.8);
+  border-color: rgba(255, 136, 9, 0.8);
+  color: #fff;
 }
 
 /* accessories */
@@ -631,4 +696,39 @@ body {
 
 .delete-icon:active {
   color: rgb(69, 13, 13);
+}
+
+/* shopping_record index */
+
+.shopping-record-window-bg {
+  background-color: #fff8ca;
+}
+
+.shopping-record-bg {
+  background-color: #fff;
+}
+
+.rounded-sr-index {
+  border-radius: 0.375rem;
+  @media screen and (max-width: 767px) {
+    border-radius: 0;
+  }
+}
+
+/* shopping_record edit */
+
+.buy-check-window-bg {
+  background-color: rgb(215, 242, 255);
+}
+
+.buy-item-space {
+  min-width: 120px;
+}
+
+.buy-item-bg {
+  background-color: #ffffff;
+}
+
+.ok-text {
+  color: rgb(59, 188, 59);
 }

@@ -22,3 +22,6 @@ ja:
   layouts:
     header:
       confirm_to_logout: ログアウトしますか？
+  shopping_records:
+    index:
+      confirm_to_delete: 本当に削除しますか？
