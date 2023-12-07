@@ -1,4 +1,6 @@
 class Buy < ApplicationRecord
+  include Hashid::Rails
+
   belongs_to :user
   belongs_to :shopping_record
 
