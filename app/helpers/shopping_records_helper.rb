@@ -41,6 +41,24 @@ module ShoppingRecordsHelper
     end
   end
 
+  def bought_items(shopping_record_form)
+    shopping_record_form.hashids.map do |buy_hashid|
+      Buy.find_by_hashid!(buy_hashid)
+    end
+  end
+
+  def no_bought_items(shopping_record_form)
+    shopping_record = current_user.shopping_records.find_by_hashid!(shopping_record_form.shopping_record_id)
+    if shopping_record_form.hashids.present?
+      buy_item_ids = shopping_record_form.hashids.map do |buy_hashid|
+        Buy.find_by_hashid!(buy_hashid).id
+      end
+      shopping_record.buys.where.not(id: buy_item_ids)
+    else
+      shopping_record.buys
+    end
+  end
+
   private
 
   def master_admin_user
