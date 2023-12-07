@@ -23,4 +23,17 @@ class ShoppingRecordForm
       end
     end
   end
+
+  def update_shopping_record
+    ActiveRecord::Base.transaction do
+      shopping_record = ShoppingRecord.find_by_hashid!(shopping_record_id)
+      if hashids.present?
+        hashids.each do |buy_hashid|
+          buy = shopping_record.buys.find_by_hashid!(buy_hashid)
+          buy.update!(purchased: true)
+        end
+      end
+      shopping_record.update!(closed: true)
+    end
+  end
 end
