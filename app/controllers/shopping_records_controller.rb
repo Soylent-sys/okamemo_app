@@ -66,6 +66,13 @@ class ShoppingRecordsController < ApplicationController
     redirect_to root_url
   end
 
+  def destroy
+    shopping_record = current_user.shopping_records.find_by_hashid!(params[:id])
+    shopping_record.destroy!
+    flash[:notice] = "お買い物が削除されました。"
+    redirect_to shopping_index_url
+  end
+
   private
 
   def set_all_categories
