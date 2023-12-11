@@ -16,4 +16,10 @@ class User < ApplicationRecord
   validates :password, format: { with: VALID_PASSWORD_REGEX }, on: :create
   validates :password, format: { with: VALID_PASSWORD_REGEX }, allow_blank: true, on: :update
   validates :name, presence: true, length: { maximum: MAX_LENGTH_NAME }
+
+  class << self
+    def master_admin_user
+      User.find_by!(email: "#{ENV['ADMIN_USER_EMAIL']}")
+    end
+  end
 end

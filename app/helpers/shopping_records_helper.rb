@@ -2,7 +2,7 @@ module ShoppingRecordsHelper
   CATEGORY_FIRST_ID = 1
 
   def categoy_items(category)
-    category_items = category.items.where(user_id: [master_admin_user.id, current_user.id])
+    category_items = category.items.where(user_id: [User.master_admin_user.id, current_user.id])
     if category.id == CATEGORY_FIRST_ID
       category_items
     else
@@ -57,11 +57,5 @@ module ShoppingRecordsHelper
     else
       shopping_record.buys
     end
-  end
-
-  private
-
-  def master_admin_user
-    User.find_by!(email: "#{ENV['ADMIN_USER_EMAIL']}")
   end
 end
