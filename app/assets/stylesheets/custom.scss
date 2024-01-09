@@ -396,6 +396,32 @@ button {
   margin-top: -16px;
 }
 
+/* icons */
+
+.edit-icon {
+  color: rgb(59, 188, 59);
+}
+
+.edit-icon:active {
+  color: rgb(0, 91, 0);
+}
+
+.delete-icon {
+  color: rgb(219, 61, 61);
+}
+
+.delete-icon:active {
+  color: rgb(69, 13, 13);
+}
+
+.show-icon {
+  color: rgb(0, 203, 225);
+}
+
+.show-icon:active {
+  color: rgb(0, 106, 117);
+}
+
 /* FontAwesome */
 
 .far {
@@ -678,24 +704,6 @@ body {
 
 .email-change-info {
   color: green;
-}
-
-/* item index */
-
-.edit-icon {
-  color: rgb(59, 188, 59);
-}
-
-.edit-icon:active {
-  color: #005b00;
-}
-
-.delete-icon {
-  color: rgb(219, 61, 61);
-}
-
-.delete-icon:active {
-  color: rgb(69, 13, 13);
 }
 
 /* shopping_record index */
