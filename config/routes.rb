@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   get 'shopping/:id/progress', to: 'shopping_records#edit', as: 'shopping_progress'
   post 'shopping/progress/back', to: 'shopping_records#back_edit'
   post 'shopping/progress/confirm', to: 'shopping_records#edit_confirm'
+  get 'shopping/result', to: 'shopping_records#result'
+  get 'shopping/result/:id/show', to: 'shopping_records#show', as: 'shopping_results'
   resources :shopping_records, only: [:create, :update, :destroy]
   resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
 end
