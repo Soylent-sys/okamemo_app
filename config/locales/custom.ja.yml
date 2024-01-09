@@ -25,3 +25,5 @@ ja:
   shopping_records:
     index:
       confirm_to_delete: 本当に削除しますか？
+    result:
+      confirm_to_delete: 本当に削除しますか？

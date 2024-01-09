@@ -1,0 +1,37 @@
+<% provide(:page_title, "お買い物結果の確認") %>
+<% provide(:okame_info, "「#{@shopping_record.title}」のお買い物結果を表示するよ！") %>
+<%= render 'shared/navigation' %>
+<% provide(:back_link_path, shopping_result_path) %>
+<%= render 'shared/back_link' %>
+<%= render 'shared/page_title' %>
+<div class="col-xl-6 col-md-8 col-11 p-md-5 p-4 mb-5 mx-auto rounded-2 form-bg confirm-window-text">
+  <h2 class="mb-md-4 mb-3">お買い物結果</h2>
+  <div class="p-3 mb-4 rounded-2 confirm-window">
+    <h4><i class="fas fa-book"></i>&ensp;お買い物タイトル</h4>
+    <span class="h5 d-block ps-3"><%= @shopping_record.title %></span>
+  </div>
+  <div class="p-3 mb-4 rounded-2 confirm-window">
+    <h4 class="py-2 mb-0"><i class="fas fa-bag-shopping"></i>&ensp;買ったアイテム</h4>
+    <% if @shopping_record.buys.purchased.present? %>
+      <ul class="h5">
+        <% @shopping_record.buys.purchased.each do |buy| %>
+          <li class="ps-2 mb-2"><%= buy.item_name %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <h4>&ensp;なし</h4>
+    <% end %>
+  </div>
+  <div class="p-3 mb-4 rounded-2 confirm-window">
+    <h4 class="py-2 mb-0"><i class="fas fa-apple-whole"></i>&ensp;買わなかったアイテム</h4>
+    <% if @shopping_record.buys.unpurchased.present? %>
+      <ul class="h5">
+        <% @shopping_record.buys.unpurchased.each do |buy| %>
+          <li class="ps-2 mb-2"><%= buy.item_name %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <h4>&ensp;なし</h4>
+    <% end %>
+  </div>
+</div>
