@@ -68,9 +68,27 @@ class ShoppingRecordsController < ApplicationController
 
   def destroy
     shopping_record = current_user.shopping_records.find_by_hashid!(params[:id])
-    shopping_record.destroy!
-    flash[:notice] = "お買い物が削除されました。"
-    redirect_to shopping_index_url
+    if shopping_record.closed?
+      shopping_record.destroy!
+      flash[:notice] = "お買い物履歴が削除されました。"
+      redirect_to shopping_result_url
+    else
+      shopping_record.destroy!
+      flash[:notice] = "お買い物が削除されました。"
+      redirect_to shopping_index_url
+    end
+  end
+
+  def result
+    @pagy, @shopping_records = pagy(current_user.shopping_records.closed, items: INDEX_PAGENATION_SIZE, size: [1, 1, 1, 1])
+  end
+
+  def show
+    @shopping_record = current_user.shopping_records.closed.find_by_hashid(params[:id])
+    if @shopping_record.blank?
+      flash[:error] = "指定されたお買い物履歴は存在しません。"
+      redirect_to shopping_result_url
+    end
   end
 
   private
