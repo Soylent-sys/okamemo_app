@@ -5,4 +5,5 @@ class Buy < ApplicationRecord
   belongs_to :shopping_record
 
   scope :purchased, -> { where(purchased: true) }
+  scope :unpurchased, -> { where(purchased: false) }
 end
