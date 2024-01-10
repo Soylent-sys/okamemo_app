@@ -5,6 +5,7 @@ class ShoppingRecordsController < ApplicationController
   before_action :set_all_categories, only: [:new, :confirm, :back_new, :create]
 
   INDEX_PAGENATION_SIZE = 5
+  RESULT_PAGENATION_SIZE = 10
 
   def index
     @pagy, @shopping_records = pagy(current_user.shopping_records.opened, items: INDEX_PAGENATION_SIZE, size: [1, 1, 1, 1])
@@ -80,7 +81,8 @@ class ShoppingRecordsController < ApplicationController
   end
 
   def result
-    @pagy, @shopping_records = pagy(current_user.shopping_records.closed, items: INDEX_PAGENATION_SIZE, size: [1, 1, 1, 1])
+    @pagy, @shopping_records = pagy(current_user.shopping_records.closed.recent_updated,
+                                    items: RESULT_PAGENATION_SIZE, size: [1, 1, 1, 1])
   end
 
   def show

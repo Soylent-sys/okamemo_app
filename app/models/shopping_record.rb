@@ -7,6 +7,7 @@ class ShoppingRecord < ApplicationRecord
 
   scope :opened, -> { where(closed: false) }
   scope :closed, -> { where(closed: true) }
+  scope :recent_updated, -> { order(updated_at: :desc) }
 
   MAX_LENGTH_TITLE = 40
 
