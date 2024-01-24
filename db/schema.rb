@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_15_070857) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_24_110341) do
   create_table "buys", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "shopping_record_id", null: false
@@ -49,8 +49,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_15_070857) do
 
   create_table "shopping_locations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "shopping_record_id", null: false
-    t.float "latitude", null: false
-    t.float "longitude", null: false
+    t.float "latitude", limit: 53, null: false
+    t.float "longitude", limit: 53, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["shopping_record_id"], name: "index_shopping_locations_on_shopping_record_id"
