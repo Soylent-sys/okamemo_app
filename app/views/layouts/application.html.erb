@@ -3,10 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% if yield(:map_js).present? %>
+      <meta name="turbo-visit-control" content="reload">
+    <% end %>
     <title><%= full_title(title: yield(:page_title)) %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= Gon::Base.render_data %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= favicon_link_tag('favicon.ico') %>
     <%= javascript_importmap_tags %>
