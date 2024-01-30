@@ -91,6 +91,12 @@ class ShoppingRecordsController < ApplicationController
       flash[:error] = "指定されたお買い物履歴は存在しません。"
       redirect_to shopping_result_url
     end
+
+    shopping_location = @shopping_record.shopping_location
+    if shopping_location
+      gon.lat = shopping_location.latitude
+      gon.lng = shopping_location.longitude
+    end
   end
 
   private
