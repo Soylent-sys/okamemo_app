@@ -1,8 +1,8 @@
+<% provide(:map_js, "true") %>
 <% provide(:page_title, "お買い物結果の確認") %>
-<% provide(:okame_info, "「#{@shopping_record.title}」のお買い物結果を表示するよ！") %>
+<% provide(:okame_info, "「#{@shopping_record.title}」のお買い物結果を表示するよ！\nお買い物した場所の記録や編集、削除もここで出来るよ。") %>
 <%= render 'shared/navigation' %>
-<% provide(:back_link_path, shopping_result_path) %>
-<%= render 'shared/back_link' %>
+<%= render 'shared/back_link_js_history' %>
 <%= render 'shared/page_title' %>
 <div class="col-xl-6 col-md-8 col-11 p-md-5 p-4 mb-5 mx-auto rounded-2 form-bg confirm-window-text">
   <h2 class="mb-md-4 mb-3">お買い物結果</h2>
@@ -34,4 +34,73 @@
       <h4>&ensp;なし</h4>
     <% end %>
   </div>
+  <div class="p-3 mb-4 rounded-2 confirm-window">
+    <% if @shopping_record.shopping_location.present? %>
+      <h4 class="py-2 mb-0"><i class="fas fa-map-location-dot"></i>&ensp;お買い物した場所</h4>
+      <div class="d-flex justify-content-end align-items-center">
+        <%= link_to '#' do %>
+          <i class="h3 fas fa-pencil me-3 edit-icon"></i>
+        <% end %>
+        <%= button_to '#', method: :delete, form: { data: { turbo_confirm: t('.confirm_to_delete'), turbo_confirm_title: "お買い物場所の削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: 'btn btn-danger' } } do %>
+          <i class="h3 fas fa-trash-can delete-icon"></i>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="d-flex justify-content-between align-items-center">
+        <h4 class="d-inline-block py-2 mb-0"><i class="fas fa-map-location-dot"></i>&ensp;お買い物した場所</h4>
+        <%= link_to new_shopping_location_path(@shopping_record.hashid) do %>
+          <i class="h3 fas fa-location-dot edit-icon"></i>
+        <% end %>
+      </div>
+    <% end %>
+    <% if @shopping_record.shopping_location.present? %>
+      <div id="map"></div>
+    <% else %>
+      <h4>&ensp;登録なし</h4>
+    <% end %>
+  </div>
 </div>
+<%# Maps JavaScript API 読込 %>
+<script>
+  (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+    key: "<%= ENV['GOOGLE_MAP_API_KEY'] %>",
+    v: "weekly",
+  });
+</script>
+<%# GoogleMapの構築スクリプト（詳細ページ用） %>
+<script>
+  // ビュー内の#mapの存在チェック
+  if (document.getElementById("map") != null) {
+    let gMap
+
+    async function initMap() {
+      // google.mapsのライブラリを取得する
+      const { Map } = await google.maps.importLibrary("maps");
+      const { Marker } = await google.maps.importLibrary("marker");
+      const { Animation } = await google.maps.importLibrary("marker");
+
+      // 緯度経度を設定
+      const latlng = { lat: gon.lat, lng: gon.lng };
+
+      // 設定した緯度経度を中心にマップを表示
+      gMap = new Map(document.getElementById('map'), {
+        center: latlng,
+        zoom: 17,
+      });
+
+      // 設定した緯度経度の地点にマーカーを立てる
+      const marker = new Marker({
+        map: gMap,
+        position: latlng,
+        label: {
+          text: 'ここで買ったよ！',
+          fontSize: '15px',
+          fontWeight: '900',
+        },
+        animation: Animation.DROP,
+      });
+    }
+
+    initMap();
+  }
+</script>
