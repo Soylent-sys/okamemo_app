@@ -41,7 +41,7 @@
         <%= link_to edit_shopping_location_path(@shopping_record.hashid) do %>
           <i class="h3 fas fa-pencil me-3 edit-icon"></i>
         <% end %>
-        <%= button_to '#', method: :delete, form: { data: { turbo_confirm: t('.confirm_to_delete'), turbo_confirm_title: "お買い物場所の削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: 'btn btn-danger' } } do %>
+        <%= button_to shopping_location_path(@shopping_record.shopping_location.hashid), method: :delete, form: { data: { turbo_confirm: t('.confirm_to_delete'), turbo_confirm_title: "お買い物場所の削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: 'btn btn-danger' } } do %>
           <i class="h3 fas fa-trash-can delete-icon"></i>
         <% end %>
       </div>
