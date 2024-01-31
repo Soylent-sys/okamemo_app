@@ -38,7 +38,7 @@
     <% if @shopping_record.shopping_location.present? %>
       <h4 class="py-2 mb-0"><i class="fas fa-map-location-dot"></i>&ensp;お買い物した場所</h4>
       <div class="d-flex justify-content-end align-items-center">
-        <%= link_to '#' do %>
+        <%= link_to edit_shopping_location_path(@shopping_record.hashid) do %>
           <i class="h3 fas fa-pencil me-3 edit-icon"></i>
         <% end %>
         <%= button_to '#', method: :delete, form: { data: { turbo_confirm: t('.confirm_to_delete'), turbo_confirm_title: "お買い物場所の削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: 'btn btn-danger' } } do %>
