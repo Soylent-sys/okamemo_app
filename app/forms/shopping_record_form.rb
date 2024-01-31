@@ -5,6 +5,7 @@ class ShoppingRecordForm
 
   HASHIDS_MINIMUM_SIZE = 1
   HASHIDS_MAXIMUM_SIZE = 20
+  SHOPPING_REGISTRATION_MAXIMUM_COUNT = 5
 
   validates :title, presence: true, length: { maximum: ShoppingRecord::MAX_LENGTH_TITLE }
   validates :hashids, length: {
@@ -12,6 +13,13 @@ class ShoppingRecordForm
     too_short: "は#{HASHIDS_MINIMUM_SIZE} つ以上選択してください。",
     too_long: "のチェック数が#{HASHIDS_MAXIMUM_SIZE} 個を超えています。",
   }
+  validate :check_count
+
+  def check_count
+    if ShoppingRecord.opened.where(user_id: user_id).count >= SHOPPING_REGISTRATION_MAXIMUM_COUNT
+      errors.add(:shopping_record, "の登録数が最大数（５つ）に達しています。")
+    end
+  end
 
   def save
     ActiveRecord::Base.transaction do

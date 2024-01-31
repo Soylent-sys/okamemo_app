@@ -4,11 +4,10 @@ class ShoppingRecordsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_all_categories, only: [:new, :confirm, :back_new, :create]
 
-  INDEX_PAGENATION_SIZE = 5
   RESULT_PAGENATION_SIZE = 10
 
   def index
-    @pagy, @shopping_records = pagy(current_user.shopping_records.opened, items: INDEX_PAGENATION_SIZE, size: [1, 1, 1, 1])
+    @shopping_records = current_user.shopping_records.opened
   end
 
   def new
@@ -25,12 +24,12 @@ class ShoppingRecordsController < ApplicationController
   end
 
   def back_new
-    @shopping_record_form = ShoppingRecordForm.new(shopping_record_params)
+    @shopping_record_form = ShoppingRecordForm.new(back_shopping_record_params)
     render 'new', status: :see_other
   end
 
   def create
-    shopping_record_form = ShoppingRecordForm.new(create_shopping_record_params)
+    shopping_record_form = ShoppingRecordForm.new(shopping_record_params)
     shopping_record_form.save
     flash[:notice] = "お買い物が登録されました。"
     redirect_to root_url
@@ -106,11 +105,11 @@ class ShoppingRecordsController < ApplicationController
   end
 
   def shopping_record_params
-    params.require(:shopping_record_form).permit(:title, hashids: [])
+    params.require(:shopping_record_form).permit(:title, hashids: []).merge(user_id: current_user.id)
   end
 
-  def create_shopping_record_params
-    params.require(:shopping_record_form).permit(:title, hashids: []).merge(user_id: current_user.id)
+  def back_shopping_record_params
+    params.require(:shopping_record_form).permit(:title, hashids: [])
   end
 
   def update_shopping_record_params

@@ -4,7 +4,7 @@
 <% provide(:back_link_path, root_path) %>
 <%= render 'shared/back_link' %>
 <%= render 'shared/page_title' %>
-<% unless @pagy.count.zero? %>
+<% unless @shopping_records.count.zero? %>
   <div class="col-xl-7 col-md-9 col-12 py-4 px-sm-2 px-3 my-5 mx-auto rounded-sr-index shopping-record-window-bg">
     <div class="col-sm-11 text-md-start text-center mx-auto mb-4">
       <h2>お買い物選択</h2>
@@ -26,11 +26,6 @@
             </div>
           </div>
         </div>
-      </div>
-    <% end %>
-    <% if @pagy.count > ShoppingRecordsController::INDEX_PAGENATION_SIZE %>
-      <div class="d-flex justify-content-center">
-        <%== pagy_bootstrap_nav(@pagy) %>
       </div>
     <% end %>
   </div>
