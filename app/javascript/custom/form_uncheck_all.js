@@ -1,10 +1,15 @@
 function setUncheckAll() {
   const checkbox = document.getElementsByName("shopping_record_form[hashids][]");
+  const checkCount = document.getElementById("check-count")
+  const checkCountContainer = document.getElementById("check-count-box")
 
   function uncheckAll() {
     for(let i = 0; i < checkbox.length; i++) {
       checkbox[i].checked = false
     }
+
+    checkCount.textContent = 0
+    checkCountContainer.classList.add("d-none");
   }
 
   document.getElementById("check_reset_button").addEventListener('click', uncheckAll);

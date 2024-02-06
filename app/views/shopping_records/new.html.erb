@@ -36,7 +36,7 @@
             <div class="row mx-auto my-3">
               <% categoy_items(category).each do |item| %>
                 <div class="col-md-3 p-0 mx-2 mb-2 rounded-2 item-space item-bg">
-                  <label class="d-block item-pointer" for="shopping_record_form_hashids_<%= item.hashid %>">
+                  <label name="checkbox_click_point" class="d-block item-pointer" for="shopping_record_form_hashids_<%= item.hashid %>">
                     <div class="d-flex justify-content-between align-items-center px-3 py-3">
                       <div>
                         <div class="h5 item-name-space-shopping"><%= item.name %></div>
@@ -60,3 +60,6 @@
     <%= button_tag "リセット", type: :button, id: "check_reset_button", class: "btn btn-lg btn-secondary" %>
   </div>
 <% end %>
+<div id="check-count-box" class="check-count-container h5 rounded-5 check_count_bg_color d-none">
+  <p class="p-3 m-0">チェック数 <span id="check-count"></span></p>
+</div>

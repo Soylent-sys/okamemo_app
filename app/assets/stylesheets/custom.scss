@@ -723,6 +723,24 @@ body {
   }
 }
 
+/* shopping_record new */
+
+.check-count-container {
+  position: fixed;
+  color: #fff;
+  z-index: 999;
+  right: 5%;
+  bottom: 5%;
+}
+
+.check_count_bg_color {
+  background-color: rgb(59, 188, 59);
+}
+
+.check_count_over_bg_color {
+  background-color: rgb(209, 89, 89);
+}
+
 /* shopping_record edit */
 
 .buy-check-window-bg {
