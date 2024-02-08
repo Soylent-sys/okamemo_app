@@ -52,14 +52,10 @@ class ShoppingLocationsController < ApplicationController
 
   def destroy
     shopping_location = ShoppingLocation.find_by_hashid!(params[:id])
-    @shopping_record = shopping_location.shopping_record
+    shopping_record = shopping_location.shopping_record
     shopping_location.destroy!
     flash[:notice] = "お買い物場所が削除されました。"
-    # redirect_toだとflashが表示できないためrenderで対応。
-    # GoogleMapを使用するページはエラー回避のためページ全体を強制リロードさせている関係で、
-    # turboを使用してフォーム送信しGoogleMapを使用するページにredirect_toで遷移すると
-    # getが2回リクエストされる。そのため、flashが保持されずに消えてしまう。
-    render 'shopping_records/show', status: :see_other
+    redirect_to shopping_results_url(shopping_record.hashid)
   end
 
   private
