@@ -63,7 +63,8 @@ class ShoppingRecordsController < ApplicationController
     shopping_record_form = set_shopping_record_form_from_post
     shopping_record_form.update_shopping_record
     flash[:notice] = "お買い物が完了しました。"
-    redirect_to root_url
+    @shopping_record = set_shopping_record_from_post
+    render 'choose', status: :see_other
   end
 
   def destroy
@@ -113,7 +114,7 @@ class ShoppingRecordsController < ApplicationController
   end
 
   def update_shopping_record_params
-    params.require(:shopping_record_form).permit(:shopping_record_id, hashids: [])
+    params.require(:shopping_record_form).permit(:shopping_record_id, :map_entry, hashids: [])
   end
 
   def set_shopping_record_from_post
