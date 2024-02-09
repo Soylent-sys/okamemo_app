@@ -21,9 +21,13 @@ class ShoppingLocationsController < ApplicationController
     # shopping_location_params の shopping_record_id を hashid から id に変換する
     sl_params = shopping_location_params
     sl_params[:shopping_record_id] = shopping_record.id
-    ShoppingLocation.new(sl_params).save!
-    flash[:notice] = "お買い物場所が登録されました。"
-    redirect_to shopping_results_url(shopping_record.hashid)
+    if ShoppingLocation.new(sl_params).save
+      flash[:notice] = "お買い物場所が登録されました。"
+      redirect_to shopping_results_url(shopping_record.hashid)
+    else
+      flash[:error] = "処理中に問題が発生しました。本ページから再度登録・編集してください。"
+      redirect_to shopping_results_url(shopping_record.hashid)
+    end
   end
 
   def edit
