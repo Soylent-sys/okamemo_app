@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_24_110341) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_09_072757) do
   create_table "buys", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "shopping_record_id", null: false
@@ -53,7 +53,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_24_110341) do
     t.float "longitude", limit: 53, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["shopping_record_id"], name: "index_shopping_locations_on_shopping_record_id"
+    t.index ["shopping_record_id"], name: "index_shopping_locations_on_shopping_record_id", unique: true
   end
 
   create_table "shopping_records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
