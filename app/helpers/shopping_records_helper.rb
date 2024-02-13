@@ -12,7 +12,7 @@ module ShoppingRecordsHelper
 
   def shopping_title(shopping_record_form)
     if shopping_record_form.title.blank?
-      "#{Date.today.to_s(:date_ja)}のお買い物"
+      "#{Date.today.to_fs(:date_ja)}のお買い物"
     else
       shopping_record_form.title
     end
@@ -31,7 +31,7 @@ module ShoppingRecordsHelper
     elsif Date.current - 7.day < last_bought_day.to_date
       "#{(Date.current - last_bought_day.to_date).to_i}日前に購入"
     else
-      "#{last_bought_day.to_s(:date_ymd)} 購入"
+      "#{last_bought_day.to_fs(:date_ymd)} 購入"
     end
   end
 
