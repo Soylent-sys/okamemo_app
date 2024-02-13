@@ -3,6 +3,7 @@
 <%= render "shared/error_messages", model: @shopping_record_form %>
 <%= render 'shared/navigation' %>
 <% provide(:back_link_path, root_path) %>
+<% provide(:back_link_text, "メインメニュー にもどる") %>
 <%= render 'shared/back_link' %>
 <%= render 'shared/page_title' %>
 <%= form_with model: @shopping_record_form, url: shopping_new_confirm_path, local: true do |f| %>

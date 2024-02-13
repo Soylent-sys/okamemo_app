@@ -2,6 +2,7 @@
 <% provide(:okame_info, "ここではお買い物履歴を見ることができるよ！\n買い物結果を見たいお買い物の「目」のボタンを押してね。「ゴミ箱」のボタンを押すと履歴を削除することもできるよ。") %>
 <%= render 'shared/navigation' %>
 <% provide(:back_link_path, root_path) %>
+<% provide(:back_link_text, "メインメニュー にもどる") %>
 <%= render 'shared/back_link' %>
 <%= render 'shared/page_title' %>
 <% unless @pagy.count.zero? %>

@@ -1,7 +1,9 @@
 <% provide(:page_title, "お買い物場所の更新") %>
 <% provide(:okame_info, "「#{@shopping_record.title}」のお買い物場所を登録し直すよ！\n地図の新しい場所にマーカーを立てて「お買い物場所を更新」ボタンを押すとお買い物場所が更新されるよ。") %>
 <%= render 'shared/navigation' %>
-<%= render 'shared/back_link_js_history' %>
+<% provide(:back_link_path, shopping_results_path(@shopping_record.hashid)) %>
+<% provide(:back_link_text, "詳細ページ にもどる") %>
+<%= render 'shared/back_link' %>
 <%= render 'shared/page_title' %>
 <div class="col-xl-6 col-md-8 col-11 p-md-5 p-4 mb-5 mx-auto rounded-2 form-bg confirm-window-text">
   <h2 class="mb-md-4 mb-3">お買い物場所を更新する</h2>

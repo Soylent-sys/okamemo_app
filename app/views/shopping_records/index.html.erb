@@ -2,6 +2,7 @@
 <% provide(:okame_info, "ここはお買い物モードを始める画面だよ！\nこれから行くお買い物の「カート」のボタンを押すとお買い物モードを開始するよ！\n行く必要のなくなったお買い物があったら「ゴミ箱」のボタンをおして削除してね。") %>
 <%= render 'shared/navigation' %>
 <% provide(:back_link_path, root_path) %>
+<% provide(:back_link_text, "メインメニュー にもどる") %>
 <%= render 'shared/back_link' %>
 <%= render 'shared/page_title' %>
 <% unless @shopping_records.count.zero? %>

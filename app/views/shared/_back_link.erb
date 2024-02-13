@@ -1,5 +1,5 @@
 <div class="mt-1 mb-4 ms-sm-5 ms-3">
   <%= link_to yield(:back_link_path), class: "h5 back-link text-decoration-none" do %>
-    <i class="fas fa-circle-left link-icon"></i><span class="ms-1">もどる</span>
+    <i class="fas fa-circle-left link-icon"></i><span class="ms-1"><%= yield(:back_link_text) %></span>
   <% end %>
 </div>
