@@ -1,0 +1,33 @@
+<% provide(:page_title, "お買い物履歴") %>
+<% provide(:okame_info, "ここではお買い物履歴を見ることができるよ！\nお買い物履歴を見たい年月を選んでね。") %>
+<%= render 'shared/navigation' %>
+<% provide(:back_link_path, root_path) %>
+<% provide(:back_link_text, "メインメニュー にもどる") %>
+<%= render 'shared/back_link' %>
+<%= render 'shared/page_title' %>
+<% unless @pagy.count.zero? %>
+  <div class="col-xl-6 col-md-7 col-10 py-4 px-3 my-5 mx-auto rounded-2 shopping-record-window-bg">
+    <div class="col-11 text-md-start text-center mx-auto mb-4">
+      <h2>閲覧する年月を選択</h2>
+    </div>
+    <% @shopping_records_one_record_by_month.each do |record| %>
+      <div class="col-10 mb-4 mx-auto rounded-2 shopping-record-bg">
+        <%= link_to shopping_result_path(updated_at_change_format_ym(record)), class: "text-decoration-none" do %>
+          <div class="d-flex justify-content-between align-items-center py-3 px-4">
+            <h3 class="mb-0 link-text"><%= updated_at_change_format_ja(record) %></h3>
+            <i class="h3 fas fa-circle-chevron-right m-0 show-icon"></i>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    <% if @pagy.count > ShoppingRecordsController::RESULT_PAGENATION_SIZE %>
+      <div class="d-flex justify-content-center">
+        <%== pagy_bootstrap_nav(@pagy) %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="not-added-area d-flex">
+    <h2 class="m-auto">お買い物履歴がありません</h2>
+  </div>
+<% end %>

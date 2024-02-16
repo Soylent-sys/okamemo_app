@@ -1,7 +1,7 @@
 <% provide(:page_title, "お買い物履歴の詳細") %>
 <% provide(:okame_info, "「#{@shopping_record.title}」のお買い物結果を表示するよ！\nお買い物した場所の記録や編集、削除もここで出来るよ。") %>
 <%= render 'shared/navigation' %>
-<% provide(:back_link_path, shopping_result_path) %>
+<% provide(:back_link_path, shopping_result_path(updated_at_change_format_ym(@shopping_record))) %>
 <% provide(:back_link_text, "履歴一覧 にもどる") %>
 <%= render 'shared/back_link' %>
 <%= render 'shared/page_title' %>

@@ -58,4 +58,17 @@ module ShoppingRecordsHelper
       shopping_record.buys
     end
   end
+
+  def updated_at_change_format_ja(shopping_record)
+    shopping_record.updated_at.to_fs(:month_ja)
+  end
+
+  def updated_at_change_format_ym(shopping_record)
+    shopping_record.updated_at.to_fs(:date_ym)
+  end
+
+  def date_change_format_ja(params_date)
+    year_month = params_date.split('-')
+    "#{year_month[0]}年#{year_month[1]}月"
+  end
 end

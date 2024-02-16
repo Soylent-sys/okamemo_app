@@ -72,7 +72,7 @@ class ShoppingRecordsController < ApplicationController
     if shopping_record.closed?
       shopping_record.destroy!
       flash[:notice] = "お買い物履歴が削除されました。"
-      redirect_to shopping_result_url
+      redirect_to shopping_result_group_url
     else
       shopping_record.destroy!
       flash[:notice] = "お買い物が削除されました。"
@@ -80,16 +80,25 @@ class ShoppingRecordsController < ApplicationController
     end
   end
 
+  def result_group
+    @pagy, @shopping_records_one_record_by_month = pagy(ShoppingRecord.first_record_by_month(current_user).recent_updated,
+                                                        items: RESULT_PAGENATION_SIZE, size: [1, 1, 1, 1])
+  end
+
   def result
-    @pagy, @shopping_records = pagy(current_user.shopping_records.closed.recent_updated,
+    @pagy, @shopping_records = pagy(ShoppingRecord.extract_one_month(current_user, params[:date]).recent_updated,
                                     items: RESULT_PAGENATION_SIZE, size: [1, 1, 1, 1])
+    if @shopping_records.blank?
+      flash[:error] = "指定した年月のお買い物履歴は存在しません。"
+      redirect_to shopping_result_group_url
+    end
   end
 
   def show
     @shopping_record = current_user.shopping_records.closed.find_by_hashid(params[:id])
     if @shopping_record.blank?
       flash[:error] = "指定されたお買い物履歴は存在しません。"
-      redirect_to shopping_result_url
+      redirect_to shopping_result_group_url
     end
 
     shopping_location = @shopping_record.shopping_location
