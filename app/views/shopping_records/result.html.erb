@@ -38,7 +38,7 @@
       </div>
     </div>
   <% end %>
-  <% if @pagy.count > ShoppingRecordsController::RESULT_PAGENATION_SIZE %>
+  <% if @pagy.pages > ShoppingRecordsController::SINGLE_PAGE %>
     <div class="d-flex justify-content-center">
       <%== pagy_bootstrap_nav(@pagy) %>
     </div>

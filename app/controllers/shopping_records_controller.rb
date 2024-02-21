@@ -5,6 +5,7 @@ class ShoppingRecordsController < ApplicationController
   before_action :set_all_categories, only: [:new, :confirm, :back_new, :create]
 
   RESULT_PAGENATION_SIZE = 10
+  SINGLE_PAGE = 1
 
   def index
     @shopping_records = current_user.shopping_records.opened
