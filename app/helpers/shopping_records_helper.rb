@@ -71,4 +71,20 @@ module ShoppingRecordsHelper
     year_month = params_date.split('-')
     "#{year_month[0]}年#{year_month[1]}月"
   end
+
+  def display_name_of_category_or_item(category_or_item)
+    if current_user.hiragana_view.present?
+      category_or_item.hiragana
+    else
+      category_or_item.name
+    end
+  end
+
+  def display_item_name_of_buy(buy)
+    if current_user.hiragana_view.present?
+      buy.item_hiragana
+    else
+      buy.item_name
+    end
+  end
 end
