@@ -98,8 +98,18 @@ button {
   color: #666;
   font-size: larger;
 
+  @media screen and (max-width: 391px) {
+    font-size: 1.1rem;
+  }
+
   @media screen and (max-width: 375px) {
     font-size: medium;
+  }
+}
+
+.category-window .hiragana-view {
+  @media screen and (max-width: 391px) {
+    font-size: 0.9rem;
   }
 }
 
@@ -254,6 +264,16 @@ button {
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
   background-color: green;
+}
+
+.form-check-input:checked {
+  background-color: rgba(255, 136, 9, 1);
+  border-color: rgba(255, 136, 9, 1);
+}
+
+.form-check-input:focus {
+  border-color: rgba(255, 136, 9, 1);
+  box-shadow: 0 0 0 0.25rem rgba(255, 136, 9, 0.25);
 }
 
 /* pagination */

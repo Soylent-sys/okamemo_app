@@ -34,11 +34,28 @@
       <% end %>
     </div>
 
-    <div class="field form-floating mb-4">
+    <div class="field form-floating mb-5">
       <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "password", class: "form-control #{"is-invalid" if f.object.errors[:password_confirmation].present?}" %>
       <%= f.label :password_confirmation do %>
         <i class="fas fa-lock"></i>&nbsp;&thinsp;パスワード（確認用）
       <% end %>
+    </div>
+
+    <div class="mb-5">
+      <div class="mb-3">
+        <h5 class="mb-1">ひらがなモード</h5>
+        <small class="form-text text-muted"><i class="fas fa-circle-info"></i> お買い物関連の機能でアイテム名が平仮名で表示されます</small>
+      </div>
+      <div class="h5 d-flex justify-content-evenly">
+        <div class="form-check">
+          <%= f.radio_button :hiragana_view, true, id: "user_hiragana_view_true", class: "form-check-input" %>
+          <%= f.label :hiragana_view_true, t('.hiragana_view_true'), class: "form-check-label" %>
+        </div>
+        <div class="form-check">
+          <%= f.radio_button :hiragana_view, false, id: "user_hiragana_view_false", class: "form-check-input" %>
+          <%= f.label :hiragana_view_false, t('.hiragana_view_false'), class: "form-check-label" %>
+        </div>
+      </div>
     </div>
 
     <div class="field form-floating mb-5">

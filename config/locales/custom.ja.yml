@@ -17,6 +17,11 @@ ja:
   home:
     login_home:
       confirm_to_logout: ログアウトしますか？
+  users:
+    registrations:
+      edit:
+        hiragana_view_true: 使う
+        hiragana_view_false: 使わない
   items:
     index:
       confirm_to_delete: 本当に削除しますか？

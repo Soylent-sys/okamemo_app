@@ -16,7 +16,7 @@
       <div class="p-0 mx-3 mb-3 rounded-4 buy-item-space buy-item-bg">
         <label class="d-block item-pointer" for="shopping_record_form_hashids_<%= buy.hashid %>">
           <div class="d-flex flex-column text-center px-3 pt-sm-3 pb-sm-2 pt-2 pb-1">
-            <div class="h5 mb-0"><%= buy.item_name %></div>
+            <div class="h5 mb-0"><%= display_item_name_of_buy(buy) %></div>
             <div class="custom-checkbox-ok">
               <%= f.check_box :hashids, { multiple: true }, buy.hashid, false %>
             </div>

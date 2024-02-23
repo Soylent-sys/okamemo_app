@@ -16,7 +16,7 @@
     <% if @shopping_record.buys.purchased.present? %>
       <ul class="h5">
         <% @shopping_record.buys.purchased.each do |buy| %>
-          <li class="ps-2 mb-2"><%= buy.item_name %></li>
+          <li class="ps-2 mb-2"><%= display_item_name_of_buy(buy) %></li>
         <% end %>
       </ul>
     <% else %>
@@ -28,7 +28,7 @@
     <% if @shopping_record.buys.unpurchased.present? %>
       <ul class="h5">
         <% @shopping_record.buys.unpurchased.each do |buy| %>
-          <li class="ps-2 mb-2"><%= buy.item_name %></li>
+          <li class="ps-2 mb-2"><%= display_item_name_of_buy(buy) %></li>
         <% end %>
       </ul>
     <% else %>
