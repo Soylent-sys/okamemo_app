@@ -47,7 +47,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # 許可するための追加のパラメータがある場合は、sanitizer に追加してください
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :hiragana_view])
   end
 
   # サインアップ後に使用する path
