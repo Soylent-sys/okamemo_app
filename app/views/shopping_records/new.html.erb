@@ -10,7 +10,7 @@
   <div class="col-xl-6 col-md-8 col-11 p-md-4 p-3 mb-5 mx-auto rounded-2 form-bg">
     <h3 class="mb-3">タイトルを入力</h3>
     <div class="field form-floating">
-      <%= f.text_field :title, autofocus: true, autocomplete: "off", placeholder: "タイトル", value: shopping_title(@shopping_record_form), class: "form-control #{"is-invalid" if f.object.errors[:title].present?}" %>
+      <%= f.text_field :title, autocomplete: "off", placeholder: "タイトル", value: shopping_title(@shopping_record_form), class: "form-control #{"is-invalid" if f.object.errors[:title].present?}" %>
       <%= f.label :title do %>
         <i class="fas fa-book"></i>&nbsp;&thinsp;タイトル
       <% end %>
