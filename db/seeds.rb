@@ -39,7 +39,7 @@ categories = [
   [ 25, "その他", "そのほか" ]
 ]
 
-categories.each do |name, hiragana|
+categories.each do |id, name, hiragana|
   Category.find_or_create_by!(id: id, name: name, hiragana: hiragana)
 end
 
