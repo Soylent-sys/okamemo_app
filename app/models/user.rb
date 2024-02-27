@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :items, dependent: :delete_all
   has_many :buys, dependent: :delete_all
   has_many :shopping_records, dependent: :destroy
+  has_many :notification_target_users, dependent: :delete_all
 
   MAX_LENGTH_EMAIL = 255
   MAX_LENGTH_NAME = 20
