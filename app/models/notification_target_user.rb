@@ -1,0 +1,2 @@
+class NotificationTargetUser < ApplicationRecord
+end

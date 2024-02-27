@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_21_101332) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_27_090811) do
   create_table "buys", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "shopping_record_id", null: false
@@ -45,6 +45,20 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_21_101332) do
     t.index ["hiragana", "user_id", "category_id"], name: "index_items_on_hiragana_and_user_id_and_category_id", unique: true
     t.index ["name", "user_id", "category_id"], name: "index_items_on_name_and_user_id_and_category_id", unique: true
     t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
+  create_table "notification_target_users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", default: "", null: false
+    t.string "email", default: "", null: false
+    t.integer "confirmation_status", default: 0, null: false
+    t.string "confirmation_token", limit: 64
+    t.datetime "expiration_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["confirmation_token"], name: "index_notification_target_users_on_confirmation_token", unique: true
+    t.index ["user_id", "email"], name: "index_notification_target_users_on_user_id_and_email", unique: true
+    t.index ["user_id"], name: "index_notification_target_users_on_user_id"
   end
 
   create_table "shopping_locations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -89,6 +103,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_21_101332) do
   add_foreign_key "buys", "users"
   add_foreign_key "items", "categories"
   add_foreign_key "items", "users"
+  add_foreign_key "notification_target_users", "users"
   add_foreign_key "shopping_locations", "shopping_records"
   add_foreign_key "shopping_records", "users"
 end
