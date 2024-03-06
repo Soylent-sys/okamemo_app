@@ -19,6 +19,8 @@ class Item < ApplicationRecord
   # 管理ユーザーで登録したデフォルトアイテムと同じ内容の登録を制御するバリデーション
   validate :same_preset_item
 
+  private
+
   def same_preset_item
     preset_items = Item.preset
     same_item_name = preset_items.find do |item|
