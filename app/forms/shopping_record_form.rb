@@ -15,12 +15,6 @@ class ShoppingRecordForm
   }
   validate :check_count
 
-  def check_count
-    if ShoppingRecord.opened.where(user_id: user_id).count >= SHOPPING_REGISTRATION_MAXIMUM_COUNT
-      errors.add(:shopping_record, "の登録数が最大数（５つ）に達しています。")
-    end
-  end
-
   def save
     ActiveRecord::Base.transaction do
       shopping_record = ShoppingRecord.create!(user_id:, title:)
@@ -42,6 +36,14 @@ class ShoppingRecordForm
         end
       end
       shopping_record.update!(closed: true)
+    end
+  end
+
+  private
+
+  def check_count
+    if ShoppingRecord.opened.where(user_id: user_id).count >= SHOPPING_REGISTRATION_MAXIMUM_COUNT
+      errors.add(:shopping_record, "の登録数が最大数（５つ）に達しています。")
     end
   end
 end
