@@ -5,7 +5,8 @@ class ShoppingLocationsController < ApplicationController
     @shopping_record = current_user.shopping_records.closed.find_by_hashid(params[:id])
     if @shopping_record.blank?
       flash[:error] = "指定されたお買い物履歴は存在しません。"
-      redirect_to shopping_result_url
+      redirect_to shopping_result_group_url
+      return
     end
 
     if @shopping_record.shopping_location.blank?
@@ -35,12 +36,14 @@ class ShoppingLocationsController < ApplicationController
     if @shopping_record.blank?
       flash[:error] = "指定されたお買い物場所の記録は存在しません。"
       redirect_to shopping_result_group_url
+      return
     end
 
     @shopping_location = @shopping_record.shopping_location
     if @shopping_location.blank?
       flash[:error] = "指定されたお買い物場所の記録は存在しません。"
       redirect_to shopping_result_group_url
+      return
     end
 
     gon.lat = @shopping_location.latitude
