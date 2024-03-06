@@ -39,6 +39,7 @@ class ShoppingRecordsController < ApplicationController
 
   def edit
     @shopping_record = current_user.shopping_records.find_by_hashid(params[:id])
+    @shopping_record_form = ShoppingRecordForm.new
     if @shopping_record.blank?
       flash[:error] = "指定されたお買い物は存在しません。"
       redirect_to shopping_index_url
@@ -46,7 +47,6 @@ class ShoppingRecordsController < ApplicationController
       flash[:error] = "指定されたお買い物は終了しています。"
       redirect_to shopping_index_url
     end
-    @shopping_record_form = ShoppingRecordForm.new
   end
 
   def edit_confirm
@@ -101,6 +101,7 @@ class ShoppingRecordsController < ApplicationController
     if @shopping_record.blank?
       flash[:error] = "指定されたお買い物履歴は存在しません。"
       redirect_to shopping_result_group_url
+      return
     end
 
     shopping_location = @shopping_record.shopping_location
@@ -125,7 +126,7 @@ class ShoppingRecordsController < ApplicationController
   end
 
   def update_shopping_record_params
-    params.require(:shopping_record_form).permit(:shopping_record_id, :map_entry, hashids: [])
+    params.require(:shopping_record_form).permit(:shopping_record_id, hashids: [])
   end
 
   def set_shopping_record_from_post
