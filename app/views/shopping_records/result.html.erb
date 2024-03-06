@@ -9,16 +9,18 @@
   <div class="col-sm-11 text-md-start text-center mx-auto mb-4">
     <h2 class="mb-4"><%= date_change_format_ja(params[:date]) %>の履歴一覧</h2>
   </div>
-  <div class="h5 d-inline-block text-muted text-center latest-oldest-icon">
-    <div class="latest-color px-sm-2 px-1 py-3 rounded-top-5">
-      <div><i class="fas fa-arrow-up"></i></div>
-      <div>新</div>
+  <% if @pagy.count > ShoppingRecordsController::ONE_RECORD %>
+    <div class="h5 d-inline-block text-muted text-center latest-oldest-icon">
+      <div class="latest-color px-sm-2 px-1 py-3 rounded-top-5">
+        <div><i class="fas fa-arrow-up"></i></div>
+        <div>新</div>
+      </div>
+      <div class="oldest-color px-sm-2 px-1 py-3 rounded-bottom-5">
+        <div>古</div>
+        <div><i class="fas fa-arrow-down"></i></div>
+      </div>
     </div>
-    <div class="oldest-color px-sm-2 px-1 py-3 rounded-bottom-5">
-      <div>古</div>
-      <div><i class="fas fa-arrow-down"></i></div>
-    </div>
-  </div>
+  <% end %>
   <% @shopping_records.each do |shopping_record| %>
     <div class="col-11 py-3 px-3 mb-4 mx-auto rounded-2 shopping-record-bg">
       <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
