@@ -170,6 +170,9 @@ button {
 
 .not-added-area {
   height: 70vh;
+  @media screen and (max-width: 576px) {
+    height: 50vh;
+  }
 }
 
 .head-title {
