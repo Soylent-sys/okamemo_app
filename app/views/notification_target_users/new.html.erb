@@ -1,0 +1,32 @@
+<% provide(:page_title, "通知対象ユーザー登録") %>
+<% provide(:okame_info, "通知対象ユーザーを登録するよ！\n通知を送る人のニックネームとメールアドレスを入力して登録ボタンを押してね。") %>
+<%= render "shared/error_messages", model: @notification_target_user %>
+<%= render 'shared/navigation' %>
+<% provide(:back_link_path, notification_target_users_path) %>
+<% provide(:back_link_text, "通知対象ユーザー一覧 にもどる") %>
+<%= render 'shared/back_link' %>
+<%= render 'shared/page_title' %>
+<div class="container my-4">
+  <%= form_with model: @notification_target_user, url: notification_target_users_path, class: "col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
+    <h2 class="mb-4">登録情報の入力</h2>
+    <div class="field form-floating mb-3">
+      <%= f.text_field :name, autofocus: true, autocomplete: "off", placeholder: "おかメちゃん", class: "form-control #{"is-invalid" if f.object.errors[:name].present?}" %>
+      <%= f.label :name do %>
+        <i class="fas fa-user"></i>&ensp;ニックネーム
+      <% end %>
+      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> ニックネームは最大20文字まで入力できます</small>
+    </div>
+
+    <div class="field form-floating mb-5">
+      <%= f.email_field :email, autocomplete: "email", placeholder: "email@example.com", class: "form-control #{"is-invalid" if f.object.errors[:email].present?}" %>
+      <%= f.label :email do %>
+        <i class="far fa-envelope"></i>&ensp;Eメールアドレス
+      <% end %>
+      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> このメールアドレスに確認用のメールが送信されます</small>
+    </div>
+
+    <div>
+      <%= f.submit "登録", class: "w-100 btn btn-lg btn-primary" %>
+    </div>
+  <% end %>
+</div>

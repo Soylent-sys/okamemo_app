@@ -1,0 +1,41 @@
+<% provide(:page_title, "メールアドレス認証") %>
+<div class="my-5">
+<%= render 'shared/page_title' %>
+  <% if @notification_target_user.confirmed? %>
+    <div class="col-xl-7 col-md-9 col-11 py-4 px-sm-2 px-3 mx-auto rounded-2 d-flex align-items-center ce-info-h confirm-email-window-bg">
+      <div>
+        <h2 class="text-center mb-4"><span><i class="fas fa-circle-check"></i> メールアドレス認証が</span><span>完了しました</span></h2>
+        <div class="col-11 p-3 mx-auto rounded-2 confirm-window">
+          <p class="ce-info-text"><span>買い物お助けサービスアプリ</span><span>【 おかメchan 】です。</span><br>
+            アクセスいただきありがとうございます。<br>
+            <br>
+            <%= @notification_target_user.name %> さんのメールアドレス<br>
+            <span><%= @notification_target_user.email %> が</span><span>認証されました。</span><br>
+            <br>
+            今後、<%= @notification_target_user.user.name %> さん がこのアプリで記録したお買い物の内容が <%= @notification_target_user.name %> さん にメールで通知されます。<br>
+            <br>
+            このページは閉じてください。<br>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="col-xl-7 col-md-9 col-11 py-4 px-sm-2 px-3 mx-auto rounded-2 d-flex align-items-center ce-info-h confirm-email-window-bg">
+      <div>
+        <h2 class="text-center mb-4"><span><i class="fas fa-circle-exclamation"></i> メールアドレスが認証</span><span>できませんでした</span></h2>
+        <div class="col-11 p-3 mx-auto rounded-2 confirm-window">
+          <p class="ce-info-text"><span>買い物お助けサービスアプリ</span><span>【 おかメchan 】です。</span><br>
+            アクセスいただきありがとうございます。<br>
+            <br>
+            申し訳ございません。<br>
+            この確認メールのURLは有効期限が切れています。<br>
+            <br>
+            <%= @notification_target_user.user.name %> さん に確認メールを再送信してもらい、受信したメールから再度メールアドレス認証をお願いいたします。<br>
+            <br>
+            このページは閉じてください。<br>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

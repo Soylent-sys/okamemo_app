@@ -4,7 +4,7 @@
   font-weight: 700 !important;
 }
 
-h1 span, h2 span, h4 span {
+h1 span, h2 span, h4 span, p span {
   display: inline-block;
 }
 
@@ -445,6 +445,14 @@ button {
   color: rgb(0, 106, 117);
 }
 
+.send-icon {
+  color: rgb(18, 188, 255);
+}
+
+.send-icon:active {
+  color: rgb(17, 133, 178);
+}
+
 /* FontAwesome */
 
 .far {
@@ -802,4 +810,35 @@ body {
   height: 500px;
   width: 100%;
   margin: 0 auto;
+}
+
+/* notification_target_user index */
+
+.email-confirm-info {
+  color: gray
+}
+
+.email-confirm-ok {
+  color: green
+}
+
+.email-confirm-ng {
+  color: red
+}
+
+/* notification_target_user confirm_email */
+
+.confirm-email-window-bg {
+  background-color: #d7f2ff;
+}
+
+.ce-info-h {
+  min-height: 58vh;
+}
+
+.ce-info-text {
+  font-size: larger;
+  @media screen and (max-width: 576px) {
+    font-size: medium;
+  }
 }
