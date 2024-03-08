@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   resources :shopping_records, only: [:create, :update, :destroy]
   resources :shopping_locations, only: [:create, :update, :destroy]
   resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
-  resources :notification_target_users, only: [:index, :new, :create] do
+  resources :notification_target_users, only: [:index, :new, :create, :destroy] do
     get :confirm_email, on: :collection
     get :resend_email_confirmation, as: 'resend_email', on: :member
   end

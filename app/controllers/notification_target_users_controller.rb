@@ -58,6 +58,13 @@ class NotificationTargetUsersController < ApplicationController
     end
   end
 
+  def destroy
+    notification_target_user = current_user.notification_target_users.find_by_hashid!(params[:id])
+    notification_target_user.destroy!
+    flash[:notice] = "通知対象ユーザーが削除されました。"
+    redirect_to notification_target_users_url
+  end
+
   private
 
   def notification_target_user_params
