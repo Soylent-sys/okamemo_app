@@ -4,13 +4,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
+  include UserSharedConstants
+
   has_many :items, dependent: :delete_all
   has_many :buys, dependent: :delete_all
   has_many :shopping_records, dependent: :destroy
   has_many :notification_target_users, dependent: :delete_all
 
-  MAX_LENGTH_EMAIL = 255
-  MAX_LENGTH_NAME = 20
   VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i
 
   validates :email, length: { maximum: MAX_LENGTH_EMAIL }
