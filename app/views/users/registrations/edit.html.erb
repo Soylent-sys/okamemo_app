@@ -9,13 +9,20 @@
 <div class="container pb-5">
   <%= form_with model: @user, url: user_registration_path, method: "put", id: 'edit user', class: "edit_user col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
     <h2 class="mb-4">ユーザー情報の編集</h2>
+    <div class="field form-floating mb-3">
+      <%= f.text_field :name, autocomplete: "off", placeholder: "おかメちゃん", class: "form-control #{"is-invalid" if f.object.errors[:name].present?}" %>
+      <%= f.label :name do %>
+        <i class="fas fa-user"></i>&nbsp;&thinsp;ニックネーム
+      <% end %>
+      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> ニックネームは最大20文字まで入力できます</small>
+    </div>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div class="mb-1 email-change-info"><i class="fas fa-circle-check"></i> <%= t('.currently_waiting_confirmation_for_email', email: resource.unconfirmed_email) %></div>
     <% end %>
 
     <div class="field form-floating mb-3">
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "email@example.com", class: "form-control #{"is-invalid" if f.object.errors[:email].present?}" %>
+      <%= f.email_field :email, autocomplete: "email", placeholder: "email@example.com", class: "form-control #{"is-invalid" if f.object.errors[:email].present?}" %>
       <%= f.label :email do %>
         <i class="far fa-envelope"></i>&nbsp;&thinsp;Eメールアドレス
       <% end %>
