@@ -64,8 +64,11 @@ class ShoppingRecordsController < ApplicationController
   def update
     shopping_record_form = set_shopping_record_form_from_post
     shopping_record_form.update_shopping_record
-    flash[:notice] = "お買い物が完了しました。"
     @shopping_record = set_shopping_record_from_post
+    if current_user.notification_target_users.confirmed.present?
+      ShoppingRecordMailer.send_shopping_result_to_notification_target_users(@shopping_record)
+    end
+    flash[:notice] = "お買い物が完了しました。"
     render 'choose', status: :see_other
   end
 
