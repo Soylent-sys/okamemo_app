@@ -200,3 +200,48 @@ items = [
 items.each do |user_id, category_id, name, hiragana|
   Item.find_or_create_by!(user_id: user_id, category_id: category_id, name: name, hiragana: hiragana)
 end
+
+# NotificationTargetUserモデルの初期データ
+nt_user = NotificationTargetUser.find_or_create_by!(
+  user_id: master_admin_user.id,
+  name: "テスト通知対象ユーザー",
+  email: "sr_mail_preview@okamemo.test",
+  confirmation_status: :confirmed,
+)
+
+nt_user.update!(
+  confirmation_token: nil,
+  expiration_date: nil,
+)
+
+NotificationTargetUser.find_or_create_by!(
+  user_id: master_admin_user.id,
+  name: "非アクティブテスト通知対象ユーザー",
+  email: "ntu_mail_preview@okamemo.test",
+  confirmation_status: :unconfirmed,
+)
+
+# ShoppingRecordモデルの初期データ
+test_sr = ShoppingRecord.find_or_create_by!(
+  user_id: master_admin_user.id,
+  title: "test shopping",
+  closed: true,
+)
+
+# Buyモデルの初期データ
+buys = [
+  [ master_admin_user.id, test_sr.id, "野菜", "やさい", true ],
+  [ master_admin_user.id, test_sr.id, "果物", "くだもの", false ],
+  [ master_admin_user.id, test_sr.id, "肉", "にく", true ],
+  [ master_admin_user.id, test_sr.id, "お惣菜", "おそうざい", false ],
+]
+
+buys.each do |user_id, shopping_record_id, item_name, item_hiragana, purchased|
+  Buy.find_or_create_by!(
+    user_id: user_id,
+    shopping_record_id: shopping_record_id,
+    item_name: item_name,
+    item_hiragana: item_hiragana,
+    purchased: purchased
+  )
+end
