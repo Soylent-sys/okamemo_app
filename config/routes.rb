@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   devise_for :users,
   controllers: {
@@ -30,5 +32,8 @@ Rails.application.routes.draw do
   resources :notification_target_users, only: [:index, :new, :create, :destroy] do
     get :confirm_email, on: :collection
     get :resend_email_confirmation, as: 'resend_email', on: :member
+  end
+  authenticate :user, lambda { |user| user.admin? } do
+    mount Sidekiq::Web, at: "/sidekiq"
   end
 end

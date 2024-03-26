@@ -45,6 +45,8 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :ses
 
+  config.action_mailer.deliver_later_queue_name = :mailers
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

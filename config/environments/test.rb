@@ -57,4 +57,7 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+  # テスト環境ではキューアダプターはテスト用を使用する
+  config.active_job.queue_adapter = :test
 end

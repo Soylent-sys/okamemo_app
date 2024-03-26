@@ -33,5 +33,8 @@ module OkamemoApp
     end
 
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag.html_safe }
+
+    # メール送信処理のジョブを永続化するためジョブキューアダプターをsidekiqに設定
+    config.active_job.queue_adapter = :sidekiq
   end
 end
