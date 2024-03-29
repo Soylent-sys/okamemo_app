@@ -39,7 +39,6 @@ ENV APP_ROOT /okamemo_app
 # インストール可能なパッケージ一覧の更新
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-            build-essential \
             libcurl4-openssl-dev \
             libmariadb-dev \
             tzdata
@@ -55,6 +54,8 @@ RUN mkdir -p tmp/sockets
 # 本番環境（AWS ECS）でNginxへのファイル共有用ボリューム
 VOLUME $APP_ROOT/public
 VOLUME $APP_ROOT/tmp
+# アセットのプリコンパイル
+RUN bundle exec rails assets:precompile
 # コンテナ起動時に実行するスクリプト
 COPY ./docker/app_prod/entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
