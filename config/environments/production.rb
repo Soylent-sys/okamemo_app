@@ -64,6 +64,10 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.default_url_options = { host: 'okamemo.com' }
+
+  config.action_mailer.delivery_method = :ses
+
   config.action_mailer.deliver_later_queue_name = :mailers
 
   # Ignore bad email addresses and do not raise email delivery errors.
