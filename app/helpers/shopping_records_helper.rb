@@ -25,9 +25,9 @@ module ShoppingRecordsHelper
     if last_bought_day.blank?
       "購入記録なし"
     elsif Date.current.all_day.cover? last_bought_day
-      "今日購入しています"
+      "今日購入してます"
     elsif Date.yesterday.all_day.cover? last_bought_day
-      "昨日購入しています"
+      "昨日購入してます"
     elsif Date.current - 7.day < last_bought_day.to_date
       "#{(Date.current - last_bought_day.to_date).to_i}日前に購入"
     else
