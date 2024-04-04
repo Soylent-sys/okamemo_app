@@ -57,6 +57,7 @@ resource "aws_ecs_task_definition" "main" {
   # rails、nginxコンテナを起動
   # railsコンテナ: 3000番ポートを開放、環境変数を設定
   # nginxコンテナの80番ポートを開放、railsコンテナのボリュームを共有
+  # sidekiqコンテナ: railsコンテナと同様の環境変数を設定、railsコンテナ起動後に起動する設定
   container_definitions = <<SET
 [
   {
@@ -77,6 +78,10 @@ resource "aws_ecs_task_definition" "main" {
         {
           "name": "MYSQL_HOST",
           "value": "${aws_db_instance.db.address}"
+        },
+        {
+          "name": "REDIS_URL",
+          "value": "redis://${aws_elasticache_cluster.redis.cache_nodes.0.address}:6379"
         }
     ],
     "secrets": [
@@ -99,6 +104,30 @@ resource "aws_ecs_task_definition" "main" {
         {
           "name": "RAILS_MASTER_KEY",
           "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:RAILS_MASTER_KEY::"
+        },
+        {
+          "name": "SES_AWS_ACCESS_KEY_ID",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:SES_AWS_ACCESS_KEY_ID::"
+        },
+        {
+          "name": "SES_AWS_SECRET_ACCESS_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:SES_AWS_SECRET_ACCESS_KEY::"
+        },
+        {
+          "name": "HASHID_SALT_CHAR",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:HASHID_SALT_CHAR::"
+        },
+        {
+          "name": "GOOGLE_MAP_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:GOOGLE_MAP_API_KEY::"
+        },
+        {
+          "name": "ADMIN_USER_EMAIL",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:ADMIN_USER_EMAIL::"
+        },
+        {
+          "name": "ADMIN_USER_PASSWORD",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:ADMIN_USER_PASSWORD::"
         }
     ],
     "logConfiguration": {
@@ -140,6 +169,86 @@ resource "aws_ecs_task_definition" "main" {
         {
             "sourceContainer": "rails"
         }
+    ]
+  },
+  {
+    "name": "sidekiq",
+    "image": "${aws_ecr_repository.worker.repository_url}",
+    "cpu": 0,
+    "essential": true,
+    "entryPoint": [],
+    "command": [],
+    "environment": [
+        {
+          "name": "MYSQL_HOST",
+          "value": "${aws_db_instance.db.address}"
+        },
+        {
+          "name": "REDIS_URL",
+          "value": "redis://${aws_elasticache_cluster.redis.cache_nodes.0.address}:6379"
+        }
+    ],
+    "secrets": [
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:AWS_ACCESS_KEY_ID::"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:AWS_SECRET_ACCESS_KEY::"
+        },
+        {
+          "name": "MYSQL_USERNAME",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:MYSQL_USERNAME::"
+        },
+        {
+          "name": "MYSQL_PASSWORD",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:MYSQL_PASSWORD::"
+        },
+        {
+          "name": "RAILS_MASTER_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:RAILS_MASTER_KEY::"
+        },
+        {
+          "name": "SES_AWS_ACCESS_KEY_ID",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:SES_AWS_ACCESS_KEY_ID::"
+        },
+        {
+          "name": "SES_AWS_SECRET_ACCESS_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:SES_AWS_SECRET_ACCESS_KEY::"
+        },
+        {
+          "name": "HASHID_SALT_CHAR",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:HASHID_SALT_CHAR::"
+        },
+        {
+          "name": "GOOGLE_MAP_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:GOOGLE_MAP_API_KEY::"
+        },
+        {
+          "name": "ADMIN_USER_EMAIL",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:ADMIN_USER_EMAIL::"
+        },
+        {
+          "name": "ADMIN_USER_PASSWORD",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:ADMIN_USER_PASSWORD::"
+        }
+    ],
+    "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+            "awslogs-group": "/ecs/okamemo-app-task",
+            "awslogs-region": "ap-northeast-1",
+            "awslogs-stream-prefix": "ecs"
+        }
+    },
+    "mountPoints": [],
+    "volumesFrom": [],
+    "dependsOn": [
+      {
+        "containerName": "rails",
+        "condition": "START"
+      }
     ]
   }
 ]

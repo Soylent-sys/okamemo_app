@@ -9,3 +9,9 @@ resource "aws_ecr_repository" "web" {
   name = "okamemo_web_nginx"
   force_delete = true
 }
+
+# ECRリポジトリ（sidekiqコンテナ用）
+resource "aws_ecr_repository" "worker" {
+  name = "okamemo_worker_sidekiq"
+  force_delete = true
+}
