@@ -104,6 +104,18 @@ workflows:
           # build-and-push-image-webが完了後に実行
           requires:
             - build-and-push-image-web
+      # ECRにsidekiq用のDockerイメージをビルドしてプッシュ
+      - aws-ecr/build-and-push-image:
+          # ジョブ名を設定
+          name: build-and-push-image-worker
+          # Dockerfileのパス
+          dockerfile: ./docker/sidekiq_prod/Dockerfile.prod
+          # ECRのリポジトリ
+          repo: okamemo_worker_sidekiq
+          tag: "latest"
+          # build-and-push-image-appが完了後に実行
+          requires:
+            - build-and-push-image-app
       # ECSのサービスを更新
       - aws-ecs/deploy-service-update:
           # ジョブ名を設定
@@ -116,4 +128,4 @@ workflows:
           family: okamemo-app-task
           # build-and-push-image-appが完了後に実行
           requires:
-            - build-and-push-image-app
+            - build-and-push-image-worker
