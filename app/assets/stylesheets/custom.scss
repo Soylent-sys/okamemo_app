@@ -175,6 +175,13 @@ button {
   }
 }
 
+.not-added-window {
+  height: 70vh;
+  @media screen and (max-width: 576px) {
+    height: 30vh;
+  }
+}
+
 .head-title {
   background-color: #fff;
   color: #434343;
