@@ -69,7 +69,9 @@ module ShoppingRecordsHelper
 
   def date_change_format_ja(params_date)
     year_month = params_date.split('-')
-    "#{year_month[0]}年#{year_month[1]}月"
+    year = year_month[0]
+    month = year_month[1][0] == "0" ? year_month[1].delete("0") : year_month[1]
+    "#{year}年#{month}月"
   end
 
   def display_name_of_category_or_item(category_or_item)
