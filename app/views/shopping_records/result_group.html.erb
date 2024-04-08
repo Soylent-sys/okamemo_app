@@ -26,6 +26,9 @@
       </div>
     <% end %>
   </div>
+  <% if @pagy.count == ShoppingRecordsController::ONE_RECORD %>
+    <div class="one_record_margin"></div>
+  <% end %>
 <% else %>
   <div class="not-added-area d-flex">
     <h2 class="m-auto">お買い物履歴がありません</h2>

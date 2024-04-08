@@ -30,6 +30,9 @@
       </div>
     <% end %>
   </div>
+  <% if @shopping_records.count == ShoppingRecordsController::ONE_RECORD %>
+    <div class="one_record_margin"></div>
+  <% end %>
 <% else %>
   <div class="not-added-area d-flex">
     <h2 class="m-auto">お買い物は登録されていません</h2>

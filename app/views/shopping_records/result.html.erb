@@ -49,3 +49,6 @@
     </div>
   <% end %>
 </div>
+<% if @pagy.count == ShoppingRecordsController::ONE_RECORD %>
+  <div class="one_record_margin"></div>
+<% end %>
