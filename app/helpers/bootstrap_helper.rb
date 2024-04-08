@@ -1,4 +1,4 @@
-module DeviseHelper
+module BootstrapHelper
   def bootstrap_alert(message_type)
     case message_type
     when "alert"
