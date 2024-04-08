@@ -844,6 +844,15 @@ body {
   }
 }
 
+/* shopping_record choose */
+
+.choose_margin_bottom {
+  margin-bottom: 9rem;
+  @media screen and (max-width: 576px) {
+    margin-bottom: 3rem;
+  }
+}
+
 /* shopping_location maps */
 
 #map {
