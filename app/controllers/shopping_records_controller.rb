@@ -2,7 +2,6 @@ class ShoppingRecordsController < ApplicationController
   include Pagy::Backend
 
   before_action :authenticate_user!
-  before_action :set_all_categories, only: [:new, :confirm, :back_new, :create]
 
   RESULT_PAGENATION_SIZE = 10
   SINGLE_PAGE = 1
@@ -13,10 +12,12 @@ class ShoppingRecordsController < ApplicationController
   end
 
   def new
+    @categories = Category.all
     @shopping_record_form = ShoppingRecordForm.new
   end
 
   def confirm
+    @categories = Category.all
     @shopping_record_form = ShoppingRecordForm.new(shopping_record_params)
     if @shopping_record_form.valid?
       render 'confirm', status: :see_other
@@ -26,6 +27,7 @@ class ShoppingRecordsController < ApplicationController
   end
 
   def back_new
+    @categories = Category.all
     @shopping_record_form = ShoppingRecordForm.new(back_shopping_record_params)
     render 'new', status: :see_other
   end
@@ -115,10 +117,6 @@ class ShoppingRecordsController < ApplicationController
   end
 
   private
-
-  def set_all_categories
-    @categories = Category.all
-  end
 
   def shopping_record_params
     params.require(:shopping_record_form).permit(:title, hashids: []).merge(user_id: current_user.id)

@@ -1,16 +1,17 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_all_categories, only: [:new, :create, :edit, :update]
 
   def index
     @categories = Category.created_item_categories(current_user.id)
   end
 
   def new
+    @categories = Category.all
     @item = Item.new
   end
 
   def create
+    @categories = Category.all
     @item = Item.new(item_params)
     if @item.save
       flash[:notice] = "アイテム登録が完了しました。"
@@ -21,6 +22,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    @categories = Category.all
     @item = current_user.items.find_by_hashid(params[:id])
     if @item.blank?
       flash[:error] = "指定されたアイテムは存在しません。"
@@ -29,6 +31,7 @@ class ItemsController < ApplicationController
   end
 
   def update
+    @categories = Category.all
     @item = current_user.items.find_by_hashid!(params[:id])
     item_params.delete(:user_id)
     if @item.update(item_params)
@@ -47,10 +50,6 @@ class ItemsController < ApplicationController
   end
 
   private
-
-  def set_all_categories
-    @categories = Category.all
-  end
 
   def item_params
     params.require(:item).permit(:category_id, :name, :hiragana).merge(user_id: current_user.id)
