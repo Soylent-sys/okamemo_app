@@ -66,7 +66,7 @@ class NotificationTargetUser < ApplicationRecord
 
   def check_count
     if NotificationTargetUser.where(user_id: user_id).count >= NOTIFICATION_TARGET_USER_MUXIMUM_COUNT
-      errors.add(:notification_target_user, "の登録数が最大数（３つ）に達しています。")
+      errors.add(:notification_target_user, "の登録数が最大数（#{NOTIFICATION_TARGET_USER_MUXIMUM_COUNT}つ）に達しています。")
     end
   end
 end
