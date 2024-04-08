@@ -6,7 +6,7 @@
     <div class="field form-floating mb-4">
       <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "email@example.com", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: "form-control #{"is-invalid" if f.object.errors[:email].present?}" %>
       <%= f.label :email do %>
-        <i class="far fa-envelope"></i>&nbsp;&thinsp;Eメールアドレス
+        <i class="far fa-envelope"></i>&ensp;Eメールアドレス
       <% end %>
     </div>
 

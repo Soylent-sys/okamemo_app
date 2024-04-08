@@ -6,14 +6,14 @@
     <div class="field form-floating mb-4">
       <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "email@example.com", class: "form-control #{"is-invalid" if alert.present?}" %>
       <%= f.label :email do %>
-        <i class="far fa-envelope"></i>&nbsp;&thinsp;Eメールアドレス
+        <i class="far fa-envelope"></i>&ensp;Eメールアドレス
       <% end %>
     </div>
 
     <div class="field form-floating mb-3">
       <%= f.password_field :password, autocomplete: "new-password", placeholder: "password", class: "form-control #{"is-invalid" if alert.present?}" %>
       <%= f.label :password do %>
-        <i class="fas fa-lock"></i>&nbsp;&thinsp;パスワード
+        <i class="fas fa-lock"></i>&ensp;パスワード
       <% end %>
     </div>
 

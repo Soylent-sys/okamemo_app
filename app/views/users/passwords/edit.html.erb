@@ -8,7 +8,7 @@
     <div class="field form-floating mb-3">
       <%= f.password_field :password, autocomplete: "new-password", placeholder: "password", class: "form-control #{"is-invalid" if f.object.errors[:password].present?}" %>
       <%= f.label :password do %>
-        <i class="fas fa-lock"></i>&nbsp;&thinsp;パスワード
+        <i class="fas fa-lock"></i>&ensp;パスワード
       <% end %>
       <% if @minimum_password_length %>
         <small class="form-text text-muted"><i class="fas fa-circle-info"></i>  パスワードは<%= @minimum_password_length %> 文字以上で半角の英字と数字を含めてください</small>
@@ -18,7 +18,7 @@
     <div class="field form-floating mb-5">
       <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "password", class: "form-control #{"is-invalid" if f.object.errors[:password_confirmation].present?}" %>
       <%= f.label :password_confirmation do %>
-        <i class="fas fa-lock"></i>&nbsp;&thinsp;パスワード（確認用）
+        <i class="fas fa-lock"></i>&ensp;パスワード（確認用）
       <% end %>
     </div>
 
