@@ -56,23 +56,23 @@ button {
 
 .position-under-header {
   position: sticky;
-  top: 71.11px;
+  top: 106.3px;
   z-index: 998;
 
   @media screen and (max-width: 767px) {
-    top: 76px;
+    top: 111.2px;
   }
 }
 
 .position-items {
   position: sticky;
-  top: 131.704px;
+  top: 166.904px;
   z-index: 997;
   overflow-y: auto;
   height: 70vh;
 
   @media screen and (max-width: 767px) {
-    top: 136.594px;
+    top: 171.794px;
   }
 }
 
@@ -269,6 +269,10 @@ button {
   cursor: pointer;
 }
 
+.user-info-bg {
+  background-color: #fff6c9;
+}
+
 /* bootstrap custom */
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
@@ -326,6 +330,26 @@ button {
 }
 
 .position-flash {
+  position: sticky;
+  top: 106.3px;
+  z-index: 999;
+
+  @media screen and (max-width: 767px) {
+    top: 111.2px;
+  }
+}
+
+.position-flash-no-login {
+  position: sticky;
+  top: 71.11px;
+  z-index: 999;
+
+  @media screen and (max-width: 767px) {
+    top: 76px;
+  }
+}
+
+.position-user-info {
   position: sticky;
   top: 71.11px;
   z-index: 999;

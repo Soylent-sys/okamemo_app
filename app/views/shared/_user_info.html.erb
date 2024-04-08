@@ -1,0 +1,5 @@
+<% if user_signed_in? %>
+  <div class="px-3 py-2 position-user-info user-info-bg">
+    <h6 class="m-0"><i class="fas fa-user"></i> <%= current_user.name %> さん　<%= now_info %></h6>
+  </div>
+<% end %>
