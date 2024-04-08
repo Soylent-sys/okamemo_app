@@ -40,8 +40,8 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    @item = current_user.items.find_by_hashid!(params[:id])
-    @item.destroy
+    item = current_user.items.find_by_hashid!(params[:id])
+    item.destroy
     flash[:notice] = "アイテムが削除されました。"
     redirect_to items_url
   end
