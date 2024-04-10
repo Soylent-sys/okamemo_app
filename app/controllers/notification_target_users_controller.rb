@@ -13,7 +13,7 @@ class NotificationTargetUsersController < ApplicationController
     @notification_target_user = NotificationTargetUser.new(notification_target_user_params)
     if @notification_target_user.save
       NotificationTargetUserMailer.with(nt_user: @notification_target_user).send_email_confirmation.deliver_later
-      flash[:notice] = "登録したメールアドレスへ確認メールを送信しました。確認メールの認証の有効期限は10分です。"
+      flash[:notice] = "登録したメールアドレスへ確認メールを送信しました。確認メールの認証の有効期限は#{NotificationTargetUser::EMAIL_CONFIRMATION_LIMIT}分です。"
       redirect_to notification_target_users_url
     else
       render 'new', status: :unprocessable_entity
@@ -37,7 +37,8 @@ class NotificationTargetUsersController < ApplicationController
     if @notification_target_user.expired?
       @notification_target_user.reset_email_confirmation
       NotificationTargetUserMailer.with(nt_user: @notification_target_user).send_email_confirmation.deliver_later
-      flash[:notice] = "#{@notification_target_user.email} へ確認メールを再送信しました。確認メールの認証の有効期限は10分です。"
+      flash[:notice] =
+        "#{@notification_target_user.email} へ確認メールを再送信しました。確認メールの認証の有効期限は#{NotificationTargetUser::EMAIL_CONFIRMATION_LIMIT}分です。"
       redirect_to notification_target_users_url
     else
       flash[:error] = "確認メールの有効期限が切れる前に再送信することはできません。"

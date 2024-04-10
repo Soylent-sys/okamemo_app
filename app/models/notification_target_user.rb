@@ -15,7 +15,7 @@ class NotificationTargetUser < ApplicationRecord
   before_create :set_email_confirmation
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-  EMAIL_CONFIRMATION_LIMIT = 10.minutes
+  EMAIL_CONFIRMATION_LIMIT = 10
   NOTIFICATION_TARGET_USER_MUXIMUM_COUNT = 3
 
   validates :email, presence: true, uniqueness: { scope: [:user_id, :email], message: "は既に登録されています。" },
@@ -61,7 +61,7 @@ class NotificationTargetUser < ApplicationRecord
 
   def set_email_confirmation
     self.confirmation_token = NotificationTargetUser.confirmation_new_token
-    self.expiration_date = Time.zone.now + EMAIL_CONFIRMATION_LIMIT
+    self.expiration_date = Time.zone.now + EMAIL_CONFIRMATION_LIMIT.minutes
   end
 
   def check_count
