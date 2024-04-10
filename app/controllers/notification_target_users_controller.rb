@@ -21,7 +21,7 @@ class NotificationTargetUsersController < ApplicationController
   end
 
   def resend_email_confirmation
-    @notification_target_user = current_user.notification_target_users.find_by_hashid(params[:id])
+    @notification_target_user = current_user.notification_target_users.find_by_hashid(params[:hashid])
     if @notification_target_user.blank?
       flash[:error] = "登録された通知対象ユーザー以外へのメール送信処理はできません。"
       redirect_to notification_target_users_url
@@ -59,7 +59,7 @@ class NotificationTargetUsersController < ApplicationController
   end
 
   def destroy
-    notification_target_user = current_user.notification_target_users.find_by_hashid!(params[:id])
+    notification_target_user = current_user.notification_target_users.find_by_hashid!(params[:hashid])
     notification_target_user.destroy!
     flash[:notice] = "通知対象ユーザーが削除されました。"
     redirect_to notification_target_users_url

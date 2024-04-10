@@ -11,8 +11,8 @@
   <div class="mb-2 text-muted"><small><i class="fas fa-circle-info"></i> マーカーの初期位置は現在の位置情報です</small></div>
   <div id="map"></div>
   <%# 登録後のリダイレクト先でページ全体をリロードしている関係で、turboでフォーム送信するとflashが表示されないため以下のフォームではturboを無効にしている %>
-  <%= form_with model: @shopping_location, url: shopping_locations_path, data: { turbo: false }, local: true do |f| %>
-    <%= f.hidden_field :shopping_record_id, value: @shopping_record.hashid %>
+  <%= form_with scope: :shopping_location, url: shopping_locations_path, data: { turbo: false }, local: true do |f| %>
+    <%= f.hidden_field :shopping_record_hashid, value: @shopping_record.hashid %>
     <%= f.hidden_field :latitude %>
     <%= f.hidden_field :longitude %>
     <%= f.submit "お買い物場所を記録", class: "w-100 mt-4 btn btn-lg btn-custom-send" %>

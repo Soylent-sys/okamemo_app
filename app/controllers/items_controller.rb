@@ -23,7 +23,7 @@ class ItemsController < ApplicationController
 
   def edit
     @categories = Category.all
-    @item = current_user.items.find_by_hashid(params[:id])
+    @item = current_user.items.find_by_hashid(params[:hashid])
     if @item.blank?
       flash[:error] = "指定されたアイテムは存在しません。"
       redirect_to items_url
@@ -32,7 +32,7 @@ class ItemsController < ApplicationController
 
   def update
     @categories = Category.all
-    @item = current_user.items.find_by_hashid!(params[:id])
+    @item = current_user.items.find_by_hashid!(params[:hashid])
     item_params.delete(:user_id)
     if @item.update(item_params)
       flash[:notice] = "アイテムの更新が完了しました。"
@@ -43,7 +43,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    item = current_user.items.find_by_hashid!(params[:id])
+    item = current_user.items.find_by_hashid!(params[:hashid])
     item.destroy
     flash[:notice] = "アイテムが削除されました。"
     redirect_to items_url

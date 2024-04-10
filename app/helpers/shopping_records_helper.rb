@@ -48,7 +48,7 @@ module ShoppingRecordsHelper
   end
 
   def no_bought_items(shopping_record_form)
-    shopping_record = current_user.shopping_records.find_by_hashid!(shopping_record_form.shopping_record_id)
+    shopping_record = current_user.shopping_records.find_by_hashid!(shopping_record_form.shopping_record_hashid)
     if shopping_record_form.hashids.present?
       buy_item_ids = shopping_record_form.hashids.map do |buy_hashid|
         Buy.find_by_hashid!(buy_hashid).id

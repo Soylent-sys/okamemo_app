@@ -10,7 +10,7 @@
   </div>
 </div>
 <%= form_with model: @shopping_record_form, url: shopping_progress_confirm_path, local: true do |f| %>
-  <%= f.hidden_field :shopping_record_id, value: @shopping_record.hashid %>
+  <%= f.hidden_field :shopping_record_hashid, value: @shopping_record.hashid %>
   <div class="col-xl-7 col-md-9 col-12 py-4 mb-5 mx-auto d-flex flex-wrap flex-fill justify-content-evenly rounded-bottom-5 buy-check-window-bg">
     <% @shopping_record.buys.each do |buy| %>
       <div class="p-0 mx-3 mb-3 rounded-4 buy-item-space buy-item-bg">

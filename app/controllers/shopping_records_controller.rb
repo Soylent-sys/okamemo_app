@@ -40,7 +40,7 @@ class ShoppingRecordsController < ApplicationController
   end
 
   def edit
-    @shopping_record = current_user.shopping_records.find_by_hashid(params[:id])
+    @shopping_record = current_user.shopping_records.find_by_hashid(params[:hashid])
     @shopping_record_form = ShoppingRecordForm.new
     if @shopping_record.blank?
       flash[:error] = "指定されたお買い物は存在しません。"
@@ -75,7 +75,7 @@ class ShoppingRecordsController < ApplicationController
   end
 
   def destroy
-    shopping_record = current_user.shopping_records.find_by_hashid!(params[:id])
+    shopping_record = current_user.shopping_records.find_by_hashid!(params[:hashid])
     if shopping_record.closed?
       shopping_record.destroy!
       flash[:notice] = "お買い物履歴が削除されました。"
@@ -102,7 +102,7 @@ class ShoppingRecordsController < ApplicationController
   end
 
   def show
-    @shopping_record = current_user.shopping_records.closed.find_by_hashid(params[:id])
+    @shopping_record = current_user.shopping_records.closed.find_by_hashid(params[:hashid])
     if @shopping_record.blank?
       flash[:error] = "指定されたお買い物履歴は存在しません。"
       redirect_to shopping_result_group_url
@@ -127,11 +127,11 @@ class ShoppingRecordsController < ApplicationController
   end
 
   def update_shopping_record_params
-    params.require(:shopping_record_form).permit(:shopping_record_id, hashids: [])
+    params.require(:shopping_record_form).permit(:shopping_record_hashid, hashids: [])
   end
 
   def set_shopping_record_from_post
-    current_user.shopping_records.find_by_hashid!(update_shopping_record_params[:shopping_record_id])
+    current_user.shopping_records.find_by_hashid!(update_shopping_record_params[:shopping_record_hashid])
   end
 
   def set_shopping_record_form_from_post
