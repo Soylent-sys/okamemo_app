@@ -11,7 +11,7 @@ ja:
       notification_target_user:
         name: ニックネーム
         email: Eメールアドレス
-        notification_target_user: 通知対象ユーザー
+        notification_target_user: 通知メールアドレス
   activemodel:
     attributes:
       shopping_record_form:
