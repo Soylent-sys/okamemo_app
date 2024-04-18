@@ -9,7 +9,7 @@
       <%= f.label :name do %>
         <i class="fas fa-user"></i>&ensp;ニックネーム
       <% end %>
-      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> ニックネームは最大20文字まで入力できます</small>
+      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> ニックネームは最大<%= UserSharedConstants::MAX_LENGTH_NAME %>文字まで入力できます</small>
     </div>
 
     <div class="field form-floating mb-3">

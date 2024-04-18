@@ -1,6 +1,6 @@
 <% provide(:page_title, "通知メール登録") %>
 <% provide(:help_path, "notification_target_users/index_help") %>
-<% provide(:okame_info, "ここではお買い物内容をメールで通知するメールアドレスを３件まで登録できるよ！\n新しく登録するときは「登録」ボタンから、「ゴミ箱」ボタンを押すと登録済みのユーザーを削除できるよ。\n登録した相手がメールアドレス認証してくれるまで通知は届かないから気をつけてね。") %>
+<% provide(:okame_info, "ここではお買い物内容をメールで通知するメールアドレスを #{NotificationTargetUser::NOTIFICATION_TARGET_USER_MUXIMUM_COUNT} 件まで登録できるよ！\n新しく登録するときは「登録」ボタンから、「ゴミ箱」ボタンを押すと登録済みのユーザーを削除できるよ。\n登録した相手がメールアドレス認証してくれるまで通知は届かないから気をつけてね。") %>
 <%= render 'shared/navigation' %>
 <% provide(:back_link_path, root_path) %>
 <% provide(:back_link_text, "メインメニュー にもどる") %>
