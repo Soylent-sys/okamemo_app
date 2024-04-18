@@ -1,6 +1,6 @@
 <% provide(:page_title, "通知メール登録") %>
 <% provide(:help_path, "notification_target_users/new_help") %>
-<% provide(:okame_info, "通知メールアドレスを登録するよ！\n通知を送る人のニックネームとメールアドレスを入力して登録ボタンを押してね。") %>
+<% provide(:okame_info, "通知メールアドレスを登録するよ！\n通知を送る相手のニックネームとメールアドレスを入力して登録ボタンを押してね。") %>
 <%= render "shared/error_messages", model: @notification_target_user %>
 <%= render 'shared/navigation' %>
 <% provide(:back_link_path, notification_target_users_path) %>

@@ -1,6 +1,6 @@
 <% provide(:page_title, "お買い物の登録") %>
 <% provide(:help_path, "shopping_records/new_help") %>
-<% provide(:okame_info, "ここは買い物登録する画面だよ！\nタイトルを入力したら買う予定のアイテムにチェックを入れて、最後に「登録内容の確認」のボタンを押してね。\nアイテムのチェックをやり直したい時は「リセット」ボタンを押すと全てのチェックが外せるよ。") %>
+<% provide(:okame_info, "ここは買い物登録する画面だよ！\nお買い物のタイトルを入力して買う予定のアイテムにチェックを入れたら、最後に「登録内容の確認」のボタンを押してね。\nアイテムのチェックをやり直したい時は「リセット」ボタンを押すと全てのチェックが外せるよ。") %>
 <%= render "shared/error_messages", model: @shopping_record_form %>
 <%= render 'shared/navigation' %>
 <% provide(:back_link_path, root_path) %>
