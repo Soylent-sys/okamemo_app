@@ -1,4 +1,5 @@
 <% provide(:page_title, "アイテムの登録") %>
+<% provide(:help_path, "items/new_help") %>
 <% provide(:okame_info, "ここでは新しいアイテムを登録できるよ！\n登録する「カテゴリー」を選択して「アイテム名」と「ひらがな」を入力したら「登録」ボタンを押してね。") %>
 <%= render "shared/error_messages", model: @item %>
 <%= render 'shared/navigation' %>
@@ -6,6 +7,7 @@
 <% provide(:back_link_text, "アイテム一覧 にもどる") %>
 <%= render 'shared/back_link' %>
 <%= render 'shared/page_title' %>
+<%= render 'shared/help_modal' %>
 <div class="container">
   <%= form_with model: @item, url: items_path, class: "col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
     <h2 class="mb-4">登録内容の入力</h2>

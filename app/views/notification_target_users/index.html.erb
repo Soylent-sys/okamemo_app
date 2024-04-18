@@ -1,10 +1,12 @@
 <% provide(:page_title, "通知メール登録") %>
+<% provide(:help_path, "notification_target_users/index_help") %>
 <% provide(:okame_info, "ここではお買い物内容をメールで通知するメールアドレスを３件まで登録できるよ！\n新しく登録するときは「登録」ボタンから、「ゴミ箱」ボタンを押すと登録済みのユーザーを削除できるよ。\n登録した相手がメールアドレス認証してくれるまで通知は届かないから気をつけてね。") %>
 <%= render 'shared/navigation' %>
 <% provide(:back_link_path, root_path) %>
 <% provide(:back_link_text, "メインメニュー にもどる") %>
 <%= render 'shared/back_link' %>
 <%= render 'shared/page_title' %>
+<%= render 'shared/help_modal' %>
 <div class="col-xl-7 col-md-9 col-11 py-4 px-sm-2 px-3 mt-3 mb-5 mx-auto rounded-2 shopping-record-window-bg">
   <div class="col-11 d-sm-flex justify-content-sm-between align-items-sm-center mx-auto mb-4">
     <h2 class="mb-sm-3 mb-4">通知対象ユーザー</h2>

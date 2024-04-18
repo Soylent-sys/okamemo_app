@@ -1,7 +1,9 @@
 <% provide(:page_title, "メインメニュー") %>
+<% provide(:help_path, "home/home_help") %>
 <% provide(:okame_info, "ようこそ！ #{current_user.name} さん！\nここはメインメニューだよ。やりたいことをメニューから選んでね！") %>
 <%= render 'shared/navigation' %>
 <%= render 'shared/page_title' %>
+<%= render 'shared/help_modal' %>
 <div class="container">
   <ul class="row justify-content-center align-items-center p-md-4 px-3 py-4 list-unstyled">
     <li class="col-md-4 col-sm-10 mb-sm-5 mb-4">

@@ -1,8 +1,10 @@
 <% provide(:page_title, "お買い物モード") %>
+<% provide(:help_path, "shopping_records/edit_help") %>
 <% provide(:okame_info, "お買い物を始めるよ！「買うものリスト」を見ながら手にとったアイテムのボタンを押して「OK！」をつけていこう！\nお買い物が終わったら「お買い物完了」を押して進めてね。") %>
 <%= render "shared/error_messages", model: @shopping_record_form %>
 <%= render 'shared/navigation' %>
 <%= render 'shared/page_title' %>
+<%= render 'shared/help_modal' %>
 <div class="col-xl-7 col-md-9 col-12 pt-4 px-sm-2 px-3 mt-5 mx-auto rounded-top-5 buy-check-window-bg">
   <div class="col-sm-11 text-center mx-auto">
     <h2 class="mb-5"><%= @shopping_record.title %><br>買うものリスト</h2>

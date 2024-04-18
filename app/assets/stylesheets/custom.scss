@@ -891,3 +891,69 @@ body {
     font-size: medium;
   }
 }
+
+/* help */
+
+.btn-help {
+  position: fixed;
+  bottom: 30px;
+  right: 3vh;
+  width: 80px;
+  height: 80px;
+  background-color: rgb(46, 230, 254);
+  color: #fff;
+  transition: 0.5s;
+  z-index: 999;
+}
+
+.btn-help:hover {
+  background-color: rgb(42, 205, 226);
+  color: #fff;
+}
+
+.btn-help:active {
+  background-color: rgb(42, 205, 226) !important;
+  border-color: rgb(42, 205, 226) !important;
+  color: #cbcbcb !important;
+}
+
+.is-hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.help-list-bg {
+  background-color: #f5f5f5;
+}
+
+.help-list-shopping-bg {
+  background-color: #ffe6ca;
+}
+
+.help-list-setting-bg {
+  background-color: #e0fcff;
+}
+
+.help-list-category-bg {
+  background-color: #dbffdb;
+}
+
+.help-list-button-bg {
+  background-color: #ffe790;
+}
+
+.help-list-form-bg {
+  background-color: #fff8ca;
+}
+
+.help-buy-item-space {
+  width: fit-content;
+}
+
+.help-buy-item-check-space {
+  height: 36px;
+}
+
+.help-ok-text-color {
+  color: rgb(59, 188, 59);
+}

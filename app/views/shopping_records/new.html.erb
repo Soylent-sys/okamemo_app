@@ -1,4 +1,5 @@
 <% provide(:page_title, "お買い物の登録") %>
+<% provide(:help_path, "shopping_records/new_help") %>
 <% provide(:okame_info, "ここは買い物登録する画面だよ！\nタイトルを入力したら買う予定のアイテムにチェックを入れて、最後に「登録内容の確認」のボタンを押してね。\nアイテムのチェックをやり直したい時は「リセット」ボタンを押すと全てのチェックが外せるよ。") %>
 <%= render "shared/error_messages", model: @shopping_record_form %>
 <%= render 'shared/navigation' %>
@@ -6,6 +7,7 @@
 <% provide(:back_link_text, "メインメニュー にもどる") %>
 <%= render 'shared/back_link' %>
 <%= render 'shared/page_title' %>
+<%= render 'shared/help_modal' %>
 <%= form_with model: @shopping_record_form, url: shopping_new_confirm_path, local: true do |f| %>
   <div class="col-xl-6 col-md-8 col-11 p-md-4 p-3 mb-5 mx-auto rounded-2 form-bg">
     <h3 class="mb-3">タイトルを入力</h3>

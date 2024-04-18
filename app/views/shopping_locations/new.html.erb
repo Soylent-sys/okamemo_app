@@ -1,10 +1,12 @@
 <% provide(:page_title, "お買い物場所の記録") %>
+<% provide(:help_path, "shopping_locations/new_help") %>
 <% provide(:okame_info, "「#{@shopping_record.title}」のお買い物場所を記録するよ！\n地図のお買い物した場所にマーカーを立てたら「お買い物場所を記録」ボタンを押してね。") %>
 <%= render 'shared/navigation' %>
 <% provide(:back_link_path, shopping_results_path(@shopping_record.hashid)) %>
 <% provide(:back_link_text, "詳細ページ にもどる") %>
 <%= render 'shared/back_link' %>
 <%= render 'shared/page_title' %>
+<%= render 'shared/help_modal' %>
 <div class="col-xl-6 col-md-8 col-11 p-md-5 p-4 mb-5 mx-auto rounded-2 form-bg confirm-window-text">
   <h2 class="mb-md-4 mb-3">お買い物場所を記録する</h2>
   <div class="text-muted"><small><i class="fas fa-circle-info"></i> マップ上でクリック（タップ）した場所にマーカーが移動します</small></div>

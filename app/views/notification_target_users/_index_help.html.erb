@@ -1,0 +1,62 @@
+<h3 class="mb-3">通知対象ユーザーの登録の仕方</h3>
+<ul class="px-3 py-4 mb-5 rounded-3 help-list-bg">
+  <li class="row mb-3">
+    <div class="col-12">
+      <h5>①&ensp;登録ボタンを押して登録画面へ移動する</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">登録ボタンを押して通知対象ユーザーの登録画面へ移動します。</p>
+    </div>
+  </li>
+  <li class="row mb-3">
+    <div class="col-12">
+      <h5>②&ensp;通知対象ユーザーを登録する</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">登録画面で登録する人のニックネームとメールアドレスを入力して通知対象ユーザーを登録してください。</p>
+    </div>
+  </li>
+  <li class="row mb-3">
+    <div class="col-12">
+      <h5>③&ensp;登録した人に確認メールが送信されるのでメールアドレス認証を完了してもらう</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">登録したメールアドレスに確認メールが送信されます。メールアドレスの持ち主に認証を完了してもらってください。確認メールの有効期限が切れてしまった場合は「確認メール再送信」を押すと再度送信できます。</p>
+    </div>
+  </li>
+</ul>
+<h3 class="mb-3">ボタンについて</h3>
+<h4>各ボタンの説明</h4>
+<ul class="px-3">
+  <li class="row p-2 mb-3 rounded-3 help-list-button-bg">
+    <div class="col-12">
+      <div class="btn btn-lg btn-primary mb-2">
+        <i class="fas fa-user-plus m-0"></i>&ensp;登録
+      </div>
+      <h5>登録ボタン</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">通知対象ユーザーの登録画面へ移動します。通知対象ユーザーは<%= NotificationTargetUser::NOTIFICATION_TARGET_USER_MUXIMUM_COUNT %>件まで登録できます。登録数が上限に達している時はボタンが押せなくなります。</p>
+    </div>
+  </li>
+  <li class="row p-2 mb-3 rounded-3 help-list-button-bg">
+    <div class="col-12">
+      <i class="h3 fas fa-trash-can mb-2 delete-icon"></i>
+      <h5>削除ボタン</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">選択した通知対象ユーザーを削除します。</p>
+    </div>
+  </li>
+  <li class="row p-2 mb-3 rounded-3 help-list-button-bg">
+    <div class="col-12">
+      <div class="send-icon text-decoration-none mb-2">
+        <i class="h3 far fa-paper-plane m-0"></i>&ensp;確認メール再送信
+      </div>
+      <h5>確認メール再送信ボタン</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">確認メールを再度送信します。確認メールの有効期限が切れてしまった時に表示されます。</p>
+    </div>
+  </li>
+</ul>

@@ -1,10 +1,12 @@
 <% provide(:page_title, "お買い物履歴の詳細") %>
+<% provide(:help_path, "shopping_records/show_help") %>
 <% provide(:okame_info, "「#{@shopping_record.title}」のお買い物結果を表示するよ！\nお買い物した場所の記録や編集、削除もここで出来るよ。") %>
 <%= render 'shared/navigation' %>
 <% provide(:back_link_path, shopping_result_path(updated_at_change_format_ym(@shopping_record))) %>
 <% provide(:back_link_text, "履歴一覧 にもどる") %>
 <%= render 'shared/back_link' %>
 <%= render 'shared/page_title' %>
+<%= render 'shared/help_modal' %>
 <div class="col-xl-6 col-md-8 col-11 p-md-5 p-4 mb-5 mx-auto rounded-2 form-bg confirm-window-text">
   <h2 class="mb-md-4 mb-3">お買い物結果</h2>
   <div class="p-3 mb-4 rounded-2 confirm-window">
