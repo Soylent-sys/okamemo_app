@@ -1,6 +1,6 @@
 <section class="container-fluid">
   <div class="row justify-content-center align-items-center p-md-5 px-3 pb-4 gap-lg-5 introduction">
-    <div class="col-lg-4 p-lg-0 pt-md-0 py-5 d-sm-block d-none top-logo">
+    <div class="col-lg-4 p-lg-0 pt-md-0 py-5 d-sm-block d-none text-center top-logo">
       <%= image_tag "logo/logo.png", class: "img-fluid", alt: "サービスロゴ" %>
     </div>
     <div class="col py-4 d-sm-none d-block top-logo">
@@ -23,11 +23,11 @@
   <div class="col-lg-7 mx-lg-auto mx-md-5 mx-2 mb-5">
     <div class="px-sm-5 px-4 py-3 m-auto arrow_box_bottom_left">
       <h2 class="mb-3"><span>おかメchan は</span><span>こんなヒトにオススメ！</span></h2>
-      <div class="ps-sm-3 ps-1">
+      <div class="ps-3">
         <ul class="h4 list-unstyled ul-recommend">
-          <li><span>買い物の買い忘れを</span><span>なくしたい</span></li>
-          <li><span>まえに買ったものを</span><span>思い出したい</span></li>
-          <li><span>買い物した場所を</span><span>思い出したい</span></li>
+          <li><span>買い忘れが</span><span>多くて困る</span></li>
+          <li><span>買ったのを忘れて</span><span>また買ってしまう</span></li>
+          <li><span>どこで買ったか</span><span>思い出せない</span></li>
         </ul>
       </div>
     </div>
@@ -39,158 +39,336 @@
 <section class="container-fluid py-5 bg-body">
   <div class="row justify-content-center pb-3">
     <div class="col text-center">
-      <h2>ー おかメchanの使い方 ー</h2>
+      <h2 class="mb-3">ー おかメchanの使い方 ー</h2>
+      <h4><span>おかめchan の操作は</span><span>とってもカンタン！</span></h4>
+      <h4><span>画面のクリック・タップだけで</span><span>ほとんど操作できちゃいます。</span></h4>
     </div>
   </div>
-  <div class="row justify-content-center p-sm-4 py-4 px-3 mx-lg-5 mx-2 mb-5 rounded-5 instructions-1">
+  <div class="row justify-content-center py-4 px-2 mx-lg-2 mx-1 mb-5 rounded-5 instructions-1">
     <div class="col-12 mb-3 text-center">
-      <h3>① お買い物登録する</h3>
+      <h3>お買い物登録する</h3>
+      <h5><i class="fas fa-desktop"></i> パソコン・スマホでの操作</h5>
     </div>
-    <div class="col-md-4 mb-md-0 mb-3">
-      <h5>お買い物登録を押す</h5>
+    <div class="col-md-4 col-sm-7 mb-md-0 mb-5">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <h5 class="card-title m-0">① お買い物の登録を選択</h5>
         </div>
-        <img src="..." class="card-img-bottom" alt="...">
+        <div class="d-md-block d-none img-pointer" data-bs-toggle="modal" data-bs-target="#instruction-1a">
+          <%= image_tag "instructions/instruction_1a.png", class: "img-instruction", alt: "お買い物機能の説明1ｰA" %>
+        </div>
+        <div class="modal fade" id="instruction-1a" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_1a.png", class: "img-fluid", alt: "お買い物機能の説明1ｰA" %>
+            </div>
+          </div>
+        </div>
+        <div class="d-md-none d-block" data-bs-toggle="modal" data-bs-target="#instruction-1a-m">
+          <%= image_tag "instructions/instruction_1a_mini.png", class: "img-instruction", alt: "お買い物機能の説明1ｰA_モバイル版" %>
+        </div>
+        <div class="modal fade" id="instruction-1a-m" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_1a_mini.png", class: "img-fluid", alt: "お買い物機能の説明1ｰA_モバイル版" %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-md-4 mb-md-0 mb-3">
-      <h5>買いたいものをチェック</h5>
+    <div class="col-md-4 col-sm-7 mb-md-0 mb-5">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <h5 class="card-title m-0">② 買うものをチェック</h5>
         </div>
-        <img src="..." class="card-img-bottom" alt="...">
+        <div class="d-md-block d-none img-pointer" data-bs-toggle="modal" data-bs-target="#instruction-1b">
+          <%= image_tag "instructions/instruction_1b.png", class: "img-instruction", alt: "お買い物機能の説明1ｰB" %>
+        </div>
+        <div class="modal fade" id="instruction-1b" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_1b.png", class: "img-fluid", alt: "お買い物機能の説明1ｰB" %>
+            </div>
+          </div>
+        </div>
+        <div class="d-md-none d-block" data-bs-toggle="modal" data-bs-target="#instruction-1b-m">
+          <%= image_tag "instructions/instruction_1b_mini.png", class: "img-instruction", alt: "お買い物機能の説明1ｰB_モバイル版" %>
+        </div>
+        <div class="modal fade" id="instruction-1b-m" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_1b_mini.png", class: "img-fluid", alt: "お買い物機能の説明1ｰB_モバイル版" %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-md-4 mb-md-0 mb-3">
-      <h5>登録ボタンを押す</h5>
+    <div class="col-md-4 col-sm-7 mb-md-0 mb-3">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <h5 class="card-title m-0">③ 登録する</h5>
         </div>
-        <img src="..." class="card-img-bottom" alt="...">
+        <div class="d-md-block d-none img-pointer" data-bs-toggle="modal" data-bs-target="#instruction-1c">
+          <%= image_tag "instructions/instruction_1c.png", class: "img-instruction", alt: "お買い物機能の説明1ｰC" %>
+        </div>
+        <div class="modal fade" id="instruction-1c" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_1c.png", class: "img-fluid", alt: "お買い物機能の説明1ｰC" %>
+            </div>
+          </div>
+        </div>
+        <div class="d-md-none d-block" data-bs-toggle="modal" data-bs-target="#instruction-1c-m">
+          <%= image_tag "instructions/instruction_1c_mini.png", class: "img-instruction", alt: "お買い物機能の説明1ｰC_モバイル版" %>
+        </div>
+        <div class="modal fade" id="instruction-1c-m" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_1c_mini.png", class: "img-fluid", alt: "お買い物機能の説明1ｰC_モバイル版" %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="row justify-content-center p-sm-4 py-4 px-3 mx-lg-5 mx-2 mb-5 rounded-5 instructions-2">
+  <div class="row justify-content-center py-4 px-2 mx-lg-2 mx-1 mb-5 rounded-5 instructions-2">
     <div class="col-12 mb-3 text-center">
-      <h3>② お買い物モードにする</h3>
+      <h3><span>お買い物モードにして</span><span>お買い物する！</span></h3>
+      <h5><i class="fas fa-mobile-screen"></i> スマホでの操作</h5>
     </div>
-    <div class="col-md-4 mb-md-0 mb-3">
-      <h5>お買い物モードを押す</h5>
+    <div class="col-md-4 col-sm-7 mb-md-0 mb-5">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <h5 class="card-title m-0">① お買い物モードを選択</h5>
         </div>
-        <img src="..." class="card-img-bottom" alt="...">
+        <div class="d-md-block d-none img-pointer" data-bs-toggle="modal" data-bs-target="#instruction-2a">
+          <%= image_tag "instructions/instruction_2a.png", class: "img-instruction", alt: "お買い物機能の説明2ｰA" %>
+        </div>
+        <div class="modal fade" id="instruction-2a" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_2a.png", class: "img-fluid", alt: "お買い物機能の説明2ｰA" %>
+            </div>
+          </div>
+        </div>
+        <div class="d-md-none d-block" data-bs-toggle="modal" data-bs-target="#instruction-2a-m">
+          <%= image_tag "instructions/instruction_2a_mini.png", class: "img-instruction", alt: "お買い物機能の説明2ｰA_モバイル版" %>
+        </div>
+        <div class="modal fade" id="instruction-2a-m" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_2a_mini.png", class: "img-fluid", alt: "お買い物機能の説明2ｰA_モバイル版" %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-md-4 mb-md-0 mb-3">
-      <h5>登録したお買い物を選ぶ</h5>
+    <div class="col-md-4 col-sm-7 mb-md-0 mb-5">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <h5 class="card-title m-0">② 登録したお買い物を選択</h5>
         </div>
-        <img src="..." class="card-img-bottom" alt="...">
+        <div class="d-md-block d-none img-pointer" data-bs-toggle="modal" data-bs-target="#instruction-2b">
+          <%= image_tag "instructions/instruction_2b.png", class: "img-instruction", alt: "お買い物機能の説明2ｰB" %>
+        </div>
+        <div class="modal fade" id="instruction-2b" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_2b.png", class: "img-fluid", alt: "お買い物機能の説明2ｰB" %>
+            </div>
+          </div>
+        </div>
+        <div class="d-md-none d-block" data-bs-toggle="modal" data-bs-target="#instruction-2b-m">
+          <%= image_tag "instructions/instruction_2b_mini.png", class: "img-instruction", alt: "お買い物機能の説明2ｰB_モバイル版" %>
+        </div>
+        <div class="modal fade" id="instruction-2b-m" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_2b_mini.png", class: "img-fluid", alt: "お買い物機能の説明2ｰB_モバイル版" %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-md-4 mb-md-0 mb-3">
-      <h5>お買い物リストが表示される</h5>
+    <div class="col-md-4 col-sm-7 mb-md-0 mb-5">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <h5 class="card-title m-0">③ 買い物リストが表示される</h5>
         </div>
-        <img src="..." class="card-img-bottom" alt="...">
+        <div class="d-md-block d-none img-pointer" data-bs-toggle="modal" data-bs-target="#instruction-2c">
+          <%= image_tag "instructions/instruction_2c.png", class: "img-instruction", alt: "お買い物機能の説明2ｰC" %>
+        </div>
+        <div class="modal fade" id="instruction-2c" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_2c.png", class: "img-fluid", alt: "お買い物機能の説明2ｰC" %>
+            </div>
+          </div>
+        </div>
+        <div class="d-md-none d-block" data-bs-toggle="modal" data-bs-target="#instruction-2c-m">
+          <%= image_tag "instructions/instruction_2c_mini.png", class: "img-instruction", alt: "お買い物機能の説明2ｰC_モバイル版" %>
+        </div>
+        <div class="modal fade" id="instruction-2c-m" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_2c_mini.png", class: "img-fluid", alt: "お買い物機能の説明2ｰC_モバイル版" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-7 mt-md-5 mt-0 mb-md-0 mb-5">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title m-0">④ リストを見てお買い物</h5>
+        </div>
+        <div class="d-md-block d-none img-pointer" data-bs-toggle="modal" data-bs-target="#instruction-2d">
+          <%= image_tag "instructions/instruction_2d.png", class: "img-instruction", alt: "お買い物機能の説明2ｰD" %>
+        </div>
+        <div class="modal fade" id="instruction-2d" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_2d.png", class: "img-fluid", alt: "お買い物機能の説明2ｰD" %>
+            </div>
+          </div>
+        </div>
+        <div class="d-md-none d-block" data-bs-toggle="modal" data-bs-target="#instruction-2d-m">
+          <%= image_tag "instructions/instruction_2d_mini.png", class: "img-instruction", alt: "お買い物機能の説明2-D_モバイル版" %>
+        </div>
+        <div class="modal fade" id="instruction-2d-m" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_2d_mini.png", class: "img-fluid", alt: "お買い物機能の説明2-D_モバイル版" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-7 mt-md-5 mt-0 mb-md-0 mb-5">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title m-0">⑤ アイテムにチェック</h5>
+        </div>
+        <div class="d-md-block d-none img-pointer" data-bs-toggle="modal" data-bs-target="#instruction-2e">
+          <%= image_tag "instructions/instruction_2e.png", class: "img-instruction", alt: "お買い物機能の説明2ｰE" %>
+        </div>
+        <div class="modal fade" id="instruction-2e" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_2e.png", class: "img-fluid", alt: "お買い物機能の説明2ｰE" %>
+            </div>
+          </div>
+        </div>
+        <div class="d-md-none d-block" data-bs-toggle="modal" data-bs-target="#instruction-2e-m">
+          <%= image_tag "instructions/instruction_2e_mini.png", class: "img-instruction", alt: "お買い物機能の説明2-E_モバイル版" %>
+        </div>
+        <div class="modal fade" id="instruction-2e-m" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_2e_mini.png", class: "img-fluid", alt: "お買い物機能の説明2ｰE_モバイル版" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-7 mt-md-5 mt-0 mb-md-0 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title m-0">⑥ お買い物完了</h5>
+        </div>
+        <div class="d-md-block d-none img-pointer" data-bs-toggle="modal" data-bs-target="#instruction-2f">
+          <%= image_tag "instructions/instruction_2f.png", class: "img-instruction", alt: "お買い物機能の説明2ｰF" %>
+        </div>
+        <div class="modal fade" id="instruction-2f" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_2f.png", class: "img-fluid", alt: "お買い物機能の説明2ｰF" %>
+            </div>
+          </div>
+        </div>
+        <div class="d-md-none d-block" data-bs-toggle="modal" data-bs-target="#instruction-2f-m">
+          <%= image_tag "instructions/instruction_2f_mini.png", class: "img-instruction", alt: "お買い物機能の説明2-F_モバイル版" %>
+        </div>
+        <div class="modal fade" id="instruction-2f-m" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_2f_mini.png", class: "img-fluid", alt: "お買い物機能の説明2ｰF_モバイル版" %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="row justify-content-center p-sm-4 py-4 px-3 mx-lg-5 mx-2 mb-5 rounded-5 instructions-3">
+  <div class="row justify-content-center py-4 px-2 mx-lg-2 mx-1 mb-5 rounded-5 instructions-3">
     <div class="col-12 mb-3 text-center">
-      <h3>③ お買い物する！</h3>
+      <h3>お買い物が終わったら</h3>
+      <h5><i class="fas fa-desktop"></i> パソコン・スマホでの操作</h5>
     </div>
-    <div class="col-md-4 mb-md-0 mb-3">
-      <h5>リストを見ながらお買い物</h5>
+    <div class="col-md col-sm-9 mb-md-0 mb-5">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <h5 class="card-title m-0">買物履歴を見れる！</h5>
         </div>
-        <img src="..." class="card-img-bottom" alt="...">
+        <div class="d-md-block d-none img-pointer" data-bs-toggle="modal" data-bs-target="#instruction-3a">
+          <%= image_tag "instructions/instruction_3a.png", class: "img-instruction-lg", alt: "お買い物機能の説明3ｰA" %>
+        </div>
+        <div class="modal fade" id="instruction-3a" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_3a.png", class: "img-fluid", alt: "お買い物機能の説明3ｰA" %>
+            </div>
+          </div>
+        </div>
+        <div class="d-md-none d-block" data-bs-toggle="modal" data-bs-target="#instruction-3a-m">
+          <%= image_tag "instructions/instruction_3a_mini.png", class: "img-instruction-lg", alt: "お買い物機能の説明3ｰA_モバイル版" %>
+        </div>
+        <div class="modal fade" id="instruction-3a-m" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_3a_mini.png", class: "img-fluid", alt: "お買い物機能の説明3ｰA_モバイル版" %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-md-4 mb-md-0 mb-3">
-      <h5>カゴに入れたものをチェック</h5>
+    <div class="col-md col-sm-9 mb-md-0 mb-3">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          <h5 class="card-title m-0">場所を記録・確認できる！</h5>
         </div>
-        <img src="..." class="card-img-bottom" alt="...">
-      </div>
-    </div>
-    <div class="col-md-4 mb-md-0 mb-3">
-      <h5>終わったらお買い物完了を押す</h5>
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        <div class="d-md-block d-none img-pointer" data-bs-toggle="modal" data-bs-target="#instruction-3b">
+          <%= image_tag "instructions/instruction_3b.png", class: "img-instruction-lg", alt: "お買い物機能の説明3-B" %>
         </div>
-        <img src="..." class="card-img-bottom" alt="...">
-      </div>
-    </div>
-  </div>
-  <div class="row justify-content-center p-sm-4 py-4 px-3 mx-lg-5 mx-2 mb-5 rounded-5 instructions-4">
-    <div class="col-12 mb-3 text-center">
-      <h3>④ お買い物の後には…</h3>
-    </div>
-    <div class="col-sm mb-md-0 mb-3">
-      <h5>買ったものを確認できる！</h5>
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        <div class="modal fade" id="instruction-3b" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_3b.png", class: "img-fluid", alt: "お買い物機能の説明3-B" %>
+            </div>
+          </div>
         </div>
-        <img src="..." class="card-img-bottom" alt="...">
-      </div>
-    </div>
-    <div class="col-sm mb-md-0 mb-3">
-      <h5>買った場所を確認できる！</h5>
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        <div class="d-md-none d-block" data-bs-toggle="modal" data-bs-target="#instruction-3b-m">
+          <%= image_tag "instructions/instruction_3b_mini.png", class: "img-instruction-lg", alt: "お買い物機能の説明3-B_モバイル版" %>
         </div>
-        <img src="..." class="card-img-bottom" alt="...">
+        <div class="modal fade" id="instruction-3b-m" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <%= image_tag "instructions/instruction_3b_mini.png", class: "img-fluid", alt: "お買い物機能の説明3-B_モバイル版" %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="mb-md-0 p-sm-4 py-4 px-3 mx-lg-5 mx-2 rounded-5 text-center other-features">
-    <h2 class="mb-4">こんな機能もあるよ！</h2>
-    <div class="ps-sm-3 ps-1 mx-auto text-start">
-      <ul class="h4 list-unstyled ul-other-features">
-        <li><span>品物を自分で</span><span>登録できる</span></li>
-        <li><span>買い物の結果を</span><span>メールで家族に通知</span></li>
-        <li><span>お買い物モードを</span><span>「ひらがな」で表示</span></li>
-      </ul>
+  <div class="row justify-content-center mx-lg-2 mx-1">
+    <div class="col-lg-6 col-12 py-4 px-4 mx-lg-2 mx-1 text-center rounded-5 other-features">
+      <h2 class="mb-4">こんな機能もあるよ！</h2>
+      <div class="ps-sm-3 ps-1 mx-auto text-start">
+        <ul class="h4 list-unstyled ul-other-features">
+          <li><span>アイテムを自分で</span><span>登録できる</span></li>
+          <li><span>買い物の結果を</span><span>メールで家族に通知</span></li>
+          <li><span>アイテムを全部</span><span>「ひらがな」で表示</span></li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
