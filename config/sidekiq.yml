@@ -5,3 +5,4 @@
 :queues:
   - default
   - mailers
+:max_retries: 0
