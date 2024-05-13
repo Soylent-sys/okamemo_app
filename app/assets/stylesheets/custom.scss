@@ -585,6 +585,12 @@ body {
   font-size: larger;
 }
 
+.footer-other-link {
+  text-decoration: none;
+  color: rgb(255,237,121);
+  width: fit-content;
+}
+
 /* TOP page */
 
 .top-logo {
@@ -970,4 +976,15 @@ body {
 
 .help-ok-text-color {
   color: rgb(59, 188, 59);
+}
+
+/* static_pages */
+
+.static-pages-caret {
+  color: #ff952b;
+}
+
+.static-pages-list li {
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
 }

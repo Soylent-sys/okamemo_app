@@ -1,11 +1,19 @@
 <div class="container-fluid layouts-footer">
-  <footer class="row py-4">
-    <div class="col-sm-4 col-12 pe-sm-5 mb-sm-0 mb-3 order-sm-2 text-sm-end text-center">
+  <footer class="row pt-4 pb-sm-4 pb-5">
+    <div class="col-sm-4 d-sm-flex flex-sm-column ps-sm-5 mb-sm-0 mb-3 order-sm-1 order-2 text-sm-start text-center">
+      <%= link_to terms_path, class: "me-sm-0 me-3 footer-other-link" do %>
+        <i class="fas fa-circle-chevron-right"></i>&ensp;利用規約
+      <% end %>
+      <%= link_to policy_path, class: "footer-other-link" do %>
+        <i class="fas fa-circle-chevron-right"></i>&ensp;プライバシーポリシー
+      <% end %>
+    </div>
+    <div class="col-sm-4 d-sm-flex align-items-sm-center justify-content-sm-end pe-sm-5 mb-sm-0 mb-3 order-sm-3 order-1 text-sm-end text-center">
       <%= link_to "#", class: "h5 footer-top-link" do %>
         <i class="fas fa-circle-up link-icon"></i><span class="ms-1">ページTOPへ</span>
       <% end %>
     </div>
-    <div class="offset-sm-4 col-sm-4 order-sm-1">
+    <div class="col-sm-4 d-sm-flex align-items-sm-center justify-content-center order-sm-2 order-3">
       <p class="text-center text-body-secondary">&copy; 2023 okamemo.com</p>
     </div>
   </footer>
