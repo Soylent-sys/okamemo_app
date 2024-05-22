@@ -14,7 +14,6 @@ class NotificationTargetUser < ApplicationRecord
   before_save :downcase_email
   before_create :set_email_confirmation
 
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   EMAIL_CONFIRMATION_LIMIT = 10
   NOTIFICATION_TARGET_USER_MUXIMUM_COUNT = 3
 
