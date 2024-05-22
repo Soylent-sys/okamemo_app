@@ -36,5 +36,8 @@ module OkamemoApp
 
     # メール送信処理のジョブを永続化するためジョブキューアダプターをsidekiqに設定
     config.active_job.queue_adapter = :sidekiq
+
+    # DBを使用しないモデルを格納するディレクトリを自動読み込み対象に追加
+    config.autoload_paths << "#{config.root}/app/models/non_db_models"
   end
 end
