@@ -18,6 +18,11 @@ ja:
         title: タイトル
         hashids: アイテム
         shopping_record: お買い物
+      contact:
+        name: お名前
+        email: Eメールアドレス
+        subject: 件名
+        message: お問い合わせ内容
   home:
     login_home:
       confirm_to_logout: ログアウトしますか？

@@ -1,0 +1,41 @@
+<% provide(:page_title, "お問い合わせ") %>
+<%= render 'shared/page_title' %>
+<div class="col-xl-6 col-md-8 col-11 p-md-5 p-4 mb-5 mx-auto rounded-2 form-bg confirm-window-text">
+  <h2 class="mb-md-4 mb-3">お問い合わせ内容の確認</h2>
+  <div class="p-3 mb-4 rounded-2 confirm-window">
+    <h4><i class="fas fa-user"></i>&ensp;お名前</h4>
+    <span class="h5 d-block ps-3"><%= @contact.name %></span>
+  </div>
+  <div class="p-3 mb-4 rounded-2 confirm-window">
+    <h4 class="py-2 mb-0"><i class="far fa-envelope"></i>&ensp;Eメールアドレス</h4>
+    <span class="h5 d-block ps-3"><%= @contact.email %></span>
+  </div>
+  <div class="p-3 mb-4 rounded-2 confirm-window">
+    <h4 class="py-2 mb-0"><i class="fas fa-book"></i>&ensp;件名</h4>
+    <span class="h5 d-block ps-3"><%= @contact.subject %></span>
+  </div>
+  <div class="p-3 mb-4 rounded-2 confirm-window">
+    <h4 class="py-2 mb-0"><i class="fas fa-book-open"></i>&ensp;お問い合わせ内容</h4>
+    <p><%= @contact.message %></p>
+  </div>
+</div>
+<div class="d-flex justify-content-center text-center mb-4">
+  <div class="me-5">
+    <%= form_with model: @contact, url: contact_done_path, local: true do |f| %>
+      <%= f.hidden_field :name, value: @contact.name %>
+      <%= f.hidden_field :email, value: @contact.email %>
+      <%= f.hidden_field :subject, value: @contact.subject %>
+      <%= f.hidden_field :message, value: @contact.message %>
+      <%= f.submit "送信", class: "btn btn-lg btn-custom-send" %>
+    <% end %>
+  </div>
+  <div>
+    <%= form_with model: @contact, url: contact_back_path, local: true do |f| %>
+      <%= f.hidden_field :name, value: @contact.name %>
+      <%= f.hidden_field :email, value: @contact.email %>
+      <%= f.hidden_field :subject, value: @contact.subject %>
+      <%= f.hidden_field :message, value: @contact.message %>
+      <%= f.submit "もどる", class: "btn btn-lg btn-secondary" %>
+    <% end %>
+  </div>
+</div>

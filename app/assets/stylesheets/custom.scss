@@ -988,3 +988,20 @@ body {
   padding-top: 0.4em;
   padding-bottom: 0.4em;
 }
+
+/* contacts */
+
+.done_margin_bottom {
+  margin-bottom: 9rem;
+  @media screen and (max-width: 576px) {
+    margin-bottom: 3rem;
+  }
+}
+
+.contact-done-window-bg {
+  background-color: #d7f2ff;
+}
+
+.contact-done-text-bg {
+  background-color: #fff;
+}
