@@ -2,7 +2,7 @@
 <%= render "users/shared/error_messages", resource: resource %>
 <%= render 'shared/page_title' %>
 <div class="container pb-5">
-  <%= form_with model: @user, url: user_password_path, method: "put", id: 'new user', class: "new_user col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
+  <%= form_with model: @user, url: user_password_path, method: "put", id: 'new user', class: "new_user col-xl-6 col-lg-8 col-md-10 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
     <h2 class="mb-4">パスワードの再設定</h2>
     <%= f.hidden_field :reset_password_token %>
 
@@ -28,7 +28,7 @@
     </div>
   <% end %>
 
-  <div class="col-xl-6 col-md-8 p-md-5 p-4 mx-auto rounded-3 form-other-bg">
+  <div class="col-xl-6 col-lg-8 col-md-10 p-md-5 p-4 mx-auto rounded-3 form-other-bg">
     <h4 class="mb-4">ログイン・ユーザー登録する方<br>他に問題のある方はコチラ</h4>
     <%= render "users/shared/links" %>
   </div>

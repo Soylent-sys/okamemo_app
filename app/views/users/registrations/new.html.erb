@@ -2,7 +2,7 @@
 <%= render "users/shared/error_messages", resource: resource %>
 <%= render 'shared/page_title' %>
 <div class="container my-4">
-  <%= form_with model: @user, url: user_registration_path, id: 'new user', class: "new_user col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
+  <%= form_with model: @user, url: user_registration_path, id: 'new user', class: "new_user col-xl-6 col-lg-8 col-md-10 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
     <h2 class="mb-4">登録情報の入力</h2>
     <div class="field form-floating mb-3">
       <%= f.text_field :name, autofocus: true, autocomplete: "off", placeholder: "おかメちゃん", class: "form-control #{"is-invalid" if f.object.errors[:name].present?}" %>
@@ -49,7 +49,7 @@
       <%= f.submit "ユーザー登録", class: "w-100 btn btn-lg btn-primary" %>
     </div>
   <% end %>
-  <div class="col-xl-6 col-md-8 p-md-5 p-4 mx-auto rounded-3 form-other-bg">
+  <div class="col-xl-6 col-lg-8 col-md-10 p-md-5 p-4 mx-auto rounded-3 form-other-bg">
     <h4 class="mb-4">すでに登録済みの方はコチラ</h4>
     <%= render "users/shared/links" %>
   </div>
