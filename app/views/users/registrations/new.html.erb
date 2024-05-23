@@ -30,11 +30,19 @@
       <% end %>
     </div>
 
-    <div class="field form-floating mb-5">
+    <div class="field form-floating mb-4">
       <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "password", class: "form-control #{"is-invalid" if f.object.errors[:password_confirmation].present?}" %>
       <%= f.label :password_confirmation do %>
         <i class="fas fa-lock"></i>&ensp;パスワード（確認用）
       <% end %>
+    </div>
+
+    <div class="mb-5">
+      <h5 class="mb-2">reCAPTCHA認証</h5>
+      <div class="d-flex justify-content-sm-start justify-content-center">
+        <%# Turboを使用したまま本ページのrender後に recaptcha の判定が送信できるように noscript: false オプションを追加している %>
+        <%= recaptcha_tags(noscript: false) %>
+      </div>
     </div>
 
     <div>
