@@ -28,12 +28,20 @@
       <small class="form-text text-muted"><i class="fas fa-circle-info"></i> 件名は最大<%= Contact::MAX_LENGTH_SUBJECT %>文字まで入力できます</small>
     </div>
 
-    <div class="field form-floating mb-5">
+    <div class="field form-floating mb-4">
       <%= f.text_area :message, autocomplete: "message", placeholder: "message", class: "form-control #{"is-invalid" if f.object.errors[:message].present?}", style: "height: 200px" %>
       <%= f.label :message do %>
         <i class="fas fa-book-open"></i>&ensp;お問い合わせ内容
       <% end %>
       <small class="form-text text-muted"><i class="fas fa-circle-info"></i> お問い合わせ内容は最大<%= Contact::MAX_LENGTH_MESSAGE %>文字まで入力できます</small>
+    </div>
+
+    <div class="mb-5">
+      <h5 class="mb-2">reCAPTCHA認証</h5>
+      <div class="d-flex justify-content-sm-start justify-content-center">
+        <%# Turboを使用したまま本ページのrender後に recaptcha の判定が送信できるように noscript: false オプションを追加している %>
+        <%= recaptcha_tags(noscript: false) %>
+      </div>
     </div>
 
     <div>

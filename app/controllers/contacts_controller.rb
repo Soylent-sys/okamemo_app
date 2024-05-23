@@ -5,9 +5,10 @@ class ContactsController < ApplicationController
 
   def confirm
     @contact = Contact.new(contact_params)
-    if @contact.valid?
+    if @contact.valid? && verify_recaptcha
       render 'confirm', status: :see_other
     else
+      set_error_message(@contact)
       render 'new', status: :unprocessable_entity
     end
   end
@@ -27,5 +28,10 @@ class ContactsController < ApplicationController
 
   def contact_params
     params.require(:contact).permit(:name, :email, :subject, :message)
+  end
+
+  def set_error_message(contact)
+    contact.valid?
+    verify_recaptcha(model: contact)
   end
 end
