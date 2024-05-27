@@ -3,6 +3,8 @@ Webサイトのお問い合わせフォームにて <%= @contact.name %> 様 か
 【お名前】： <%= @contact.name %>
 【メールアドレス】： <%= @contact.email %>
 【件名】： <%= @contact.subject %>
+【ユーザー登録の有無】： <%= @user.present? ? "登録済み" : "未登録" %>
+【ユーザーID】: <%= @user.present? ? @user.id : "未登録" %>
 
 【お問い合わせの内容】
 <%= @contact.message %>
