@@ -1,14 +1,18 @@
 class ContactsController < ApplicationController
   def new
-    @contact = Contact.new
+    if user_signed_in?
+      @contact = Contact.new(name: current_user.name, email: current_user.email)
+    else
+      @contact = Contact.new
+    end
   end
 
   def confirm
     @contact = Contact.new(contact_params)
-    if @contact.valid? && verify_recaptcha
+    if recaptcha_presence_check_and_valid(@contact)
       render 'confirm', status: :see_other
     else
-      set_error_message(@contact)
+      set_error_message(@contact) unless user_signed_in?
       render 'new', status: :unprocessable_entity
     end
   end
@@ -28,6 +32,14 @@ class ContactsController < ApplicationController
 
   def contact_params
     params.require(:contact).permit(:name, :email, :subject, :message)
+  end
+
+  def recaptcha_presence_check_and_valid(contact)
+    if user_signed_in?
+      contact.valid?
+    else
+      contact.valid? && verify_recaptcha
+    end
   end
 
   def set_error_message(contact)
