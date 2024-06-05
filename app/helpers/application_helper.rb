@@ -40,4 +40,17 @@ module ApplicationHelper
       "ログイン中！"
     end
   end
+
+  def management_menu_active_class(path)
+    request_path = request.path
+    if request_path.include?(path)
+      "py-2 mx-3 rounded-2 bg-secondary-subtle"
+    end
+  end
+
+  def management_flash_margin_off
+    if request.path.include?("management")
+      "mb-0"
+    end
+  end
 end
