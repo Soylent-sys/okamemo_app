@@ -47,3 +47,10 @@ ja:
   notification_target_users:
     index:
       confirm_to_delete: 本当に削除しますか？
+  management:
+    users:
+      index:
+        confirm_to_delete: 本当に削除しますか？
+      new:
+        user_admin_true: 管理者
+        user_admin_false: 一般
