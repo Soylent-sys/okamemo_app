@@ -31,6 +31,17 @@ class Management::UsersController < ApplicationController
   end
 
   def destroy
+    user = User.find(params[:id])
+    was_current_user = (current_user == user)
+    user.destroy!
+    if was_current_user
+      # 管理ユーザーが自己アカウントを削除した場合は非ログイン時のrootにリダイレクトする
+      flash[:notice] = "ログイン中の管理ユーザーが削除されました。再度登録が必要な場合は管理者に依頼してください。"
+      redirect_to root_url
+    else
+      flash[:notice] = "ユーザーが削除されました。"
+      redirect_to management_users_url
+    end
   end
 
   private
