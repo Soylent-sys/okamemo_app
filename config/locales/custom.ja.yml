@@ -54,3 +54,8 @@ ja:
       new:
         user_admin_true: 管理者
         user_admin_false: 一般
+      edit:
+        user_admin_true: 管理者
+        user_admin_false: 一般
+        hiragana_view_true: "ON"
+        hiragana_view_false: "OFF"

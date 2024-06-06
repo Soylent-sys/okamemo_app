@@ -25,9 +25,20 @@ class Management::UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
   end
 
   def update
+    @user = User.find(params[:id])
+    @user.skip_reconfirmation!
+    if @user.update(update_user_params)
+      # 管理ユーザーが自分の管理権限を解除した場合は通常のメインメニューにリダイレクトする
+      handle_admin_removal and return if is_current_user_and_not_admin?(@user)
+      flash[:notice] = "ユーザーの更新が完了しました。"
+      redirect_to management_users_url
+    else
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -48,5 +59,22 @@ class Management::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:admin, :name, :email, :password, :password_confirmation)
+  end
+
+  def update_user_params
+    if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
+      params.require(:user).permit(:admin, :name, :email, :hiragana_view)
+    else
+      params.require(:user).permit(:admin, :name, :email, :password, :password_confirmation, :hiragana_view)
+    end
+  end
+
+  def handle_admin_removal
+    flash[:notice] = "更新が完了し管理者権限が解除されました。メインメニューにリダイレクトします。"
+    redirect_to root_url
+  end
+
+  def is_current_user_and_not_admin?(user)
+    (user == current_user) && !user.admin?
   end
 end
