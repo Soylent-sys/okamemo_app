@@ -66,7 +66,7 @@
             </li>
             <% if current_user.admin? %>
               <li class="nav-item">
-                <%= link_to '#', class: "text-decoration-none" do %>
+                <%= link_to management_users_path, class: "text-decoration-none" do %>
                   <i class="nav-link d-lg-block d-none fas fa-gear nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="管理者機能"></i>
                   <div class="d-lg-none d-inline-flex ms-2 nav-menu-icon nav-menu-mb">
                     <i class="fas fa-gear ms-1 me-2"></i>
