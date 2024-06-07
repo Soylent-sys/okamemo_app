@@ -44,7 +44,7 @@ module ApplicationHelper
   def management_menu_active_class(path)
     request_path = request.path
     if request_path.include?(path)
-      "py-2 mx-3 rounded-2 bg-secondary-subtle"
+      "mx-3 rounded-2 bg-secondary-subtle"
     end
   end
 
