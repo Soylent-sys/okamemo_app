@@ -22,6 +22,8 @@ module ApplicationHelper
   def now_info
     path = request.path
     case
+    when path.include?("management")
+      "管理機能を利用中！"
     when path.include?("users/edit")
       "ユーザー編集中！"
     when path.include?("shopping/new")
