@@ -23,6 +23,10 @@ class Management::NotificationTargetUsersController < ApplicationController
   end
 
   def destroy
+    notification_target_user = NotificationTargetUser.find(params[:id])
+    notification_target_user.destroy!
+    flash[:notice] = "通知ユーザーが削除されました。"
+    redirect_to management_notification_target_users_url
   end
 
   private
