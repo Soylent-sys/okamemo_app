@@ -7,8 +7,8 @@
           <span class="h5">ユーザー管理</span>
         <% end %>
       </li>
-      <li>
-        <%= link_to '#', class: "text-decoration-none link-text" do %>
+      <li class="<%= management_menu_active_class(management_notification_target_users_path) %>">
+        <%= link_to management_notification_target_users_path, class: "text-decoration-none link-text" do %>
           <span class="h5">通知ユーザー管理</span>
         <% end %>
       </li>
