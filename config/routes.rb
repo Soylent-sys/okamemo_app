@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     mount Sidekiq::Web, at: "/sidekiq"
     namespace :management do
       resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
+      resources :notification_target_users, only: [:index, :new, :create, :destroy]
     end
   end
 end
