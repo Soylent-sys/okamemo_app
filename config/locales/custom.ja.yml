@@ -9,9 +9,14 @@ ja:
         name: アイテム名
         hiragana: ひらがな（アイテム名）
       notification_target_user:
+        user: 登録されているユーザーID
         name: ニックネーム
         email: Eメールアドレス
         notification_target_user: 通知メールアドレス
+        confirmation_status: 認証区分
+        confirmation_statuses:
+          unconfirmed: 未認証
+          confirmed: 認証完了
   activemodel:
     attributes:
       shopping_record_form:
@@ -59,3 +64,6 @@ ja:
         user_admin_false: 一般
         hiragana_view_true: "ON"
         hiragana_view_false: "OFF"
+    notification_target_users:
+      index:
+        confirm_to_delete: 本当に削除しますか？

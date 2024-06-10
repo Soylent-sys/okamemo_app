@@ -1,0 +1,54 @@
+<div class="container-fluid g-0 bg-white">
+  <div class="d-flex">
+    <%= render 'management/shared/sidebar' %>
+    <div class="management-main p-4 bg-body-secondary">
+      <div class="d-flex justify-content-between mb-3">
+        <h2 class="d-inline-block px-4 py-2 mb-0 rounded-2 bg-white">通知ユーザー管理</h2>
+        <div class="d-flex align-items-end">
+          <%= link_to new_management_notification_target_user_path, class: "btn btn-primary" do %>
+            <i class="fas fa-user-plus m-0"></i>&ensp;登録
+          <% end %>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table class="management-table rounded-2 bg-white">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>User_ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Confirmation_status</th>
+              <th>Created_at</th>
+              <th>Updated_at</th>
+              <th>削除</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @notification_target_users.each do |nt_user| %>
+              <tr>
+                <td><%= nt_user.id %></td>
+                <td><%= nt_user.user_id %></td>
+                <td><%= nt_user.name %></td>
+                <td><%= nt_user.email %></td>
+                <td><%= nt_user.confirmation_status == "confirmed" ? "認証完了" : "未認証" %></td>
+                <td><%= nt_user.created_at.to_fs(:date_time) %></td>
+                <td><%= nt_user.updated_at.to_fs(:date_time) %></td>
+                <td class="text-center">
+                  <%= button_to management_notification_target_user_path(nt_user.id), method: :delete, form: { data: { turbo_confirm: t('.confirm_to_delete'), turbo_confirm_title: "通知ユーザー（ID: #{nt_user.id}）の削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: 'btn btn-danger' } } do %>
+                    <i class="h5 fas fa-trash-can m-0 delete-icon"></i>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <% if @pagy.pages > Management::NotificationTargetUsersController::SINGLE_PAGE %>
+        <div class="mt-3 d-flex justify-content-center">
+          <%== pagy_nav(@pagy, link_extra: 'class="border bg-white px-2 py-1 rounded link-secondary"') %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
