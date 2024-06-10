@@ -59,8 +59,10 @@ class NotificationTargetUser < ApplicationRecord
   end
 
   def set_email_confirmation
-    self.confirmation_token = NotificationTargetUser.confirmation_new_token
-    self.expiration_date = Time.zone.now + EMAIL_CONFIRMATION_LIMIT.minutes
+    if unconfirmed?
+      self.confirmation_token = NotificationTargetUser.confirmation_new_token
+      self.expiration_date = Time.zone.now + EMAIL_CONFIRMATION_LIMIT.minutes
+    end
   end
 
   def check_count
