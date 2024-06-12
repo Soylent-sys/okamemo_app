@@ -6,6 +6,9 @@ class User < ApplicationRecord
 
   include UserSharedConstants
 
+  before_update :prevent_master_admin_change
+  before_destroy :prevent_master_admin_delete
+
   has_many :items, dependent: :delete_all
   has_many :buys, dependent: :delete_all
   has_many :shopping_records, dependent: :destroy
@@ -21,6 +24,39 @@ class User < ApplicationRecord
   class << self
     def master_admin_user
       User.find_by!(email: "#{ENV['ADMIN_USER_EMAIL']}")
+    end
+  end
+
+  def master_admin_user?
+    self == User.master_admin_user
+  end
+
+  private
+
+  # マスター管理ユーザーアカウントの権限とメールアドレスの変更制御
+  def prevent_master_admin_change
+    return unless master_admin_user?
+
+    changes_detected = false
+
+    if will_save_change_to_admin?
+      errors.add(:admin, "は変更できません。マスター管理ユーザーの権限変更は制限されています。")
+      changes_detected = true
+    end
+
+    if will_save_change_to_email?
+      errors.add(:email, "は変更できません。マスター管理ユーザーのメールアドレス変更は制限されています。")
+      changes_detected = true
+    end
+
+    throw(:abort) if changes_detected
+  end
+
+  # マスター管理ユーザーアカウントの削除制御
+  def prevent_master_admin_delete
+    if master_admin_user?
+      errors.add(:base, "マスター管理ユーザーのアカウント削除は制限されています。")
+      throw(:abort)
     end
   end
 end

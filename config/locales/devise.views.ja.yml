@@ -15,6 +15,7 @@ ja:
         last_sign_in_at: 最終ログイン時刻
         last_sign_in_ip: 最終ログインIPアドレス
         locked_at: ロック時刻
+        admin: ユーザー区分
         name: ニックネーム
         password: パスワード
         password_confirmation: パスワード（確認用）

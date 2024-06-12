@@ -24,7 +24,7 @@
     <% end %>
 
     <div class="field form-floating mb-3">
-      <%= f.email_field :email, autocomplete: "email", placeholder: "email@example.com", class: "form-control #{"is-invalid" if f.object.errors[:email].present?}" %>
+      <%= f.email_field :email, autocomplete: "email", placeholder: "email@example.com", readonly: current_user == @master_admin_user, class: "form-control #{"is-invalid" if f.object.errors[:email].present?}" %>
       <%= f.label :email do %>
         <i class="far fa-envelope"></i>&ensp;Eメールアドレス
       <% end %>
@@ -83,7 +83,7 @@
   <div class="col-xl-6 col-lg-8 col-md-10 p-md-5 p-4 mx-auto rounded-3 form-other-bg">
     <h2 class="mb-4">ユーザーアカウントの削除</h2>
     <div>
-      <%= button_to t('.cancel_my_account'), registration_path(resource_name), method: :delete, form: { data: { turbo_confirm: t('.are_you_sure'), turbo_confirm_title: "アカウントの削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: 'btn btn-danger' } }, class: "w-100 btn btn-lg btn-danger" %>
+      <%= button_to t('.cancel_my_account'), registration_path(resource_name), method: :delete, form: { data: { turbo_confirm: t('.are_you_sure'), turbo_confirm_title: "アカウントの削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: 'btn btn-danger' } }, disabled: current_user == @master_admin_user, class: "w-100 btn btn-lg btn-danger" %>
     </div>
   </div>
 </div>

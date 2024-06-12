@@ -18,17 +18,40 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /users/edit
   def edit
+    @master_admin_user = User.master_admin_user
     super
   end
 
   # PUT /users
   def update
-    super
+    # update失敗時editのrender前に@master_admin_userを読み込むためsuperをオーバーライド
+    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
+
+    resource_updated = update_resource(resource, account_update_params)
+    yield resource if block_given?
+    if resource_updated
+      set_flash_message_for_update(resource, prev_unconfirmed_email)
+      bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
+
+      respond_with resource, location: after_update_path_for(resource)
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      @master_admin_user = User.master_admin_user
+      respond_with resource
+    end
   end
 
   # DELETE /users
   def destroy
-    super
+    # マスター管理ユーザーアカウントの削除を制御する
+    if (current_user == resource) && resource.master_admin_user?
+      flash[:error] = "マスター管理ユーザーアカウントの削除は制限されています。"
+      redirect_to edit_user_registration_path
+    else
+      super
+    end
   end
 
   # GET /users/cancel

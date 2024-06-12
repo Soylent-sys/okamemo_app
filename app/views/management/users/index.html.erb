@@ -38,10 +38,8 @@
                 <td><%= user.created_at.to_fs(:date_time) %></td>
                 <td><%= user.updated_at.to_fs(:date_time) %></td>
                 <td class="text-center">
-                  <% if user != @master_admin_user %>
-                    <%= link_to edit_management_user_path(user.id) do %>
-                      <i class="h5 fas fa-pencil m-0 edit-icon"></i>
-                    <% end %>
+                  <%= link_to edit_management_user_path(user.id) do %>
+                    <i class="h5 fas fa-pencil m-0 edit-icon"></i>
                   <% end %>
                 </td>
                 <td class="text-center">

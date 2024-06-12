@@ -25,7 +25,13 @@ class Management::UsersController < ApplicationController
   end
 
   def edit
+    @master_admin_user = User.master_admin_user
     @user = User.find(params[:id])
+    # マスター管理ユーザー以外の同ユーザー編集画面へのアクセス制御
+    if (@user == @master_admin_user) && (current_user != @master_admin_user)
+      flash[:error] = "対象のユーザーはマスター管理ユーザーのみ編集可能です。"
+      redirect_to management_users_url
+    end
   end
 
   def update
@@ -37,12 +43,20 @@ class Management::UsersController < ApplicationController
       flash[:notice] = "ユーザーの更新が完了しました。"
       redirect_to management_users_url
     else
+      @master_admin_user = User.master_admin_user
       render 'edit', status: :unprocessable_entity
     end
   end
 
   def destroy
     user = User.find(params[:id])
+    # マスター管理ユーザーアカウントの削除を制御する
+    if user.master_admin_user?
+      flash[:error] = "マスター管理ユーザーアカウントの削除は制限されています。"
+      redirect_to management_users_url
+      return
+    end
+
     was_current_user = (current_user == user)
     user.destroy!
     if was_current_user
