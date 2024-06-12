@@ -21,9 +21,9 @@ function setFormCheckCount() {
       }
 
       if (count <= MAX_COUNT) {
-        checkCountContainer.classList.replace("check_count_over_bg_color", "check_count_bg_color");
+        checkCountContainer.classList.replace("check-count-over-bg-color", "check-count-bg-color");
       } else {
-        checkCountContainer.classList.replace("check_count_bg_color", "check_count_over_bg_color");
+        checkCountContainer.classList.replace("check-count-bg-color", "check-count-over-bg-color");
       }
 
       checkCount.textContent = count;
