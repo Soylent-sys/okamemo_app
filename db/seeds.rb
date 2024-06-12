@@ -2,7 +2,7 @@
 master_admin_user = User.find_by(email: "#{ENV['ADMIN_USER_EMAIL']}")
 if master_admin_user.nil?
   User.create!(
-    name: "管理ユーザー",
+    name: "マスター管理ユーザー",
     admin: true,
     email: "#{ENV['ADMIN_USER_EMAIL']}",
     password: "#{ENV['ADMIN_USER_PASSWORD']}",
