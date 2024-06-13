@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
       resources :notification_target_users, only: [:index, :new, :create, :destroy]
       resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
+      resources :shopping_records, only: [:index, :show, :destroy]
     end
   end
 end
