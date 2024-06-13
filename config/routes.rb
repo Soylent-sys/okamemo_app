@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     namespace :management do
       resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
       resources :notification_target_users, only: [:index, :new, :create, :destroy]
+      resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
     end
   end
 end
