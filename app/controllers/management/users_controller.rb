@@ -2,7 +2,6 @@ class Management::UsersController < ApplicationController
   include Pagy::Backend
 
   USERS_PAGENATION_SIZE = 50
-  SINGLE_PAGE = 1
 
   def index
     @master_admin_user = User.master_admin_user

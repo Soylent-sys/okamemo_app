@@ -20,13 +20,13 @@
         <% end %>
       </div>
     <% end %>
-    <% if @pagy.pages > ShoppingRecordsController::SINGLE_PAGE %>
+    <% if @pagy.pages > ConstantsHelper::SINGLE_PAGE %>
       <div class="d-flex justify-content-center">
         <%== pagy_bootstrap_nav(@pagy) %>
       </div>
     <% end %>
   </div>
-  <% if @pagy.count == ShoppingRecordsController::ONE_RECORD %>
+  <% if @pagy.count == ConstantsHelper::ONE_RECORD %>
     <div class="one-record-margin"></div>
   <% end %>
 <% else %>

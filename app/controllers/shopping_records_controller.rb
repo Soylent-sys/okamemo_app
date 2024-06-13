@@ -4,8 +4,6 @@ class ShoppingRecordsController < ApplicationController
   before_action :authenticate_user!
 
   RESULT_PAGENATION_SIZE = 10
-  SINGLE_PAGE = 1
-  ONE_RECORD = 1
 
   def index
     @shopping_records = current_user.shopping_records.opened

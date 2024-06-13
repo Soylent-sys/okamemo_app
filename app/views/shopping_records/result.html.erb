@@ -11,7 +11,7 @@
   <div class="col-sm-11 text-md-start text-center mx-auto mb-4">
     <h2 class="mb-4"><%= date_change_format_ja(params[:date]) %>の履歴一覧</h2>
   </div>
-  <% if @pagy.count > ShoppingRecordsController::ONE_RECORD %>
+  <% if @pagy.count > ConstantsHelper::ONE_RECORD %>
     <div class="h5 d-inline-block text-muted text-center latest-oldest-icon">
       <div class="latest-color px-sm-2 px-1 py-3 rounded-top-5">
         <div><i class="fas fa-arrow-up"></i></div>
@@ -45,12 +45,12 @@
       </div>
     </div>
   <% end %>
-  <% if @pagy.pages > ShoppingRecordsController::SINGLE_PAGE %>
+  <% if @pagy.pages > ConstantsHelper::SINGLE_PAGE %>
     <div class="d-flex justify-content-center">
       <%== pagy_bootstrap_nav(@pagy) %>
     </div>
   <% end %>
 </div>
-<% if @pagy.count == ShoppingRecordsController::ONE_RECORD %>
+<% if @pagy.count == ConstantsHelper::ONE_RECORD %>
   <div class="one-record-margin"></div>
 <% end %>

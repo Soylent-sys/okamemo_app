@@ -44,7 +44,7 @@
           </tbody>
         </table>
       </div>
-      <% if @pagy.pages > Management::NotificationTargetUsersController::SINGLE_PAGE %>
+      <% if @pagy.pages > ConstantsHelper::SINGLE_PAGE %>
         <div class="mt-3 d-flex justify-content-center">
           <%== pagy_nav(@pagy, link_extra: 'class="border bg-white px-2 py-1 rounded link-secondary"') %>
         </div>

@@ -2,7 +2,6 @@ class Management::NotificationTargetUsersController < ApplicationController
   include Pagy::Backend
 
   NT_USERS_PAGENATION_SIZE = 50
-  SINGLE_PAGE = 1
 
   def index
     @pagy, @notification_target_users = pagy(NotificationTargetUser.all, items: NT_USERS_PAGENATION_SIZE, size: [1, 2, 2, 1])
