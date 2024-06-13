@@ -30,6 +30,10 @@ class Management::ItemsController < ApplicationController
   end
 
   def destroy
+    item = Item.find(params[:id])
+    item.destroy!
+    flash[:notice] = "アイテムの削除が完了しました。"
+    redirect_to management_items_url
   end
 
   private
