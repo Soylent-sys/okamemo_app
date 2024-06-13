@@ -1,0 +1,40 @@
+class Management::ItemsController < ApplicationController
+  include Pagy::Backend
+
+  ITEMS_PAGENATION_SIZE = 50
+
+  def index
+    @pagy, @items = pagy(Item.includes(:category), items: ITEMS_PAGENATION_SIZE, size: [1, 2, 2, 1])
+  end
+
+  def new
+    @categories = Category.all
+    @item = Item.new
+  end
+
+  def create
+    @item = Item.new(item_params)
+    if @item.save
+      flash[:notice] = "アイテムの登録が完了しました。"
+      redirect_to management_items_url
+    else
+      @categories = Category.all
+      render 'new', status: :unprocessable_entity
+    end
+  end
+
+  def edit
+  end
+
+  def update
+  end
+
+  def destroy
+  end
+
+  private
+
+  def item_params
+    params.require(:item).permit(:user_id, :category_id, :name, :hiragana)
+  end
+end
