@@ -24,9 +24,19 @@ class Management::ItemsController < ApplicationController
   end
 
   def edit
+    @categories = Category.all
+    @item = Item.find(params[:id])
   end
 
   def update
+    @item = Item.find(params[:id])
+    if @item.update(update_item_params)
+      flash[:notice] = "アイテムの更新が完了しました。"
+      redirect_to management_items_url
+    else
+      @categories = Category.all
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -40,5 +50,9 @@ class Management::ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:user_id, :category_id, :name, :hiragana)
+  end
+
+  def update_item_params
+    params.require(:item).permit(:category_id, :name, :hiragana)
   end
 end

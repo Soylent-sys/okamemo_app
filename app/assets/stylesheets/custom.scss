@@ -1090,3 +1090,10 @@ body {
 .management-table td {
   border-top: 2px solid #ddd;
 }
+
+/* management items edit */
+
+.management-item-id-table th, .management-item-id-table td {
+  white-space: nowrap;
+  padding: 0.5em;
+}
