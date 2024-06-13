@@ -71,3 +71,6 @@ ja:
     items:
       index:
         confirm_to_delete: 本当に削除しますか？
+    shopping_records:
+      index:
+        confirm_to_delete: 本当に削除しますか？
