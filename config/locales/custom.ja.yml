@@ -5,6 +5,7 @@ ja:
         name: カテゴリー名
         hiragana: ひらがな（カテゴリー名）
       item:
+        user: 登録されているユーザーID
         category: カテゴリー
         name: アイテム名
         hiragana: ひらがな（アイテム名）
@@ -65,5 +66,8 @@ ja:
         hiragana_view_true: "ON"
         hiragana_view_false: "OFF"
     notification_target_users:
+      index:
+        confirm_to_delete: 本当に削除しますか？
+    items:
       index:
         confirm_to_delete: 本当に削除しますか？
