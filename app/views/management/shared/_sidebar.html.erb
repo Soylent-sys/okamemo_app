@@ -12,8 +12,8 @@
           <span class="h5">通知ユーザー管理</span>
         <% end %>
       </li>
-      <li>
-        <%= link_to '#', class: "text-decoration-none link-text" do %>
+      <li class="<%= management_menu_active_class(management_items_path) %>">
+        <%= link_to management_items_path, class: "text-decoration-none link-text" do %>
           <span class="h5">アイテム管理</span>
         <% end %>
       </li>
