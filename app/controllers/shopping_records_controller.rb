@@ -15,11 +15,11 @@ class ShoppingRecordsController < ApplicationController
   end
 
   def confirm
-    @categories = Category.all
     @shopping_record_form = ShoppingRecordForm.new(shopping_record_params)
     if @shopping_record_form.valid?
       render 'confirm', status: :see_other
     else
+      @categories = Category.all
       render 'new', status: :unprocessable_entity
     end
   end
