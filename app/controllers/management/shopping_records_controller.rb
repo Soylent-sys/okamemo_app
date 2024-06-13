@@ -8,6 +8,13 @@ class Management::ShoppingRecordsController < ApplicationController
   end
 
   def show
+    @shopping_record = ShoppingRecord.find(params[:id])
+
+    @shopping_location = @shopping_record.shopping_location
+    if @shopping_location
+      gon.lat = @shopping_location.latitude
+      gon.lng = @shopping_location.longitude
+    end
   end
 
   def destroy
