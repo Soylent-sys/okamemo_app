@@ -42,7 +42,7 @@
     <% end %>
   </div>
   <div class="p-3 mb-4 rounded-2 confirm-window">
-    <% if @shopping_record.shopping_location.present? %>
+    <% if @shopping_location.present? %>
       <h4 class="py-2 mb-0"><i class="fas fa-map-location-dot"></i>&ensp;お買い物した場所</h4>
       <div class="d-flex justify-content-end align-items-center">
         <%= link_to edit_shopping_location_path(@shopping_record.hashid) do %>
@@ -60,7 +60,7 @@
         <% end %>
       </div>
     <% end %>
-    <% if @shopping_record.shopping_location.present? %>
+    <% if @shopping_location.present? %>
       <div id="map"></div>
     <% else %>
       <h4>&ensp;登録なし</h4>
@@ -68,7 +68,7 @@
   </div>
 </div>
 <%# お買い物場所が登録されている場合のみGoogleMap関連のjsを読み込む %>
-<% if @shopping_record.shopping_location.present? %>
+<% if @shopping_location.present? %>
   <%# 強制ページ全体リロードのmetaタグ追加 %>
   <% provide(:map_js, "true") %>
   <%# Maps JavaScript API 読込 %>

@@ -107,10 +107,10 @@ class ShoppingRecordsController < ApplicationController
       return
     end
 
-    shopping_location = @shopping_record.shopping_location
-    if shopping_location
-      gon.lat = shopping_location.latitude
-      gon.lng = shopping_location.longitude
+    @shopping_location = @shopping_record.shopping_location
+    if @shopping_location
+      gon.lat = @shopping_location.latitude
+      gon.lng = @shopping_location.longitude
     end
   end
 
