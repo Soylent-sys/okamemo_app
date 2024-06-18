@@ -59,6 +59,7 @@ gem 'pagy', '~> 6.2'
 gem 'gon', '~> 6.4'
 gem 'sidekiq', '~> 7.2.2'
 gem 'recaptcha', '~> 5.16', require: "recaptcha/rails"
+gem 'ransack', '~> 4.1'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
