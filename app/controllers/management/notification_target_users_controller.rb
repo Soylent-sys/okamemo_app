@@ -4,7 +4,8 @@ class Management::NotificationTargetUsersController < ApplicationController
   NT_USERS_PAGENATION_SIZE = 50
 
   def index
-    @pagy, @notification_target_users = pagy(NotificationTargetUser.all, items: NT_USERS_PAGENATION_SIZE, size: [1, 2, 2, 1])
+    @q = NotificationTargetUser.ransack(params[:q])
+    @pagy, @notification_target_users = pagy(@q.result, items: NT_USERS_PAGENATION_SIZE, size: [1, 2, 2, 1])
   end
 
   def new

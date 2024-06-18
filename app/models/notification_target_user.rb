@@ -29,6 +29,15 @@ class NotificationTargetUser < ApplicationRecord
         break token unless NotificationTargetUser.exists?(confirmation_token: token)
       end
     end
+
+    # ransackでの検索・ソートが可能なカラム、アソシエーションのホワイトリスト
+    def ransackable_attributes(auth_object = nil)
+      ["id", "user_id", "name", "email", "created_at", "updated_at"]
+    end
+
+    def ransackable_associations(auth_object = nil)
+      []
+    end
   end
 
   def expired?
