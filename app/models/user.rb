@@ -25,6 +25,15 @@ class User < ApplicationRecord
     def master_admin_user
       User.find_by!(email: "#{ENV['ADMIN_USER_EMAIL']}")
     end
+
+    # ransackでの検索・ソートが可能なカラム、アソシエーションのホワイトリスト
+    def ransackable_attributes(auth_object = nil)
+      ["id", "admin", "email", "name", "hiragana_view", "confirmed_at", "created_at", "updated_at"]
+    end
+
+    def ransackable_associations(auth_object = nil)
+      []
+    end
   end
 
   def master_admin_user?

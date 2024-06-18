@@ -1073,6 +1073,12 @@ body {
   min-width: calc(100% - 250px);
 }
 
+.management-main h2,
+.management-main h5,
+.management-main .btn {
+  white-space: nowrap;
+}
+
 .table-scroll {
   overflow-x: auto;
 }
@@ -1089,6 +1095,15 @@ body {
 
 .management-table td {
   border-top: 2px solid #ddd;
+}
+
+.management-header {
+  overflow: hidden;
+}
+
+.management-search-field {
+  width: 360px;
+  height: 38px;
 }
 
 /* management items edit */

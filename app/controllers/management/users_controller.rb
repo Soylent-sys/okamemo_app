@@ -5,7 +5,8 @@ class Management::UsersController < ApplicationController
 
   def index
     @master_admin_user = User.master_admin_user
-    @pagy, @users = pagy(User.all, items: USERS_PAGENATION_SIZE, size: [1, 2, 2, 1])
+    @q = User.ransack(params[:q])
+    @pagy, @users = pagy(@q.result, items: USERS_PAGENATION_SIZE, size: [1, 2, 2, 1])
   end
 
   def new
