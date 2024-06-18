@@ -18,3 +18,7 @@ AllCops:
 
 Style/AndOr:
   Enabled: false
+
+Airbnb/OptArgParameters:
+  Exclude:
+    - 'app/models/*'
