@@ -2,8 +2,18 @@
   <div class="d-flex">
     <%= render 'management/shared/sidebar' %>
     <div class="management-main p-4 bg-body-secondary">
-      <div class="d-flex justify-content-between mb-3">
-        <h2 class="d-inline-block px-4 py-2 mb-0 rounded-2 bg-white">アイテム管理</h2>
+      <div class="management-header d-flex justify-content-between mb-3">
+        <div class="d-flex align-items-end me-3">
+          <h2 class="d-inline-block px-4 py-2 me-3 mb-0 rounded-2 bg-white">アイテム管理</h2>
+          <%= search_form_for @q, url: management_items_path, method: :get, class: "d-flex align-items-end" do |f| %>
+            <%= f.search_field :user_id_eq, placeholder: "User_ID", class: "management-search-item-ids px-2 me-1" %>
+            <%= f.search_field :category_id_eq, placeholder: "Category_ID", class: "management-search-item-ids px-2 me-1" %>
+            <%= f.search_field :name_cont, placeholder: "Name 部分一致", class: "management-search-item px-2 me-2" %>
+
+            <%= f.submit class: "btn btn-dark me-4" %>
+          <% end %>
+          <h5 class="px-3 py-2 m-0 rounded-2 bg-white">件数： <%= @pagy.count %> 件</h5>
+        </div>
         <div class="d-flex align-items-end">
           <%= link_to new_management_item_path, class: "btn btn-primary" do %>
             <i class="fas fa-circle-plus m-0"></i>&ensp;登録
@@ -14,14 +24,14 @@
         <table class="management-table rounded-2 bg-white">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>User_ID</th>
-              <th>Category_ID</th>
-              <th>Category_name(parent table)</th>
-              <th>Name</th>
-              <th>Hiragana</th>
-              <th>Created_at</th>
-              <th>Updated_at</th>
+              <th><%= sort_link(@q, :id, "ID", class: "link-text") %></th>
+              <th><%= sort_link(@q, :user_id, [:user_id, 'id asc'], "User_ID", class: "link-text") %></th>
+              <th><%= sort_link(@q, :category_id, [:category_id, 'id asc'], "Category_ID", class: "link-text") %></th>
+              <th><%= sort_link(@q, :category_name, [:category_name, 'id asc'], "Category_name(parent table)", class: "link-text") %></th>
+              <th><%= sort_link(@q, :name, [:name, 'id asc'], "Name", class: "link-text") %></th>
+              <th><%= sort_link(@q, :hiragana, [:hiragana, 'id asc'], "Hiragana", class: "link-text") %></th>
+              <th><%= sort_link(@q, :created_at, "Created_at", class: "link-text") %></th>
+              <th><%= sort_link(@q, :updated_at, "Updated_at", class: "link-text") %></th>
               <th>編集</th>
               <th>削除</th>
             </tr>

@@ -19,6 +19,17 @@ class Item < ApplicationRecord
   # 管理ユーザーで登録したデフォルトアイテムと同じ内容の登録を制御するバリデーション
   validate :same_preset_item
 
+  class << self
+    # ransackでの検索・ソートが可能なカラム、アソシエーションのホワイトリスト
+    def ransackable_attributes(auth_object = nil)
+      ["id", "user_id", "category_id", "name", "hiragana", "created_at", "updated_at"]
+    end
+
+    def ransackable_associations(auth_object = nil)
+      ["category"]
+    end
+  end
+
   private
 
   def same_preset_item

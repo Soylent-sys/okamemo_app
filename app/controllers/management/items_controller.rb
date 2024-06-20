@@ -4,7 +4,8 @@ class Management::ItemsController < ApplicationController
   ITEMS_PAGENATION_SIZE = 50
 
   def index
-    @pagy, @items = pagy(Item.includes(:category), items: ITEMS_PAGENATION_SIZE, size: [1, 2, 2, 1])
+    @q = Item.ransack(params[:q])
+    @pagy, @items = pagy(@q.result.includes(:category), items: ITEMS_PAGENATION_SIZE, size: [1, 2, 2, 1])
   end
 
   def new
