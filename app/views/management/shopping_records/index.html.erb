@@ -2,17 +2,30 @@
   <div class="d-flex">
     <%= render 'management/shared/sidebar' %>
     <div class="management-main p-4 bg-body-secondary">
-      <h2 class="d-inline-block px-4 py-2 mb-3 rounded-2 bg-white">お買い物管理</h2>
+      <div class="management-header d-flex justify-content-between mb-3">
+        <div class="d-flex align-items-end">
+          <h2 class="d-inline-block px-4 py-2 me-5 mb-0 rounded-2 bg-white">お買い物管理</h2>
+          <%= search_form_for @q, url: management_shopping_records_path, method: :get, class: "d-flex align-items-end" do |f| %>
+            <%= f.search_field :user_id_eq, placeholder: "User_ID", class: "management-search-id px-2 me-1" %>
+            <%= f.search_field :title_cont, placeholder: "Title 部分一致", class: "management-search-email px-2 me-2" %>
+
+            <%= f.submit class: "btn btn-dark me-4" %>
+          <% end %>
+          <h5 class="px-3 py-2 m-0 rounded-2 bg-white">件数： <%= @pagy.count %> 件</h5>
+        </div>
+      </div>
       <div class="table-scroll">
         <table class="management-table rounded-2 bg-white">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>User_ID</th>
-              <th>Title</th>
-              <th>Closed</th>
-              <th>Created_at</th>
-              <th>Updated_at</th>
+              <th><%= sort_link(@q, :id, "ID", class: "link-text") %></th>
+              <th><%= sort_link(@q, :user_id, [:user_id, 'id asc'], "User_ID", class: "link-text") %></th>
+              <th><%= sort_link(@q, :title, [:title, 'id asc'], "Title", class: "link-text") %></th>
+              <th><%= sort_link(@q, :closed, [:closed, 'id asc'], "Closed", class: "link-text") %></th>
+              <%# shopping_locationのidの有無でソートする %>
+              <th><%= sort_link(@q, :shopping_location_id, [:shopping_location_id, 'id asc'], "Map（child table present?）", class: "link-text") %></th>
+              <th><%= sort_link(@q, :created_at, "Created_at", class: "link-text") %></th>
+              <th><%= sort_link(@q, :updated_at, "Updated_at", class: "link-text") %></th>
               <th>詳細</th>
               <th>削除</th>
             </tr>
@@ -24,6 +37,7 @@
                 <td><%= shopping_record.user_id %></td>
                 <td><%= shopping_record.title %></td>
                 <td><%= shopping_record.closed? ? "完了" : "未完了" %></td>
+                <td><%= shopping_record.shopping_location.present? ? "登録済み" : "未登録" %></td>
                 <td><%= shopping_record.created_at.to_fs(:date_time) %></td>
                 <td><%= shopping_record.updated_at.to_fs(:date_time) %></td>
                 <td class="text-center">

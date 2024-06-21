@@ -34,6 +34,15 @@ class ShoppingRecord < ApplicationRecord
       end
     end
 
+    # ransackでの検索・ソートが可能なカラム、アソシエーションのホワイトリスト
+    def ransackable_attributes(auth_object = nil)
+      ["id", "user_id", "title", "closed", "created_at", "updated_at"]
+    end
+
+    def ransackable_associations(auth_object = nil)
+      ["shopping_location"]
+    end
+
     private
 
     def grouping_closed_and_date_ym(user)

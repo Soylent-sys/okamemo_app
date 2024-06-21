@@ -6,27 +6,27 @@
       <%= render 'management/shared/back_link' %>
       <div class="col-xl-7 col-md-9 col-11 p-md-5 p-4 mb-5 mx-auto rounded-2 bg-light">
         <div class="p-3 mb-3 rounded-2 confirm-window">
-          <h5><i class="fas fa-cart-shopping"></i>&ensp;お買い物ID</h5>
+          <h5><i class="fas fa-cart-shopping"></i>&ensp;お買い物ID（ID）</h5>
           <span class="h5 d-block ps-3"><%= @shopping_record.id %></span>
         </div>
         <div class="p-3 mb-3 rounded-2 confirm-window">
-          <h5><i class="fas fa-id-card"></i>&ensp;登録ユーザーID</h5>
+          <h5><i class="fas fa-id-card"></i>&ensp;登録ユーザーID（User_id）</h5>
           <span class="h5 d-block ps-3"><%= @shopping_record.user_id %></span>
         </div>
         <div class="p-3 mb-3 rounded-2 confirm-window">
-          <h5><i class="fas fa-book"></i>&ensp;お買い物タイトル</h5>
+          <h5><i class="fas fa-book"></i>&ensp;お買い物タイトル（Title）</h5>
           <span class="h5 d-block ps-3"><%= @shopping_record.title %></span>
         </div>
         <div class="p-3 mb-3 rounded-2 confirm-window">
-          <h5><i class="fas fa-calendar-check"></i>&ensp;お買い物状態</h5>
+          <h5><i class="fas fa-calendar-check"></i>&ensp;お買い物状態（Closed）</h5>
           <span class="h5 d-block ps-3"><%= @shopping_record.closed? ? "完了" : "未完了" %></span>
         </div>
         <div class="p-3 mb-3 rounded-2 confirm-window">
-          <h5><i class="fas fa-pen-to-square"></i>&ensp;登録日時</h5>
+          <h5><i class="fas fa-pen-to-square"></i>&ensp;登録日時（Created_at）</h5>
           <span class="h5 d-block ps-3"><%= @shopping_record.created_at.to_fs(:date_time) %></span>
         </div>
         <div class="p-3 mb-3 rounded-2 confirm-window">
-          <h5><i class="fas fa-calendar-days"></i>&ensp;更新日時（完了日時）</h5>
+          <h5><i class="fas fa-calendar-days"></i>&ensp;完了日時（Updated_at）</h5>
           <span class="h5 d-block ps-3"><%= @shopping_record.updated_at.to_fs(:date_time) %></span>
         </div>
         <div class="p-3 mb-3 rounded-2 confirm-window">

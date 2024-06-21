@@ -4,7 +4,9 @@ class Management::ShoppingRecordsController < ApplicationController
   SHOPPING_RECORDS_PAGENATION_SIZE = 50
 
   def index
-    @pagy, @shopping_records = pagy(ShoppingRecord.all, items: SHOPPING_RECORDS_PAGENATION_SIZE, size: [1, 2, 2, 1])
+    @q = ShoppingRecord.ransack(params[:q])
+    @pagy, @shopping_records = pagy(@q.result.includes(:shopping_location),
+                                    items: SHOPPING_RECORDS_PAGENATION_SIZE, size: [1, 2, 2, 1])
   end
 
   def show
