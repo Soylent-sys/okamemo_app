@@ -40,6 +40,20 @@ class User < ApplicationRecord
     self == User.master_admin_user
   end
 
+  # ユーザー編集で現在のパスワード入力を省略する（deviseのupdate_resourceのオーバーライド）
+  def update_without_current_password(params)
+    params.delete(:current_password)
+
+    if params[:password].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation) if params[:password_confirmation].blank?
+    end
+
+    result = update(params)
+    clean_up_passwords
+    result
+  end
+
   private
 
   # マスター管理ユーザーアカウントの権限とメールアドレスの変更制御

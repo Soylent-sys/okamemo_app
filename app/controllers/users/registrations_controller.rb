@@ -75,6 +75,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :hiragana_view])
   end
 
+  # ユーザーの編集時に現在のパスワードの入力を省略する（deviseのupdate_resourceのオーバーライド）
+  def update_resource(resource, params)
+    resource.update_without_current_password(params)
+  end
+
   # サインアップ後に使用する path
   def after_sign_up_path_for(resource)
     super(resource)

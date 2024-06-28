@@ -67,14 +67,6 @@
       </div>
     </div>
 
-    <div class="field form-floating mb-5">
-      <%= f.password_field :current_password, autocomplete: "current-password", placeholder: "password", class: "form-control #{"is-invalid" if f.object.errors[:current_password].present?}" %>
-      <%= f.label :current_password do %>
-        <i class="fas fa-unlock"></i>&ensp;現在のパスワード
-      <% end %>
-      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> <%= t('.we_need_your_current_password_to_confirm_your_changes') %></small>
-    </div>
-
     <div>
       <%= f.submit "更新", class: "w-100 btn btn-lg btn-custom-send" %>
     </div>
