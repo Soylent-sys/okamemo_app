@@ -18,13 +18,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /users/edit
   def edit
-    @master_admin_user = User.master_admin_user
+    @is_master_admin = current_user.master_admin_user?
     super
   end
 
   # PUT /users
   def update
-    # update失敗時editのrender前に@master_admin_userを読み込むためsuperをオーバーライド
+    # update失敗時editのrender前に@is_master_adminを読み込むためsuperをオーバーライド
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
@@ -38,7 +38,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       clean_up_passwords resource
       set_minimum_password_length
-      @master_admin_user = User.master_admin_user
+      @is_master_admin = current_user.master_admin_user?
       respond_with resource
     end
   end
