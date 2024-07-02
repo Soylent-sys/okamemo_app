@@ -19,7 +19,7 @@
       <div class="col-xl-10 col-sm-9 col-7 item-window rounded-2"><h4 class="py-2 my-auto item-window-heading"><i class="fas fa-apple-whole me-2"></i>登録アイテム</h4></div>
     </div>
     <div class="row d-flex align-items-start px-1 mb-3">
-      <div class="col-xl-2 col-sm-3 col-5 px-2 pb-2 category-window border-1rem-down">
+      <div class="col-xl-2 col-sm-3 col-5 px-2 pb-2 position-category category-window border-1rem-down">
         <div class="nav flex-column nav-pills category-bg" id="v-pills-tab" role="tablist" aria-orientation="vertical">
           <% @categories.each_with_index do |category, i| %>
             <button class="nav-link <%= "active" if i.zero? %>" id="v-pills-<%= i %>-tab" data-bs-toggle="pill" data-bs-target="#v-pills-<%= i %>" type="button" role="tab" aria-controls="v-pills-home" aria-selected="<%= i.zero? ? "true" : "false" %>"><%= category.name %></button>

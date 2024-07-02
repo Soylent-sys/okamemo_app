@@ -69,6 +69,19 @@ button {
   }
 }
 
+.position-category {
+  position: sticky;
+  top: 167px;
+
+  @media screen and (max-width: 991px) {
+    top: 166px;
+  }
+
+  @media screen and (max-width: 767px) {
+    top: 170px;
+  }
+}
+
 .position-items {
   position: sticky;
   top: 166.904px;
