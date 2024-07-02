@@ -6,7 +6,7 @@ if master_admin_user.nil?
     admin: true,
     email: "#{ENV['ADMIN_USER_EMAIL']}",
     password: "#{ENV['ADMIN_USER_PASSWORD']}",
-    confirmed_at: Time.now
+    confirmed_at: Time.current
   )
 end
 
