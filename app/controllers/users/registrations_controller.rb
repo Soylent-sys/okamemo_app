@@ -5,6 +5,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :check_captcha, only: [:create]
   before_action :configure_account_update_params, only: [:update]
+  before_action :prevent_restricted_user_delete, only: [:destroy]
 
   # GET /users/sign_up
   def new
@@ -19,12 +20,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /users/edit
   def edit
     @is_master_admin = current_user.master_admin_user?
+    @is_guest = current_user.guest?
     super
   end
 
   # PUT /users
   def update
-    # update失敗時editのrender前に@is_master_adminを読み込むためsuperをオーバーライド
+    # update失敗時editのrender前にフォーム制御用インスタンス変数を読み込むためsuperをオーバーライド
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
@@ -39,19 +41,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
       clean_up_passwords resource
       set_minimum_password_length
       @is_master_admin = current_user.master_admin_user?
+      @is_guest = current_user.guest?
       respond_with resource
     end
   end
 
   # DELETE /users
   def destroy
-    # マスター管理ユーザーアカウントの削除を制御する
-    if (current_user == resource) && resource.master_admin_user?
-      flash[:error] = "マスター管理ユーザーアカウントの削除は制限されています。"
-      redirect_to edit_user_registration_path
-    else
-      super
-    end
+    super
   end
 
   # GET /users/cancel
@@ -101,5 +98,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
     set_minimum_password_length
     verify_recaptcha(model: resource)
     render :new, status: :unprocessable_entity
+  end
+
+  # マスター管理ユーザー・ゲストユーザーのアカウントの削除を制御する
+  def prevent_restricted_user_delete
+    if resource.master_admin_user?
+      flash[:error] = "マスター管理ユーザーアカウントの削除は制限されています。"
+      redirect_to edit_user_registration_path
+    elsif resource.guest?
+      flash[:error] = "ゲストユーザーアカウントの削除は制限されています。"
+      redirect_to edit_user_registration_path
+    end
   end
 end

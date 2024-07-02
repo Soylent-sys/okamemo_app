@@ -52,7 +52,7 @@
     <% end %>
 
     <div>
-      <%= f.submit "送信内容の確認", class: "w-100 btn btn-lg btn-custom-send" %>
+      <%= f.submit "送信内容の確認", disabled: current_user&.guest?, class: "w-100 btn btn-lg btn-custom-send" %>
     </div>
   <% end %>
 </div>

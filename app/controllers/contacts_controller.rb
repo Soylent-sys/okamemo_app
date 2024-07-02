@@ -9,6 +9,13 @@ class ContactsController < ApplicationController
 
   def confirm
     @contact = Contact.new(contact_params)
+    # ゲストユーザーのお問い合わせは受け付けない
+    if current_user&.guest?
+      flash.now[:error] = "ゲストユーザーからのお問い合わせは受け付けておりません。ログアウトして再度お問い合わせフォームからご利用ください。"
+      render 'new', status: :unprocessable_entity
+      return
+    end
+
     if recaptcha_presence_check_and_valid(@contact)
       render 'confirm', status: :see_other
     else

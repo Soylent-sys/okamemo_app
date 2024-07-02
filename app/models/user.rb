@@ -7,6 +7,7 @@ class User < ApplicationRecord
   include UserSharedConstants
 
   before_update :prevent_master_admin_change
+  before_update :prevent_guest_change
   before_destroy :prevent_master_admin_delete
 
   has_many :items, dependent: :delete_all
@@ -26,6 +27,15 @@ class User < ApplicationRecord
       User.find_by!(email: "#{ENV['ADMIN_USER_EMAIL']}")
     end
 
+    # ゲストユーザーを作成または取得するメソッド
+    def guest
+      User.find_or_create_by!(email: 'guest@example.com') do |user|
+        user.password = generate_guest_password
+        user.name = "ゲストユーザー"
+        user.confirmed_at = Time.current
+      end
+    end
+
     # ransackでの検索・ソートが可能なカラム、アソシエーションのホワイトリスト
     def ransackable_attributes(auth_object = nil)
       ["id", "admin", "email", "name", "hiragana_view", "confirmed_at", "created_at", "updated_at"]
@@ -34,10 +44,24 @@ class User < ApplicationRecord
     def ransackable_associations(auth_object = nil)
       []
     end
+
+    private
+
+    # ゲストユーザーのパスワードを生成する
+    def generate_guest_password
+      loop do
+        password = SecureRandom.urlsafe_base64
+        return password if password.match?(VALID_PASSWORD_REGEX)
+      end
+    end
   end
 
   def master_admin_user?
     self == User.master_admin_user
+  end
+
+  def guest?
+    self == User.guest
   end
 
   # ユーザー編集で現在のパスワード入力を省略する（deviseのupdate_resourceのオーバーライド）
@@ -81,5 +105,34 @@ class User < ApplicationRecord
       errors.add(:base, "マスター管理ユーザーのアカウント削除は制限されています。")
       throw(:abort)
     end
+  end
+
+  # ゲストユーザーアカウントの権限とメールアドレスの変更制御
+  def prevent_guest_change
+    return unless guest?
+
+    changes_detected = false
+
+    if will_save_change_to_admin?
+      errors.add(:admin, "は変更できません。ゲストユーザーの権限変更は制限されています。")
+      changes_detected = true
+    end
+
+    if will_save_change_to_name?
+      errors.add(:name, "は変更できません。ゲストユーザーのニックネーム変更は制限されています。")
+      changes_detected = true
+    end
+
+    if will_save_change_to_email?
+      errors.add(:email, "は変更できません。ゲストユーザーのメールアドレス変更は制限されています。")
+      changes_detected = true
+    end
+
+    if will_save_change_to_encrypted_password?
+      errors.add(:password, "は変更できません。ゲストユーザーのパスワード変更は制限されています。")
+      changes_detected = true
+    end
+
+    throw(:abort) if changes_detected
   end
 end

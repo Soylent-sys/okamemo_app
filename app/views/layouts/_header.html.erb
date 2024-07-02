@@ -91,8 +91,11 @@
           <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-success btn-lg me-2"%>
           <%= link_to "ユーザー登録", new_user_registration_path, class: "btn btn-outline-primary btn-lg"%>
         </div>
+        <div class="d-flex justify-content-end align-items-center ms-lg-4 mt-lg-0 mt-3">
+          <h6 class="d-lg-none d-block me-2">お試しの方はコチラ <i class="far fa-hand-point-right"></i></h6>
+          <%= button_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: 'btn btn-outline-danger btn-lg' %>
+        </div>
       <% end %>
-      </div>
     </div>
   </div>
 </nav>
