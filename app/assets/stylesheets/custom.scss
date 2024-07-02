@@ -50,6 +50,11 @@ button {
   color: #cbcbcb !important;
 }
 
+.btn-custom-send:disabled {
+  background-color: rgba(255, 136, 9, 0.8);
+  color: rgba(255, 255, 255, 0.8);
+}
+
 .btn-close-cs:focus {
   box-shadow: none;
 }
