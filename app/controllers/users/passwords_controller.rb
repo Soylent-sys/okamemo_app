@@ -8,7 +8,13 @@ class Users::PasswordsController < Devise::PasswordsController
 
   # POST /users/password
   def create
-    super
+    user = User.find_by(email: params[:user][:email])
+    if user&.guest?
+      flash[:error] = "ゲストユーザーのパスワード再設定は許可されていません。"
+      redirect_to new_user_session_url
+    else
+      super
+    end
   end
 
   # GET /users/password/edit?reset_password_token=abcdef
