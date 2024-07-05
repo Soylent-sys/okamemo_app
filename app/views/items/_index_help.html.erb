@@ -17,6 +17,10 @@
     </div>
   </li>
 </ul>
+<% if current_user.guest? %>
+  <h3 class="mb-3">ゲストユーザーのアイテム最大登録数</h3>
+  <p class="px-3 py-4 mb-5 rounded-3 bg-danger-subtle">ゲストユーザーで登録できるアイテムの数は最大<%= Item::GUEST_ITEM_MAXIMUM_COUNT %>個までです。</p>
+<% end %>
 <h3 class="mb-3">ボタンについて</h3>
 <h4>各ボタンの説明</h4>
 <ul class="px-3">
