@@ -10,6 +10,7 @@ class Item < ApplicationRecord
   MAX_LENGTH_NAME = 20
   MAX_LENGTH_HIRAGANA = 20
   VALID_HIRAGANA_REGEX = /\A[ぁ-んー－]+\z/
+  ITEM_MAXIMUM_COUNT = 150
   GUEST_ITEM_MAXIMUM_COUNT = 10
 
   validates :name, presence: true, uniqueness: { scope: [:user_id, :category_id], message: "は同じカテゴリーの中で二つ以上登録できません。" },
@@ -19,6 +20,7 @@ class Item < ApplicationRecord
                        format: { with: VALID_HIRAGANA_REGEX, message: "の項目はひらがなで入力してください。" }
   # 管理ユーザーで登録したデフォルトアイテムと同じ内容の登録を制御するバリデーション
   validate :same_preset_item
+  validate :check_count
   validate :guest_check_count
 
   class << self
@@ -48,6 +50,16 @@ class Item < ApplicationRecord
     end
     if same_item_hiragana.present?
       errors.add(:hiragana, "が同じカテゴリーに存在するデフォルトアイテムと重複しています。")
+    end
+  end
+
+  # 一般ユーザーのアイテム登録は150件まで
+  def check_count
+    user = User.find(user_id)
+    return if user.master_admin_user?
+
+    if Item.where(user_id: user.id).count >= ITEM_MAXIMUM_COUNT
+      errors.add(:base, "登録できるアイテムは#{ITEM_MAXIMUM_COUNT}個までです。新しく登録する場合は登録済みアイテムを削除してください。")
     end
   end
 
