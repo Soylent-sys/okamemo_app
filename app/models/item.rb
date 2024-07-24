@@ -18,7 +18,6 @@ class Item < ApplicationRecord
   validates :hiragana, presence: true, uniqueness: { scope: [:user_id, :category_id], message: "は同じカテゴリーの中で二つ以上登録できません。" },
                        length: { maximum: MAX_LENGTH_HIRAGANA },
                        format: { with: VALID_HIRAGANA_REGEX, message: "の項目はひらがなで入力してください。" }
-  # 管理ユーザーで登録したデフォルトアイテムと同じ内容の登録を制御するバリデーション
   validate :same_preset_item
   validate :check_count
   validate :guest_check_count
@@ -36,6 +35,7 @@ class Item < ApplicationRecord
 
   private
 
+  # 管理ユーザーで登録したデフォルトアイテムと同じ内容の登録を制御するバリデーション
   def same_preset_item
     preset_items = Item.preset
     same_item_name = preset_items.find do |item|
@@ -53,7 +53,7 @@ class Item < ApplicationRecord
     end
   end
 
-  # 一般ユーザーのアイテム登録は150件まで
+  # 一般ユーザーのアイテム登録数の制限
   def check_count
     user = User.find(user_id)
     return if user.master_admin_user?
@@ -63,7 +63,7 @@ class Item < ApplicationRecord
     end
   end
 
-  # ゲストユーザーのアイテム登録は10件まで
+  # ゲストユーザーのアイテム登録数の制限
   def guest_check_count
     user = User.find(user_id)
     return unless user.guest?

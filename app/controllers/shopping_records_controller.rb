@@ -128,10 +128,12 @@ class ShoppingRecordsController < ApplicationController
     params.require(:shopping_record_form).permit(:shopping_record_hashid, hashids: [])
   end
 
+  # edit（edit_confirm）からpostで渡されるshopping_recordインスタンスのセット用
   def set_shopping_record_from_post
     current_user.shopping_records.find_by_hashid!(update_shopping_record_params[:shopping_record_hashid])
   end
 
+  # edit（edit_confirm）からpostで渡されるshopping_record_formインスタンスのセット用
   def set_shopping_record_form_from_post
     ShoppingRecordForm.new(update_shopping_record_params)
   end

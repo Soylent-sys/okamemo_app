@@ -83,11 +83,13 @@ class Management::UsersController < ApplicationController
     end
   end
 
+  # 管理ユーザーが管理者権限を解除した場合の処理
   def handle_admin_removal
     flash[:notice] = "更新が完了し管理者権限が解除されました。メインメニューにリダイレクトします。"
     redirect_to root_url
   end
 
+  # 引数のユーザーがcurrent_userと同じ且つ一般ユーザーかを判定
   def is_current_user_and_not_admin?(user)
     (user == current_user) && !user.admin?
   end

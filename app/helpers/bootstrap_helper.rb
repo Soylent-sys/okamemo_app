@@ -1,4 +1,5 @@
 module BootstrapHelper
+  # flashの背景色をメッセージタイプによって変更する
   def bootstrap_alert(message_type)
     case message_type
     when "alert"
@@ -10,6 +11,7 @@ module BootstrapHelper
     end
   end
 
+  # flashで表示するアイコンをメッセージタイプによって変更する
   def bootstrap_alert_icon(message_type)
     case message_type
     when "alert"

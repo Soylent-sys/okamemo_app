@@ -1,3 +1,4 @@
+// ヘルプリンクを条件に応じて非表示にする
 function hideHelp() {
   const buttonHelp = document.querySelector('.btn-help');
   const checkCountContainer = document.getElementById("check-count-box");

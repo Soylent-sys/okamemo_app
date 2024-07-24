@@ -1,3 +1,4 @@
+// bootstrap confirm表示用モーダル
 const bootstrapConfirm = (message, formElement) => {
   const modalElement = document.getElementById('turbo-confirm-modal')
   const titleElement = document.getElementById('turbo-confirm-modal-title')

@@ -1,3 +1,4 @@
+// お買い物登録時のアイテムチェック数を表示するポップアップ
 function setFormCheckCount() {
   const checkbox = document.getElementsByName("shopping_record_form[hashids][]");
   const checkCount = document.getElementById("check-count");
@@ -14,12 +15,14 @@ function setFormCheckCount() {
         }
       }
 
+      // 未チェック時は非表示
       if (count === 0) {
         checkCountContainer.classList.add("d-none");
       } else {
         checkCountContainer.classList.remove("d-none");
       }
 
+      // チェック数が制限を超えたらポップアップの背景色を変える
       if (count <= MAX_COUNT) {
         checkCountContainer.classList.replace("check-count-over-bg-color", "check-count-bg-color");
       } else {

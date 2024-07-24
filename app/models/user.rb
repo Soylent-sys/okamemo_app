@@ -56,10 +56,12 @@ class User < ApplicationRecord
     end
   end
 
+  # マスター管理ユーザーかどうかを返す
   def master_admin_user?
     self == User.master_admin_user
   end
 
+  # ゲストユーザーかどうかを返す
   def guest?
     self == User.guest
   end

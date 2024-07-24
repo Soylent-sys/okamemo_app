@@ -41,6 +41,7 @@ class ContactsController < ApplicationController
     params.require(:contact).permit(:name, :email, :subject, :message)
   end
 
+  # サインインしていない場合はバリデーションに加えてrecaptchaをチェックする
   def recaptcha_presence_check_and_valid(contact)
     if user_signed_in?
       contact.valid?
@@ -49,6 +50,7 @@ class ContactsController < ApplicationController
     end
   end
 
+  # recaptchaチェックされていない場合contactモデルエラーにrecaptchaエラーを追加する
   def set_error_message(contact)
     contact.valid?
     verify_recaptcha(model: contact)

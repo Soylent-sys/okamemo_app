@@ -1,6 +1,7 @@
 module ShoppingRecordsHelper
   CATEGORY_FIRST_ID = 1
 
+  # 各カテゴリーのプリセットアイテムとcurrent_userの登録アイテムを取得し「おまとめ」カテゴリ以外をソートする
   def categoy_items(category)
     category_items = category.items.where(user_id: [User.master_admin_user.id, current_user.id])
     if category.id == CATEGORY_FIRST_ID
@@ -10,6 +11,7 @@ module ShoppingRecordsHelper
     end
   end
 
+  # お買い物登録フォームのタイトルをセット
   def shopping_title(shopping_record_form)
     if shopping_record_form.title.blank?
       "#{Date.today.to_fs(:date_ja)}のお買い物"
@@ -18,6 +20,7 @@ module ShoppingRecordsHelper
     end
   end
 
+  # 各アイテムの最終購入日を表示
   def last_bought_day(item)
     last_bought_day = current_user.buys.purchased.where(item_name: item.name).
       order(updated_at: :desc).pick(:updated_at)
@@ -35,18 +38,21 @@ module ShoppingRecordsHelper
     end
   end
 
+  # お買い物登録時にチェックしたアイテムを取得
   def wish_items(shopping_record_form)
     shopping_record_form.hashids.map do |item_hashid|
       Item.find_by_hashid!(item_hashid)
     end
   end
 
+  # 購入したアイテムを取得（お買い物単位）
   def bought_items(shopping_record_form)
     shopping_record_form.hashids.map do |buy_hashid|
       Buy.find_by_hashid!(buy_hashid)
     end
   end
 
+  # 未購入のアイテムを取得（お買い物単位）
   def no_bought_items(shopping_record_form)
     shopping_record = current_user.shopping_records.find_by_hashid!(shopping_record_form.shopping_record_hashid)
     if shopping_record_form.hashids.present?
@@ -59,14 +65,17 @@ module ShoppingRecordsHelper
     end
   end
 
+  # お買い物完了日（更新日）を'%Y年 %-m月'に変換
   def updated_at_change_format_ja(shopping_record)
     shopping_record.updated_at.to_fs(:month_ja)
   end
 
+  # お買い物完了日（更新日）の年月を'%Y-%m'に変換
   def updated_at_change_format_ym(shopping_record)
     shopping_record.updated_at.to_fs(:date_ym)
   end
 
+  # '%Y-%m'で渡された年月を"#{year}年#{month}月"に変換
   def date_change_format_ja(params_date)
     year_month = params_date.split('-')
     year = year_month[0]
@@ -74,6 +83,7 @@ module ShoppingRecordsHelper
     "#{year}年#{month}月"
   end
 
+  # ひらがなモードの設定状態でカテゴリー・アイテム名の表示を分岐
   def display_name_of_category_or_item(category_or_item)
     if current_user.hiragana_view.present?
       category_or_item.hiragana
@@ -82,6 +92,7 @@ module ShoppingRecordsHelper
     end
   end
 
+  # ひらがなモードの設定状態で購入アイテム名の表示を分岐
   def display_item_name_of_buy(buy)
     if current_user.hiragana_view.present?
       buy.item_hiragana

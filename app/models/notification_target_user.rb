@@ -23,6 +23,7 @@ class NotificationTargetUser < ApplicationRecord
   validate :check_count, on: :create
 
   class << self
+    # トークンを生成（DB上で重複した場合は再生成）
     def confirmation_new_token
       loop do
         token = SecureRandom.urlsafe_base64(47)
@@ -40,10 +41,12 @@ class NotificationTargetUser < ApplicationRecord
     end
   end
 
+  # メール認証の有効期限判定
   def expired?
     expiration_date.present? ? expiration_date < Time.zone.now : false
   end
 
+  # 通知ユーザーの有効化
   def activate
     status = NotificationTargetUser.confirmation_statuses[:confirmed]
     update!(
@@ -53,6 +56,7 @@ class NotificationTargetUser < ApplicationRecord
     )
   end
 
+  # メール認証項目（トークン、有効期限）の再設定
   def reset_email_confirmation
     set_email_confirmation
     update!(
@@ -67,6 +71,7 @@ class NotificationTargetUser < ApplicationRecord
     email.downcase!
   end
 
+  # 未認証の通知ユーザーのメール認証項目（トークン、有効期限）を設定
   def set_email_confirmation
     if unconfirmed?
       self.confirmation_token = NotificationTargetUser.confirmation_new_token
@@ -74,6 +79,7 @@ class NotificationTargetUser < ApplicationRecord
     end
   end
 
+  # 通知ユーザー登録数の制限
   def check_count
     if NotificationTargetUser.where(user_id: user_id).count >= NOTIFICATION_TARGET_USER_MUXIMUM_COUNT
       errors.add(:notification_target_user, "の登録数が最大数（#{NOTIFICATION_TARGET_USER_MUXIMUM_COUNT}つ）に達しています。")

@@ -17,6 +17,7 @@ class ShoppingRecordForm
   validate :check_count
   validate :guest_check_count
 
+  # お買い物の登録（ShoppingRecordと子モデルBuyの保存）
   def save
     ActiveRecord::Base.transaction do
       shopping_record = ShoppingRecord.create!(user_id:, title:)
@@ -28,6 +29,7 @@ class ShoppingRecordForm
     end
   end
 
+  # お買い物の完了処理（ShoppingRecordと子モデルBuyの更新）
   def update_shopping_record
     ActiveRecord::Base.transaction do
       shopping_record = ShoppingRecord.find_by_hashid!(shopping_record_hashid)
@@ -43,12 +45,14 @@ class ShoppingRecordForm
 
   private
 
+  # 未完了のお買い物登録数を制御
   def check_count
     if ShoppingRecord.opened.where(user_id: user_id).count >= SHOPPING_REGISTRATION_MAXIMUM_COUNT
       errors.add(:shopping_record, "の登録数が最大数（#{SHOPPING_REGISTRATION_MAXIMUM_COUNT}つ）に達しています。")
     end
   end
 
+  # ゲストユーザーのお買い物登録数（履歴を含む）を制御
   def guest_check_count
     user = User.find(user_id)
     return unless user.guest?

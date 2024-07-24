@@ -1,4 +1,5 @@
 module ContactsHelper
+  # お問い合わせフォームの項目説明（ログイン状態で分岐）
   def form_info_text_name
     if user_signed_in?
       "ご登録のニックネームで送信されます"
@@ -15,6 +16,7 @@ module ContactsHelper
     end
   end
 
+  # お問い合わせ送信完了画面のメッセージ（ログイン状態で分岐）
   def done_text
     if user_signed_in?
       "お問い合わせの内容を確認・受付の後、ご登録のEメールアドレスへご連絡いたします。しばらくお待ちください。"

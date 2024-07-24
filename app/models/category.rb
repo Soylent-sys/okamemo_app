@@ -8,6 +8,7 @@ class Category < ApplicationRecord
   validates :hiragana, presence: true, uniqueness: true, length: { maximum: MAX_LENGTH_HIRAGANA }
 
   class << self
+    # ユーザーが登録したアイテムのカテゴリーのみを取得
     def created_item_categories(current_user_id)
       user = User.find(current_user_id)
       category_ids = user.items.select(:category_id).distinct.order(:category_id).pluck(:category_id)
