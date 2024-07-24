@@ -6,4 +6,7 @@ class Buy < ApplicationRecord
 
   scope :purchased, -> { where(purchased: true) }
   scope :unpurchased, -> { where(purchased: false) }
+
+  validates :item_name, presence: true
+  validates :item_hiragana, presence: true
 end
