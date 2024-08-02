@@ -1,10 +1,8 @@
 module ShoppingRecordsHelper
-  CATEGORY_FIRST_ID = 1
-
   # 各カテゴリーのプリセットアイテムとcurrent_userの登録アイテムを取得し「おまとめ」カテゴリ以外をソートする
   def categoy_items(category)
     category_items = category.items.where(user_id: [User.master_admin_user.id, current_user.id])
-    if category.id == CATEGORY_FIRST_ID
+    if category.name == "おまとめ"
       category_items
     else
       category_items.sorted
