@@ -98,6 +98,11 @@ class User < ApplicationRecord
       changes_detected = true
     end
 
+    if will_save_change_to_unconfirmed_email?
+      errors.add(:email, "は変更できません。マスター管理ユーザーのメールアドレス変更は制限されています。")
+      changes_detected = true
+    end
+
     throw(:abort) if changes_detected
   end
 
