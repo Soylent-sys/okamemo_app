@@ -135,6 +135,11 @@ class User < ApplicationRecord
       changes_detected = true
     end
 
+    if will_save_change_to_unconfirmed_email?
+      errors.add(:email, "は変更できません。ゲストユーザーのメールアドレス変更は制限されています。")
+      changes_detected = true
+    end
+
     if will_save_change_to_encrypted_password?
       errors.add(:password, "は変更できません。ゲストユーザーのパスワード変更は制限されています。")
       changes_detected = true
