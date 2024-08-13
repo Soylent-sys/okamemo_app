@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :category do
-    name { "MyString" }
-    hiragana { "MyString" }
+    name { "テストカテゴリー" }
+    hiragana { "てすとかてごりー" }
   end
 end
