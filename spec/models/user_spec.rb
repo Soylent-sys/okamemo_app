@@ -561,25 +561,25 @@ RSpec.describe User, type: :model do
     end
 
     before do
-      FactoryBot.create(:user, :master_admin)
+      create(:user, :master_admin)
     end
 
     describe ":delete_all" do
       context "Itemモデル" do
-        let(:category) { FactoryBot.create(:category) }
+        let(:category) { create(:category) }
 
         it "ユーザーを削除するとユーザーが登録したアイテムも削除されること" do
-          FactoryBot.create(:item, user: user, category: category)
+          create(:item, user: user, category: category)
 
           expect { user.destroy }.to change { Item.count }.by(-1)
         end
       end
 
       context "Buyモデル" do
-        let(:shopping_record) { FactoryBot.create(:shopping_record, user: user) }
+        let(:shopping_record) { create(:shopping_record, user: user) }
 
         it "ユーザーを削除するとユーザーが登録した購入履歴も削除されること" do
-          FactoryBot.create(:buy, user: user, shopping_record: shopping_record)
+          create(:buy, user: user, shopping_record: shopping_record)
 
           expect { user.destroy }.to change { Buy.count }.by(-1)
         end
@@ -587,7 +587,7 @@ RSpec.describe User, type: :model do
 
       context "NotificationTargetUserモデル" do
         it "ユーザーを削除するとユーザーが登録した通知対象ユーザーも削除されること" do
-          FactoryBot.create(:notification_target_user, user: user)
+          create(:notification_target_user, user: user)
 
           expect { user.destroy }.to change { NotificationTargetUser.count }.by(-1)
         end
@@ -597,7 +597,7 @@ RSpec.describe User, type: :model do
     describe ":destroy" do
       context "ShoppingRecordモデル" do
         it "ユーザーを削除するとユーザーが登録したお買い物も削除されること" do
-          FactoryBot.create(:shopping_record, user: user)
+          create(:shopping_record, user: user)
 
           expect { user.destroy }.to change { ShoppingRecord.count }.by(-1)
         end
