@@ -19,8 +19,8 @@ class Item < ApplicationRecord
                        length: { maximum: MAX_LENGTH_HIRAGANA },
                        format: { with: VALID_HIRAGANA_REGEX, message: "の項目はひらがなで入力してください。" }
   validate :same_preset_item
-  validate :check_count
-  validate :guest_check_count
+  validate :check_count, on: :create
+  validate :guest_check_count, on: :create
 
   class << self
     # ransackでの検索・ソートが可能なカラム、アソシエーションのホワイトリスト
@@ -55,6 +55,7 @@ class Item < ApplicationRecord
 
   # 一般ユーザーのアイテム登録数の制限
   def check_count
+    return if user_id.blank?
     user = User.find(user_id)
     return if user.master_admin_user?
 
@@ -65,6 +66,7 @@ class Item < ApplicationRecord
 
   # ゲストユーザーのアイテム登録数の制限
   def guest_check_count
+    return if user_id.blank?
     user = User.find(user_id)
     return unless user.guest?
 
