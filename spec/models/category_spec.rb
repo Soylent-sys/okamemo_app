@@ -84,9 +84,9 @@ RSpec.describe Category, type: :model do
     let(:category_3) { create(:category, id: 3) }
     # Itemモデル登録時のvalidateメソッドにマスター管理ユーザーが必要
     let!(:master_user) { create(:user, :master_admin) }
-    let!(:current_user_create_item_1) { create(:item, :item_1, user: current_user, category: category_1) }
-    let!(:current_user_create_item_2) { create(:item, :item_2, user: current_user, category: category_2) }
-    let!(:other_user_create_item) { create(:item, :item_3, user: other_user, category: category_3) }
+    let!(:current_user_create_item_1) { create(:item, user: current_user, category: category_1) }
+    let!(:current_user_create_item_2) { create(:item, user: current_user, category: category_2) }
+    let!(:other_user_create_item) { create(:item, user: other_user, category: category_3) }
 
     it "引数のidを持つユーザーの作成したアイテムが存在するカテゴリーのみを返すこと" do
       category = Category.created_item_categories(current_user.id)
