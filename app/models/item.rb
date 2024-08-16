@@ -9,7 +9,7 @@ class Item < ApplicationRecord
 
   MAX_LENGTH_NAME = 20
   MAX_LENGTH_HIRAGANA = 20
-  VALID_HIRAGANA_REGEX = /\A[ぁ-んー－]+\z/
+  VALID_HIRAGANA_REGEX = /\A[ぁ-んー－\d]+\z/
   ITEM_MAXIMUM_COUNT = 150
   GUEST_ITEM_MAXIMUM_COUNT = 10
 
