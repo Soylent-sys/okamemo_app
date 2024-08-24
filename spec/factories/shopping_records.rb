@@ -1,7 +1,11 @@
 FactoryBot.define do
   factory :shopping_record do
     user { nil }
-    title { "テストのお買い物" }
+    sequence(:title) { |n| "テストのお買い物#{n}" }
     closed { false }
+
+    trait :closed do
+      closed { true }
+    end
   end
 end
