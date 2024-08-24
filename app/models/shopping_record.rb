@@ -15,6 +15,7 @@ class ShoppingRecord < ApplicationRecord
 
   class << self
     # ユーザーの月毎の完了済みお買い物を1件ずつ取得する（月毎のお買い物の存在をチェック）
+    # 引数のuserにはコントローラー経由で必ずcurrent_userが入る想定
     def first_record_by_month(user)
       shopping_record_month_grouping = grouping_closed_and_date_ym(user)
       if shopping_record_month_grouping.present?
@@ -26,6 +27,7 @@ class ShoppingRecord < ApplicationRecord
     end
 
     # ユーザーの指定月の完了済みお買い物を取得する
+    # 引数のuserにはコントローラー経由で必ずcurrent_userが入る想定
     def extract_one_month(user, date)
       shopping_record_month_grouping = grouping_closed_and_date_ym(user)
       if shopping_record_month_grouping[date].present?
