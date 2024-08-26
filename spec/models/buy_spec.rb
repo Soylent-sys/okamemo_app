@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Buy, type: :model do
-  let(:user) { create(:user) }
-  let(:shopping_record) { create(:shopping_record, user: user) }
+  include_context "shopping record setup"
 
   context "購入記録の登録ができる場合" do
     it "ユーザーID、お買い物ID、アイテム名、アイテム名（ひらがな）があれば有効な状態であること" do

@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ShoppingLocation, type: :model do
-  let(:user) { create(:user) }
-  let(:shopping_record) { create(:shopping_record, user: user) }
+  include_context "shopping record setup"
 
   context "お買い物場所の登録ができる場合" do
     it "お買い物ID、緯度、経度があれば有効な状態であること" do
