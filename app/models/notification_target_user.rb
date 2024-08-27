@@ -43,7 +43,7 @@ class NotificationTargetUser < ApplicationRecord
 
   # メール認証の有効期限判定
   def expired?
-    expiration_date.present? ? expiration_date < Time.zone.now : false
+    expiration_date.present? ? expiration_date < Time.current : false
   end
 
   # 通知ユーザーの有効化
@@ -75,7 +75,7 @@ class NotificationTargetUser < ApplicationRecord
   def set_email_confirmation
     if unconfirmed?
       self.confirmation_token = NotificationTargetUser.confirmation_new_token
-      self.expiration_date = Time.zone.now + EMAIL_CONFIRMATION_LIMIT.minutes
+      self.expiration_date = Time.current + EMAIL_CONFIRMATION_LIMIT.minutes
     end
   end
 
