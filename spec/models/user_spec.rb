@@ -128,15 +128,73 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "boolean型カラムのデフォルト値" do
-    let(:user) { User.new }
+  describe "boolean型カラム" do
+    describe "admin属性" do
+      let(:user) { User.new }
 
-    it "ユーザー区分(admin属性)の値は指定がなければ一般ユーザー(false)であること" do
-      expect(user.admin).to eq false
+      it "ユーザー区分(admin属性)の値は指定がなければ一般ユーザー(false)であること" do
+        expect(user.admin).to be_falsey
+      end
+
+      it "ユーザー区分(admin属性)の値をtrueに設定できること" do
+        user.admin = true
+        expect(user.admin).to be_truthy
+      end
+
+      it "ユーザー区分(admin属性)の値をfalseに設定できること" do
+        user.admin = false
+        expect(user.admin).to be_falsey
+      end
+
+      context "admin属性がtrueのとき" do
+        before { user.admin = true }
+
+        it "admin?メソッドでtrueを返すこと" do
+          expect(user.admin?).to be_truthy
+        end
+      end
+
+      context "admin属性がfalseのとき" do
+        before { user.admin = false }
+
+        it "admin?メソッドでfalseを返すこと" do
+          expect(user.admin?).to be_falsey
+        end
+      end
     end
 
-    it "ひらがなモード(hiragana_view属性)の値は指定がなければOFF(false)であること" do
-      expect(user.hiragana_view).to eq false
+    describe "hiragana_view属性" do
+      let(:user) { User.new }
+
+      it "ひらがなモード(hiragana_view属性)の値は指定がなければOFF(false)であること" do
+        expect(user.hiragana_view).to eq false
+      end
+
+      it "ひらがなモード(hiragana_view属性)の値をtrueに設定できること" do
+        user.hiragana_view = true
+        expect(user.hiragana_view).to be_truthy
+      end
+
+      it "ひらがなモード(hiragana_view属性)の値をfalseに設定できること" do
+        user.hiragana_view = false
+        expect(user.hiragana_view).to be_falsey
+      end
+
+      context "hiragana_view属性がtrueのとき" do
+        before { user.hiragana_view = true }
+
+        it "hiragana_view?メソッドでtrueを返すこと" do
+          expect(user.hiragana_view?).to be_truthy
+        end
+      end
+
+      context "hiragana_view属性がfalseのとき" do
+        before { user.hiragana_view = false }
+
+        it "hiragana_view?メソッドでfalseを返すこと" do
+          expect(user.hiragana_view?).to be_falsey
+        end
+      end
     end
   end
 
