@@ -39,11 +39,39 @@ RSpec.describe ShoppingRecord, type: :model do
     end
   end
 
-  describe "boolean型カラムのデフォルト値" do
-    let(:shopping_record) { ShoppingRecord.new }
+  describe "boolean型カラム" do
+    describe "closed属性" do
+      let(:shopping_record) { ShoppingRecord.new }
 
-    it "お買い物完了状態(closed属性)の値は指定がなければ未完了(false)であること" do
-      expect(shopping_record.closed).to eq false
+      it "お買い物完了状態(closed属性)の値は指定がなければ未完了(false)であること" do
+        expect(shopping_record.closed).to eq false
+      end
+
+      it "お買い物完了状態(closed属性)の値をtrueに設定できること" do
+        shopping_record.closed = true
+        expect(shopping_record.closed).to be_truthy
+      end
+
+      it "お買い物完了状態(closed属性)の値をfalseに設定できること" do
+        shopping_record.closed = false
+        expect(shopping_record.closed).to be_falsey
+      end
+
+      context "closed属性がtrueのとき" do
+        before { shopping_record.closed = true }
+
+        it "closed?メソッドでtrueを返すこと" do
+          expect(shopping_record.closed?).to be_truthy
+        end
+      end
+
+      context "closed属性がfalseのとき" do
+        before { shopping_record.closed = false }
+
+        it "closed?メソッドでfalseを返すこと" do
+          expect(shopping_record.closed?).to be_falsey
+        end
+      end
     end
   end
 
