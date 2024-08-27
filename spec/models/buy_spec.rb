@@ -53,6 +53,42 @@ RSpec.describe Buy, type: :model do
     end
   end
 
+  describe "boolean型カラム" do
+    describe "purchased属性" do
+      let(:buy) { Buy.new }
+
+      it "購入状態(purchased属性)の値は指定がなければ未購入(false)であること" do
+        expect(buy.purchased).to eq false
+      end
+
+      it "購入状態(purchased属性)の値をtrueに設定できること" do
+        buy.purchased = true
+        expect(buy.purchased).to be_truthy
+      end
+
+      it "購入状態(purchased属性)の値をfalseに設定できること" do
+        buy.purchased = false
+        expect(buy.purchased).to be_falsey
+      end
+
+      context "purchased属性がtrueのとき" do
+        before { buy.purchased = true }
+
+        it "purchased?メソッドでtrueを返すこと" do
+          expect(buy.purchased?).to be_truthy
+        end
+      end
+
+      context "purchased属性がfalseのとき" do
+        before { buy.purchased = false }
+
+        it "purchased?メソッドでfalseを返すこと" do
+          expect(buy.purchased?).to be_falsey
+        end
+      end
+    end
+  end
+
   describe "アソシエーション" do
     let(:association) { described_class.reflect_on_association(model) }
 
