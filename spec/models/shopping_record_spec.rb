@@ -227,4 +227,18 @@ RSpec.describe ShoppingRecord, type: :model do
       end
     end
   end
+
+  # hashid-railsを使用したIDハッシュ化に対するテスト
+  describe "#hashid" do
+    let(:shopping_record) { create(:shopping_record, id: 1, user: user) }
+
+    it "有効なお買い物のハッシュIDを返すこと" do
+      # お買い物IDをハッシュ化（整数→文字列）できているか検証
+      hashid = shopping_record.hashid
+      expect(hashid).to be_a(String)
+      # ハッシュ化したIDを元のIDにデコードできているかを検証
+      decode_id = shopping_record.class.decode_id(hashid)
+      expect(decode_id).to eq shopping_record.id
+    end
+  end
 end
