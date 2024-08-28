@@ -78,4 +78,18 @@ RSpec.describe ShoppingLocation, type: :model do
       it { is_expected.to eq :belongs_to }
     end
   end
+
+  # hashid-railsを使用したIDハッシュ化に対するテスト
+  describe "#hashid" do
+    let(:shopping_location) { create(:shopping_location, id: 1, shopping_record: shopping_record) }
+
+    it "有効なお買い物場所のハッシュIDを返すこと" do
+      # お買い物場所IDをハッシュ化（整数→文字列）できているか検証
+      hashid = shopping_location.hashid
+      expect(hashid).to be_a(String)
+      # ハッシュ化したIDを元のIDにデコードできているかを検証
+      decode_id = shopping_location.class.decode_id(hashid)
+      expect(decode_id).to eq shopping_location.id
+    end
+  end
 end
