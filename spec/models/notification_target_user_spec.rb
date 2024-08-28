@@ -385,4 +385,18 @@ RSpec.describe NotificationTargetUser, type: :model do
       end
     end
   end
+
+  # hashid-railsを使用したIDハッシュ化に対するテスト
+  describe "#hashid" do
+    let(:notification_target_user) { create(:notification_target_user, id: 1, user: user) }
+
+    it "有効な通知対象ユーザーのハッシュIDを返すこと" do
+      # 通知対象ユーザーIDをハッシュ化（整数→文字列）できているか検証
+      hashid = notification_target_user.hashid
+      expect(hashid).to be_a(String)
+      # ハッシュ化したIDを元のIDにデコードできているかを検証
+      decode_id = notification_target_user.class.decode_id(hashid)
+      expect(decode_id).to eq notification_target_user.id
+    end
+  end
 end
