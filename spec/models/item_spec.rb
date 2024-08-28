@@ -407,4 +407,18 @@ RSpec.describe Item, type: :model do
       end
     end
   end
+
+  # hashid-railsを使用したIDハッシュ化に対するテスト
+  describe "#hashid" do
+    let(:item) { create(:item, id: 1, user: user, category: category) }
+
+    it "有効なアイテムのハッシュIDを返すこと" do
+      # アイテムIDをハッシュ化（整数→文字列）できているか検証
+      hashid = item.hashid
+      expect(hashid).to be_a(String)
+      # ハッシュ化したIDを元のIDにデコードできているかを検証
+      decode_id = item.class.decode_id(hashid)
+      expect(decode_id).to eq item.id
+    end
+  end
 end
