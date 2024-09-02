@@ -2,8 +2,8 @@ FactoryBot.define do
   factory :buy do
     user { nil }
     shopping_record { nil }
-    item_name { "テストアイテム" }
-    item_hiragana { "てすとあいてむ" }
+    sequence(:item_name) { |n| "テストアイテム#{n}" }
+    sequence(:item_hiragana) { |n| "てすとあいてむ#{n}" }
     purchased { false }
   end
 end
