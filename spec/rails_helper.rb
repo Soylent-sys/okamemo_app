@@ -64,4 +64,7 @@ RSpec.configure do |config|
 
   # FactoryBotメソッド使用時にモジュール名 (FactoryBot)を省略できるようする
   config.include FactoryBot::Syntax::Methods
+
+  # ヘルパースペックでDeviseのテストヘルパーを使用可能にする
+  config.include Devise::Test::ControllerHelpers, type: :helper
 end
