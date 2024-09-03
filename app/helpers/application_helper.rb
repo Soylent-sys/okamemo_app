@@ -53,8 +53,8 @@ module ApplicationHelper
   end
 
   # 管理画面でのflashのマージン調整
-  def management_flash_margin_off
-    if request.path.include?("management")
+  def management_flash_margin_off(path)
+    if path.include?("management")
       "mb-0"
     end
   end
