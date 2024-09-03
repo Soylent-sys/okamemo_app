@@ -22,8 +22,7 @@ module ApplicationHelper
   end
 
   # ログインユーザーの状態表示
-  def now_info
-    path = request.path
+  def now_info(path)
     case
     when path.include?("management")
       "管理機能を利用中！"
