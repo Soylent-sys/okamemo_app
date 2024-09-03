@@ -46,8 +46,7 @@ module ApplicationHelper
   end
 
   # 管理画面のメニュー項目選択時のデザイン適用
-  def management_menu_active_class(path)
-    request_path = request.path
+  def management_menu_active_class(path, request_path)
     if request_path.include?(path)
       "mx-3 rounded-2 bg-secondary-subtle"
     end
