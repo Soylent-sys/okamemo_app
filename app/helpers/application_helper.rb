@@ -9,7 +9,7 @@ module ApplicationHelper
 
   # ナビゲーションメッセージ作成用（provide上での改行）
   def html_safe_newline(str)
-    h(str).gsub(/\n|\r|\r\n/, "<br>").html_safe
+    h(str).gsub(/\r\n|\n|\r/, "<br>").html_safe
   end
 
   # ログイン前、ログイン済み画面でのflashの表示位置調整
