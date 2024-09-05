@@ -5,5 +5,9 @@ FactoryBot.define do
     sequence(:item_name) { |n| "テストアイテム#{n}" }
     sequence(:item_hiragana) { |n| "てすとあいてむ#{n}" }
     purchased { false }
+
+    trait :purchased do
+      purchased { true }
+    end
   end
 end
