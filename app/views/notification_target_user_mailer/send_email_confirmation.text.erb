@@ -8,7 +8,7 @@
 以下のリンクをクリックして登録を許可してください。
 
 <%= confirm_email_notification_target_users_url(token: @notification_target_user.confirmation_token) %>
-このURLの有効期限は10分間です。
+このURLの有効期限は<%= NotificationTargetUser::EMAIL_CONFIRMATION_LIMIT %>分間です。
 
 【ご注意】
 ※このメールはシステムより自動で送信されているメールです。このメールに返信することは出来ませんのでご注意ください。
