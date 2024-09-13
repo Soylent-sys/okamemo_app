@@ -11,12 +11,14 @@ services:
     depends_on:
       - db
       - redis
+      - selenium_chrome
     stdin_open: true
     tty: true
     environment:
       MYSQL_USERNAME: root
       MYSQL_PASSWORD: password
       MYSQL_HOST: db
+      SELENIUM_DRIVER_URL: http://selenium_chrome:4444/wd/hub
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s"
   db:
     image: mysql:8.0.33
@@ -56,6 +58,12 @@ services:
     depends_on:
       - db
       - redis
+  selenium_chrome:
+    image: seleniarm/standalone-chromium:124.0
+    platform: linux/arm64
+    shm_size: 256m
+    ports:
+      - '4444:4444'
 
 volumes:
   mysql_data:
