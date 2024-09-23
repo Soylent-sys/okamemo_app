@@ -16,10 +16,10 @@ function hideHelp() {
       ); // ドキュメントの高さ
       const dispHeight = window.innerHeight; // 表示領域の高さ
 
-      if (point > docHeight - dispHeight - footer) { // スクロール地点 > ドキュメントの高さ - 表示領域 - footerの高さ
-        buttonHelp.classList.add('is-hidden'); // footerより下にスクロールしたらis-hiddenを追加
+      if (point > docHeight - dispHeight - (footer - 30)) { // スクロール地点 > ドキュメントの高さ - 表示領域 - footerの高さ - 30px(ヘルプボタンの底とfooter頂点との間の高さ)
+        buttonHelp.classList.add('is-hidden'); // ヘルプリンクがfooterに被ったらis-hiddenを追加
       } else {
-        buttonHelp.classList.remove('is-hidden'); // footerより上にスクロールしたらis-hiddenを削除
+        buttonHelp.classList.remove('is-hidden'); // ヘルプリンクの底がfooterの頂点より上になったらis-hiddenを削除
       }
     }
 
