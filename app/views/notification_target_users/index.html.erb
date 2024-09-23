@@ -54,3 +54,6 @@
     </div>
   <% end %>
 </div>
+<% if @notification_target_users.count == ConstantsHelper::ONE_RECORD %>
+  <div class="one-record-margin"></div>
+<% end %>
