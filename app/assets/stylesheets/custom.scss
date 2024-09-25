@@ -34,6 +34,10 @@ button {
   background: transparent;
 }
 
+button:focus-visible {
+  outline: -webkit-focus-ring-color auto 1px;
+}
+
 .btn-custom-send {
   background-color: rgba(255, 136, 9, 0.8);
   color: #fff;
@@ -53,6 +57,13 @@ button {
 .btn-custom-send:disabled {
   background-color: rgba(255, 136, 9, 0.8);
   color: rgba(255, 255, 255, 0.8);
+}
+
+.btn-custom-send:focus-visible {
+  color: #fff;
+  background-color: rgba(255, 136, 9, 0.8);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(232, 123, 7, .5);
 }
 
 .btn-close-cs:focus {
@@ -244,6 +255,10 @@ button {
   input[type="checkbox"]:checked::after {
     opacity: 1
   }
+
+  input[type="checkbox"]:focus-visible {
+    outline: -webkit-focus-ring-color auto 1px;
+  }
 }
 
 .custom-checkbox-ok {
@@ -281,10 +296,18 @@ button {
   input[type="checkbox"]:checked::after {
     opacity: 1
   }
+
+  input[type="checkbox"]:focus-visible {
+    outline: -webkit-focus-ring-color auto 1px;
+  }
 }
 
 .item-pointer {
   cursor: pointer;
+}
+
+.item-pointer:focus-visible {
+  outline: -webkit-focus-ring-color auto 1px;
 }
 
 .img-pointer {
@@ -622,6 +645,10 @@ body {
   border: none;
 }
 
+.nav-menu-logout-btn:focus-visible {
+  outline: -webkit-focus-ring-color auto 1px;
+}
+
 /* footer */
 
 .layouts-footer {
@@ -782,6 +809,11 @@ body {
   @media screen and (max-width: 767px) {
     color: #fff1da !important;
   }
+}
+
+.menu-logout-btn:focus-visible {
+  color: #666;
+  outline: -webkit-focus-ring-color auto 1px;
 }
 
 .menu-icon {
@@ -996,6 +1028,14 @@ body {
   background-color: rgb(42, 205, 226) !important;
   border-color: rgb(42, 205, 226) !important;
   color: #cbcbcb !important;
+}
+
+.btn-help:focus-visible {
+  background-color: rgb(46, 230, 254);
+  border-color: rgb(46, 230, 254);
+  color: #fff;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
 
 .is-hidden {
