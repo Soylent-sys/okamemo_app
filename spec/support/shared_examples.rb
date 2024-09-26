@@ -50,6 +50,114 @@ RSpec.shared_examples "ナビゲーションのテスト" do
   end
 end
 
+RSpec.shared_examples "ログアウトボタン・モーダルの基本機能テスト" do
+  # withinを指定するselector変数をテストするスペック上で定義する
+
+  it "ログアウトボタンが存在すること" do
+    within selector do
+      expect(page).to have_selector("button", text: "ログアウト")
+    end
+  end
+
+  it "ログアウトボタンをクリックするとモーダルが表示されること", js: true do
+    expect(page).to have_selector("#turbo-confirm-modal", visible: false)
+
+    within selector do
+      click_button "ログアウト"
+    end
+
+    expect(page).to have_selector("#turbo-confirm-modal", visible: true)
+  end
+
+  it "ログアウトモーダルにタイトルが表示されること", js: true do
+    within selector do
+      click_button "ログアウト"
+    end
+
+    expect(page).to have_selector("#turbo-confirm-modal", visible: true)
+
+    within "#turbo-confirm-modal" do
+      expect(page).to have_selector("h1", visible: true, text: "ログアウト")
+    end
+  end
+
+  it "ログアウトモーダルのヘッダーにモーダルを閉じるボタンがあること", js: true do
+    within selector do
+      click_button "ログアウト"
+    end
+
+    expect(page).to have_selector("#turbo-confirm-modal", visible: true)
+
+    within "#turbo-confirm-modal" do
+      within ".modal-header" do
+        expect(page).to have_selector("button.btn-close", visible: true)
+      end
+    end
+  end
+
+  it "ログアウトモーダルにログアウトするボタン・キャンセルボタンが表示されること", js: true do
+    within selector do
+      click_button "ログアウト"
+    end
+
+    expect(page).to have_selector("#turbo-confirm-modal", visible: true)
+
+    within "#turbo-confirm-modal" do
+      expect(page).to have_selector("button", visible: true, text: "ログアウトする")
+      expect(page).to have_selector("button", visible: true, text: "キャンセル")
+    end
+  end
+
+  it "ログアウトモーダルのキャンセルボタンでログアウトを中止できること", js: true do
+    within selector do
+      click_button "ログアウト"
+    end
+
+    expect(page).to have_selector("#turbo-confirm-modal", visible: true)
+
+    within("#turbo-confirm-modal") do
+      click_button "キャンセル"
+    end
+
+    expect(page).to have_selector("#turbo-confirm-modal", visible: false)
+  end
+
+  it "ログアウトモーダルの外をクリックするとモーダルが閉じること", js: true do
+    within selector do
+      click_button "ログアウト"
+    end
+
+    expect(page).to have_selector("#turbo-confirm-modal", visible: true)
+
+    # モーダルの外をクリック
+    page.execute_script("document.querySelector('body').click();")
+
+    expect(page).to have_selector("#turbo-confirm-modal", visible: false)
+  end
+
+  it "ログアウトボタンからログアウトできること", js: true do
+    within selector do
+      click_button "ログアウト"
+    end
+
+    expect(page).to have_selector("#turbo-confirm-modal", visible: true)
+
+    within("#turbo-confirm-modal") do
+      click_button "ログアウトする"
+    end
+
+    expect(current_path).to eq root_path
+
+    within ".alert" do
+      expect(page).to have_content "ログアウトしました。"
+    end
+
+    within "nav" do
+      expect(page).to have_link("ログイン", href: new_user_session_path)
+    end
+  end
+end
+
 RSpec.shared_examples "ヘルプモーダルの基本機能テスト" do
   it "ヘルプボタンが表示されていること" do
     expect(page).to have_selector("button", text: "ヘルプ", visible: true)
