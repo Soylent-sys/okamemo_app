@@ -1188,6 +1188,17 @@ body {
   height: 38px;
 }
 
+.caution-message-mobile {
+  display: none;
+
+  @media screen and (max-width: 500px) {
+    display: block;
+    position: sticky;
+    top: 111.2px;
+    z-index: 999;
+  }
+}
+
 /* management items edit */
 
 .management-item-id-table th, .management-item-id-table td {
