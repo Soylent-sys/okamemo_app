@@ -72,6 +72,18 @@ RSpec.describe "Layouts", type: :system do
             expect(page).to have_selector('#navbarSupportedContent', visible: true, wait: wait_time_second)
           end
         end
+
+        it "メニューが表示されている状態でnavbar-toggler（ハンバーガーメニューボタン）を押すとメニューが非表示になること" do
+          within "nav" do
+            find('button.navbar-toggler').click
+
+            expect(page).to have_selector('#navbarSupportedContent', visible: true, wait: wait_time_second)
+
+            find('button.navbar-toggler').click
+
+            expect(page).to have_selector('#navbarSupportedContent', visible: false)
+          end
+        end
       end
     end
 
