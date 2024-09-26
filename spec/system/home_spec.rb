@@ -867,33 +867,10 @@ RSpec.describe "Home", type: :system do
           expect(current_path).to eq edit_user_registration_path
         end
 
-        it "ログアウトボタンが存在すること" do
-          within "ul.list-unstyled" do
-            expect(page).to have_selector("button", text: "ログアウト")
-          end
-        end
+        # ログアウトボタン・モーダルの基本機能テスト用変数
+        let(:selector) { "ul.list-unstyled" }
 
-        it "ログアウトボタンからログアウトできること", js: true do
-          within "ul.list-unstyled" do
-            click_button "ログアウト"
-          end
-
-          expect(page).to have_selector("#turbo-confirm-modal", visible: true)
-
-          within("#turbo-confirm-modal") do
-            click_button "ログアウトする"
-          end
-
-          expect(current_path).to eq root_path
-
-          within ".alert" do
-            expect(page).to have_content "ログアウトしました。"
-          end
-
-          within "nav" do
-            expect(page).to have_link("ログイン", href: new_user_session_path)
-          end
-        end
+        include_examples "ログアウトボタン・モーダルの基本機能テスト"
 
         # ヘルプモーダルの基本機能テスト用変数
         let(:page_title) { "メインメニュー" }
