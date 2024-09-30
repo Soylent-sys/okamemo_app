@@ -1,101 +1,103 @@
-<nav class="navbar sticky-top navbar-expand-lg layouts-header">
-  <div class="container-fluid">
-    <%= link_to root_path, class: "navbar-brand" do %>
-      <%= image_tag "logo/logo_transparent_side.png", class: "okame-nav-logo", alt: "サービスロゴ" %>
-    <% end %>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-lg-end" id="navbarSupportedContent">
-      <% if user_signed_in? %>
-        <div>
-          <ul class="navbar-nav me-lg-3 me-0 mt-lg-0 mt-3 mb-2 mb-lg-0 gap-4">
-            <li class="nav-item">
-              <%= link_to shopping_new_path, class: "text-decoration-none" do %>
-                <i class="nav-link d-lg-block d-none far fa-pen-to-square nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="お買い物の登録"></i>
-                <div class="d-lg-none d-inline-flex ms-2 nav-menu-icon nav-menu-mb">
-                  <i class="far fa-pen-to-square mx-1"></i>
-                  <span class="h5 ms-1 my-auto">お買い物の登録</span>
-                </div>
-              <% end %>
-            </li>
-            <li class="nav-item">
-              <%= link_to shopping_index_path, class: "text-decoration-none" do %>
-                <i class="nav-link d-lg-block d-none fas fa-cart-shopping nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="お買い物モード"></i>
-                <div class="d-lg-none d-inline-flex ms-2 nav-menu-icon nav-menu-mb">
-                  <i class="fas fa-cart-shopping me-2"></i>
-                  <span class="h5 ms-1 my-auto">お買い物モード</span>
-                </div>
-              <% end %>
-            </li>
-            <li class="nav-item">
-              <%= link_to shopping_result_group_path, class: "text-decoration-none" do %>
-                <i class="nav-link d-lg-block d-none fas fa-receipt nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="お買い物の履歴"></i>
-                <div class="d-lg-none d-inline-flex ms-2 nav-menu-icon nav-menu-mb">
-                  <i class="fas fa-receipt mx-2"></i>
-                  <span class="h5 ms-1 my-auto">お買い物の履歴</span>
-                </div>
-              <% end %>
-            </li>
-            <li class="nav-item">
-              <%= link_to items_path, class: "text-decoration-none" do %>
-                <i class="nav-link d-lg-block d-none fas fa-apple-whole nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="アイテム登録"></i>
-                <div class="d-lg-none d-inline-flex ms-2 nav-menu-icon nav-menu-mb">
-                  <i class="fas fa-apple-whole ms-1 me-2"></i>
-                  <span class="h5 ms-1 my-auto">アイテム登録</span>
-                </div>
-              <% end %>
-            </li>
-            <li class="nav-item">
-              <%= link_to notification_target_users_path, class: "text-decoration-none" do %>
-                <i class="nav-link d-lg-block d-none far fa-paper-plane nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="通知メール登録"></i>
-                <div class="d-lg-none d-inline-flex ms-2 nav-menu-icon nav-menu-mb">
-                  <i class="far fa-paper-plane me-2"></i>
-                  <span class="h5 ms-1 my-auto">通知メール登録</span>
-                </div>
-              <% end %>
-            </li>
-            <li class="nav-item">
-              <%= link_to edit_user_registration_path, class: "text-decoration-none" do %>
-                <i class="nav-link d-lg-block d-none fas fa-user-pen nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ユーザー設定"></i>
-                <div class="d-lg-none d-inline-flex ms-2 nav-menu-icon nav-menu-mb">
-                  <i class="fas fa-user-pen mx-1"></i>
-                  <span class="h5 ms-1 my-auto">ユーザー設定</span>
-                </div>
-              <% end %>
-            </li>
-            <% if current_user.admin? %>
+<header class="sticky-top">
+  <nav class="navbar navbar-expand-lg layouts-header">
+    <div class="container-fluid">
+      <%= link_to root_path, class: "navbar-brand" do %>
+        <%= image_tag "logo/logo_transparent_side.png", class: "okame-nav-logo", alt: "サービスロゴ" %>
+      <% end %>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-lg-end" id="navbarSupportedContent">
+        <% if user_signed_in? %>
+          <div>
+            <ul class="navbar-nav me-lg-3 me-0 mt-lg-0 mt-3 mb-2 mb-lg-0 gap-4">
               <li class="nav-item">
-                <%= link_to management_users_path, class: "text-decoration-none" do %>
-                  <i class="nav-link d-lg-block d-none fas fa-gear nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="管理者機能"></i>
+                <%= link_to shopping_new_path, class: "text-decoration-none" do %>
+                  <i class="nav-link d-lg-block d-none far fa-pen-to-square nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="お買い物の登録"></i>
                   <div class="d-lg-none d-inline-flex ms-2 nav-menu-icon nav-menu-mb">
-                    <i class="fas fa-gear ms-1 me-2"></i>
-                    <span class="h5 ms-1 my-auto">管理者機能</span>
+                    <i class="far fa-pen-to-square mx-1"></i>
+                    <span class="h5 ms-1 my-auto">お買い物の登録</span>
                   </div>
                 <% end %>
               </li>
-            <% end %>
-            <li class="nav-item">
-              <%= button_to destroy_user_session_path, method: :delete, form: { data: { turbo_confirm: t('.confirm_to_logout'), turbo_confirm_title: "ログアウト", turbo_confirm_submit_text: "ログアウトする", turbo_confirm_button_class: 'btn btn-secondary' } }, class: "btn p-0 w-lg-100 nav-menu-logout-btn" do %>
-                <i class="nav-link d-lg-block d-none fas fa-person-walking-arrow-right nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ログアウト"></i>
-                <div class="d-lg-none d-inline-flex ms-2 mb-3 nav-menu-icon nav-menu-mb">
-                  <i class="fas fa-person-walking-arrow-right mx-1"></i>
-                  <span class="h5 ms-1 my-auto">ログアウト</span>
-                </div>
+              <li class="nav-item">
+                <%= link_to shopping_index_path, class: "text-decoration-none" do %>
+                  <i class="nav-link d-lg-block d-none fas fa-cart-shopping nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="お買い物モード"></i>
+                  <div class="d-lg-none d-inline-flex ms-2 nav-menu-icon nav-menu-mb">
+                    <i class="fas fa-cart-shopping me-2"></i>
+                    <span class="h5 ms-1 my-auto">お買い物モード</span>
+                  </div>
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to shopping_result_group_path, class: "text-decoration-none" do %>
+                  <i class="nav-link d-lg-block d-none fas fa-receipt nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="お買い物の履歴"></i>
+                  <div class="d-lg-none d-inline-flex ms-2 nav-menu-icon nav-menu-mb">
+                    <i class="fas fa-receipt mx-2"></i>
+                    <span class="h5 ms-1 my-auto">お買い物の履歴</span>
+                  </div>
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to items_path, class: "text-decoration-none" do %>
+                  <i class="nav-link d-lg-block d-none fas fa-apple-whole nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="アイテム登録"></i>
+                  <div class="d-lg-none d-inline-flex ms-2 nav-menu-icon nav-menu-mb">
+                    <i class="fas fa-apple-whole ms-1 me-2"></i>
+                    <span class="h5 ms-1 my-auto">アイテム登録</span>
+                  </div>
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to notification_target_users_path, class: "text-decoration-none" do %>
+                  <i class="nav-link d-lg-block d-none far fa-paper-plane nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="通知メール登録"></i>
+                  <div class="d-lg-none d-inline-flex ms-2 nav-menu-icon nav-menu-mb">
+                    <i class="far fa-paper-plane me-2"></i>
+                    <span class="h5 ms-1 my-auto">通知メール登録</span>
+                  </div>
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to edit_user_registration_path, class: "text-decoration-none" do %>
+                  <i class="nav-link d-lg-block d-none fas fa-user-pen nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ユーザー設定"></i>
+                  <div class="d-lg-none d-inline-flex ms-2 nav-menu-icon nav-menu-mb">
+                    <i class="fas fa-user-pen mx-1"></i>
+                    <span class="h5 ms-1 my-auto">ユーザー設定</span>
+                  </div>
+                <% end %>
+              </li>
+              <% if current_user.admin? %>
+                <li class="nav-item">
+                  <%= link_to management_users_path, class: "text-decoration-none" do %>
+                    <i class="nav-link d-lg-block d-none fas fa-gear nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="管理者機能"></i>
+                    <div class="d-lg-none d-inline-flex ms-2 nav-menu-icon nav-menu-mb">
+                      <i class="fas fa-gear ms-1 me-2"></i>
+                      <span class="h5 ms-1 my-auto">管理者機能</span>
+                    </div>
+                  <% end %>
+                </li>
               <% end %>
-            </li>
-          </ul>
-        </div>
-      <% else %>
-        <div class="ms-auto text-end">
-          <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-success btn-lg me-2"%>
-          <%= link_to "ユーザー登録", new_user_registration_path, class: "btn btn-outline-primary btn-lg"%>
-        </div>
-        <div class="d-flex justify-content-end align-items-center ms-lg-4 mt-lg-0 mt-3">
-          <h6 class="d-lg-none d-block me-2">お試しの方はコチラ <i class="far fa-hand-point-right"></i></h6>
-          <%= button_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: 'btn btn-outline-danger btn-lg' %>
-        </div>
-      <% end %>
+              <li class="nav-item">
+                <%= button_to destroy_user_session_path, method: :delete, form: { data: { turbo_confirm: t('.confirm_to_logout'), turbo_confirm_title: "ログアウト", turbo_confirm_submit_text: "ログアウトする", turbo_confirm_button_class: 'btn btn-secondary' } }, class: "btn p-0 w-lg-100 nav-menu-logout-btn" do %>
+                  <i class="nav-link d-lg-block d-none fas fa-person-walking-arrow-right nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ログアウト"></i>
+                  <div class="d-lg-none d-inline-flex ms-2 mb-3 nav-menu-icon nav-menu-mb">
+                    <i class="fas fa-person-walking-arrow-right mx-1"></i>
+                    <span class="h5 ms-1 my-auto">ログアウト</span>
+                  </div>
+                <% end %>
+              </li>
+            </ul>
+          </div>
+        <% else %>
+          <div class="ms-auto text-end">
+            <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-success btn-lg me-2"%>
+            <%= link_to "ユーザー登録", new_user_registration_path, class: "btn btn-outline-primary btn-lg"%>
+          </div>
+          <div class="d-flex justify-content-end align-items-center ms-lg-4 mt-lg-0 mt-3">
+            <h6 class="d-lg-none d-block me-2">お試しの方はコチラ <i class="far fa-hand-point-right"></i></h6>
+            <%= button_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: 'btn btn-outline-danger btn-lg' %>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</header>
