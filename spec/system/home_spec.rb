@@ -762,11 +762,7 @@ RSpec.describe "Home", type: :system do
       end
 
       shared_examples "ログイン時メインメニュー画面の共通テスト" do
-        it "状態を示すユーザー情報が表示されていること" do
-          within ".position-user-info" do
-            expect(page).to have_selector("h6", text: "#{user.name} さん　#{ApplicationController.helpers.now_info(current_path)}")
-          end
-        end
+        include_examples "ユーザー情報の表示テスト"
 
         # ナビゲーションのテスト用変数
         let(:navigation_content) { "ようこそ！ #{user.name} さん！\nここはメインメニューだよ。" }

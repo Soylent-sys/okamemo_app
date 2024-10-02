@@ -1,3 +1,12 @@
+RSpec.shared_examples "ユーザー情報の表示テスト" do
+  # このテストを使用するときはログイン中のユーザーはuser変数で定義する
+  it "状態を示すユーザー情報が表示されていること" do
+    within ".position-user-info" do
+      expect(page).to have_selector("h6", text: "#{user.name} さん　#{ApplicationController.helpers.now_info(current_path)}")
+    end
+  end
+end
+
 RSpec.shared_examples "ナビゲーションのテスト" do
   context "ブラウザ幅が 576px以上 の場合", js: true do
     before do
