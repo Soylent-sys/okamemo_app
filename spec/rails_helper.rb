@@ -67,4 +67,7 @@ RSpec.configure do |config|
 
   # ヘルパースペックでDeviseのテストヘルパーを使用可能にする
   config.include Devise::Test::ControllerHelpers, type: :helper
+
+  # テスト内でtravel_toメソッドを使用可能にする
+  config.include ActiveSupport::Testing::TimeHelpers
 end
