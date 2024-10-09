@@ -68,8 +68,6 @@ class User < ApplicationRecord
 
   # ユーザー編集で現在のパスワード入力を省略する（deviseのupdate_resourceのオーバーライド）
   def update_without_current_password(params)
-    params.delete(:current_password)
-
     if params[:password].blank?
       params.delete(:password)
       params.delete(:password_confirmation) if params[:password_confirmation].blank?
