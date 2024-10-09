@@ -349,6 +349,53 @@ RSpec.describe User, type: :model do
     end
   end
 
+  # ユーザー編集で「現在のパスワード」の入力を省略してupdateするメソッド
+  describe "#update_without_current_password" do
+    let(:user) do
+      User.create(
+        admin: false,
+        name: "テストユーザー",
+        email: "test-valid-mail@example.com",
+        password: "Password1",
+        hiragana_view: false,
+        confirmed_at: Time.current
+      )
+    end
+    let!(:master_user) { create(:user, :master_admin) }
+
+    it "ユーザーの属性を正しく更新できること" do
+      params = {
+        name: "新テストユーザー",
+        email: "new-email@example.test",
+        password: "newPass123",
+        password_confirmation: "newPass123",
+        hiragana_view: true,
+      }
+
+      # deviseのメール認証をスキップする
+      user.skip_reconfirmation!
+
+      expect(user.update_without_current_password(params)).to be_truthy
+      expect(user.reload.name).to eq params[:name]
+      expect(user.reload.email).to eq params[:email]
+      expect(user.reload.valid_password?(params[:password])).to be_truthy
+      expect(user.reload.hiragana_view).to be_truthy
+    end
+
+    it "paramsのパスワード属性が空の状態ではパスワードは更新されないこと" do
+      params = { password: "" }
+
+      expect(user.update_without_current_password(params)).to be_truthy
+      expect(user.reload.valid_password?("Password1")).to be_truthy
+    end
+
+    it "パスワードとパスワード確認が一致しない場合は更新されないこと" do
+      params = { password: "newPass123", password_confirmation: "otherPass111" }
+
+      expect(user.update_without_current_password(params)).to be_falsey
+    end
+  end
+
   describe "コールバック" do
     let(:admin_user_email_original) { ENV['ADMIN_USER_EMAIL'] }
     let(:master_user) do
