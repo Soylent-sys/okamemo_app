@@ -262,3 +262,23 @@ RSpec.shared_examples "ヘルプモーダルの基本機能テスト" do
     expect(page).to have_selector('#helpModal', visible: false)
   end
 end
+
+RSpec.shared_examples "非ログイン状態で認可が必要なページにアクセスした時のリダイレクトテスト" do
+  it "ログイン画面にリダイレクトされること" do
+    expect(current_path).to eq new_user_session_path
+
+    within ".alert" do
+      expect(page).to have_content("ログインもしくはアカウント登録してください。")
+    end
+  end
+end
+
+RSpec.shared_examples "ログイン状態で非ログイン専用ページにアクセスした時のリダイレクトテスト" do
+  it "rootページにリダイレクトされること" do
+    expect(current_path).to eq root_path
+
+    within ".alert" do
+      expect(page).to have_content "すでにログインしています。"
+    end
+  end
+end
