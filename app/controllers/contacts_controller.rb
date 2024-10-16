@@ -17,7 +17,8 @@ class ContactsController < ApplicationController
     end
 
     if recaptcha_presence_check_and_valid(@contact)
-      render 'confirm', status: :see_other
+      # see_otherステータスコードのrenderは以下のメソッドで実行する
+      render_with_status_see_other 'confirm'
     else
       set_error_message(@contact) unless user_signed_in?
       render 'new', status: :unprocessable_entity
@@ -26,13 +27,15 @@ class ContactsController < ApplicationController
 
   def back
     @contact = Contact.new(contact_params)
-    render 'new', status: :see_other
+    # see_otherステータスコードのrenderは以下のメソッドで実行する
+    render_with_status_see_other 'new'
   end
 
   def done
     contact = Contact.new(contact_params)
     ContactMailer.with(contact: contact).send_contact_mail.deliver_now
-    render 'done', status: :see_other
+    # see_otherステータスコードのrenderは以下のメソッドで実行する
+    render_with_status_see_other 'done'
   end
 
   private
