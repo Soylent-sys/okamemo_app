@@ -70,4 +70,7 @@ RSpec.configure do |config|
 
   # テスト内でtravel_toメソッドを使用可能にする
   config.include ActiveSupport::Testing::TimeHelpers
+
+  # 各テストの実行前にメールキューをクリアする
+  config.before { ActionMailer::Base.deliveries.clear }
 end
