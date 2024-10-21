@@ -124,7 +124,7 @@ RSpec.shared_examples "ログアウトボタン・モーダルの基本機能テ
 
     expect(page).to have_selector("#turbo-confirm-modal", visible: true)
 
-    within("#turbo-confirm-modal") do
+    within "#turbo-confirm-modal" do
       click_button "キャンセル"
     end
 
@@ -151,7 +151,7 @@ RSpec.shared_examples "ログアウトボタン・モーダルの基本機能テ
 
     expect(page).to have_selector("#turbo-confirm-modal", visible: true)
 
-    within("#turbo-confirm-modal") do
+    within "#turbo-confirm-modal" do
       click_button "ログアウトする"
     end
 

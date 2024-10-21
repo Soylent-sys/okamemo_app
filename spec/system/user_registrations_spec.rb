@@ -273,7 +273,7 @@ RSpec.describe "UserRegistrations", type: :system do
 
             expect(page).to have_selector("#turbo-confirm-modal", visible: true)
 
-            within("#turbo-confirm-modal") do
+            within "#turbo-confirm-modal" do
               click_button "キャンセル"
             end
 
@@ -297,7 +297,7 @@ RSpec.describe "UserRegistrations", type: :system do
             expect(page).to have_selector("#turbo-confirm-modal", visible: true)
 
             expect do
-              within("#turbo-confirm-modal") do
+              within "#turbo-confirm-modal" do
                 click_button "削除する"
               end
 
@@ -936,7 +936,7 @@ RSpec.describe "UserRegistrations", type: :system do
         end
 
         expect do
-          within("#turbo-confirm-modal") do
+          within "#turbo-confirm-modal" do
             click_button "削除する"
           end
 

@@ -146,7 +146,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-1a-m", visible: true)
 
-          within("#instruction-1a-m") do
+          within "#instruction-1a-m" do
             expect(page).to have_selector("img[src*='instruction_1a_mini']")
           end
         end
@@ -169,7 +169,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-1b-m", visible: true)
 
-          within("#instruction-1b-m") do
+          within "#instruction-1b-m" do
             expect(page).to have_selector("img[src*='instruction_1b_mini']")
           end
         end
@@ -192,7 +192,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-1c-m", visible: true)
 
-          within("#instruction-1c-m") do
+          within "#instruction-1c-m" do
             expect(page).to have_selector("img[src*='instruction_1c_mini']")
           end
         end
@@ -215,7 +215,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-2a-m", visible: true)
 
-          within("#instruction-2a-m") do
+          within "#instruction-2a-m" do
             expect(page).to have_selector("img[src*='instruction_2a_mini']")
           end
         end
@@ -238,7 +238,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-2b-m", visible: true)
 
-          within("#instruction-2b-m") do
+          within "#instruction-2b-m" do
             expect(page).to have_selector("img[src*='instruction_2b_mini']")
           end
         end
@@ -261,7 +261,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-2c-m", visible: true)
 
-          within("#instruction-2c-m") do
+          within "#instruction-2c-m" do
             expect(page).to have_selector("img[src*='instruction_2c_mini']")
           end
         end
@@ -284,7 +284,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-2d-m", visible: true)
 
-          within("#instruction-2d-m") do
+          within "#instruction-2d-m" do
             expect(page).to have_selector("img[src*='instruction_2d_mini']")
           end
         end
@@ -307,7 +307,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-2e-m", visible: true)
 
-          within("#instruction-2e-m") do
+          within "#instruction-2e-m" do
             expect(page).to have_selector("img[src*='instruction_2e_mini']")
           end
         end
@@ -330,7 +330,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-2f-m", visible: true)
 
-          within("#instruction-2f-m") do
+          within "#instruction-2f-m" do
             expect(page).to have_selector("img[src*='instruction_2f_mini']")
           end
         end
@@ -353,7 +353,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-3a-m", visible: true)
 
-          within("#instruction-3a-m") do
+          within "#instruction-3a-m" do
             expect(page).to have_selector("img[src*='instruction_3a_mini']")
           end
         end
@@ -376,7 +376,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-3b-m", visible: true)
 
-          within("#instruction-3b-m") do
+          within "#instruction-3b-m" do
             expect(page).to have_selector("img[src*='instruction_3b_mini']")
           end
         end
@@ -464,7 +464,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-1a", visible: true)
 
-          within("#instruction-1a") do
+          within "#instruction-1a" do
             expect(page).to have_selector("img[src*='instruction_1a_std']")
           end
         end
@@ -487,7 +487,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-1b", visible: true)
 
-          within("#instruction-1b") do
+          within "#instruction-1b" do
             expect(page).to have_selector("img[src*='instruction_1b_std']")
           end
         end
@@ -510,7 +510,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-1c", visible: true)
 
-          within("#instruction-1c") do
+          within "#instruction-1c" do
             expect(page).to have_selector("img[src*='instruction_1c_std']")
           end
         end
@@ -533,7 +533,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-2a", visible: true)
 
-          within("#instruction-2a") do
+          within "#instruction-2a" do
             expect(page).to have_selector("img[src*='instruction_2a_std']")
           end
         end
@@ -556,7 +556,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-2b", visible: true)
 
-          within("#instruction-2b") do
+          within "#instruction-2b" do
             expect(page).to have_selector("img[src*='instruction_2b_std']")
           end
         end
@@ -579,7 +579,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-2c", visible: true)
 
-          within("#instruction-2c") do
+          within "#instruction-2c" do
             expect(page).to have_selector("img[src*='instruction_2c_std']")
           end
         end
@@ -602,7 +602,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-2d", visible: true)
 
-          within("#instruction-2d") do
+          within "#instruction-2d" do
             expect(page).to have_selector("img[src*='instruction_2d_std']")
           end
         end
@@ -625,7 +625,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-2e", visible: true)
 
-          within("#instruction-2e") do
+          within "#instruction-2e" do
             expect(page).to have_selector("img[src*='instruction_2e_std']")
           end
         end
@@ -648,7 +648,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-2f", visible: true)
 
-          within("#instruction-2f") do
+          within "#instruction-2f" do
             expect(page).to have_selector("img[src*='instruction_2f_std']")
           end
         end
@@ -671,7 +671,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-3a", visible: true)
 
-          within("#instruction-3a") do
+          within "#instruction-3a" do
             expect(page).to have_selector("img[src*='instruction_3a_std']")
           end
         end
@@ -694,7 +694,7 @@ RSpec.describe "Home", type: :system do
 
           expect(page).to have_selector("#instruction-3b", visible: true)
 
-          within("#instruction-3b") do
+          within "#instruction-3b" do
             expect(page).to have_selector("img[src*='instruction_3b_std']")
           end
         end
