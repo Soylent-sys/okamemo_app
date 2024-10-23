@@ -181,7 +181,12 @@ RSpec.describe "UserRegistrations", type: :system do
           end
         end
 
-        shared_examples "ヘルプモーダルの共通表示項目のテスト" do
+        shared_examples "ヘルプモーダルの共通テスト" do
+          # ヘルプモーダルの基本機能テスト用変数
+          let(:page_title) { "ユーザー設定" }
+
+          include_examples "ヘルプモーダルの基本機能テスト"
+
           it "ヘルプモーダル内の主な項目が正しく表示されること" do
             within "#helpModal.modal" do
               expect(page).to have_selector("h3", text: "フォームについて")
@@ -316,12 +321,7 @@ RSpec.describe "UserRegistrations", type: :system do
             expect(User.where(id: user.id)).to_not exist
           end
 
-          # ヘルプモーダルの基本機能テスト用変数
-          let(:page_title) { "ユーザー設定" }
-
-          include_examples "ヘルプモーダルの基本機能テスト"
-
-          it_behaves_like "ヘルプモーダルの共通表示項目のテスト"
+          it_behaves_like "ヘルプモーダルの共通テスト"
 
           it_behaves_like "ヘルプモーダルのゲストユーザー向け項目非表示のテスト"
         end
@@ -344,12 +344,7 @@ RSpec.describe "UserRegistrations", type: :system do
 
           it_behaves_like "アカウント削除ボタンの活性確認"
 
-          # ヘルプモーダルの基本機能テスト用変数
-          let(:page_title) { "ユーザー設定" }
-
-          include_examples "ヘルプモーダルの基本機能テスト"
-
-          it_behaves_like "ヘルプモーダルの共通表示項目のテスト"
+          it_behaves_like "ヘルプモーダルの共通テスト"
 
           it_behaves_like "ヘルプモーダルのゲストユーザー向け項目非表示のテスト"
         end
@@ -372,12 +367,7 @@ RSpec.describe "UserRegistrations", type: :system do
 
           it_behaves_like "アカウント削除ボタンの非活性確認"
 
-          # ヘルプモーダルの基本機能テスト用変数
-          let(:page_title) { "ユーザー設定" }
-
-          include_examples "ヘルプモーダルの基本機能テスト"
-
-          it_behaves_like "ヘルプモーダルの共通表示項目のテスト"
+          it_behaves_like "ヘルプモーダルの共通テスト"
 
           it_behaves_like "ヘルプモーダルのゲストユーザー向け項目非表示のテスト"
         end
@@ -407,12 +397,7 @@ RSpec.describe "UserRegistrations", type: :system do
 
           it_behaves_like "アカウント削除ボタンの非活性確認"
 
-          # ヘルプモーダルの基本機能テスト用変数
-          let(:page_title) { "ユーザー設定" }
-
-          include_examples "ヘルプモーダルの基本機能テスト"
-
-          it_behaves_like "ヘルプモーダルの共通表示項目のテスト"
+          it_behaves_like "ヘルプモーダルの共通テスト"
 
           it "ヘルプモーダル内にゲストユーザー向けの表示項目が存在すること" do
             expect(page).to have_selector("h3", text: "ゲストユーザーの編集制限")
