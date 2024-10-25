@@ -17,7 +17,7 @@ class Item < ApplicationRecord
                    length: { maximum: MAX_LENGTH_NAME }
   validates :hiragana, presence: true, uniqueness: { scope: [:user_id, :category_id], message: "は同じカテゴリーの中で二つ以上登録できません。" },
                        length: { maximum: MAX_LENGTH_HIRAGANA },
-                       format: { with: VALID_HIRAGANA_REGEX, message: "の項目はひらがなで入力してください。" }
+                       format: { with: VALID_HIRAGANA_REGEX, message: "の項目は平仮名・半角数字のみ使用してください。" }
   validate :same_preset_item
   validate :check_count, on: :create
   validate :guest_check_count, on: :create
