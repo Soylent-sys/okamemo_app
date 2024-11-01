@@ -757,147 +757,151 @@ RSpec.describe "Home", type: :system do
     end
 
     context "サインインしている場合" do
+      let(:user) { create(:user) }
+      # ログアウト時に実行されるbeforeアクションと
+      # 管理機能のコントローラー上でマスター管理ユーザーの
+      # インスタンス変数を定義するためにそれぞれ必要
+      let!(:master_user) { create(:user, :master_admin) }
+
       before do
         sign_in_as(user)
       end
 
-      shared_examples "ログイン時メインメニュー画面の共通テスト" do
-        include_examples "ユーザー情報の表示テスト"
+      include_examples "ユーザー情報の表示テスト"
 
-        # ナビゲーションのテスト用変数
-        let(:navigation_content) { "ようこそ！ #{user.name} さん！\nここはメインメニューだよ。" }
+      # ナビゲーションのテスト用変数
+      let(:navigation_content) { "ようこそ！ #{user.name} さん！\nここはメインメニューだよ。" }
 
-        include_examples "ナビゲーションのテスト"
+      include_examples "ナビゲーションのテスト"
 
-        it "ページタイトルが表示されていること" do
-          expect(page).to have_selector("h1", text: "メインメニュー")
-        end
+      it "ページタイトルが表示されていること" do
+        expect(page).to have_selector("h1", text: "メインメニュー")
+      end
 
-        it "お買い物登録画面へ遷移するリンクが存在すること" do
-          within "ul.list-unstyled" do
-            expect(page).to have_link("お買い物の登録", href: shopping_new_path)
-          end
-        end
-
-        it "お買い物登録をクリックしてお買い物登録画面へ遷移できること" do
-          within "ul.list-unstyled" do
-            click_link "お買い物の登録"
-          end
-
-          expect(page).to have_http_status(:success)
-          expect(current_path).to eq shopping_new_path
-        end
-
-        it "お買い物モード画面へ遷移するリンクが存在すること" do
-          within "ul.list-unstyled" do
-            expect(page).to have_link("お買い物モード", href: shopping_index_path)
-          end
-        end
-
-        it "お買い物モードをクリックしてお買い物モード画面へ遷移できること" do
-          within "ul.list-unstyled" do
-            click_link "お買い物モード"
-          end
-
-          expect(page).to have_http_status(:success)
-          expect(current_path).to eq shopping_index_path
-        end
-
-        it "お買い物履歴画面へ遷移するリンクが存在すること" do
-          within "ul.list-unstyled" do
-            expect(page).to have_link("お買い物の履歴", href: shopping_result_group_path)
-          end
-        end
-
-        it "お買い物の履歴をクリックしてお買い物履歴画面へ遷移できること" do
-          within "ul.list-unstyled" do
-            click_link "お買い物の履歴"
-          end
-
-          expect(page).to have_http_status(:success)
-          expect(current_path).to eq shopping_result_group_path
-        end
-
-        it "通知対象ユーザー一覧画面へ遷移するリンクが存在すること" do
-          within "ul.list-unstyled" do
-            expect(page).to have_link("通知メール登録", href: notification_target_users_path)
-          end
-        end
-
-        it "通知メール登録をクリックして通知対象ユーザー一覧画面へ遷移できること" do
-          within "ul.list-unstyled" do
-            click_link "通知メール登録"
-          end
-
-          expect(page).to have_http_status(:success)
-          expect(current_path).to eq notification_target_users_path
-        end
-
-        it "アイテム一覧画面へ遷移するリンクが存在すること" do
-          within "ul.list-unstyled" do
-            expect(page).to have_link("アイテム登録", href: items_path)
-          end
-        end
-
-        it "アイテム登録をクリックしてアイテム一覧画面へ遷移できること" do
-          within "ul.list-unstyled" do
-            click_link "アイテム登録"
-          end
-
-          expect(page).to have_http_status(:success)
-          expect(current_path).to eq items_path
-        end
-
-        it "ユーザー編集画面へ遷移するリンクが存在すること" do
-          within "ul.list-unstyled" do
-            expect(page).to have_link("ユーザー設定", href: edit_user_registration_path)
-          end
-        end
-
-        it "ユーザー設定をクリックしてユーザー編集画面へ遷移できること" do
-          within "ul.list-unstyled" do
-            click_link "ユーザー設定"
-          end
-
-          expect(page).to have_http_status(:success)
-          expect(current_path).to eq edit_user_registration_path
-        end
-
-        # ログアウトボタン・モーダルの基本機能テスト用変数
-        let(:selector) { "ul.list-unstyled" }
-
-        include_examples "ログアウトボタン・モーダルの基本機能テスト"
-
-        # ヘルプモーダルの基本機能テスト用変数
-        let(:page_title) { "メインメニュー" }
-
-        include_examples "ヘルプモーダルの基本機能テスト"
-
-        it "ヘルプモーダル内の主な項目が正しく表示されること" do
-          within "#helpModal.modal" do
-            expect(page).to have_selector("h3", text: "各機能の説明")
-            expect(page).to have_selector("h4", text: "お買い物機能")
-            expect(page).to have_selector("h5", text: "お買い物の登録")
-            expect(page).to have_selector("h5", text: "お買い物モード")
-            expect(page).to have_selector("h5", text: "お買い物の履歴")
-            expect(page).to have_selector("h4", text: "ユーティリティ")
-            expect(page).to have_selector("h5", text: "通知メール登録")
-            expect(page).to have_selector("h5", text: "アイテム登録")
-            expect(page).to have_selector("h5", text: "ユーザー設定")
-            expect(page).to have_selector("h4", text: "その他")
-            expect(page).to have_selector("h5", text: "ログアウト")
-          end
+      it "お買い物登録画面へ遷移するリンクが存在すること" do
+        within "ul.list-unstyled" do
+          expect(page).to have_link("お買い物の登録", href: shopping_new_path)
         end
       end
 
-      context "一般ユーザーの場合" do
-        let(:user) { create(:user) }
-        # ログアウト時に実行されるbeforeアクションにマスター管理ユーザーが必要
-        # session_controllerのdestroy時にuserモデルのbefore_updateに設定している
-        # prevent_master_admin_changeメソッド内のmaster_admin?が実行される
-        let!(:master_user) { create(:user, :master_admin) }
+      it "お買い物登録をクリックしてお買い物登録画面へ遷移できること" do
+        within "ul.list-unstyled" do
+          click_link "お買い物の登録"
+        end
 
-        it_behaves_like "ログイン時メインメニュー画面の共通テスト"
+        expect(page).to have_http_status(:success)
+        expect(current_path).to eq shopping_new_path
+      end
+
+      it "お買い物モード画面へ遷移するリンクが存在すること" do
+        within "ul.list-unstyled" do
+          expect(page).to have_link("お買い物モード", href: shopping_index_path)
+        end
+      end
+
+      it "お買い物モードをクリックしてお買い物モード画面へ遷移できること" do
+        within "ul.list-unstyled" do
+          click_link "お買い物モード"
+        end
+
+        expect(page).to have_http_status(:success)
+        expect(current_path).to eq shopping_index_path
+      end
+
+      it "お買い物履歴画面へ遷移するリンクが存在すること" do
+        within "ul.list-unstyled" do
+          expect(page).to have_link("お買い物の履歴", href: shopping_result_group_path)
+        end
+      end
+
+      it "お買い物の履歴をクリックしてお買い物履歴画面へ遷移できること" do
+        within "ul.list-unstyled" do
+          click_link "お買い物の履歴"
+        end
+
+        expect(page).to have_http_status(:success)
+        expect(current_path).to eq shopping_result_group_path
+      end
+
+      it "通知対象ユーザー一覧画面へ遷移するリンクが存在すること" do
+        within "ul.list-unstyled" do
+          expect(page).to have_link("通知メール登録", href: notification_target_users_path)
+        end
+      end
+
+      it "通知メール登録をクリックして通知対象ユーザー一覧画面へ遷移できること" do
+        within "ul.list-unstyled" do
+          click_link "通知メール登録"
+        end
+
+        expect(page).to have_http_status(:success)
+        expect(current_path).to eq notification_target_users_path
+      end
+
+      it "アイテム一覧画面へ遷移するリンクが存在すること" do
+        within "ul.list-unstyled" do
+          expect(page).to have_link("アイテム登録", href: items_path)
+        end
+      end
+
+      it "アイテム登録をクリックしてアイテム一覧画面へ遷移できること" do
+        within "ul.list-unstyled" do
+          click_link "アイテム登録"
+        end
+
+        expect(page).to have_http_status(:success)
+        expect(current_path).to eq items_path
+      end
+
+      it "ユーザー編集画面へ遷移するリンクが存在すること" do
+        within "ul.list-unstyled" do
+          expect(page).to have_link("ユーザー設定", href: edit_user_registration_path)
+        end
+      end
+
+      it "ユーザー設定をクリックしてユーザー編集画面へ遷移できること" do
+        within "ul.list-unstyled" do
+          click_link "ユーザー設定"
+        end
+
+        expect(page).to have_http_status(:success)
+        expect(current_path).to eq edit_user_registration_path
+      end
+
+      # ログアウトボタン・モーダルの基本機能テスト用変数
+      let(:selector) { "ul.list-unstyled" }
+
+      include_examples "ログアウトボタン・モーダルの基本機能テスト"
+
+      # ヘルプモーダルの基本機能テスト用変数
+      let(:page_title) { "メインメニュー" }
+
+      include_examples "ヘルプモーダルの基本機能テスト"
+
+      it "ヘルプモーダル内の主な項目が正しく表示されること" do
+        within "#helpModal.modal" do
+          expect(page).to have_selector("h3", text: "各機能の説明")
+          expect(page).to have_selector("h4", text: "お買い物機能")
+          expect(page).to have_selector("h5", text: "お買い物の登録")
+          expect(page).to have_selector("h5", text: "お買い物モード")
+          expect(page).to have_selector("h5", text: "お買い物の履歴")
+          expect(page).to have_selector("h4", text: "ユーティリティ")
+          expect(page).to have_selector("h5", text: "通知メール登録")
+          expect(page).to have_selector("h5", text: "アイテム登録")
+          expect(page).to have_selector("h5", text: "ユーザー設定")
+          expect(page).to have_selector("h4", text: "その他")
+          expect(page).to have_selector("h5", text: "ログアウト")
+        end
+      end
+    end
+
+    describe "ユーザー区分で異なる箇所のテスト" do
+      before do
+        sign_in_as(user)
+      end
+
+      context "一般ユーザー・ゲストユーザーの場合" do
+        let(:user) { create(:user) }
 
         it "管理者機能へ遷移するリンクが存在しないこと" do
           within "ul.list-unstyled" do
@@ -906,11 +910,10 @@ RSpec.describe "Home", type: :system do
         end
       end
 
-      context "管理ユーザーの場合" do
+      context "管理ユーザー・マスター管理ユーザーの場合" do
         let(:user) { create(:user, :admin) }
+        # 管理機能のコントローラー上でマスター管理ユーザーのインスタンス変数を定義するために必要
         let!(:master_user) { create(:user, :master_admin) }
-
-        it_behaves_like "ログイン時メインメニュー画面の共通テスト"
 
         it "管理者機能へ遷移するリンクが存在すること" do
           within "ul.list-unstyled" do
