@@ -76,7 +76,48 @@ RSpec.describe "UserRegistrations", type: :system do
         # コントローラー側でマスター管理ユーザーのインスタンスを取得するため
         let!(:master_user) { create(:user, :master_admin) }
 
-        shared_examples "編集画面の共通テスト" do
+        shared_examples "Eメールアドレスのフィールドの非活性確認" do
+          it "編集フォームのEメールアドレスのフィールドがreadonlyであること" do
+            expect(page).to have_field("Eメールアドレス", readonly: true)
+          end
+        end
+
+        shared_examples "パスワードのフィールドの活性確認" do
+          it "パスワードのフィールドがdisabledではないこと" do
+            # パスワード（確認用）と部分一致しないようIDを指定
+            expect(page).to have_field("user_password", disabled: false, exact: true)
+          end
+
+          it "パスワード（確認用）のフィールドがdisabledではないこと" do
+            # パスワードと部分一致しないようIDを指定
+            expect(page).to have_field("user_password_confirmation", disabled: false, exact: true)
+          end
+        end
+
+        shared_examples "アカウント削除ボタンの非活性確認" do
+          it "アカウント削除ボタンがdisabledであること" do
+            expect(page).to have_button("アカウント削除", disabled: true)
+          end
+        end
+
+        shared_examples "ヘルプモーダルのゲストユーザー向け項目非表示のテスト" do
+          it "ヘルプモーダル内にゲストユーザー向けの表示項目が表示されないこと" do
+            within "#helpModal.modal" do
+              expect(page).to have_no_selector("h3", text: "ゲストユーザーの編集制限")
+            end
+          end
+        end
+
+        context "全てのユーザー区分で共通のテスト" do
+          let(:user) { create(:user) }
+
+          before do
+            sign_in_as(user)
+            # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
+            expect(page).to have_content "ログインしました。"
+            visit edit_user_registration_path
+          end
+
           include_examples "ユーザー情報の表示テスト"
 
           # ナビゲーションのテスト用変数
@@ -131,57 +172,7 @@ RSpec.describe "UserRegistrations", type: :system do
             # 活性・非活性を問わないアカウント削除ボタンの表示をテストする
             expect(page).to have_selector("button", text: "アカウント削除")
           end
-        end
 
-        shared_examples "Eメールアドレスのフィールド活性確認" do
-          it "編集フォームのEメールアドレスのフィールドがreadonlyではないこと" do
-            expect(page).to have_field("Eメールアドレス", readonly: false)
-          end
-        end
-
-        shared_examples "Eメールアドレスのフィールドの非活性確認" do
-          it "編集フォームのEメールアドレスのフィールドがreadonlyであること" do
-            expect(page).to have_field("Eメールアドレス", readonly: true)
-          end
-        end
-
-        shared_examples "パスワードのフィールドの活性確認" do
-          it "パスワードのフィールドがdisabledではないこと" do
-            # パスワード（確認用）と部分一致しないようIDを指定
-            expect(page).to have_field("user_password", disabled: false, exact: true)
-          end
-
-          it "パスワード（確認用）のフィールドがdisabledではないこと" do
-            # パスワードと部分一致しないようIDを指定
-            expect(page).to have_field("user_password_confirmation", disabled: false, exact: true)
-          end
-        end
-
-        shared_examples "パスワードのフィールドの非活性確認" do
-          it "パスワードのフィールドがdisabledであること" do
-            # パスワード（確認用）と部分一致しないようIDを指定
-            expect(page).to have_field("user_password", disabled: true, exact: true)
-          end
-
-          it "パスワード（確認用）のフィールドがdisabledであること" do
-            # パスワードと部分一致しないようIDを指定
-            expect(page).to have_field("user_password_confirmation", disabled: true, exact: true)
-          end
-        end
-
-        shared_examples "アカウント削除ボタンの活性確認" do
-          it "アカウント削除ボタンがdisabledではないこと" do
-            expect(page).to have_button("アカウント削除", disabled: false)
-          end
-        end
-
-        shared_examples "アカウント削除ボタンの非活性確認" do
-          it "アカウント削除ボタンがdisabledであること" do
-            expect(page).to have_button("アカウント削除", disabled: true)
-          end
-        end
-
-        shared_examples "ヘルプモーダルの共通テスト" do
           # ヘルプモーダルの基本機能テスト用変数
           let(:page_title) { "ユーザー設定" }
 
@@ -206,15 +197,7 @@ RSpec.describe "UserRegistrations", type: :system do
           end
         end
 
-        shared_examples "ヘルプモーダルのゲストユーザー向け項目非表示のテスト" do
-          it "ヘルプモーダル内にゲストユーザー向けの表示項目が表示されないこと" do
-            within "#helpModal.modal" do
-              expect(page).to have_no_selector("h3", text: "ゲストユーザーの編集制限")
-            end
-          end
-        end
-
-        context "一般ユーザーの場合" do
+        context "一般・管理ユーザーの場合" do
           let(:user) { create(:user) }
 
           before do
@@ -224,13 +207,15 @@ RSpec.describe "UserRegistrations", type: :system do
             visit edit_user_registration_path
           end
 
-          it_behaves_like "編集画面の共通テスト"
-
-          it_behaves_like "Eメールアドレスのフィールド活性確認"
+          it "編集フォームのEメールアドレスのフィールドがreadonlyではないこと" do
+            expect(page).to have_field("Eメールアドレス", readonly: false)
+          end
 
           it_behaves_like "パスワードのフィールドの活性確認"
 
-          it_behaves_like "アカウント削除ボタンの活性確認"
+          it "アカウント削除ボタンがdisabledではないこと" do
+            expect(page).to have_button("アカウント削除", disabled: false)
+          end
 
           it "アカウント削除ボタンをクリックするとモーダルが表示されること", js: true do
             expect(page).to have_selector("#turbo-confirm-modal", visible: false)
@@ -321,31 +306,6 @@ RSpec.describe "UserRegistrations", type: :system do
             expect(User.where(id: user.id)).to_not exist
           end
 
-          it_behaves_like "ヘルプモーダルの共通テスト"
-
-          it_behaves_like "ヘルプモーダルのゲストユーザー向け項目非表示のテスト"
-        end
-
-        context "管理ユーザーの場合" do
-          let(:user) { create(:user, :admin) }
-
-          before do
-            sign_in_as(user)
-            # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-            expect(page).to have_content "ログインしました。"
-            visit edit_user_registration_path
-          end
-
-          it_behaves_like "編集画面の共通テスト"
-
-          it_behaves_like "Eメールアドレスのフィールド活性確認"
-
-          it_behaves_like "パスワードのフィールドの活性確認"
-
-          it_behaves_like "アカウント削除ボタンの活性確認"
-
-          it_behaves_like "ヘルプモーダルの共通テスト"
-
           it_behaves_like "ヘルプモーダルのゲストユーザー向け項目非表示のテスト"
         end
 
@@ -359,15 +319,11 @@ RSpec.describe "UserRegistrations", type: :system do
             visit edit_user_registration_path
           end
 
-          it_behaves_like "編集画面の共通テスト"
-
           it_behaves_like "Eメールアドレスのフィールドの非活性確認"
 
           it_behaves_like "パスワードのフィールドの活性確認"
 
           it_behaves_like "アカウント削除ボタンの非活性確認"
-
-          it_behaves_like "ヘルプモーダルの共通テスト"
 
           it_behaves_like "ヘルプモーダルのゲストユーザー向け項目非表示のテスト"
         end
@@ -385,19 +341,23 @@ RSpec.describe "UserRegistrations", type: :system do
             visit edit_user_registration_path
           end
 
-          it_behaves_like "編集画面の共通テスト"
-
           it "編集フォームのニックネームのフィールドがreadonlyであること" do
             expect(page).to have_field("ニックネーム", readonly: true)
           end
 
           it_behaves_like "Eメールアドレスのフィールドの非活性確認"
 
-          it_behaves_like "パスワードのフィールドの非活性確認"
+          it "パスワードのフィールドがdisabledであること" do
+            # パスワード（確認用）と部分一致しないようIDを指定
+            expect(page).to have_field("user_password", disabled: true, exact: true)
+          end
+
+          it "パスワード（確認用）のフィールドがdisabledであること" do
+            # パスワードと部分一致しないようIDを指定
+            expect(page).to have_field("user_password_confirmation", disabled: true, exact: true)
+          end
 
           it_behaves_like "アカウント削除ボタンの非活性確認"
-
-          it_behaves_like "ヘルプモーダルの共通テスト"
 
           it "ヘルプモーダル内にゲストユーザー向けの表示項目が存在すること" do
             expect(page).to have_selector("h3", text: "ゲストユーザーの編集制限")
@@ -746,7 +706,7 @@ RSpec.describe "UserRegistrations", type: :system do
       end
     end
 
-    context "一般ユーザーの場合" do
+    context "一般・管理ユーザーの場合" do
       let(:user) do
         create(:user, name: "テストユーザー", email: "test-user@example.test", password: "password123", hiragana_view: false)
       end
@@ -900,7 +860,7 @@ RSpec.describe "UserRegistrations", type: :system do
   end
 
   describe "ユーザーアカウント削除のフロー" do
-    context "一般ユーザーの場合" do
+    context "一般・管理ユーザーの場合" do
       let(:user) { create(:user) }
       # フローの中でupdate処理、ビューの表示にマスター管理ユーザーが必要
       let!(:master_user) { create(:user, :master_admin) }
