@@ -87,7 +87,125 @@ RSpec.describe "Layouts", type: :system do
       end
     end
 
-    shared_examples "ログイン時メニューの共通テスト" do
+    context "サインインしていない場合" do
+      before do
+        visit root_path
+      end
+
+      it_behaves_like "ヘッダー部の共通テスト"
+
+      it "ログイン画面へ遷移するリンクが存在していること" do
+        within "nav" do
+          expect(page).to have_link("ログイン", href: new_user_session_path)
+        end
+      end
+
+      it "ログインをクリックしてログインページへ遷移できること" do
+        within "nav" do
+          click_link "ログイン"
+        end
+
+        expect(page).to have_http_status(:success)
+        expect(current_path).to eq new_user_session_path
+      end
+
+      it "ユーザー登録画面へ遷移するリンクが存在していること" do
+        within "nav" do
+          expect(page).to have_link("ユーザー登録", href: new_user_registration_path)
+        end
+      end
+
+      it "ユーザー登録をクリックしてユーザー登録画面へ遷移できること" do
+        within "nav" do
+          click_link "ユーザー登録"
+        end
+
+        expect(page).to have_http_status(:success)
+        expect(current_path).to eq new_user_registration_path
+      end
+
+      it "ゲストログインボタンが存在していること" do
+        within "nav" do
+          expect(page).to have_selector("button", text: "ゲストログイン")
+        end
+      end
+
+      it "ゲストログインボタンのクリックでゲストログインができること" do
+        within "nav" do
+          click_button "ゲストログイン"
+        end
+
+        expect(current_path).to eq root_path
+
+        within ".alert" do
+          expect(page).to have_content "ゲストユーザーとしてログインしました。"
+        end
+
+        within "nav" do
+          expect(page).to have_selector("button", text: "ログアウト")
+        end
+      end
+
+      it "お買い物登録画面へ遷移するリンクが存在しないこと" do
+        within "nav" do
+          expect(page).to_not have_link("お買い物の登録", href: shopping_new_path)
+        end
+      end
+
+      it "お買い物モード画面へ遷移するリンクが存在しないこと" do
+        within "nav" do
+          expect(page).to_not have_link("お買い物モード", href: shopping_index_path)
+        end
+      end
+
+      it "お買い物履歴画面へ遷移するリンクが存在しないこと" do
+        within "nav" do
+          expect(page).to_not have_link("お買い物の履歴", href: shopping_result_group_path)
+        end
+      end
+
+      it "アイテム一覧画面へ遷移するリンクが存在しないこと" do
+        within "nav" do
+          expect(page).to_not have_link("アイテム登録", href: items_path)
+        end
+      end
+
+      it "通知対象ユーザー一覧画面へ遷移するリンクが存在しないこと" do
+        within "nav" do
+          expect(page).to_not have_link("通知メール登録", href: notification_target_users_path)
+        end
+      end
+
+      it "ユーザー編集画面へ遷移するリンクが存在しないこと" do
+        within "nav" do
+          expect(page).to_not have_link("ユーザー設定", href: edit_user_registration_path)
+        end
+      end
+
+      it "ログアウトボタンが存在しないこと" do
+        within "nav" do
+          expect(page).to have_no_selector("button", text: "ログアウト")
+        end
+      end
+
+      it "管理画面へ遷移するリンクが存在しないこと" do
+        expect(page).to_not have_link("管理者機能", href: management_users_path)
+      end
+    end
+
+    context "サインインしている場合" do
+      before do
+        sign_in_as(user)
+      end
+
+      let(:user) { create(:user) }
+      # ログアウト時に実行されるbeforeアクションにマスター管理ユーザーが必要
+      # session_controllerのdestroy時にuserモデルのbefore_updateに設定している
+      # prevent_master_admin_changeメソッド内のmaster_admin?が実行される
+      let!(:master_user) { create(:user, :master_admin) }
+
+      it_behaves_like "ヘッダー部の共通テスト"
+
       it "ログイン画面へ遷移するリンクが存在しないこと" do
         within "nav" do
           expect(page).to_not have_link("ログイン", href: new_user_session_path)
@@ -202,140 +320,23 @@ RSpec.describe "Layouts", type: :system do
       include_examples "ログアウトボタン・モーダルの基本機能テスト"
     end
 
-    context "サインインしていない場合" do
-      before do
-        visit root_path
-      end
-
-      it_behaves_like "ヘッダー部の共通テスト"
-
-      it "ログイン画面へ遷移するリンクが存在していること" do
-        within "nav" do
-          expect(page).to have_link("ログイン", href: new_user_session_path)
-        end
-      end
-
-      it "ログインをクリックしてログインページへ遷移できること" do
-        within "nav" do
-          click_link "ログイン"
-        end
-
-        expect(page).to have_http_status(:success)
-        expect(current_path).to eq new_user_session_path
-      end
-
-      it "ユーザー登録画面へ遷移するリンクが存在していること" do
-        within "nav" do
-          expect(page).to have_link("ユーザー登録", href: new_user_registration_path)
-        end
-      end
-
-      it "ユーザー登録をクリックしてユーザー登録画面へ遷移できること" do
-        within "nav" do
-          click_link "ユーザー登録"
-        end
-
-        expect(page).to have_http_status(:success)
-        expect(current_path).to eq new_user_registration_path
-      end
-
-      it "ゲストログインボタンが存在していること" do
-        within "nav" do
-          expect(page).to have_selector("button", text: "ゲストログイン")
-        end
-      end
-
-      it "ゲストログインボタンのクリックでゲストログインができること" do
-        within "nav" do
-          click_button "ゲストログイン"
-        end
-
-        expect(current_path).to eq root_path
-
-        within ".alert" do
-          expect(page).to have_content "ゲストユーザーとしてログインしました。"
-        end
-
-        within "nav" do
-          expect(page).to have_selector("button", text: "ログアウト")
-        end
-      end
-
-      it "お買い物登録画面へ遷移するリンクが存在しないこと" do
-        within "nav" do
-          expect(page).to_not have_link("お買い物の登録", href: shopping_new_path)
-        end
-      end
-
-      it "お買い物モード画面へ遷移するリンクが存在しないこと" do
-        within "nav" do
-          expect(page).to_not have_link("お買い物モード", href: shopping_index_path)
-        end
-      end
-
-      it "お買い物履歴画面へ遷移するリンクが存在しないこと" do
-        within "nav" do
-          expect(page).to_not have_link("お買い物の履歴", href: shopping_result_group_path)
-        end
-      end
-
-      it "アイテム一覧画面へ遷移するリンクが存在しないこと" do
-        within "nav" do
-          expect(page).to_not have_link("アイテム登録", href: items_path)
-        end
-      end
-
-      it "通知対象ユーザー一覧画面へ遷移するリンクが存在しないこと" do
-        within "nav" do
-          expect(page).to_not have_link("通知メール登録", href: notification_target_users_path)
-        end
-      end
-
-      it "ユーザー編集画面へ遷移するリンクが存在しないこと" do
-        within "nav" do
-          expect(page).to_not have_link("ユーザー設定", href: edit_user_registration_path)
-        end
-      end
-
-      it "ログアウトボタンが存在しないこと" do
-        within "nav" do
-          expect(page).to have_no_selector("button", text: "ログアウト")
-        end
-      end
-
-      it "管理画面へ遷移するリンクが存在しないこと" do
-        expect(page).to_not have_link("管理者機能", href: management_users_path)
-      end
-    end
-
-    context "サインインしている場合" do
+    describe "ユーザー区分で異なる箇所のテスト" do
       before do
         sign_in_as(user)
       end
 
-      context "一般ユーザーの場合" do
+      context "一般ユーザー・ゲストユーザーの場合" do
         let(:user) { create(:user) }
-        # ログアウト時に実行されるbeforeアクションにマスター管理ユーザーが必要
-        # session_controllerのdestroy時にuserモデルのbefore_updateに設定している
-        # prevent_master_admin_changeメソッド内のmaster_admin?が実行される
-        let!(:master_user) { create(:user, :master_admin) }
-
-        it_behaves_like "ヘッダー部の共通テスト"
-
-        it_behaves_like "ログイン時メニューの共通テスト"
 
         it "管理画面へ遷移するリンクが存在しないこと" do
           expect(page).to_not have_link("管理者機能", href: management_users_path)
         end
       end
 
-      context "管理ユーザーの場合" do
+      context "管理ユーザー・マスター管理ユーザーの場合" do
         let(:user) { create(:user, :admin) }
+        # 管理機能のコントローラー上でマスター管理ユーザーのインスタンス変数を定義するために必要
         let!(:master_user) { create(:user, :master_admin) }
-
-        it_behaves_like "ヘッダー部の共通テスト"
-
-        it_behaves_like "ログイン時メニューの共通テスト"
 
         it "管理画面へ遷移するリンクが存在すること" do
           expect(page).to have_link("管理者機能", href: management_users_path)
