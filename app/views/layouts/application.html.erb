@@ -17,11 +17,13 @@
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
-    <%= render 'shared/user_info' %>
-    <%= render 'shared/flash' %>
-    <%= render 'shared/confirm_modal'%>
-    <%= yield %>
+    <div class="content-wrapper">
+      <%= render 'layouts/header' %>
+      <%= render 'shared/user_info' %>
+      <%= render 'shared/flash' %>
+      <%= render 'shared/confirm_modal'%>
+      <%= yield %>
+    </div>
     <%= render 'layouts/footer' %>
   </body>
 </html>
