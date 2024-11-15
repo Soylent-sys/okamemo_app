@@ -7,5 +7,13 @@ FactoryBot.define do
     trait :closed do
       closed { true }
     end
+
+    trait :with_sequential_updated_at do
+      transient do
+        start_date { Time.current }
+      end
+
+      sequence(:updated_at) { |n| start_date - n.months }
+    end
   end
 end
