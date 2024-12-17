@@ -8,6 +8,7 @@ Capybara.register_driver :remote_chrome do |app|
   options.add_argument("headless")
   options.add_argument("disable-gpu")
   options.add_argument("window-size=1680,1050")
+  options.add_argument("disable-dev-shm-usage")
 
   Capybara::Selenium::Driver.new(app,
                                  browser: :remote,
