@@ -59,7 +59,7 @@ services:
       - db
       - redis
   selenium_chrome:
-    image: seleniarm/standalone-chromium:124.0
+    image: selenium/standalone-chromium:131.0
     platform: linux/arm64
     shm_size: 256m
     ports:

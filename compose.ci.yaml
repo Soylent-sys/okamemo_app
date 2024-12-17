@@ -27,7 +27,7 @@ services:
     volumes:
       - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
   selenium_chrome:
-    image: selenium/standalone-chrome:128.0
+    image: selenium/standalone-chrome:131.0
     shm_size: 256m
     ports:
       - '4444:4444'

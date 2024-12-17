@@ -179,7 +179,7 @@ GEM
     jmespath (1.6.2)
     json (2.6.3)
     libv8-node (18.16.0.0-aarch64-linux)
-    logger (1.6.1)
+    logger (1.6.2)
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -397,7 +397,7 @@ DEPENDENCIES
   rspec-rails
   rubocop-airbnb
   sassc-rails
-  selenium-webdriver
+  selenium-webdriver (= 4.27.0)
   sidekiq (~> 7.2.2)
   sprockets-rails
   stimulus-rails
