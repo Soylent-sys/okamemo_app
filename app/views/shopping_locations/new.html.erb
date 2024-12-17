@@ -31,6 +31,9 @@
 </script>
 <%# GoogleMapの構築スクリプト（買い物場所登録ページ用） %>
 <script>
+  // デフォルト位置情報の定数
+  const DEFAULT_POSITION = { latitude: 35.68123, longitude: 139.76711 };
+
   let gMap
   let latlng
   let marker
@@ -39,7 +42,23 @@
   const mapLat = document.getElementById('shopping_location_latitude');
   const mapLng = document.getElementById('shopping_location_longitude');
 
-  async function initMap() {
+  // 位置情報を取得する関数
+  function getCurrentLocation() {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          resolve({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => reject(error)
+      );
+    });
+  }
+
+  // Google Maps を初期化する関数
+  async function initMap(position) {
     // google.mapsのライブラリを取得する
     const { LatLng } = await google.maps.importLibrary("core");
     const { Map } = await google.maps.importLibrary("maps");
@@ -47,34 +66,33 @@
     const { Animation } = await google.maps.importLibrary("marker");
     const { event } = await google.maps.importLibrary("core");
 
-    // 位置情報を取得する
-    navigator.geolocation.getCurrentPosition(function (position) {
-      latlng = new LatLng(position.coords.latitude, position.coords.longitude);
-      // 取得した緯度・経度をshopping_locationのhiddenフォームの値に設定する
-      mapLat.value = latlng.lat();
-      mapLng.value = latlng.lng();
+    // 緯度・経度から LatLng オブジェクトを作成
+    latlng = new LatLng(position.latitude, position.longitude);
 
-      // 取得した位置情報を中心にマップを表示
-      gMap = new Map(document.getElementById('map'), {
-        center: latlng,
-        zoom: 17,
-      });
+    // 取得した緯度・経度をshopping_locationのhiddenフォームの値に設定する
+    mapLat.value = latlng.lat();
+    mapLng.value = latlng.lng();
 
-      // 取得した位置情報の地点にマーカーを立てる
-      marker = new Marker({
-        map: gMap,
-        position: latlng,
-        label: {
-          text: '買い物した場所',
-          fontSize: '15px',
-          fontWeight: '900',
-        },
-        animation: Animation.DROP,
-      });
-
-      // クリックでマーカーの位置を変更するためのイベントを設定する
-      event.addListener(gMap, 'click', setmarker);
+    // 取得した位置情報を中心にマップを表示
+    gMap = new Map(document.getElementById('map'), {
+      center: latlng,
+      zoom: 17,
     });
+
+    // 取得した位置情報の地点にマーカーを立てる
+    marker = new Marker({
+      map: gMap,
+      position: latlng,
+      label: {
+        text: '買い物した場所',
+        fontSize: '15px',
+        fontWeight: '900',
+      },
+      animation: Animation.DROP,
+    });
+
+    // クリックでマーカーの位置を変更するためのイベントを設定する
+    event.addListener(gMap, 'click', setmarker);
 
     // マップをクリックしたときの処理
     function setmarker(e) {
@@ -86,5 +104,12 @@
     }
   }
 
-  initMap();
+  // 位置情報を取得してからGoogle Mapsを初期化
+  getCurrentLocation()
+    .then((position) => initMap(position))
+    .catch((error) => {
+      console.error('位置情報の取得に失敗しました:', error);
+      // デフォルトの位置情報でGoogle Mapsを初期化する
+      initMap(DEFAULT_POSITION);
+    });
 </script>
