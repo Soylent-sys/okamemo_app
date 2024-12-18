@@ -2,6 +2,47 @@ require 'rails_helper'
 
 # お買い物履歴機能関連のテスト
 RSpec.describe "ShoppingRecordResults", type: :system do
+  # Google Maps API のモックヘルパーメソッド
+  def google_maps_mock_setup
+    page.driver.browser.execute_cdp('Page.addScriptToEvaluateOnNewDocument', source: <<~JS)
+      window.google = {
+        maps: {
+          importLibrary: async function (libraryName) {
+            switch (libraryName) {
+              case "maps":
+                return {
+                  Map: class MapMock {
+                    constructor(element, options) {
+                      this.center = options.center;
+                      this.zoom = options.zoom;
+                      this.element = element;
+                    }
+                    getCenter() {
+                      return this.center;
+                    }
+                  }
+                };
+              case "marker":
+                return {
+                  Marker: class MarkerMock {
+                    constructor({ position }) {
+                      this.position = position;
+                    }
+                    getPosition() {
+                      return this.position;
+                    }
+                  },
+                  Animation: { DROP: "DROP" }
+                };
+              default:
+                throw new Error(`Unknown library: ${libraryName}`);
+            }
+          }
+        }
+      };
+    JS
+  end
+
   describe "ビューの要素" do
     describe "result_group" do
       let(:user) { create(:user) }
@@ -1074,7 +1115,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
             end
           end
 
-          it "お買い物場所のGoogleマップが表示されていないこと" do
+          it "Googleマップが表示される領域が存在しないこと" do
             within(".confirm-window", text: "お買い物した場所") do
               expect(page).to_not have_selector("div#map")
             end
@@ -1090,23 +1131,9 @@ RSpec.describe "ShoppingRecordResults", type: :system do
             visit shopping_results_path(user_shopping_record.hashid)
           end
 
-          it "お買い物場所のGoogleマップが表示されていること" do
+          it "Googleマップが表示される領域が存在すること" do
             within(".confirm-window", text: "お買い物した場所") do
               expect(page).to have_selector("div#map")
-            end
-          end
-
-          it "JavaScript(gon)で設定されたGoogleマップの緯度(lat)・経度(lng)が正しいこと", js: true do
-            lat = page.evaluate_script("gon.lat")
-            lng = page.evaluate_script("gon.lng")
-            expect(lat).to eq user_shopping_location.latitude
-            expect(lng).to eq user_shopping_location.longitude
-          end
-
-          it "お買い物場所が表示されたGoogleマップ内にマーカーが存在すること", js: true do
-            within "div#map" do
-              # マーカーのラベルテキストの表示を確認
-              expect(page).to have_content "ここで買ったよ！"
             end
           end
 
@@ -1243,6 +1270,60 @@ RSpec.describe "ShoppingRecordResults", type: :system do
               expect(page).to_not have_link(href: new_shopping_location_path(user_shopping_record.hashid))
             end
           end
+        end
+      end
+
+      describe "Google Mapsに関連する箇所のテスト", js: true do
+        let!(:preset_item) { create(:item, user: master_user, category: category) }
+        let(:shopping_record) { create(:shopping_record, :closed, user: user) }
+        let!(:purchased_buy) do
+          create(
+            :buy, :purchased,
+            user: user, shopping_record: shopping_record,
+            item_name: preset_item.name, item_hiragana: preset_item.hiragana
+          )
+        end
+        let!(:shopping_location) do
+          create(:shopping_location, shopping_record: shopping_record, latitude: 35.68956, longitude: 139.69167)
+        end
+
+        before do
+          sign_in_as(user)
+          # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
+          expect(page).to have_content "ログインしました。"
+
+          @google_maps_script_id = google_maps_mock_setup
+          visit shopping_results_path(shopping_record.hashid)
+        end
+
+        after do
+          # テスト終了時にモックスクリプトを削除
+          remove_script(@google_maps_script_id)
+        end
+
+        it "JavaScript(gon)で設定されたGoogleマップの緯度(lat)・経度(lng)が正しいこと" do
+          lat = page.evaluate_script("gon.lat")
+          lng = page.evaluate_script("gon.lng")
+          expect(lat).to eq shopping_location.latitude
+          expect(lng).to eq shopping_location.longitude
+        end
+
+        it "登録済みのお買い物の緯度・経度でマップが初期化されること" do
+          # Map モックの初期化確認
+          expect(page.evaluate_script("window.test.gMap")).not_to be_nil
+
+          # 初期化時の中心座標が正しいか確認（DB上のshopping_locationの緯度・経度を想定）
+          center = page.evaluate_script("window.test.gMap.getCenter()")
+          expect(center).to eq({ "lat" => shopping_location.latitude, "lng" => shopping_location.longitude })
+        end
+
+        it "マーカーが正しい位置に設定されること" do
+          # Marker モックの初期化確認
+          expect(page.evaluate_script("window.test.marker")).not_to be_nil
+
+          # MerkerのpositionにはDB上のshopping_locationの緯度・経度の値を使用する
+          marker_position = page.evaluate_script("window.test.marker.getPosition()")
+          expect(marker_position).to eq({ "lat" => shopping_location.latitude, "lng" => shopping_location.longitude })
         end
       end
     end

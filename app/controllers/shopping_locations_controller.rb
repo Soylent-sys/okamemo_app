@@ -11,6 +11,8 @@ class ShoppingLocationsController < ApplicationController
 
     if @shopping_record.shopping_location.blank?
       @shopping_location = ShoppingLocation.new
+      # テスト環境の場合はビューのスクリプトにテスト用の処理を追加するため
+      gon.env = Rails.env
     else
       # 場所登録済みの場合は編集(edit)にリダイレクトする
       redirect_to edit_shopping_location_url(@shopping_record.hashid)
@@ -50,6 +52,8 @@ class ShoppingLocationsController < ApplicationController
 
     gon.lat = @shopping_location.latitude
     gon.lng = @shopping_location.longitude
+    # テスト環境の場合はビューのスクリプトにテスト用の処理を追加するため
+    gon.env = Rails.env
   end
 
   def update
