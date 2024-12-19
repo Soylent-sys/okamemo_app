@@ -355,6 +355,20 @@ RSpec.describe Item, type: :model do
     end
   end
 
+  describe ".available_items" do
+    let(:other_user) { create(:user) }
+    let!(:master_user_create_item) { create(:item, user: master_user, category: category) }
+    let!(:user_create_item) { create(:item, user: user, category: category) }
+    let!(:other_user_create_item) { create(:item, user: other_user, category: category) }
+
+    it "引数のユーザーとマスター管理ユーザーに紐付くアイテムを返すこと" do
+      result = Item.available_items(user)
+
+      expect(result).to include master_user_create_item, user_create_item
+      expect(result).to_not include other_user_create_item
+    end
+  end
+
   describe "アソシエーション" do
     let(:association) { described_class.reflect_on_association(model) }
 

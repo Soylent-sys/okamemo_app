@@ -23,6 +23,11 @@ class Item < ApplicationRecord
   validate :guest_check_count, on: :create
 
   class << self
+    # ユーザーが利用可能なアイテムを取得する
+    def available_items(user_id)
+      where(user_id: [User.master_admin_user.id, user_id])
+    end
+
     # ransackでの検索・ソートが可能なカラム、アソシエーションのホワイトリスト
     def ransackable_attributes(auth_object = nil)
       ["id", "user_id", "category_id", "name", "hiragana", "created_at", "updated_at"]

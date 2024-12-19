@@ -22,7 +22,7 @@ class ShoppingRecordForm
     ActiveRecord::Base.transaction do
       shopping_record = ShoppingRecord.create!(user_id:, title:)
       hashids.each do |item_hashid|
-        item = Item.find_by_hashid!(item_hashid)
+        item = Item.available_items(shopping_record.user_id).find_by_hashid!(item_hashid)
         Buy.create!(user_id: shopping_record.user_id, shopping_record_id: shopping_record.id,
                     item_name: item.name, item_hiragana: item.hiragana)
       end
@@ -30,9 +30,9 @@ class ShoppingRecordForm
   end
 
   # お買い物の完了処理（ShoppingRecordと子モデルBuyの更新）
-  def update_shopping_record
+  def update_shopping_record(current_user)
     ActiveRecord::Base.transaction do
-      shopping_record = ShoppingRecord.find_by_hashid!(shopping_record_hashid)
+      shopping_record = current_user.shopping_records.opened.find_by_hashid!(shopping_record_hashid)
       if hashids.present?
         hashids.each do |buy_hashid|
           buy = shopping_record.buys.find_by_hashid!(buy_hashid)

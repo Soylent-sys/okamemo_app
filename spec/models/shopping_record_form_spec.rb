@@ -157,7 +157,7 @@ RSpec.describe ShoppingRecordForm, type: :model do
 
     context "トランザクションが成功した場合" do
       it "お買い物(ShoppingRecord)を完了(closed)状態に、hashidsに対応した購入記録(Buy)を完了(purchased)状態に変更すること" do
-        form.update_shopping_record
+        form.update_shopping_record(user)
 
         expect(shopping_record.reload.closed?).to be_truthy
         expect(buy_1.reload.purchased?).to be_truthy
@@ -172,7 +172,7 @@ RSpec.describe ShoppingRecordForm, type: :model do
         # 両方のモデルのレコードが更新されていないことをテストする
         allow_any_instance_of(ShoppingRecord).to receive(:update!).and_raise(ActiveRecord::RecordNotSaved, "errors")
 
-        expect { form.update_shopping_record }.to raise_error(ActiveRecord::RecordNotSaved)
+        expect { form.update_shopping_record(user) }.to raise_error(ActiveRecord::RecordNotSaved)
         expect(shopping_record.reload.closed?).to be_falsey
         expect(buy_1.reload.purchased?).to be_falsey
       end
