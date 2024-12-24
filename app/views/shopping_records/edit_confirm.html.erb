@@ -36,10 +36,10 @@
 <div class="d-flex justify-content-center text-center mb-4">
   <div class="me-5">
     <%= form_with model: @shopping_record_form, url: shopping_record_path(@shopping_record_form.shopping_record_hashid), method: "put", local: true do |f| %>
-      <%= f.hidden_field :shopping_record_hashid, value: @shopping_record_form.shopping_record_hashid %>
+      <%= f.hidden_field :shopping_record_hashid, value: @shopping_record_form.shopping_record_hashid, id: "confirm_shopping_record_form_shopping_record_hashid" %>
       <% if @shopping_record_form.hashids.present? %>
         <% @shopping_record_form.hashids.each do |hashid| %>
-          <%= f.hidden_field :hashids, multiple: true, value: hashid %>
+          <%= f.hidden_field :hashids, multiple: true, value: hashid, id: "confirm_shopping_record_form_hashids_#{hashid}" %>
         <% end %>
       <% end %>
       <%= f.submit "OK!", class: "btn btn-lg btn-custom-send" %>
@@ -47,10 +47,10 @@
   </div>
   <div>
     <%= form_with model: @shopping_record_form, url: shopping_progress_back_path, local: true do |f| %>
-      <%= f.hidden_field :shopping_record_hashid, value: @shopping_record_form.shopping_record_hashid %>
+      <%= f.hidden_field :shopping_record_hashid, value: @shopping_record_form.shopping_record_hashid, id: "back_shopping_record_form_shopping_record_hashid" %>
       <% if @shopping_record_form.hashids.present? %>
         <% @shopping_record_form.hashids.each do |hashid| %>
-          <%= f.hidden_field :hashids, multiple: true, value: hashid %>
+          <%= f.hidden_field :hashids, multiple: true, value: hashid, id: "back_shopping_record_form_hashids_#{hashid}" %>
         <% end %>
       <% end %>
       <%= f.submit "もどる", class: "btn btn-lg btn-secondary" %>
