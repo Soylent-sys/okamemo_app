@@ -42,10 +42,46 @@ RSpec.describe ShoppingLocation, type: :model do
       expect(shopping_location.errors.of_kind?(:latitude, :blank)).to be_truthy
     end
 
+    it "緯度の値が180以上の場合は無効な状態であること" do
+      shopping_location = ShoppingLocation.new(latitude: 180.1)
+      shopping_location.valid?
+      expect(shopping_location.errors.of_kind?(:latitude, :less_than_or_equal_to)).to be_truthy
+    end
+
+    it "緯度の値が-180以下の場合は無効な状態であること" do
+      shopping_location = ShoppingLocation.new(latitude: -180.1)
+      shopping_location.valid?
+      expect(shopping_location.errors.of_kind?(:latitude, :greater_than_or_equal_to)).to be_truthy
+    end
+
+    it "緯度の値が数値以外の場合は無効な状態であること" do
+      shopping_location = ShoppingLocation.new(latitude: "a")
+      shopping_location.valid?
+      expect(shopping_location.errors.of_kind?(:latitude, :not_a_number)).to be_truthy
+    end
+
     it "経度がなければ無効な状態であること" do
       shopping_location = ShoppingLocation.new(longitude: nil)
       shopping_location.valid?
       expect(shopping_location.errors.of_kind?(:longitude, :blank)).to be_truthy
+    end
+
+    it "経度の値が180以上の場合は無効な状態であること" do
+      shopping_location = ShoppingLocation.new(longitude: 180.1)
+      shopping_location.valid?
+      expect(shopping_location.errors.of_kind?(:longitude, :less_than_or_equal_to)).to be_truthy
+    end
+
+    it "経度の値が-180以下の場合は無効な状態であること" do
+      shopping_location = ShoppingLocation.new(longitude: -180.1)
+      shopping_location.valid?
+      expect(shopping_location.errors.of_kind?(:longitude, :greater_than_or_equal_to)).to be_truthy
+    end
+
+    it "経度の値が数値以外の場合は無効な状態であること" do
+      shopping_location = ShoppingLocation.new(longitude: "a")
+      shopping_location.valid?
+      expect(shopping_location.errors.of_kind?(:longitude, :not_a_number)).to be_truthy
     end
   end
 

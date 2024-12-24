@@ -4,8 +4,8 @@ class ShoppingLocation < ApplicationRecord
   belongs_to :shopping_record
 
   validates :shopping_record_id, presence: true, uniqueness: true
-  validates :latitude, presence: true
-  validates :longitude, presence: true
+  validates :latitude, presence: true, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }
+  validates :longitude, presence: true, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }
 
   class << self
     # ransackでの検索・ソートが可能なカラム、アソシエーションのホワイトリスト
