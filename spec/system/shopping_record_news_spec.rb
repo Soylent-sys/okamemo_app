@@ -597,6 +597,30 @@ RSpec.describe "ShoppingRecordNews", type: :system do
           end
         end
 
+        it "お買い物タイトルが入力されたhiddenフィールドが存在すること（登録ボタン用）" do
+          expect(find_field("confirm_shopping_record_form_title", type: "hidden").value).to eq default_title
+        end
+
+        it "アイテムのhashidが入力されたhiddenフィールドが存在すること（登録ボタン用）" do
+          hashid_1 = c1_preset_item_1.hashid
+          hashid_2 = c2_preset_item.hashid
+
+          expect(find_field("confirm_shopping_record_form_hashids_#{hashid_1}", type: "hidden").value).to eq hashid_1
+          expect(find_field("confirm_shopping_record_form_hashids_#{hashid_2}", type: "hidden").value).to eq hashid_2
+        end
+
+        it "お買い物タイトルが入力されたhiddenフィールドが存在すること（もどるボタン用）" do
+          expect(find_field("back_shopping_record_form_title", type: "hidden").value).to eq default_title
+        end
+
+        it "アイテムのhashidが入力されたhiddenフィールドが存在すること（もどるボタン用）" do
+          hashid_1 = c1_preset_item_1.hashid
+          hashid_2 = c2_preset_item.hashid
+
+          expect(find_field("back_shopping_record_form_hashids_#{hashid_1}", type: "hidden").value).to eq hashid_1
+          expect(find_field("back_shopping_record_form_hashids_#{hashid_2}", type: "hidden").value).to eq hashid_2
+        end
+
         it "お買い物を登録するボタンが存在すること" do
           expect(page).to have_button("お買い物を登録")
         end

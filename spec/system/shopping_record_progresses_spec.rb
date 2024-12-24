@@ -471,6 +471,18 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
           end
         end
 
+        it "お買い物hashidが入力されたhiddenフィールドが存在すること（お買い物更新用）" do
+          hashid = user_shopping_record.hashid
+
+          expect(find_field("confirm_shopping_record_form_shopping_record_hashid", type: "hidden").value).to eq hashid
+        end
+
+        it "お買い物hashidが入力されたhiddenフィールドが存在すること（もどるボタン用）" do
+          hashid = user_shopping_record.hashid
+
+          expect(find_field("back_shopping_record_form_shopping_record_hashid", type: "hidden").value).to eq hashid
+        end
+
         it "OK!ボタンが存在すること" do
           expect(page).to have_button("OK!")
         end
@@ -536,6 +548,22 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
               expect(page).to_not have_selector("h5", text: "未購入アイテムなし")
             end
           end
+
+          it "買ったアイテムに紐付く購入情報のhashidが入力されたhiddenフィールドが存在すること（OK!ボタン用）" do
+            expect(find_field("confirm_shopping_record_form_hashids_#{buy_1.hashid}", type: "hidden").value).to eq buy_1.hashid
+          end
+
+          it "買わなかったアイテムに紐付く購入情報のhiddenフィールドが存在しないこと（OK!ボタン用）" do
+            expect(page).to have_no_field("confirm_shopping_record_form_hashids_#{buy_2.hashid}", type: "hidden")
+          end
+
+          it "買ったアイテムに紐付く購入情報のhashidが入力されたhiddenフィールドが存在すること（もどるボタン用）" do
+            expect(find_field("back_shopping_record_form_hashids_#{buy_1.hashid}", type: "hidden").value).to eq buy_1.hashid
+          end
+
+          it "買わなかったアイテムに紐付く購入情報のhiddenフィールドが存在しないこと（もどるボタン用）" do
+            expect(page).to have_no_field("confirm_shopping_record_form_hashids_#{buy_2.hashid}", type: "hidden")
+          end
         end
 
         context "買った（チェックした）アイテムがない場合" do
@@ -547,6 +575,16 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
             within(".confirm-window", text: "買ったアイテム") do
               expect(page).to have_selector("h5", text: "購入アイテムなし")
             end
+          end
+
+          it "買わなかったアイテムに紐付く購入情報のhiddenフィールドが存在しないこと（OK!ボタン用）" do
+            expect(page).to have_no_field("confirm_shopping_record_form_hashids_#{buy_1.hashid}", type: "hidden")
+            expect(page).to have_no_field("confirm_shopping_record_form_hashids_#{buy_2.hashid}", type: "hidden")
+          end
+
+          it "買わなかったアイテムに紐付く購入情報のhiddenフィールドが存在しないこと（もどるボタン用）" do
+            expect(page).to have_no_field("confirm_shopping_record_form_hashids_#{buy_1.hashid}", type: "hidden")
+            expect(page).to have_no_field("confirm_shopping_record_form_hashids_#{buy_2.hashid}", type: "hidden")
           end
         end
 
@@ -566,6 +604,16 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
             within(".confirm-window", text: "買わなかったアイテム") do
               expect(page).to have_selector("h5", text: "未購入アイテムなし")
             end
+          end
+
+          it "買ったアイテムに紐付く購入情報のhashidが入力されたhiddenフィールドが存在すること（OK!ボタン用）" do
+            expect(find_field("confirm_shopping_record_form_hashids_#{buy_1.hashid}", type: "hidden").value).to eq buy_1.hashid
+            expect(find_field("confirm_shopping_record_form_hashids_#{buy_2.hashid}", type: "hidden").value).to eq buy_2.hashid
+          end
+
+          it "買ったアイテムに紐付く購入情報のhashidが入力されたhiddenフィールドが存在すること（もどるボタン用）" do
+            expect(find_field("back_shopping_record_form_hashids_#{buy_1.hashid}", type: "hidden").value).to eq buy_1.hashid
+            expect(find_field("back_shopping_record_form_hashids_#{buy_2.hashid}", type: "hidden").value).to eq buy_2.hashid
           end
         end
       end
