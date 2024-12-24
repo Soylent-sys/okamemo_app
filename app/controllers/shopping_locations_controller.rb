@@ -58,9 +58,13 @@ class ShoppingLocationsController < ApplicationController
 
   def update
     shopping_location = ShoppingLocation.find_by_hashid!(params[:hashid])
-    shopping_location.update!(update_shopping_location_params)
-    flash[:notice] = "お買い物場所が更新されました。"
-    redirect_to shopping_results_url(shopping_location.shopping_record.hashid)
+    if shopping_location.update(update_shopping_location_params)
+      flash[:notice] = "お買い物場所が更新されました。"
+      redirect_to shopping_results_url(shopping_location.shopping_record.hashid)
+    else
+      flash[:error] = "処理中に問題が発生しました。本ページから再度登録・編集してください。"
+      redirect_to shopping_results_url(shopping_location.shopping_record.hashid)
+    end
   end
 
   def destroy
