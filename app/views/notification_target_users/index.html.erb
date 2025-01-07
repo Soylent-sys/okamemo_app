@@ -40,7 +40,7 @@
               </div>
             <% end %>
             <div>
-              <%= button_to notification_target_user_path(nt_user.hashid), method: :delete, form: { data: { turbo_confirm: t('.confirm_to_delete'), turbo_confirm_title: "お買い物の削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: 'btn btn-danger' } } do %>
+              <%= button_to notification_target_user_path(nt_user.hashid), method: :delete, form: { data: { turbo_confirm: t('.confirm_to_delete'), turbo_confirm_title: "通知ユーザーの削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: 'btn btn-danger' } } do %>
                 <i class="h3 fas fa-trash-can m-0 delete-icon"></i>
               <% end %>
             </div>
