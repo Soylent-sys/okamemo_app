@@ -24,7 +24,7 @@ class User < ApplicationRecord
 
   class << self
     def master_admin_user
-      User.find_by!(email: "#{ENV['ADMIN_USER_EMAIL']}")
+      User.find_by!(email: ENV['ADMIN_USER_EMAIL'])
     end
 
     # ゲストユーザーを作成または取得するメソッド

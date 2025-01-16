@@ -11,7 +11,7 @@ FactoryBot.define do
 
     trait :master_admin do
       admin { true }
-      email { "#{ENV['ADMIN_USER_EMAIL']}" }
+      email { ENV['ADMIN_USER_EMAIL'] }
     end
 
     trait :admin do
