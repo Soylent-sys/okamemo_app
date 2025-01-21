@@ -8,12 +8,6 @@ RSpec.describe ItemsHelper, type: :helper do
     let(:other_category) { create(:category) }
     # Itemモデル登録時のvalidateメソッドにマスター管理ユーザーが必要
     let!(:master_user) { create(:user, :master_admin) }
-    let!(:other_category_item) do
-      create(:item, user: user, category: other_category, name: "別カテゴリーのアイテム", hiragana: "べつかてごりーのあいてむ")
-    end
-    let!(:other_user_item) do
-      create(:item, user: other_user, category: category, name: "別ユーザーのアイテム", hiragana: "べつゆーざーのあいてむ")
-    end
 
     # メソッド内でcurrent_userを使用するためサインインが必要
     before do
@@ -25,6 +19,12 @@ RSpec.describe ItemsHelper, type: :helper do
         let(:category_omatome) { create(:category, name: "おまとめ", hiragana: "おまとめ") }
         let!(:item_omatome_1) { create(:item, id: 1, user: user, category: category_omatome, name: "イ", hiragana: "い") }
         let!(:item_omatome_2) { create(:item, id: 2, user: user, category: category_omatome, name: "ア", hiragana: "あ") }
+        let!(:other_category_item) do
+          create(:item, user: user, category: other_category, name: "別カテゴリーのアイテム", hiragana: "べつかてごりーのあいてむ")
+        end
+        let!(:other_user_item) do
+          create(:item, user: other_user, category: category, name: "別ユーザーのアイテム", hiragana: "べつゆーざーのあいてむ")
+        end
 
         it "ユーザーが作成した おまとめ カテゴリーに属するアイテムをidの昇順で返すこと" do
           items = helper.my_items(category_omatome)
@@ -38,6 +38,12 @@ RSpec.describe ItemsHelper, type: :helper do
       context "カテゴリー名が おまとめ 以外の場合" do
         let!(:item_a) { create(:item, user: user, category: category, name: "ア", hiragana: "あ") }
         let!(:item_i) { create(:item, user: user, category: category, name: "イ", hiragana: "い") }
+        let!(:other_category_item) do
+          create(:item, user: user, category: other_category, name: "別カテゴリーのアイテム", hiragana: "べつかてごりーのあいてむ")
+        end
+        let!(:other_user_item) do
+          create(:item, user: other_user, category: category, name: "別ユーザーのアイテム", hiragana: "べつゆーざーのあいてむ")
+        end
 
         it "ユーザーが作成したカテゴリーに属するアイテムをアイテム（ひらがな名）(hiragana属性)の昇順で返すこと" do
           items = helper.my_items(category)
