@@ -43,7 +43,7 @@ Rails.application.routes.draw do
     get :confirm_email, on: :collection
     get :resend_email_confirmation, as: 'resend_email', on: :member
   end
-  authenticate :user, lambda { |user| user.admin? } do
+  constraints AdminConstraint do
     mount Sidekiq::Web, at: "/sidekiq"
     namespace :management do
       resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
