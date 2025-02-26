@@ -1,8 +1,8 @@
 // お買い物登録画面のアイテムチェックのリセットボタン押下時の処理
 function setUncheckAll() {
-  const checkbox = document.getElementsByName("shopping_record_form[hashids][]");
-  const checkCount = document.getElementById("check-count");
-  const checkCountContainer = document.getElementById("check-count-box");
+  const checkbox = document.getElementsByName('shopping_record_form[hashids][]');
+  const checkCount = document.getElementById('check-count');
+  const checkCountContainer = document.getElementById('check-count-box');
 
   if (checkCount) {
     // 全てのcheckboxのチェックを外す
@@ -12,10 +12,10 @@ function setUncheckAll() {
       }
 
       checkCount.textContent = 0;
-      checkCountContainer.classList.add("d-none");
+      checkCountContainer.classList.add('d-none');
     }
 
-    document.getElementById("check_reset_button").addEventListener('click', uncheckAll);
+    document.getElementById('check_reset_button').addEventListener('click', uncheckAll);
   }
 }
 

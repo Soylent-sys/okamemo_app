@@ -1,7 +1,7 @@
 // ヘルプリンクを条件に応じて非表示にする
 function hideHelp() {
   const buttonHelp = document.querySelector('.btn-help');
-  const checkCountContainer = document.getElementById("check-count-box");
+  const checkCountContainer = document.getElementById('check-count-box');
 
   const footer = document.querySelector('footer').offsetHeight; // footerの高さを取得
 
@@ -26,7 +26,7 @@ function hideHelp() {
     // お買い物登録でアイテムがチェックされている時はヘルプのポップアップを非表示にする
     if (checkCountContainer) {
       function hideHelpByCheck() {
-        const clickPoint = document.getElementsByName("checkbox_click_point");
+        const clickPoint = document.getElementsByName('checkbox_click_point');
 
         if (checkCountContainer.classList.contains('d-none')) {
           buttonHelp.classList.remove('d-none');
@@ -38,7 +38,7 @@ function hideHelp() {
           clickPoint[i].addEventListener('click', hideHelpByCheck);
         }
 
-        document.getElementById("check_reset_button").addEventListener('click', hideHelpByCheck);
+        document.getElementById('check_reset_button').addEventListener('click', hideHelpByCheck);
       }
 
       hideHelpByCheck();
