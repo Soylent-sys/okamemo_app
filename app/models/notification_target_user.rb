@@ -33,7 +33,7 @@ class NotificationTargetUser < ApplicationRecord
 
     # ransackでの検索・ソートが可能なカラム、アソシエーションのホワイトリスト
     def ransackable_attributes(auth_object = nil)
-      ["id", "user_id", "name", "email", "created_at", "updated_at"]
+      ["id", "user_id", "name", "email", "confirmation_status", "created_at", "updated_at"]
     end
 
     def ransackable_associations(auth_object = nil)
