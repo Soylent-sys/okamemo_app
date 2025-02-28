@@ -3,9 +3,9 @@
 <div class="mt-4">
   <% provide(:back_link_path, root_path) %>
   <% provide(:back_link_text, "トップページ にもどる") %>
-  <%= render 'shared/back_link' %>
+  <%= render "shared/back_link" %>
 </div>
-<%= render 'shared/page_title' %>
+<%= render "shared/page_title" %>
 <div class="container my-4">
   <%= form_with model: @contact, url: contact_confirm_path, class: "col-xl-6 col-lg-8 col-md-10 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
     <h2 class="mb-4">お問い合わせフォーム</h2>

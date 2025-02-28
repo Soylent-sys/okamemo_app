@@ -24,12 +24,12 @@ class User < ApplicationRecord
 
   class << self
     def master_admin_user
-      User.find_by!(email: ENV['ADMIN_USER_EMAIL'])
+      User.find_by!(email: ENV["ADMIN_USER_EMAIL"])
     end
 
     # ゲストユーザーを作成または取得するメソッド
     def guest
-      User.find_or_create_by!(email: 'guest@example.com') do |user|
+      User.find_or_create_by!(email: "guest@example.com") do |user|
         user.password = generate_guest_password
         user.name = "ゲストユーザー"
         user.confirmed_at = Time.current

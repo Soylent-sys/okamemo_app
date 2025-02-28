@@ -12,30 +12,30 @@ class ContactsController < ApplicationController
     # ゲストユーザーのお問い合わせは受け付けない
     if current_user&.guest?
       flash.now[:error] = "ゲストユーザーからのお問い合わせは受け付けておりません。ログアウトして再度お問い合わせフォームからご利用ください。"
-      render 'new', status: :unprocessable_entity
+      render "new", status: :unprocessable_entity
       return
     end
 
     if recaptcha_presence_check_and_valid(@contact)
       # see_otherステータスコードのrenderは以下のメソッドで実行する
-      render_with_status_see_other 'confirm'
+      render_with_status_see_other "confirm"
     else
       set_error_message(@contact) unless user_signed_in?
-      render 'new', status: :unprocessable_entity
+      render "new", status: :unprocessable_entity
     end
   end
 
   def back
     @contact = Contact.new(contact_params)
     # see_otherステータスコードのrenderは以下のメソッドで実行する
-    render_with_status_see_other 'new'
+    render_with_status_see_other "new"
   end
 
   def done
     contact = Contact.new(contact_params)
     ContactMailer.with(contact: contact).send_contact_mail.deliver_now
     # see_otherステータスコードのrenderは以下のメソッドで実行する
-    render_with_status_see_other 'done'
+    render_with_status_see_other "done"
   end
 
   private

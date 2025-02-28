@@ -281,17 +281,17 @@ RSpec.describe "Contacts", type: :system do
   describe "お問い合わせ送信のフロー" do
     context "正常系" do
       context "ユーザー登録していないユーザーの場合" do
-        let!(:contact_email_original) { ENV['CONTACT_EMAIL'] }
+        let!(:contact_email_original) { ENV["CONTACT_EMAIL"] }
 
         before do
           # お問い合わせの送信先メールアドレス定数をテスト用に置き換える
-          ENV['CONTACT_EMAIL'] = "test-contact-email@example.com"
+          ENV["CONTACT_EMAIL"] = "test-contact-email@example.com"
           visit contact_path
         end
 
         after do
           # beforeで置き換えたお問い合わせの送信先メールアドレスを戻す
-          ENV['CONTACT_EMAIL'] = contact_email_original
+          ENV["CONTACT_EMAIL"] = contact_email_original
         end
 
         scenario "ユーザーがお問い合わせを送信する" do
@@ -335,11 +335,11 @@ RSpec.describe "Contacts", type: :system do
 
       context "登録済みユーザーの場合" do
         let(:user) { create(:user) }
-        let!(:contact_email_original) { ENV['CONTACT_EMAIL'] }
+        let!(:contact_email_original) { ENV["CONTACT_EMAIL"] }
 
         before do
           # お問い合わせの送信先メールアドレス定数をテスト用に置き換える
-          ENV['CONTACT_EMAIL'] = "test-contact-email@example.com"
+          ENV["CONTACT_EMAIL"] = "test-contact-email@example.com"
           visit contact_path
 
           sign_in_as(user)
@@ -350,7 +350,7 @@ RSpec.describe "Contacts", type: :system do
 
         after do
           # beforeで置き換えたお問い合わせの送信先メールアドレスを戻す
-          ENV['CONTACT_EMAIL'] = contact_email_original
+          ENV["CONTACT_EMAIL"] = contact_email_original
         end
 
         scenario "ユーザーがお問い合わせを送信する" do

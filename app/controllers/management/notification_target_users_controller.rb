@@ -18,7 +18,7 @@ class Management::NotificationTargetUsersController < ApplicationController
       flash[:notice] = "通知ユーザーの登録が完了しました。"
       redirect_to management_notification_target_users_url
     else
-      render 'new', status: :unprocessable_entity
+      render "new", status: :unprocessable_entity
     end
   end
 

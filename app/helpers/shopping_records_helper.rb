@@ -75,7 +75,7 @@ module ShoppingRecordsHelper
 
   # '%Y-%m'で渡された年月を"#{year}年#{month}月"に変換
   def date_change_format_ja(params_date)
-    year_month = params_date.split('-')
+    year_month = params_date.split("-")
     year = year_month[0]
     month = year_month[1][0] == "0" ? year_month[1].delete("0") : year_month[1]
     "#{year}年#{month}月"

@@ -16,7 +16,7 @@ class NotificationTargetUsersController < ApplicationController
       flash[:notice] = "登録したメールアドレスへ確認メールを送信しました。確認メールの認証の有効期限は#{NotificationTargetUser::EMAIL_CONFIRMATION_LIMIT}分です。"
       redirect_to notification_target_users_url
     else
-      render 'new', status: :unprocessable_entity
+      render "new", status: :unprocessable_entity
     end
   end
 

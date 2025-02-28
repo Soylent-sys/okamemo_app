@@ -13,12 +13,12 @@ RSpec.describe ContactMailer, type: :mailer do
       end
 
       it "メールの送信先のメールアドレスが正しいこと" do
-        contact_email_original = ENV['CONTACT_EMAIL']
-        ENV['CONTACT_EMAIL'] = "test-contact-email@example.com"
+        contact_email_original = ENV["CONTACT_EMAIL"]
+        ENV["CONTACT_EMAIL"] = "test-contact-email@example.com"
 
         expect(mail.to).to eq ["test-contact-email@example.com"]
 
-        ENV['CONTACT_EMAIL'] = contact_email_original
+        ENV["CONTACT_EMAIL"] = contact_email_original
       end
 
       it "メールの送信元が正しいこと" do
@@ -48,7 +48,7 @@ RSpec.describe ContactMailer, type: :mailer do
 
       it "メール本文で「ユーザー登録の有無」と「IDの情報」の二項目が\"未登録\"となっていること" do
         mail_body = mail.body.encoded
-        expect(mail_body.scan('未登録').count).to eq expected_number_of_strings
+        expect(mail_body.scan("未登録").count).to eq expected_number_of_strings
       end
     end
 

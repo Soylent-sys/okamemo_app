@@ -77,7 +77,7 @@
                 </li>
               <% end %>
               <li class="nav-item">
-                <%= button_to destroy_user_session_path, method: :delete, form: { data: { turbo_confirm: t('.confirm_to_logout'), turbo_confirm_title: "ログアウト", turbo_confirm_submit_text: "ログアウトする", turbo_confirm_button_class: 'btn btn-secondary' } }, class: "btn p-0 w-lg-100 nav-menu-logout-btn" do %>
+                <%= button_to destroy_user_session_path, method: :delete, form: { data: { turbo_confirm: t(".confirm_to_logout"), turbo_confirm_title: "ログアウト", turbo_confirm_submit_text: "ログアウトする", turbo_confirm_button_class: "btn btn-secondary" } }, class: "btn p-0 w-lg-100 nav-menu-logout-btn" do %>
                   <i class="nav-link d-lg-block d-none fas fa-person-walking-arrow-right nav-menu-icon" data-bs-toggle="tooltip" data-bs-placement="bottom" title="ログアウト"></i>
                   <div class="d-lg-none d-inline-flex ms-2 mb-3 nav-menu-icon nav-menu-mb">
                     <i class="fas fa-person-walking-arrow-right mx-1"></i>
@@ -94,7 +94,7 @@
           </div>
           <div class="d-flex justify-content-end align-items-center ms-lg-4 mt-lg-0 mt-3">
             <h6 class="d-lg-none d-block me-2">お試しの方はコチラ <i class="far fa-hand-point-right"></i></h6>
-            <%= button_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: 'btn btn-outline-danger btn-lg' %>
+            <%= button_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: "btn btn-outline-danger btn-lg" %>
           </div>
         <% end %>
       </div>

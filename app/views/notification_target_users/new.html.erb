@@ -2,12 +2,12 @@
 <% provide(:help_path, "notification_target_users/new_help") %>
 <% provide(:okame_info, "通知メールアドレスを登録するよ！\n通知を送る相手のニックネームとメールアドレスを入力して登録ボタンを押してね。") %>
 <%= render "shared/error_messages", model: @notification_target_user %>
-<%= render 'shared/navigation' %>
+<%= render "shared/navigation" %>
 <% provide(:back_link_path, notification_target_users_path) %>
 <% provide(:back_link_text, "通知メールアドレス一覧 にもどる") %>
-<%= render 'shared/back_link' %>
-<%= render 'shared/page_title' %>
-<%= render 'shared/help_modal' %>
+<%= render "shared/back_link" %>
+<%= render "shared/page_title" %>
+<%= render "shared/help_modal" %>
 <div class="container my-4">
   <%= form_with model: @notification_target_user, url: notification_target_users_path, class: "col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
     <h2 class="mb-4">登録情報の入力</h2>

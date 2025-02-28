@@ -17,17 +17,17 @@ class ShoppingRecordsController < ApplicationController
   def confirm
     @shopping_record_form = ShoppingRecordForm.new(shopping_record_params)
     if @shopping_record_form.valid?
-      render 'confirm', status: :see_other
+      render "confirm", status: :see_other
     else
       @categories = Category.all
-      render 'new', status: :unprocessable_entity
+      render "new", status: :unprocessable_entity
     end
   end
 
   def back_new
     @categories = Category.all
     @shopping_record_form = ShoppingRecordForm.new(back_shopping_record_params)
-    render 'new', status: :see_other
+    render "new", status: :see_other
   end
 
   def create
@@ -52,13 +52,13 @@ class ShoppingRecordsController < ApplicationController
   def edit_confirm
     @shopping_record = set_shopping_record_from_post
     @shopping_record_form = set_shopping_record_form_from_post
-    render 'edit_confirm', status: :see_other
+    render "edit_confirm", status: :see_other
   end
 
   def back_edit
     @shopping_record = set_shopping_record_from_post
     @shopping_record_form = set_shopping_record_form_from_post
-    render 'edit', status: :see_other
+    render "edit", status: :see_other
   end
 
   def update
@@ -69,7 +69,7 @@ class ShoppingRecordsController < ApplicationController
       ShoppingRecordMailer.send_shopping_result_to_notification_target_users(@shopping_record)
     end
     flash[:notice] = "お買い物が完了しました。"
-    render 'choose', status: :see_other
+    render "choose", status: :see_other
   end
 
   def destroy

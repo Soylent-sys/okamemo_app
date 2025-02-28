@@ -30,13 +30,13 @@ RSpec.describe "Layouts", type: :system do
 
         it "navbar-toggler（ハンバーガーメニューボタン）が非表示になっていること" do
           within "nav" do
-            expect(page).to have_selector('.navbar-toggler', visible: false)
+            expect(page).to have_selector(".navbar-toggler", visible: false)
           end
         end
 
         it "初期状態でハンバーガーメニューの内容が表示されていること" do
           within "nav" do
-            expect(page).to have_selector('#navbarSupportedContent', visible: true)
+            expect(page).to have_selector("#navbarSupportedContent", visible: true)
           end
         end
       end
@@ -53,13 +53,13 @@ RSpec.describe "Layouts", type: :system do
 
         it "navbar-toggler（ハンバーガーメニューボタン）が表示されていること" do
           within "nav" do
-            expect(page).to have_selector('.navbar-toggler', visible: true)
+            expect(page).to have_selector(".navbar-toggler", visible: true)
           end
         end
 
         it "初期状態でハンバーガーメニューの内容が非表示であること" do
           within "nav" do
-            expect(page).to have_selector('#navbarSupportedContent', visible: false)
+            expect(page).to have_selector("#navbarSupportedContent", visible: false)
           end
         end
 
@@ -67,21 +67,21 @@ RSpec.describe "Layouts", type: :system do
 
         it "navbar-toggler（ハンバーガーメニューボタン）を押すとメニューの内容が表示されること" do
           within "nav" do
-            find('button.navbar-toggler').click
+            find("button.navbar-toggler").click
 
-            expect(page).to have_selector('#navbarSupportedContent', visible: true, wait: wait_time_second)
+            expect(page).to have_selector("#navbarSupportedContent", visible: true, wait: wait_time_second)
           end
         end
 
         it "メニューが表示されている状態でnavbar-toggler（ハンバーガーメニューボタン）を押すとメニューが非表示になること" do
           within "nav" do
-            find('button.navbar-toggler').click
+            find("button.navbar-toggler").click
 
-            expect(page).to have_selector('#navbarSupportedContent', visible: true, wait: wait_time_second)
+            expect(page).to have_selector("#navbarSupportedContent", visible: true, wait: wait_time_second)
 
-            find('button.navbar-toggler').click
+            find("button.navbar-toggler").click
 
-            expect(page).to have_selector('#navbarSupportedContent', visible: false)
+            expect(page).to have_selector("#navbarSupportedContent", visible: false)
           end
         end
       end

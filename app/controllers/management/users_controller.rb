@@ -20,7 +20,7 @@ class Management::UsersController < ApplicationController
       flash[:notice] = "ユーザーの登録が完了しました。"
       redirect_to management_users_url
     else
-      render 'new', status: :unprocessable_entity
+      render "new", status: :unprocessable_entity
     end
   end
 
@@ -44,7 +44,7 @@ class Management::UsersController < ApplicationController
       redirect_to management_users_url
     else
       @master_admin_user = User.master_admin_user
-      render 'edit', status: :unprocessable_entity
+      render "edit", status: :unprocessable_entity
     end
   end
 

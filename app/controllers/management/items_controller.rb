@@ -20,7 +20,7 @@ class Management::ItemsController < ApplicationController
       redirect_to management_items_url
     else
       @categories = Category.all
-      render 'new', status: :unprocessable_entity
+      render "new", status: :unprocessable_entity
     end
   end
 
@@ -36,7 +36,7 @@ class Management::ItemsController < ApplicationController
       redirect_to management_items_url
     else
       @categories = Category.all
-      render 'edit', status: :unprocessable_entity
+      render "edit", status: :unprocessable_entity
     end
   end
 

@@ -339,7 +339,7 @@ RSpec.describe "Items", type: :system do
         # フォームのカテゴリー選択フィールドで使用するカテゴリー
         let!(:categories) { create_list(:category, 3) }
         # YAMLファイルからヘルプモーダルのカテゴリー説明内容を読み込む
-        let(:categories_help) { YAML.safe_load_file(Rails.root.join('spec/fixtures/categories_help.yml')) }
+        let(:categories_help) { YAML.safe_load_file(Rails.root.join("spec/fixtures/categories_help.yml")) }
 
         before do
           sign_in_as(user)
@@ -422,7 +422,7 @@ RSpec.describe "Items", type: :system do
         let(:categories) { create_list(:category, 3) }
         let!(:user_item) { create(:item, user: user, category: categories[0]) }
         # YAMLファイルからヘルプモーダルのカテゴリー説明内容を読み込む
-        let(:categories_help) { YAML.safe_load_file(Rails.root.join('spec/fixtures/categories_help.yml')) }
+        let(:categories_help) { YAML.safe_load_file(Rails.root.join("spec/fixtures/categories_help.yml")) }
 
         before do
           sign_in_as(user)

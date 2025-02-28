@@ -1,11 +1,11 @@
 # Userモデルの初期データ（管理ユーザー）
-master_admin_user = User.find_by(email: ENV['ADMIN_USER_EMAIL'])
+master_admin_user = User.find_by(email: ENV["ADMIN_USER_EMAIL"])
 if master_admin_user.nil?
   User.create!(
     name: "マスター管理ユーザー",
     admin: true,
-    email: ENV['ADMIN_USER_EMAIL'],
-    password: ENV['ADMIN_USER_PASSWORD'],
+    email: ENV["ADMIN_USER_EMAIL"],
+    password: ENV["ADMIN_USER_PASSWORD"],
     confirmed_at: Time.current
   )
 end
@@ -44,7 +44,7 @@ categories.each do |id, name, hiragana|
 end
 
 # Itemモデルの初期データ
-master_admin_user ||= User.find_by(email: ENV['ADMIN_USER_EMAIL'])
+master_admin_user ||= User.find_by(email: ENV["ADMIN_USER_EMAIL"])
 
 items = [
   [ master_admin_user.id, 1, "ご飯のおかず", "ごはんのおかず" ],

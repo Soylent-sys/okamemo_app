@@ -254,12 +254,12 @@ RSpec.shared_examples "ヘルプモーダルの基本機能テスト" do
   it "ヘルプモーダル外をクリックするとモーダルが閉じること", js: true do
     click_button "ヘルプ"
 
-    expect(page).to have_selector('#helpModal', visible: true)
+    expect(page).to have_selector("#helpModal", visible: true)
 
     # モーダルの外をクリック
     page.execute_script("document.querySelector('body').click();")
 
-    expect(page).to have_selector('#helpModal', visible: false)
+    expect(page).to have_selector("#helpModal", visible: false)
   end
 end
 

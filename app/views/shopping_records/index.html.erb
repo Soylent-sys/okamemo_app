@@ -1,12 +1,12 @@
 <% provide(:page_title, "お買い物モード") %>
 <% provide(:help_path, "shopping_records/index_help") %>
 <% provide(:okame_info, "ここはお買い物モードを始める画面だよ！\nこれから行くお買い物選んで緑の「カート」ボタンを押すとお買い物モードを開始するよ！\n行く必要のなくなったお買い物があったら赤い「ゴミ箱」ボタンをおして削除してね。") %>
-<%= render 'shared/navigation' %>
+<%= render "shared/navigation" %>
 <% provide(:back_link_path, root_path) %>
 <% provide(:back_link_text, "メインメニュー にもどる") %>
-<%= render 'shared/back_link' %>
-<%= render 'shared/page_title' %>
-<%= render 'shared/help_modal' %>
+<%= render "shared/back_link" %>
+<%= render "shared/page_title" %>
+<%= render "shared/help_modal" %>
 <% unless @shopping_records.count.zero? %>
   <div class="col-xl-7 col-md-9 col-11 py-4 px-sm-2 px-3 my-5 mx-auto rounded-2 shopping-record-window-bg">
     <div class="col-sm-11 text-md-start text-center mx-auto mb-4">
@@ -23,7 +23,7 @@
               <% end %>
             </div>
             <div>
-              <%= button_to shopping_record_path(shopping_record.hashid), method: :delete, form: { data: { turbo_confirm: t('.confirm_to_delete'), turbo_confirm_title: "お買い物の削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: 'btn btn-danger' } } do %>
+              <%= button_to shopping_record_path(shopping_record.hashid), method: :delete, form: { data: { turbo_confirm: t(".confirm_to_delete"), turbo_confirm_title: "お買い物の削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: "btn btn-danger" } } do %>
                 <i class="h3 fas fa-trash-can m-0 delete-icon"></i>
               <% end %>
             </div>

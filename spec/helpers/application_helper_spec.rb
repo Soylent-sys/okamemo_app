@@ -58,7 +58,7 @@ RSpec.describe ApplicationHelper, type: :helper do
       expect(helper.html_safe_newline(input)).to eq expected_output
     end
 
-    it 'HTMLセーフな文字列を返すこと' do
+    it "HTMLセーフな文字列を返すこと" do
       input = "Hello\nWorld"
       result = helper.html_safe_newline(input)
 

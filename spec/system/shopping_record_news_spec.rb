@@ -74,7 +74,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
           )
         end
         # YAMLファイルからヘルプモーダルのカテゴリー説明内容を読み込む
-        let(:categories_help) { YAML.safe_load_file(Rails.root.join('spec/fixtures/categories_help.yml')) }
+        let(:categories_help) { YAML.safe_load_file(Rails.root.join("spec/fixtures/categories_help.yml")) }
 
         before do
           sign_in_as(user)

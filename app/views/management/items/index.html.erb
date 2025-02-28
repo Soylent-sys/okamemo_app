@@ -1,7 +1,7 @@
 <div class="container-fluid g-0 bg-white">
-  <%= render 'management/shared/caution' %>
+  <%= render "management/shared/caution" %>
   <div class="d-flex">
-    <%= render 'management/shared/sidebar' %>
+    <%= render "management/shared/sidebar" %>
     <div class="management-main p-4 bg-body-secondary">
       <div class="management-header d-flex justify-content-between mb-3">
         <div class="d-flex align-items-end me-3">
@@ -26,11 +26,11 @@
           <thead>
             <tr>
               <th><%= sort_link(@q, :id, "ID", class: "link-text") %></th>
-              <th><%= sort_link(@q, :user_id, [:user_id, 'id asc'], "User_ID", class: "link-text") %></th>
-              <th><%= sort_link(@q, :category_id, [:category_id, 'id asc'], "Category_ID", class: "link-text") %></th>
-              <th><%= sort_link(@q, :category_name, [:category_name, 'id asc'], "Category_name(parent table)", class: "link-text") %></th>
-              <th><%= sort_link(@q, :name, [:name, 'id asc'], "Name", class: "link-text") %></th>
-              <th><%= sort_link(@q, :hiragana, [:hiragana, 'id asc'], "Hiragana", class: "link-text") %></th>
+              <th><%= sort_link(@q, :user_id, [:user_id, "id asc"], "User_ID", class: "link-text") %></th>
+              <th><%= sort_link(@q, :category_id, [:category_id, "id asc"], "Category_ID", class: "link-text") %></th>
+              <th><%= sort_link(@q, :category_name, [:category_name, "id asc"], "Category_name(parent table)", class: "link-text") %></th>
+              <th><%= sort_link(@q, :name, [:name, "id asc"], "Name", class: "link-text") %></th>
+              <th><%= sort_link(@q, :hiragana, [:hiragana, "id asc"], "Hiragana", class: "link-text") %></th>
               <th><%= sort_link(@q, :created_at, "Created_at", class: "link-text") %></th>
               <th><%= sort_link(@q, :updated_at, "Updated_at", class: "link-text") %></th>
               <th>編集</th>
@@ -54,7 +54,7 @@
                   <% end %>
                 </td>
                 <td class="text-center">
-                  <%= button_to management_item_path(item.id), method: :delete, form: { data: { turbo_confirm: t('.confirm_to_delete'), turbo_confirm_title: "アイテム（ID: #{item.id}）の削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: 'btn btn-danger' } } do %>
+                  <%= button_to management_item_path(item.id), method: :delete, form: { data: { turbo_confirm: t(".confirm_to_delete"), turbo_confirm_title: "アイテム（ID: #{item.id}）の削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: "btn btn-danger" } } do %>
                     <i class="h5 fas fa-trash-can m-0 delete-icon"></i>
                   <% end %>
                 </td>

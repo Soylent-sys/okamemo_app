@@ -12,18 +12,18 @@
 
     <%= Gon::Base.render_data %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= favicon_link_tag('favicon.ico') %>
+    <%= favicon_link_tag("favicon.ico") %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
     <div class="content-wrapper">
-      <%= render 'layouts/header' %>
-      <%= render 'shared/user_info' %>
-      <%= render 'shared/flash' %>
-      <%= render 'shared/confirm_modal'%>
+      <%= render "layouts/header" %>
+      <%= render "shared/user_info" %>
+      <%= render "shared/flash" %>
+      <%= render "shared/confirm_modal"%>
       <%= yield %>
     </div>
-    <%= render 'layouts/footer' %>
+    <%= render "layouts/footer" %>
   </body>
 </html>

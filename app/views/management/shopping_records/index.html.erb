@@ -1,7 +1,7 @@
 <div class="container-fluid g-0 bg-white">
-  <%= render 'management/shared/caution' %>
+  <%= render "management/shared/caution" %>
   <div class="d-flex">
-    <%= render 'management/shared/sidebar' %>
+    <%= render "management/shared/sidebar" %>
     <div class="management-main p-4 bg-body-secondary">
       <div class="management-header d-flex justify-content-between mb-3">
         <div class="d-flex align-items-end">
@@ -20,11 +20,11 @@
           <thead>
             <tr>
               <th><%= sort_link(@q, :id, "ID", class: "link-text") %></th>
-              <th><%= sort_link(@q, :user_id, [:user_id, 'id asc'], "User_ID", class: "link-text") %></th>
-              <th><%= sort_link(@q, :title, [:title, 'id asc'], "Title", class: "link-text") %></th>
-              <th><%= sort_link(@q, :closed, [:closed, 'id asc'], "Closed", class: "link-text") %></th>
+              <th><%= sort_link(@q, :user_id, [:user_id, "id asc"], "User_ID", class: "link-text") %></th>
+              <th><%= sort_link(@q, :title, [:title, "id asc"], "Title", class: "link-text") %></th>
+              <th><%= sort_link(@q, :closed, [:closed, "id asc"], "Closed", class: "link-text") %></th>
               <%# shopping_locationのidの有無でソートする %>
-              <th><%= sort_link(@q, :shopping_location_id, [:shopping_location_id, 'id asc'], "Map（child table present?）", class: "link-text") %></th>
+              <th><%= sort_link(@q, :shopping_location_id, [:shopping_location_id, "id asc"], "Map（child table present?）", class: "link-text") %></th>
               <th><%= sort_link(@q, :created_at, "Created_at", class: "link-text") %></th>
               <th><%= sort_link(@q, :updated_at, "Updated_at", class: "link-text") %></th>
               <th>詳細</th>
@@ -47,7 +47,7 @@
                   <% end %>
                 </td>
                 <td class="text-center">
-                  <%= button_to management_shopping_record_path(shopping_record.id), method: :delete, form: { data: { turbo_confirm: t('.confirm_to_delete'), turbo_confirm_title: "お買い物（ID: #{shopping_record.id}）の削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: 'btn btn-danger' } } do %>
+                  <%= button_to management_shopping_record_path(shopping_record.id), method: :delete, form: { data: { turbo_confirm: t(".confirm_to_delete"), turbo_confirm_title: "お買い物（ID: #{shopping_record.id}）の削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: "btn btn-danger" } } do %>
                     <i class="h5 fas fa-trash-can m-0 delete-icon"></i>
                   <% end %>
                 </td>

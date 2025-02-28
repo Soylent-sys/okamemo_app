@@ -784,7 +784,7 @@ RSpec.describe "ManagementUsers", type: :system do
   end
 
   describe "ユーザー一覧のソート・検索機能のテスト" do
-    let(:master_admin_user_email_original) { ENV['ADMIN_USER_EMAIL'] }
+    let(:master_admin_user_email_original) { ENV["ADMIN_USER_EMAIL"] }
     let(:master_user) do
       create(
         :user, :master_admin,
@@ -828,7 +828,7 @@ RSpec.describe "ManagementUsers", type: :system do
     before do
       # マスター管理ユーザーのEmailをソートテスト用に変更
       master_admin_user_email_original
-      ENV['ADMIN_USER_EMAIL'] = "alice@example.com"
+      ENV["ADMIN_USER_EMAIL"] = "alice@example.com"
       master_user
 
       sign_in_as(user)
@@ -836,7 +836,7 @@ RSpec.describe "ManagementUsers", type: :system do
     end
 
     after do
-      ENV['ADMIN_USER_EMAIL'] = master_admin_user_email_original
+      ENV["ADMIN_USER_EMAIL"] = master_admin_user_email_original
     end
 
     describe "ソート機能" do

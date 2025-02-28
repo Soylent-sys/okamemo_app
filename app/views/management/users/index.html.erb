@@ -1,7 +1,7 @@
 <div class="container-fluid g-0 bg-white">
-  <%= render 'management/shared/caution' %>
+  <%= render "management/shared/caution" %>
   <div class="d-flex">
-    <%= render 'management/shared/sidebar' %>
+    <%= render "management/shared/sidebar" %>
     <div class="management-main p-4 bg-body-secondary">
       <div class="management-header d-flex justify-content-between mb-3">
         <div class="d-flex align-items-end me-3">
@@ -53,7 +53,7 @@
                 </td>
                 <td class="text-center">
                   <% if user != @master_admin_user %>
-                    <%= button_to management_user_path(user.id), method: :delete, form: { data: { turbo_confirm: t('.confirm_to_delete'), turbo_confirm_title: "ユーザー（#{user.email}）の削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: 'btn btn-danger' } } do %>
+                    <%= button_to management_user_path(user.id), method: :delete, form: { data: { turbo_confirm: t(".confirm_to_delete"), turbo_confirm_title: "ユーザー（#{user.email}）の削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: "btn btn-danger" } } do %>
                       <i class="h5 fas fa-trash-can m-0 delete-icon"></i>
                     <% end %>
                   <% end %>
