@@ -103,7 +103,7 @@ RSpec.describe "UserRegistrations", type: :system do
         shared_examples "ヘルプモーダルのゲストユーザー向け項目非表示のテスト" do
           it "ヘルプモーダル内にゲストユーザー向けの表示項目が表示されないこと" do
             within "#helpModal.modal" do
-              expect(page).to have_no_selector("h3", text: "ゲストユーザーの編集制限")
+              expect(page).to_not have_selector("h3", text: "ゲストユーザーの編集制限")
             end
           end
         end

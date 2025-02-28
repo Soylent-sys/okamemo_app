@@ -184,7 +184,7 @@ RSpec.describe "Layouts", type: :system do
 
       it "ログアウトボタンが存在しないこと" do
         within "nav" do
-          expect(page).to have_no_selector("button", text: "ログアウト")
+          expect(page).to_not have_selector("button", text: "ログアウト")
         end
       end
 

@@ -67,7 +67,7 @@ RSpec.describe "Home", type: :system do
       end
 
       it "ヘルプボタンが表示されていないこと" do
-        expect(page).to have_no_selector("button", text: "ヘルプ")
+        expect(page).to_not have_selector("button", text: "ヘルプ")
       end
 
       shared_examples "ブラウザ幅 576px以上 の時のサービスロゴ表示テスト" do
