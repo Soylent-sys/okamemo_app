@@ -181,7 +181,7 @@ RSpec.describe NotificationTargetUser, type: :model do
     include_context "skip call back set_email_confirmation"
 
     context "有効期限(expiration_date属性)が現在時刻よりも前の場合" do
-      let(:time) { Time.current - 1.minute }
+      let(:time) { Time.current - 1.minutes }
 
       it "trueを返すこと" do
         expect(notification_target_user.expired?).to be_truthy
@@ -189,7 +189,7 @@ RSpec.describe NotificationTargetUser, type: :model do
     end
 
     context "有効期限(expiration_date属性)が現在時刻よりも後の場合" do
-      let(:time) { Time.current + 1.minute }
+      let(:time) { Time.current + 1.minutes }
 
       it "falseを返すこと" do
         expect(notification_target_user.expired?).to be_falsey
