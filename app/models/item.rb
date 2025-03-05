@@ -60,8 +60,8 @@ class Item < ApplicationRecord
 
   # 一般ユーザーのアイテム登録数の制限
   def check_count
-    return if user_id.blank?
-    user = User.find(user_id)
+    user = User.find_by(id: user_id)
+    return if user.blank?
     return if user.master_admin_user?
 
     if Item.where(user_id: user.id).count >= ITEM_MAXIMUM_COUNT
@@ -71,8 +71,8 @@ class Item < ApplicationRecord
 
   # ゲストユーザーのアイテム登録数の制限
   def guest_check_count
-    return if user_id.blank?
-    user = User.find(user_id)
+    user = User.find_by(id: user_id)
+    return if user.blank?
     return unless user.guest?
 
     if Item.where(user_id: user.id).count >= GUEST_ITEM_MAXIMUM_COUNT
