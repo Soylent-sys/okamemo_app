@@ -17,8 +17,8 @@ RSpec.describe ItemsHelper, type: :helper do
     context "引数がサインイン中のユーザーの作成アイテムが存在するカテゴリーの場合" do
       context "カテゴリー名が おまとめ の場合" do
         let(:category_omatome) { create(:category, name: "おまとめ", hiragana: "おまとめ") }
-        let!(:item_omatome_1) { create(:item, id: 1, user: user, category: category_omatome, name: "イ", hiragana: "い") }
-        let!(:item_omatome_2) { create(:item, id: 2, user: user, category: category_omatome, name: "ア", hiragana: "あ") }
+        let!(:item_omatome1) { create(:item, id: 1, user: user, category: category_omatome, name: "イ", hiragana: "い") }
+        let!(:item_omatome2) { create(:item, id: 2, user: user, category: category_omatome, name: "ア", hiragana: "あ") }
         let!(:other_category_item) do
           create(:item, user: user, category: other_category, name: "別カテゴリーのアイテム", hiragana: "べつかてごりーのあいてむ")
         end
@@ -29,7 +29,7 @@ RSpec.describe ItemsHelper, type: :helper do
         it "ユーザーが作成した おまとめ カテゴリーに属するアイテムをidの昇順で返すこと" do
           items = helper.my_items(category_omatome)
 
-          expect(items).to eq [item_omatome_1, item_omatome_2]
+          expect(items).to eq [item_omatome1, item_omatome2]
           expect(items).to_not include other_category_item
           expect(items).to_not include other_user_item
         end

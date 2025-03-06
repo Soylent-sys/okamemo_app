@@ -29,13 +29,13 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
         let!(:default_item_omatome) do
           create(:item, id: 1, user: master_user, category: category_omatome, name: "ウ", hiragana: "う")
         end
-        let!(:item_omatome_1) { create(:item, id: 2, user: user, category: category_omatome, name: "イ", hiragana: "い") }
-        let!(:item_omatome_2) { create(:item, id: 3, user: user, category: category_omatome, name: "ア", hiragana: "あ") }
+        let!(:item_omatome1) { create(:item, id: 2, user: user, category: category_omatome, name: "イ", hiragana: "い") }
+        let!(:item_omatome2) { create(:item, id: 3, user: user, category: category_omatome, name: "ア", hiragana: "あ") }
 
         it "おまとめ カテゴリーに属するデフォルトアイテムとユーザーが作成したアイテムをidの昇順で返すこと" do
           items = helper.categoy_items(category_omatome)
 
-          expect(items).to eq [default_item_omatome, item_omatome_1, item_omatome_2]
+          expect(items).to eq [default_item_omatome, item_omatome1, item_omatome2]
           expect(items).to_not include other_category_item
           expect(items).to_not include other_user_item
           expect(items).to_not include other_category_default_item
@@ -60,13 +60,13 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
       end
 
       context "デフォルトアイテムが存在しない場合" do
-        let!(:item_1) { create(:item, user: user, category: category, name: "テストアイテム1", hiragana: "てすとあいてむ1") }
-        let!(:item_2) { create(:item, user: user, category: category, name: "テストアイテム2", hiragana: "てすとあいてむ2") }
+        let!(:item1) { create(:item, user: user, category: category, name: "テストアイテム1", hiragana: "てすとあいてむ1") }
+        let!(:item2) { create(:item, user: user, category: category, name: "テストアイテム2", hiragana: "てすとあいてむ2") }
 
         it "カテゴリーに属するユーザーが作成したアイテムを返すこと" do
           items = helper.categoy_items(category)
 
-          expect(items).to eq [item_1, item_2]
+          expect(items).to eq [item1, item2]
           expect(items).to_not include other_category_item
           expect(items).to_not include other_user_item
           expect(items).to_not include other_category_default_item
@@ -78,17 +78,17 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
       context "デフォルトアイテムが存在する場合" do
         context "カテゴリー名が おまとめ の場合" do
           let(:category_omatome) { create(:category, name: "おまとめ", hiragana: "おまとめ") }
-          let!(:default_item_omatome_1) do
+          let!(:default_item_omatome1) do
             create(:item, id: 1, user: master_user, category: category_omatome, name: "イ", hiragana: "い")
           end
-          let!(:default_item_omatome_2) do
+          let!(:default_item_omatome2) do
             create(:item, id: 2, user: master_user, category: category_omatome, name: "ア", hiragana: "あ")
           end
 
           it "おまとめ カテゴリーに属するデフォルトアイテムをidの昇順で返すこと" do
             items = helper.categoy_items(category_omatome)
 
-            expect(items).to eq [default_item_omatome_1, default_item_omatome_2]
+            expect(items).to eq [default_item_omatome1, default_item_omatome2]
             expect(items).to_not include other_category_item
             expect(items).to_not include other_user_item
             expect(items).to_not include other_category_default_item
@@ -214,36 +214,36 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
     let(:category) { create(:category) }
     # Itemモデル登録時のvalidateメソッドにマスター管理ユーザーが必要
     let!(:master_user) { create(:user, :master_admin) }
-    let!(:item_1) { create(:item, user: user, category: category) }
-    let!(:item_2) { create(:item, user: user, category: category) }
+    let!(:item1) { create(:item, user: user, category: category) }
+    let!(:item2) { create(:item, user: user, category: category) }
 
     # アプリのフローにおいて引数に渡されるのはShoppingRecordFormオブジェクトのみのため
     # その他が引数に渡されるテストケースは不要
     it "引数オブジェクトのhashidsを基にItemモデルの配列を返すこと" do
-      shopping_record_form = double(ShoppingRecordForm, hashids: [item_1.hashid, item_2.hashid])
-      expect(helper.wish_items(shopping_record_form)).to contain_exactly(item_1, item_2)
+      shopping_record_form = double(ShoppingRecordForm, hashids: [item1.hashid, item2.hashid])
+      expect(helper.wish_items(shopping_record_form)).to contain_exactly(item1, item2)
     end
   end
 
   describe "#bought_items" do
     let(:user) { create(:user) }
     let(:shopping_record) { create(:shopping_record, user: user) }
-    let!(:buy_1) { create(:buy, user: user, shopping_record: shopping_record) }
-    let!(:buy_2) { create(:buy, user: user, shopping_record: shopping_record) }
+    let!(:buy1) { create(:buy, user: user, shopping_record: shopping_record) }
+    let!(:buy2) { create(:buy, user: user, shopping_record: shopping_record) }
 
     # アプリのフローにおいて引数に渡されるのはShoppingRecordFormオブジェクトのみのため
     # その他が引数に渡されるテストケースは不要
     it "引数オブジェクトのhashidsを基にBuyモデルの配列を返すこと" do
-      shopping_record_form = double(ShoppingRecordForm, hashids: [buy_1.hashid, buy_2.hashid])
-      expect(helper.bought_items(shopping_record_form)).to contain_exactly(buy_1, buy_2)
+      shopping_record_form = double(ShoppingRecordForm, hashids: [buy1.hashid, buy2.hashid])
+      expect(helper.bought_items(shopping_record_form)).to contain_exactly(buy1, buy2)
     end
   end
 
   describe "#no_bought_items" do
     let(:user) { create(:user) }
     let(:shopping_record) { create(:shopping_record, user: user) }
-    let!(:buy_1) { create(:buy, user: user, shopping_record: shopping_record) }
-    let!(:buy_2) { create(:buy, user: user, shopping_record: shopping_record) }
+    let!(:buy1) { create(:buy, user: user, shopping_record: shopping_record) }
+    let!(:buy2) { create(:buy, user: user, shopping_record: shopping_record) }
     let(:shopping_record_form) { double(ShoppingRecordForm, shopping_record_hashid: shopping_record.hashid, hashids: hashids) }
 
     # メソッド内でcurrent_userを使用するためサインインが必要
@@ -254,10 +254,10 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
     # アプリのフローにおいて引数に渡されるのはShoppingRecordFormオブジェクトのみのため
     # その他が引数に渡されるテストケースは不要
     context "引数オブジェクトのhashids属性が存在する場合" do
-      let(:hashids) { [buy_1.hashid] }
+      let(:hashids) { [buy1.hashid] }
 
       it "引数オブジェクトのshopping_record_hashidに対応するお買い物(ShoppingRecord)からhashidsに該当しないBuyモデルの配列を返すこと" do
-        expect(helper.no_bought_items(shopping_record_form)).to contain_exactly(buy_2)
+        expect(helper.no_bought_items(shopping_record_form)).to contain_exactly(buy2)
       end
     end
 
@@ -265,7 +265,7 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
       let(:hashids) { [] }
 
       it "引数オブジェクトのshopping_record_hashidに対応するお買い物(ShoppingRecord)に属するすべてのBuyモデルの配列を返すこと" do
-        expect(helper.no_bought_items(shopping_record_form)).to contain_exactly(buy_1, buy_2)
+        expect(helper.no_bought_items(shopping_record_form)).to contain_exactly(buy1, buy2)
       end
     end
   end

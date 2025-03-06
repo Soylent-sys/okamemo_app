@@ -78,8 +78,8 @@ RSpec.describe ShoppingRecord, type: :model do
   describe ".first_record_by_month" do
     context "引数のユーザーに完了済みのお買い物が存在する場合" do
       let(:time_current) { Time.current }
-      let!(:shopping_record_now_1) { create(:shopping_record, closed: true, user: user, updated_at: time_current) }
-      let!(:shopping_record_now_2) { create(:shopping_record, closed: true, user: user, updated_at: time_current + ten_second) }
+      let!(:shopping_record_now1) { create(:shopping_record, closed: true, user: user, updated_at: time_current) }
+      let!(:shopping_record_now2) { create(:shopping_record, closed: true, user: user, updated_at: time_current + ten_second) }
       let(:ten_second) { 10 }
       let!(:shopping_record_one_month_ago) do
         create(:shopping_record, closed: true, user: user, updated_at: time_current - 1.month)
@@ -93,7 +93,7 @@ RSpec.describe ShoppingRecord, type: :model do
       it "引数のユーザーの月毎に完了している最初のお買い物を返すこと" do
         shopping_records = ShoppingRecord.first_record_by_month(user)
 
-        expect(shopping_records).to contain_exactly(shopping_record_now_1, shopping_record_one_month_ago)
+        expect(shopping_records).to contain_exactly(shopping_record_now1, shopping_record_one_month_ago)
       end
     end
 
@@ -108,8 +108,8 @@ RSpec.describe ShoppingRecord, type: :model do
 
   describe ".extract_one_month" do
     let(:time_current) { Time.current }
-    let!(:shopping_record_now_1) { create(:shopping_record, closed: true, user: user, updated_at: time_current) }
-    let!(:shopping_record_now_2) { create(:shopping_record, closed: true, user: user, updated_at: time_current) }
+    let!(:shopping_record_now1) { create(:shopping_record, closed: true, user: user, updated_at: time_current) }
+    let!(:shopping_record_now2) { create(:shopping_record, closed: true, user: user, updated_at: time_current) }
     let!(:shopping_record_one_month_ago) do
       create(:shopping_record, closed: true, user: user, updated_at: time_current - 1.month)
     end
@@ -123,7 +123,7 @@ RSpec.describe ShoppingRecord, type: :model do
       it "引数のユーザーおよび引数の指定年月の完了している全てのお買い物を返すこと" do
         shopping_records = ShoppingRecord.extract_one_month(user, time_current.to_fs(:date_ym))
 
-        expect(shopping_records).to contain_exactly(shopping_record_now_1, shopping_record_now_2)
+        expect(shopping_records).to contain_exactly(shopping_record_now1, shopping_record_now2)
       end
     end
 

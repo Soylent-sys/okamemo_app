@@ -389,11 +389,11 @@ RSpec.describe Item, type: :model do
 
   describe "スコープ" do
     describe "sorted" do
-      let!(:first_item) { create(:item, user: user, category: category_1, name: "アイテム1", hiragana: "あ") }
-      let!(:second_item) { create(:item, user: user, category: category_1, name: "アイテム2", hiragana: "い") }
-      let!(:third_item) { create(:item, user: user, category: category_2, name: "アイテム1", hiragana: "あ") }
-      let(:category_1) { create(:category, id: 1) }
-      let(:category_2) { create(:category, id: 2) }
+      let!(:first_item) { create(:item, user: user, category: category1, name: "アイテム1", hiragana: "あ") }
+      let!(:second_item) { create(:item, user: user, category: category1, name: "アイテム2", hiragana: "い") }
+      let!(:third_item) { create(:item, user: user, category: category2, name: "アイテム1", hiragana: "あ") }
+      let(:category1) { create(:category, id: 1) }
+      let(:category2) { create(:category, id: 2) }
 
       it "カテゴリーIDの昇順、アイテム名（ひらがな）の昇順でアイテムを返すこと" do
         expect(Item.sorted).to eq [first_item, second_item, third_item]

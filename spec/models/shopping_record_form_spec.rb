@@ -8,7 +8,7 @@ RSpec.describe ShoppingRecordForm, type: :model do
       shopping_record_form = ShoppingRecordForm.new(
         user_id: user.id,
         title: "テストのお買い物",
-        hashids: ["hashid_1", "hashid_2"]
+        hashids: ["hashid1", "hashid2"]
       )
       expect(shopping_record_form).to be_valid
     end
@@ -98,8 +98,8 @@ RSpec.describe ShoppingRecordForm, type: :model do
 
   describe "#save" do
     let(:category) { create(:category) }
-    let(:item_1) { create(:item, user: user, category: category, name: "テストアイテム", hiragana: "てすとあいてむ") }
-    let(:item_2) { create(:item, user: user, category: category, name: "テストアイテム2", hiragana: "てすとあいてむ2") }
+    let(:item1) { create(:item, user: user, category: category, name: "テストアイテム", hiragana: "てすとあいてむ") }
+    let(:item2) { create(:item, user: user, category: category, name: "テストアイテム2", hiragana: "てすとあいてむ2") }
     # Itemモデル登録時のvalidateメソッドにマスター管理ユーザーが必要
     let!(:master_user) { create(:user, :master_admin) }
     let(:form) do
@@ -107,7 +107,7 @@ RSpec.describe ShoppingRecordForm, type: :model do
         user_id: user.id,
         title: "テストのお買い物",
         # saveメソッド実行時のhashids属性はItemモデルのhashidを使用する
-        hashids: [item_1.hashid, item_2.hashid]
+        hashids: [item1.hashid, item2.hashid]
       )
     end
 
@@ -144,14 +144,14 @@ RSpec.describe ShoppingRecordForm, type: :model do
 
   describe "#update_shopping_record" do
     let(:shopping_record) { create(:shopping_record, user: user, closed: false) }
-    let!(:buy_1) { create(:buy, user: user, shopping_record: shopping_record, purchased: false) }
-    let!(:buy_2) { create(:buy, user: user, shopping_record: shopping_record, purchased: false) }
+    let!(:buy1) { create(:buy, user: user, shopping_record: shopping_record, purchased: false) }
+    let!(:buy2) { create(:buy, user: user, shopping_record: shopping_record, purchased: false) }
     let(:form) do
       ShoppingRecordForm.new(
         # update_shopping_recordメソッドではshopping_record_hashid属性を使用する
         shopping_record_hashid: shopping_record.hashid,
         # update_shopping_recordメソッド実行時のhashids属性はBuyモデルのhashidを使用する
-        hashids: [buy_1.hashid]
+        hashids: [buy1.hashid]
       )
     end
 
@@ -160,8 +160,8 @@ RSpec.describe ShoppingRecordForm, type: :model do
         form.update_shopping_record(user)
 
         expect(shopping_record.reload.closed?).to be_truthy
-        expect(buy_1.reload.purchased?).to be_truthy
-        expect(buy_2.reload.purchased?).to be_falsey
+        expect(buy1.reload.purchased?).to be_truthy
+        expect(buy2.reload.purchased?).to be_falsey
       end
     end
 
@@ -174,7 +174,7 @@ RSpec.describe ShoppingRecordForm, type: :model do
 
         expect { form.update_shopping_record(user) }.to raise_error(ActiveRecord::RecordNotSaved)
         expect(shopping_record.reload.closed?).to be_falsey
-        expect(buy_1.reload.purchased?).to be_falsey
+        expect(buy1.reload.purchased?).to be_falsey
       end
     end
   end

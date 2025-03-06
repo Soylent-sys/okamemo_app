@@ -69,14 +69,14 @@ RSpec.describe "Items", type: :system do
           # アイテムのcreate時にマスター管理ユーザーの登録アイテム（デフォルトアイテム）との
           # 重複を確認するバリデーションを実行するためマスター管理ユーザーが必要
           let!(:master_user) { create(:user, :master_admin) }
-          let(:category_1) { create(:category, id: 1) }
-          let(:category_2) { create(:category, id: 2) }
+          let(:category1) { create(:category, id: 1) }
+          let(:category2) { create(:category, id: 2) }
           let!(:no_item_category) { create(:category, id: 3) }
-          let!(:user_item_1) { create(:item, user: user, category: category_1) }
-          let!(:user_item_2) { create(:item, user: user, category: category_2) }
-          let!(:user_item_3) { create(:item, user: user, category: category_2) }
+          let!(:user_item1) { create(:item, user: user, category: category1) }
+          let!(:user_item2) { create(:item, user: user, category: category2) }
+          let!(:user_item3) { create(:item, user: user, category: category2) }
           let(:other_user) { create(:user) }
-          let!(:other_user_item) { create(:item, user: other_user, category: category_2) }
+          let!(:other_user_item) { create(:item, user: other_user, category: category2) }
 
           before do
             visit items_path
@@ -95,8 +95,8 @@ RSpec.describe "Items", type: :system do
           end
 
           it "ユーザーが登録しているアイテムのカテゴリーが表示されること" do
-            expect(page).to have_button(category_1.name)
-            expect(page).to have_button(category_2.name)
+            expect(page).to have_button(category1.name)
+            expect(page).to have_button(category2.name)
           end
 
           it "ユーザーが登録していないアイテムのカテゴリーは表示されないこと" do
@@ -104,58 +104,58 @@ RSpec.describe "Items", type: :system do
           end
 
           it "初期状態では表示カテゴリーの中で一番若いidのカテゴリーが選択されていること" do
-            expect(page).to have_selector("button.active", text: category_1.name)
-            expect(page).to_not have_selector("button.active", text: category_2.name)
+            expect(page).to have_selector("button.active", text: category1.name)
+            expect(page).to_not have_selector("button.active", text: category2.name)
           end
 
           it "選択したカテゴリーのユーザーが登録したアイテム名が表示されること", js: true do
-            click_button category_2.name
-            expect(page).to have_selector("button.active", text: category_2.name)
+            click_button category2.name
+            expect(page).to have_selector("button.active", text: category2.name)
 
-            expect(page).to have_selector(".item-name-space", text: user_item_2.name, visible: true)
-            expect(page).to have_selector(".item-name-space", text: user_item_3.name, visible: true)
+            expect(page).to have_selector(".item-name-space", text: user_item2.name, visible: true)
+            expect(page).to have_selector(".item-name-space", text: user_item3.name, visible: true)
           end
 
           it "選択したカテゴリーの別のユーザーが登録したアイテム名が表示されないこと", js: true do
-            click_button category_2.name
-            expect(page).to have_selector("button.active", text: category_2.name)
+            click_button category2.name
+            expect(page).to have_selector("button.active", text: category2.name)
 
             expect(page).to_not have_selector(".item-name-space", text: other_user_item.name)
           end
 
           it "選択していないカテゴリーのアイテム名が表示されないこと", js: true do
-            click_button category_2.name
-            expect(page).to have_selector("button.active", text: category_2.name)
+            click_button category2.name
+            expect(page).to have_selector("button.active", text: category2.name)
 
-            expect(page).to have_selector(".item-name-space", text: user_item_1.name, visible: false)
+            expect(page).to have_selector(".item-name-space", text: user_item1.name, visible: false)
           end
 
           it "表示中のアイテムそれぞれの編集リンクが存在すること", js: true do
-            click_button category_2.name
-            expect(page).to have_selector("button.active", text: category_2.name)
+            click_button category2.name
+            expect(page).to have_selector("button.active", text: category2.name)
 
-            expect(page).to have_link(href: edit_item_path(user_item_2.hashid), visible: true)
-            expect(page).to have_link(href: edit_item_path(user_item_3.hashid), visible: true)
+            expect(page).to have_link(href: edit_item_path(user_item2.hashid), visible: true)
+            expect(page).to have_link(href: edit_item_path(user_item3.hashid), visible: true)
           end
 
           it "アイテムの編集リンクからアイテム編集画面へ遷移できること", js: true do
-            click_button category_2.name
-            expect(page).to have_selector("button.active", text: category_2.name)
-            expect(page).to have_link(href: edit_item_path(user_item_2.hashid), visible: true)
+            click_button category2.name
+            expect(page).to have_selector("button.active", text: category2.name)
+            expect(page).to have_link(href: edit_item_path(user_item2.hashid), visible: true)
 
-            within("div.item-space", text: user_item_2.name) do
+            within("div.item-space", text: user_item2.name) do
               find("i.edit-icon").click
             end
 
             expect(page).to have_selector("h1", text: "アイテムの編集")
-            expect(current_path).to eq edit_item_path(user_item_2.hashid)
+            expect(current_path).to eq edit_item_path(user_item2.hashid)
           end
 
           # 表示中のアイテム数
           let(:visible_items_count) { 2 }
 
           it "表示中のアイテムそれぞれの削除ボタンが存在すること", js: true do
-            click_button category_2.name
+            click_button category2.name
 
             expect(page).to have_selector("i.delete-icon", count: visible_items_count, visible: true)
           end
@@ -163,7 +163,7 @@ RSpec.describe "Items", type: :system do
           it "アイテム削除ボタンをクリックするとモーダルが表示されること", js: true do
             expect(page).to have_selector("#turbo-confirm-modal", visible: false)
 
-            within("div.item-space", text: user_item_1.name) do
+            within("div.item-space", text: user_item1.name) do
               find("i.delete-icon").click
             end
 
@@ -171,7 +171,7 @@ RSpec.describe "Items", type: :system do
           end
 
           it "アイテム削除モーダルにタイトルが表示されること", js: true do
-            within("div.item-space", text: user_item_1.name) do
+            within("div.item-space", text: user_item1.name) do
               find("i.delete-icon").click
             end
 
@@ -183,7 +183,7 @@ RSpec.describe "Items", type: :system do
           end
 
           it "アイテム削除モーダルのヘッダーにモーダルを閉じるボタンがあること", js: true do
-            within("div.item-space", text: user_item_1.name) do
+            within("div.item-space", text: user_item1.name) do
               find("i.delete-icon").click
             end
 
@@ -197,7 +197,7 @@ RSpec.describe "Items", type: :system do
           end
 
           it "アイテム削除モーダルに削除ボタン・キャンセルボタンが表示されること", js: true do
-            within("div.item-space", text: user_item_1.name) do
+            within("div.item-space", text: user_item1.name) do
               find("i.delete-icon").click
             end
 
@@ -210,7 +210,7 @@ RSpec.describe "Items", type: :system do
           end
 
           it "アイテム削除モーダルのキャンセルボタンでアイテム削除を中止できること", js: true do
-            within("div.item-space", text: user_item_1.name) do
+            within("div.item-space", text: user_item1.name) do
               find("i.delete-icon").click
             end
 
@@ -224,7 +224,7 @@ RSpec.describe "Items", type: :system do
           end
 
           it "アイテム削除モーダルの外をクリックするとモーダルが閉じること", js: true do
-            within("div.item-space", text: user_item_1.name) do
+            within("div.item-space", text: user_item1.name) do
               find("i.delete-icon").click
             end
 
@@ -237,7 +237,7 @@ RSpec.describe "Items", type: :system do
           end
 
           it "アイテム削除ボタンからアイテムが削除できること", js: true do
-            within("div.item-space", text: user_item_1.name) do
+            within("div.item-space", text: user_item1.name) do
               find("i.delete-icon").click
             end
 
@@ -256,7 +256,7 @@ RSpec.describe "Items", type: :system do
             end.to change { Item.count }.by(-1)
 
             # アイテムがDBに存在しないことを確認
-            expect(Item.where(id: user_item_1.id)).to_not exist
+            expect(Item.where(id: user_item1.id)).to_not exist
           end
         end
 
@@ -748,9 +748,9 @@ RSpec.describe "Items", type: :system do
     # アイテムのcreate時にマスター管理ユーザーの登録アイテム（デフォルトアイテム）との
     # 重複を確認するバリデーションを実行するためマスター管理ユーザーが必要
     let!(:master_user) { create(:user, :master_admin) }
-    let(:category_1) { create(:category) }
-    let!(:category_2) { create(:category) }
-    let!(:edit_item) { create(:item, user: user, category: category_1, name: "編集アイテム1", hiragana: "へんしゅうあいてむ1") }
+    let(:category1) { create(:category) }
+    let!(:category2) { create(:category) }
+    let!(:edit_item) { create(:item, user: user, category: category1, name: "編集アイテム1", hiragana: "へんしゅうあいてむ1") }
 
     context "正常系" do
       let(:new_name) { "新しいアイテム名" }
@@ -763,9 +763,9 @@ RSpec.describe "Items", type: :system do
 
       scenario "ユーザーがアイテムのカテゴリーを更新する" do
         expect do
-          select category_2.name, from: "item[category_id]"
+          select category2.name, from: "item[category_id]"
           click_button "更新"
-        end.to change { edit_item.reload.category_id }.from(category_1.id).to(category_2.id)
+        end.to change { edit_item.reload.category_id }.from(category1.id).to(category2.id)
 
         expect(page).to have_content "アイテムの更新が完了しました。"
         expect(current_path).to eq items_path
@@ -797,8 +797,8 @@ RSpec.describe "Items", type: :system do
     end
 
     context "異常系" do
-      let!(:exist_item) { create(:item, user: user, category: category_1, name: "既存アイテム", hiragana: "きぞんあいてむ") }
-      let!(:preset_item) { create(:item, user: master_user, category: category_1, name: "デフォルトアイテム", hiragana: "でふぉるとあいてむ") }
+      let!(:exist_item) { create(:item, user: user, category: category1, name: "既存アイテム", hiragana: "きぞんあいてむ") }
+      let!(:preset_item) { create(:item, user: master_user, category: category1, name: "デフォルトアイテム", hiragana: "でふぉるとあいてむ") }
 
       before do
         sign_in_as(user)

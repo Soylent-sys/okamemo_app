@@ -94,8 +94,8 @@ RSpec.describe ShoppingRecordMailer, type: :mailer do
   end
 
   describe ".send_shopping_result_to_notification_target_users" do
-    let!(:confirmed_nt_user_1) { create(:notification_target_user, user: user, confirmation_status: :confirmed) }
-    let!(:confirmed_nt_user_2) { create(:notification_target_user, user: user, confirmation_status: :confirmed) }
+    let!(:confirmed_nt_user1) { create(:notification_target_user, user: user, confirmation_status: :confirmed) }
+    let!(:confirmed_nt_user2) { create(:notification_target_user, user: user, confirmation_status: :confirmed) }
     let!(:unconfirmed_nt_user) { create(:notification_target_user, user: user, confirmation_status: :unconfirmed) }
     let(:confirmed_nt_user_count) { 2 }
 

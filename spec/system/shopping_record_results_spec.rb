@@ -150,11 +150,11 @@ RSpec.describe "ShoppingRecordResults", type: :system do
           end
 
           it "同月内に完了したお買い物が複数存在しても年月別のリンクは一つであること" do
-            shopping_closed_time_1 = closed_user_shopping_records[0].updated_at
-            shopping_closed_time_2 = closed_user_shopping_records[1].updated_at
-            expect(shopping_closed_time_1).to eq shopping_closed_time_2
-            link_text = shopping_closed_time_1.to_fs(:month_ja)
-            link_path = shopping_result_path(shopping_closed_time_1.to_fs(:date_ym))
+            shopping_closed_time1 = closed_user_shopping_records[0].updated_at
+            shopping_closed_time2 = closed_user_shopping_records[1].updated_at
+            expect(shopping_closed_time1).to eq shopping_closed_time2
+            link_text = shopping_closed_time1.to_fs(:month_ja)
+            link_path = shopping_result_path(shopping_closed_time1.to_fs(:date_ym))
 
             expect(page).to have_link(link_text, href: link_path, count: 1)
           end
@@ -180,15 +180,15 @@ RSpec.describe "ShoppingRecordResults", type: :system do
 
           it "別のユーザーのお買い物の完了年月が表記されたリンクが存在しないこと" do
             shopping_closed_time = closed_other_user_other_month_shopping_record.updated_at
-            link_text_1 = shopping_closed_time.to_fs(:month_ja)
-            link_path_1 = shopping_result_path(shopping_closed_time.to_fs(:date_ym))
+            link_text1 = shopping_closed_time.to_fs(:month_ja)
+            link_path1 = shopping_result_path(shopping_closed_time.to_fs(:date_ym))
 
             shopping_updated_time = unclosed_other_user_other_month_shopping_record.updated_at
-            link_text_2 = shopping_updated_time.to_fs(:month_ja)
-            link_path_2 = shopping_result_path(shopping_updated_time.to_fs(:date_ym))
+            link_text2 = shopping_updated_time.to_fs(:month_ja)
+            link_path2 = shopping_result_path(shopping_updated_time.to_fs(:date_ym))
 
-            expect(page).to_not have_link(link_text_1, href: link_path_1)
-            expect(page).to_not have_link(link_text_2, href: link_path_2)
+            expect(page).to_not have_link(link_text1, href: link_path1)
+            expect(page).to_not have_link(link_text2, href: link_path2)
           end
         end
 
@@ -884,19 +884,19 @@ RSpec.describe "ShoppingRecordResults", type: :system do
         end
 
         context "買ったアイテムと買わなかったアイテムがある場合" do
-          let!(:preset_item_1) { create(:item, user: master_user, category: category) }
-          let!(:preset_item_2) { create(:item, user: master_user, category: category) }
+          let!(:preset_item1) { create(:item, user: master_user, category: category) }
+          let!(:preset_item2) { create(:item, user: master_user, category: category) }
           let(:user_shopping_record) { create(:shopping_record, :closed, user: user) }
           let!(:purchased_buy) do
             create(
               :buy, :purchased,
               user: user, shopping_record: user_shopping_record,
-              item_name: preset_item_1.name, item_hiragana: preset_item_1.hiragana
+              item_name: preset_item1.name, item_hiragana: preset_item1.hiragana
             )
           end
           let!(:unpurchased_buy) do
             create(:buy, user: user, shopping_record: user_shopping_record,
-                         item_name: preset_item_2.name, item_hiragana: preset_item_2.hiragana)
+                         item_name: preset_item2.name, item_hiragana: preset_item2.hiragana)
           end
 
           before do
@@ -983,19 +983,19 @@ RSpec.describe "ShoppingRecordResults", type: :system do
       end
 
       describe "ひらがなモードの設定により異なる箇所のテスト" do
-        let!(:preset_item_1) { create(:item, user: master_user, category: category) }
-        let!(:preset_item_2) { create(:item, user: master_user, category: category) }
+        let!(:preset_item1) { create(:item, user: master_user, category: category) }
+        let!(:preset_item2) { create(:item, user: master_user, category: category) }
         let(:user_shopping_record) { create(:shopping_record, :closed, user: user) }
         let!(:purchased_buy) do
           create(
             :buy, :purchased,
             user: user, shopping_record: user_shopping_record,
-            item_name: preset_item_1.name, item_hiragana: preset_item_1.hiragana
+            item_name: preset_item1.name, item_hiragana: preset_item1.hiragana
           )
         end
         let!(:unpurchased_buy) do
           create(:buy, user: user, shopping_record: user_shopping_record,
-                       item_name: preset_item_2.name, item_hiragana: preset_item_2.hiragana)
+                       item_name: preset_item2.name, item_hiragana: preset_item2.hiragana)
         end
 
         before do

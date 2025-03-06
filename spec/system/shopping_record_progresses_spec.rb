@@ -270,16 +270,16 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
       let(:user) { create(:user) }
       let!(:master_user) { create(:user, :master_admin) }
       let(:category) { create(:category) }
-      let!(:preset_item_1) { create(:item, user: master_user, category: category) }
-      let!(:preset_item_2) { create(:item, user: master_user, category: category) }
+      let!(:preset_item1) { create(:item, user: master_user, category: category) }
+      let!(:preset_item2) { create(:item, user: master_user, category: category) }
       let(:user_shopping_record) { create(:shopping_record, user: user) }
-      let!(:buy_1) do
+      let!(:buy1) do
         create(:buy, user: user, shopping_record: user_shopping_record,
-                     item_name: preset_item_1.name, item_hiragana: preset_item_1.hiragana)
+                     item_name: preset_item1.name, item_hiragana: preset_item1.hiragana)
       end
-      let!(:buy_2) do
+      let!(:buy2) do
         create(:buy, user: user, shopping_record: user_shopping_record,
-                     item_name: preset_item_2.name, item_hiragana: preset_item_2.hiragana)
+                     item_name: preset_item2.name, item_hiragana: preset_item2.hiragana)
       end
 
       context "サインインしている場合" do
@@ -307,15 +307,15 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
 
         it "お買い物に紐付く購入アイテム数がお買い物リストに表示されること" do
           expect(page).to have_selector("div.buy-item-space", count: user_shopping_record.buys.count)
-          expect(page).to have_selector("div.buy-item-space", text: buy_1.item_name)
-          expect(page).to have_selector("div.buy-item-space", text: buy_2.item_name)
+          expect(page).to have_selector("div.buy-item-space", text: buy1.item_name)
+          expect(page).to have_selector("div.buy-item-space", text: buy2.item_name)
         end
 
         it "お買い物リストのアイテムをチェックできること" do
-          within("div.buy-item-space", text: buy_1.item_name) do
-            check buy_1.item_name
+          within("div.buy-item-space", text: buy1.item_name) do
+            check buy1.item_name
 
-            expect(find_field(buy_1.item_name)).to be_checked
+            expect(find_field(buy1.item_name)).to be_checked
           end
         end
 
@@ -375,13 +375,13 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
           end
 
           it "お買い物リストのアイテムがアイテム名(item_name)で表示されること" do
-            expect(page).to have_selector("div.buy-item-space", text: buy_1.item_name)
-            expect(page).to have_selector("div.buy-item-space", text: buy_2.item_name)
+            expect(page).to have_selector("div.buy-item-space", text: buy1.item_name)
+            expect(page).to have_selector("div.buy-item-space", text: buy2.item_name)
           end
 
           it "お買い物リストのアイテムがひらがな（アイテム名）(item_hiragana)で表示されないこと" do
-            expect(page).to_not have_selector("div.buy-item-space", text: buy_1.item_hiragana)
-            expect(page).to_not have_selector("div.buy-item-space", text: buy_2.item_hiragana)
+            expect(page).to_not have_selector("div.buy-item-space", text: buy1.item_hiragana)
+            expect(page).to_not have_selector("div.buy-item-space", text: buy2.item_hiragana)
           end
         end
 
@@ -395,13 +395,13 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
           end
 
           it "お買い物リストのアイテムがひらがな（アイテム名）(item_hiragana)で表示されること" do
-            expect(page).to have_selector("div.buy-item-space", text: buy_1.item_hiragana)
-            expect(page).to have_selector("div.buy-item-space", text: buy_2.item_hiragana)
+            expect(page).to have_selector("div.buy-item-space", text: buy1.item_hiragana)
+            expect(page).to have_selector("div.buy-item-space", text: buy2.item_hiragana)
           end
 
           it "お買い物リストのアイテムがアイテム名(item_name)で表示されないこと" do
-            expect(page).to_not have_selector("div.buy-item-space", text: buy_1.item_name)
-            expect(page).to_not have_selector("div.buy-item-space", text: buy_2.item_name)
+            expect(page).to_not have_selector("div.buy-item-space", text: buy1.item_name)
+            expect(page).to_not have_selector("div.buy-item-space", text: buy2.item_name)
           end
         end
       end
@@ -411,16 +411,16 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
       let(:user) { create(:user) }
       let!(:master_user) { create(:user, :master_admin) }
       let(:category) { create(:category) }
-      let!(:preset_item_1) { create(:item, user: master_user, category: category) }
-      let!(:preset_item_2) { create(:item, user: master_user, category: category) }
+      let!(:preset_item1) { create(:item, user: master_user, category: category) }
+      let!(:preset_item2) { create(:item, user: master_user, category: category) }
       let(:user_shopping_record) { create(:shopping_record, user: user) }
-      let!(:buy_1) do
+      let!(:buy1) do
         create(:buy, user: user, shopping_record: user_shopping_record,
-                     item_name: preset_item_1.name, item_hiragana: preset_item_1.hiragana)
+                     item_name: preset_item1.name, item_hiragana: preset_item1.hiragana)
       end
-      let!(:buy_2) do
+      let!(:buy2) do
         create(:buy, user: user, shopping_record: user_shopping_record,
-                     item_name: preset_item_2.name, item_hiragana: preset_item_2.hiragana)
+                     item_name: preset_item2.name, item_hiragana: preset_item2.hiragana)
       end
 
       before do
@@ -503,37 +503,37 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
       describe "お買い物リストのアイテムのチェックにより異なる箇所のテスト" do
         context "買った（チェックした）アイテムと買わなかった（チェックしなかった）アイテムがある場合" do
           before do
-            within("div.buy-item-space", text: buy_1.item_name) do
-              check buy_1.item_name
-              expect(find_field(buy_1.item_name)).to be_checked
+            within("div.buy-item-space", text: buy1.item_name) do
+              check buy1.item_name
+              expect(find_field(buy1.item_name)).to be_checked
             end
-            within("div.buy-item-space", text: buy_2.item_name) do
-              expect(find_field(buy_2.item_name)).to_not be_checked
+            within("div.buy-item-space", text: buy2.item_name) do
+              expect(find_field(buy2.item_name)).to_not be_checked
             end
             click_button "お買い物完了"
           end
 
           it "買ったアイテムの項目にチェックしたアイテムが表示されること" do
             within(".confirm-window", text: "買ったアイテム") do
-              expect(page).to have_selector("li", text: buy_1.item_name)
+              expect(page).to have_selector("li", text: buy1.item_name)
             end
           end
 
           it "買ったアイテムの項目にチェックしなかったアイテムが表示されないこと" do
             within(".confirm-window", text: "買ったアイテム") do
-              expect(page).to_not have_selector("li", text: buy_2.item_name)
+              expect(page).to_not have_selector("li", text: buy2.item_name)
             end
           end
 
           it "買わなかったアイテムの項目にチェックしなかったアイテムが表示されること" do
             within(".confirm-window", text: "買わなかったアイテム") do
-              expect(page).to have_selector("li", text: buy_2.item_name)
+              expect(page).to have_selector("li", text: buy2.item_name)
             end
           end
 
           it "買わなかったアイテムの項目にチェックしたアイテムが表示されないこと" do
             within(".confirm-window", text: "買わなかったアイテム") do
-              expect(page).to_not have_selector("li", text: buy_1.item_name)
+              expect(page).to_not have_selector("li", text: buy1.item_name)
             end
           end
 
@@ -550,19 +550,19 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
           end
 
           it "買ったアイテムに紐付く購入情報のhashidが入力されたhiddenフィールドが存在すること（OK!ボタン用）" do
-            expect(find_field("confirm_shopping_record_form_hashids_#{buy_1.hashid}", type: "hidden").value).to eq buy_1.hashid
+            expect(find_field("confirm_shopping_record_form_hashids_#{buy1.hashid}", type: "hidden").value).to eq buy1.hashid
           end
 
           it "買わなかったアイテムに紐付く購入情報のhiddenフィールドが存在しないこと（OK!ボタン用）" do
-            expect(page).to have_no_field("confirm_shopping_record_form_hashids_#{buy_2.hashid}", type: "hidden")
+            expect(page).to have_no_field("confirm_shopping_record_form_hashids_#{buy2.hashid}", type: "hidden")
           end
 
           it "買ったアイテムに紐付く購入情報のhashidが入力されたhiddenフィールドが存在すること（もどるボタン用）" do
-            expect(find_field("back_shopping_record_form_hashids_#{buy_1.hashid}", type: "hidden").value).to eq buy_1.hashid
+            expect(find_field("back_shopping_record_form_hashids_#{buy1.hashid}", type: "hidden").value).to eq buy1.hashid
           end
 
           it "買わなかったアイテムに紐付く購入情報のhiddenフィールドが存在しないこと（もどるボタン用）" do
-            expect(page).to have_no_field("confirm_shopping_record_form_hashids_#{buy_2.hashid}", type: "hidden")
+            expect(page).to have_no_field("confirm_shopping_record_form_hashids_#{buy2.hashid}", type: "hidden")
           end
         end
 
@@ -578,23 +578,23 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
           end
 
           it "買わなかったアイテムに紐付く購入情報のhiddenフィールドが存在しないこと（OK!ボタン用）" do
-            expect(page).to have_no_field("confirm_shopping_record_form_hashids_#{buy_1.hashid}", type: "hidden")
-            expect(page).to have_no_field("confirm_shopping_record_form_hashids_#{buy_2.hashid}", type: "hidden")
+            expect(page).to have_no_field("confirm_shopping_record_form_hashids_#{buy1.hashid}", type: "hidden")
+            expect(page).to have_no_field("confirm_shopping_record_form_hashids_#{buy2.hashid}", type: "hidden")
           end
 
           it "買わなかったアイテムに紐付く購入情報のhiddenフィールドが存在しないこと（もどるボタン用）" do
-            expect(page).to have_no_field("confirm_shopping_record_form_hashids_#{buy_1.hashid}", type: "hidden")
-            expect(page).to have_no_field("confirm_shopping_record_form_hashids_#{buy_2.hashid}", type: "hidden")
+            expect(page).to have_no_field("confirm_shopping_record_form_hashids_#{buy1.hashid}", type: "hidden")
+            expect(page).to have_no_field("confirm_shopping_record_form_hashids_#{buy2.hashid}", type: "hidden")
           end
         end
 
         context "買わなかった（チェックしなかった）アイテムがない場合" do
           before do
-            within("div.buy-item-space", text: buy_1.item_name) do
-              check buy_1.item_name
+            within("div.buy-item-space", text: buy1.item_name) do
+              check buy1.item_name
             end
-            within("div.buy-item-space", text: buy_2.item_name) do
-              check buy_2.item_name
+            within("div.buy-item-space", text: buy2.item_name) do
+              check buy2.item_name
             end
             expect(page).to_not have_css("input[type='checkbox']:not(:checked)")
             click_button "お買い物完了"
@@ -607,13 +607,13 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
           end
 
           it "買ったアイテムに紐付く購入情報のhashidが入力されたhiddenフィールドが存在すること（OK!ボタン用）" do
-            expect(find_field("confirm_shopping_record_form_hashids_#{buy_1.hashid}", type: "hidden").value).to eq buy_1.hashid
-            expect(find_field("confirm_shopping_record_form_hashids_#{buy_2.hashid}", type: "hidden").value).to eq buy_2.hashid
+            expect(find_field("confirm_shopping_record_form_hashids_#{buy1.hashid}", type: "hidden").value).to eq buy1.hashid
+            expect(find_field("confirm_shopping_record_form_hashids_#{buy2.hashid}", type: "hidden").value).to eq buy2.hashid
           end
 
           it "買ったアイテムに紐付く購入情報のhashidが入力されたhiddenフィールドが存在すること（もどるボタン用）" do
-            expect(find_field("back_shopping_record_form_hashids_#{buy_1.hashid}", type: "hidden").value).to eq buy_1.hashid
-            expect(find_field("back_shopping_record_form_hashids_#{buy_2.hashid}", type: "hidden").value).to eq buy_2.hashid
+            expect(find_field("back_shopping_record_form_hashids_#{buy1.hashid}", type: "hidden").value).to eq buy1.hashid
+            expect(find_field("back_shopping_record_form_hashids_#{buy2.hashid}", type: "hidden").value).to eq buy2.hashid
           end
         end
       end
@@ -622,45 +622,45 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
         context "ひらがなモードOFF（デフォルト）の場合" do
           before do
             expect(user.hiragana_view).to be_falsey
-            within("div.buy-item-space", text: buy_1.item_name) do
-              check buy_1.item_name
-              expect(find_field(buy_1.item_name)).to be_checked
+            within("div.buy-item-space", text: buy1.item_name) do
+              check buy1.item_name
+              expect(find_field(buy1.item_name)).to be_checked
             end
-            within("div.buy-item-space", text: buy_2.item_name) do
-              expect(find_field(buy_2.item_name)).to_not be_checked
+            within("div.buy-item-space", text: buy2.item_name) do
+              expect(find_field(buy2.item_name)).to_not be_checked
             end
             click_button "お買い物完了"
           end
 
           it "買ったアイテムと買わなかったアイテムがアイテム名(item_name)で表示されること" do
             within(".confirm-window", text: "買ったアイテム") do
-              expect(page).to have_selector("li", text: buy_1.item_name)
+              expect(page).to have_selector("li", text: buy1.item_name)
             end
 
             within(".confirm-window", text: "買わなかったアイテム") do
-              expect(page).to have_selector("li", text: buy_2.item_name)
+              expect(page).to have_selector("li", text: buy2.item_name)
             end
           end
 
           it "買ったアイテムと買わなかったアイテムがひらがな（アイテム名）(item_hiragana)で表示されないこと" do
             within(".confirm-window", text: "買ったアイテム") do
-              expect(page).to_not have_selector("li", text: buy_1.item_hiragana)
+              expect(page).to_not have_selector("li", text: buy1.item_hiragana)
             end
 
             within(".confirm-window", text: "買わなかったアイテム") do
-              expect(page).to_not have_selector("li", text: buy_2.item_hiragana)
+              expect(page).to_not have_selector("li", text: buy2.item_hiragana)
             end
           end
         end
 
         context "ひらがなモードONの場合" do
           before do
-            within("div.buy-item-space", text: buy_1.item_name) do
-              check buy_1.item_name
-              expect(find_field(buy_1.item_name)).to be_checked
+            within("div.buy-item-space", text: buy1.item_name) do
+              check buy1.item_name
+              expect(find_field(buy1.item_name)).to be_checked
             end
-            within("div.buy-item-space", text: buy_2.item_name) do
-              expect(find_field(buy_2.item_name)).to_not be_checked
+            within("div.buy-item-space", text: buy2.item_name) do
+              expect(find_field(buy2.item_name)).to_not be_checked
             end
             user.update(hiragana_view: true)
             click_button "お買い物完了"
@@ -668,21 +668,21 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
 
           it "買ったアイテムと買わなかったアイテムがひらがな（アイテム名）(item_hiragana)で表示されること" do
             within(".confirm-window", text: "買ったアイテム") do
-              expect(page).to have_selector("li", text: buy_1.item_hiragana)
+              expect(page).to have_selector("li", text: buy1.item_hiragana)
             end
 
             within(".confirm-window", text: "買わなかったアイテム") do
-              expect(page).to have_selector("li", text: buy_2.item_hiragana)
+              expect(page).to have_selector("li", text: buy2.item_hiragana)
             end
           end
 
           it "買ったアイテムと買わなかったアイテムがアイテム名(item_name)で表示されないこと" do
             within(".confirm-window", text: "買ったアイテム") do
-              expect(page).to_not have_selector("li", text: buy_1.item_name)
+              expect(page).to_not have_selector("li", text: buy1.item_name)
             end
 
             within(".confirm-window", text: "買わなかったアイテム") do
-              expect(page).to_not have_selector("li", text: buy_2.item_name)
+              expect(page).to_not have_selector("li", text: buy2.item_name)
             end
           end
         end
@@ -762,16 +762,16 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
     let(:user) { create(:user) }
     let!(:master_user) { create(:user, :master_admin) }
     let(:category) { create(:category) }
-    let!(:item_1) { create(:item, user: master_user, category: category) }
-    let!(:item_2) { create(:item, user: master_user, category: category) }
+    let!(:item1) { create(:item, user: master_user, category: category) }
+    let!(:item2) { create(:item, user: master_user, category: category) }
     let(:shopping_record) { create(:shopping_record, user: user) }
-    let!(:shopping_record_buy_1) do
+    let!(:shopping_record_buy1) do
       create(:buy, user: user, shopping_record: shopping_record,
-                   item_name: item_1.name, item_hiragana: item_1.hiragana)
+                   item_name: item1.name, item_hiragana: item1.hiragana)
     end
-    let!(:shopping_record_buy_2) do
+    let!(:shopping_record_buy2) do
       create(:buy, user: user, shopping_record: shopping_record,
-                   item_name: item_2.name, item_hiragana: item_2.hiragana)
+                   item_name: item2.name, item_hiragana: item2.hiragana)
     end
 
     before do
@@ -793,16 +793,16 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
       end
 
       scenario "ユーザーがアイテムを全てチェックして未完了のお買い物を完了させる" do
-        check shopping_record_buy_1.item_name
-        check shopping_record_buy_2.item_name
+        check shopping_record_buy1.item_name
+        check shopping_record_buy2.item_name
         click_button "お買い物完了"
 
         within ".confirm-window-text" do
           expect(page).to have_selector("h2", text: "お買い物結果")
         end
         within(".confirm-window", text: "買ったアイテム") do
-          expect(page).to have_selector("li", text: shopping_record_buy_1.item_name)
-          expect(page).to have_selector("li", text: shopping_record_buy_2.item_name)
+          expect(page).to have_selector("li", text: shopping_record_buy1.item_name)
+          expect(page).to have_selector("li", text: shopping_record_buy2.item_name)
         end
         within(".confirm-window", text: "買わなかったアイテム") do
           expect(page).to have_selector("h5", text: "未購入アイテムなし")
@@ -814,22 +814,22 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
           click_button "OK!"
           expect(page).to have_content "お買い物が完了しました。"
         end.to change { shopping_record.reload.closed }.from(false).to(true).
-          and change { shopping_record_buy_1.reload.purchased }.from(false).to(true).
-          and change { shopping_record_buy_2.reload.purchased }.from(false).to(true)
+          and change { shopping_record_buy1.reload.purchased }.from(false).to(true).
+          and change { shopping_record_buy2.reload.purchased }.from(false).to(true)
       end
 
       scenario "ユーザーがアイテムを一部チェックして未完了のお買い物を完了させる" do
-        check shopping_record_buy_1.item_name
+        check shopping_record_buy1.item_name
         click_button "お買い物完了"
 
         within ".confirm-window-text" do
           expect(page).to have_selector("h2", text: "お買い物結果")
         end
         within(".confirm-window", text: "買ったアイテム") do
-          expect(page).to have_selector("li", text: shopping_record_buy_1.item_name)
+          expect(page).to have_selector("li", text: shopping_record_buy1.item_name)
         end
         within(".confirm-window", text: "買わなかったアイテム") do
-          expect(page).to have_selector("li", text: shopping_record_buy_2.item_name)
+          expect(page).to have_selector("li", text: shopping_record_buy2.item_name)
         end
 
         # お買い物の完了と紐付く購入記録の購入状態の更新を確認
@@ -837,8 +837,8 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
           click_button "OK!"
           expect(page).to have_content "お買い物が完了しました。"
         end.to change { shopping_record.reload.closed }.from(false).to(true).
-          and change { shopping_record_buy_1.reload.purchased }.from(false).to(true)
-        expect(shopping_record_buy_2.reload.purchased).to be_falsey
+          and change { shopping_record_buy1.reload.purchased }.from(false).to(true)
+        expect(shopping_record_buy2.reload.purchased).to be_falsey
       end
 
       scenario "ユーザーがアイテムをチェックせずに未完了のお買い物を完了させる" do
@@ -851,8 +851,8 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
           expect(page).to have_selector("h5", text: "購入アイテムなし")
         end
         within(".confirm-window", text: "買わなかったアイテム") do
-          expect(page).to have_selector("li", text: shopping_record_buy_1.item_name)
-          expect(page).to have_selector("li", text: shopping_record_buy_2.item_name)
+          expect(page).to have_selector("li", text: shopping_record_buy1.item_name)
+          expect(page).to have_selector("li", text: shopping_record_buy2.item_name)
         end
 
         # お買い物の完了と紐付く購入記録の購入状態が更新されないことを確認
@@ -860,8 +860,8 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
           click_button "OK!"
           expect(page).to have_content "お買い物が完了しました。"
         end.to change { shopping_record.reload.closed }.from(false).to(true)
-        expect(shopping_record_buy_1.reload.purchased).to be_falsey
-        expect(shopping_record_buy_2.reload.purchased).to be_falsey
+        expect(shopping_record_buy1.reload.purchased).to be_falsey
+        expect(shopping_record_buy2.reload.purchased).to be_falsey
       end
     end
 
@@ -869,13 +869,13 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
       let(:closed_shopping_record) { create(:shopping_record, :closed, user: user) }
       let!(:closed_shopping_record_buy) do
         create(:buy, user: user, shopping_record: closed_shopping_record,
-                     item_name: item_1.name, item_hiragana: item_1.hiragana)
+                     item_name: item1.name, item_hiragana: item1.hiragana)
       end
       let(:other_user) { create(:user) }
       let(:other_user_shopping_record) { create(:shopping_record, user: other_user) }
       let!(:other_user_shopping_record_buy) do
         create(:buy, user: other_user, shopping_record: other_user_shopping_record,
-                     item_name: item_1.name, item_hiragana: item_1.hiragana)
+                     item_name: item1.name, item_hiragana: item1.hiragana)
       end
 
       scenario "完了状態のお買い物のhashidでお買い物モードへのアクセスを試みる" do
@@ -923,7 +923,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
         end
 
         expect(page).to have_selector("h2", text: "#{shopping_record.title}\n買うものリスト")
-        check shopping_record_buy_1.item_name
+        check shopping_record_buy1.item_name
         click_button "お買い物完了"
 
         within ".confirm-window-text" do
@@ -948,7 +948,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
         expect(mail.body.encoded).to include confirmed_notification_target_user.name
         expect(mail.body.encoded).to include confirmed_notification_target_user.email
         expect(mail.body.encoded).to include user.name
-        expect(mail.body.encoded).to include shopping_record_buy_1.item_name, shopping_record_buy_2.item_name
+        expect(mail.body.encoded).to include shopping_record_buy1.item_name, shopping_record_buy2.item_name
       end
     end
   end
