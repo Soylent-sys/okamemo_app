@@ -1,6 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe "ManagementUsers", type: :system do
+  shared_examples "サイドバーにあるリンクの背景色CSSのテスト" do
+    it "表示中のページ（ユーザー管理）のリンクに背景色のCSSが設定されていること" do
+      within("ul.management-menu-list") do
+        expect(page).to have_selector("li.bg-secondary-subtle", text: "ユーザー管理")
+      end
+    end
+
+    it "表示中のページ（ユーザー管理）以外のリンクに背景色のCSSが設定されていないこと" do
+      within("ul.management-menu-list") do
+        expect(page).to_not have_selector("li.bg-secondary-subtle", text: "通知ユーザー管理")
+        expect(page).to_not have_selector("li.bg-secondary-subtle", text: "アイテム管理")
+        expect(page).to_not have_selector("li.bg-secondary-subtle", text: "お買い物管理")
+      end
+    end
+  end
+
   describe "ビューの要素" do
     describe "index" do
       context "管理ユーザーの場合" do
@@ -17,19 +33,7 @@ RSpec.describe "ManagementUsers", type: :system do
 
         include_examples "管理ページのサイドバーメニューのテスト"
 
-        it "表示中のページ（ユーザー管理）のリンクに背景色のCSSが設定されていること" do
-          within("ul.management-menu-list") do
-            expect(page).to have_selector("li.bg-secondary-subtle", text: "ユーザー管理")
-          end
-        end
-
-        it "表示中のページ（ユーザー管理）以外のリンクに背景色のCSSが設定されていないこと" do
-          within("ul.management-menu-list") do
-            expect(page).to_not have_selector("li.bg-secondary-subtle", text: "通知ユーザー管理")
-            expect(page).to_not have_selector("li.bg-secondary-subtle", text: "アイテム管理")
-            expect(page).to_not have_selector("li.bg-secondary-subtle", text: "お買い物管理")
-          end
-        end
+        include_examples "サイドバーにあるリンクの背景色CSSのテスト"
 
         it "ページタイトルが表示されること" do
           within "div.management-main" do
@@ -499,19 +503,7 @@ RSpec.describe "ManagementUsers", type: :system do
 
         include_examples "管理ページのサイドバーメニューのテスト"
 
-        it "表示中のページ（ユーザー管理）のリンクに背景色のCSSが設定されていること" do
-          within("ul.management-menu-list") do
-            expect(page).to have_selector("li.bg-secondary-subtle", text: "ユーザー管理")
-          end
-        end
-
-        it "表示中のページ（ユーザー管理）以外のリンクに背景色のCSSが設定されていないこと" do
-          within("ul.management-menu-list") do
-            expect(page).to_not have_selector("li.bg-secondary-subtle", text: "通知ユーザー管理")
-            expect(page).to_not have_selector("li.bg-secondary-subtle", text: "アイテム管理")
-            expect(page).to_not have_selector("li.bg-secondary-subtle", text: "お買い物管理")
-          end
-        end
+        include_examples "サイドバーにあるリンクの背景色CSSのテスト"
 
         it "ページタイトルが表示されること" do
           within "div.management-main" do
@@ -598,19 +590,7 @@ RSpec.describe "ManagementUsers", type: :system do
 
         include_examples "管理ページのサイドバーメニューのテスト"
 
-        it "表示中のページ（ユーザー管理）のリンクに背景色のCSSが設定されていること" do
-          within("ul.management-menu-list") do
-            expect(page).to have_selector("li.bg-secondary-subtle", text: "ユーザー管理")
-          end
-        end
-
-        it "表示中のページ（ユーザー管理）以外のリンクに背景色のCSSが設定されていないこと" do
-          within("ul.management-menu-list") do
-            expect(page).to_not have_selector("li.bg-secondary-subtle", text: "通知ユーザー管理")
-            expect(page).to_not have_selector("li.bg-secondary-subtle", text: "アイテム管理")
-            expect(page).to_not have_selector("li.bg-secondary-subtle", text: "お買い物管理")
-          end
-        end
+        include_examples "サイドバーにあるリンクの背景色CSSのテスト"
 
         it "ページタイトルが表示されること" do
           within "div.management-main" do
