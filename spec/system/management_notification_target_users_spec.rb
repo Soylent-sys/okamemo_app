@@ -259,7 +259,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
         end
         let(:one_pagenation_max_size) { 50 }
 
-        context "表示対象のユーザー件数が50件以下の場合" do
+        context "表示対象の通知ユーザー件数が50件以下の場合" do
           before do
             # 通知ユーザーの件数が50件であることを確認
             expect(NotificationTargetUser.count).to eq(one_pagenation_max_size)
@@ -273,12 +273,12 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
           end
         end
 
-        context "表示対象のユーザー件数が50件を超える場合" do
+        context "表示対象の通知ユーザー件数が50件を超える場合" do
           let!(:nt_user_51st) { create(:notification_target_user, user: user) } # 登録通知ユーザーを51件にする
           let(:one_pagenation_over_size) { 51 }
 
           before do
-            # 通知ユーザーの件数が50件であることを確認
+            # 通知ユーザーの件数が51件であることを確認
             expect(NotificationTargetUser.count).to eq(one_pagenation_over_size)
 
             sign_in_as(user)
@@ -914,7 +914,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
         find("i.delete-icon").click
       end
 
-      # アカウント削除のconfirmモーダルを確認
+      # 通知ユーザー削除のconfirmモーダルを確認
       expect(page).to have_selector("#turbo-confirm-modal", visible: true)
       within "#turbo-confirm-modal" do
         expect(page).to have_selector("h1", visible: true, text: "通知ユーザー（ID: #{delete_nt_user.id}）の削除")
