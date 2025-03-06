@@ -290,8 +290,6 @@ RSpec.describe "Items", type: :system do
       describe "ユーザー区分で異なる箇所のテスト" do
         before do
           sign_in_as(user)
-          # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
           visit items_path
         end
 
@@ -462,7 +460,7 @@ RSpec.describe "Items", type: :system do
         end
 
         it "デフォルトでカテゴリー選択のフィールドで現在のカテゴリーが選択されていること" do
-          expect(page).to have_select("item[category_id]", selected: categories[0].name)
+          expect(page).to have_select("item[category_id]", selected: user_item.category.name)
         end
 
         it "デフォルトでアイテム名のフィールドに現在のアイテム名が入力されていること" do
@@ -522,18 +520,14 @@ RSpec.describe "Items", type: :system do
       # アイテムのcreate時にマスター管理ユーザーの登録アイテム（デフォルトアイテム）との
       # 重複を確認するバリデーションを実行するためマスター管理ユーザーが必要
       let!(:master_user) { create(:user, :master_admin) }
-      let(:category) { create(:category) }
-      let!(:exist_item) { create(:item, user: user, category: category, name: "既存アイテム", hiragana: "きぞんあいてむ") }
-      let!(:preset_item) { create(:item, user: master_user, category: category, name: "デフォルトアイテム", hiragana: "でふぉるとあいてむ") }
-
-      before do
-        sign_in_as(user)
-        # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-        expect(page).to have_content "ログインしました。"
-        visit new_item_path
-      end
+      let!(:category) { create(:category) }
 
       context "正常系" do
+        before do
+          sign_in_as(user)
+          visit new_item_path
+        end
+
         scenario "ユーザーがアイテムを登録する" do
           expect do
             select category.name, from: "item[category_id]"
@@ -549,6 +543,14 @@ RSpec.describe "Items", type: :system do
       end
 
       context "異常系" do
+        let!(:exist_item) { create(:item, user: user, category: category, name: "既存アイテム", hiragana: "きぞんあいてむ") }
+        let!(:preset_item) { create(:item, user: master_user, category: category, name: "デフォルトアイテム", hiragana: "でふぉるとあいてむ") }
+
+        before do
+          sign_in_as(user)
+          visit new_item_path
+        end
+
         scenario "必須フィールドが空・未選択の状態でアイテム登録を試みる" do
           expect do
             click_button "登録"
@@ -659,8 +661,7 @@ RSpec.describe "Items", type: :system do
 
       context "一般・管理ユーザーの場合" do
         let(:user) { create(:user) }
-        let(:general_user_item_maximum_count) { 150 }
-        let!(:user_items) { create_list(:item, general_user_item_maximum_count, user: user, category: category) }
+        let!(:max_user_items) { create_list(:item, 150, user: user, category: category) }
 
         before do
           sign_in_as(user)
@@ -696,7 +697,7 @@ RSpec.describe "Items", type: :system do
         end
 
         context "正常系" do
-          scenario "マスター管理ユーザーはのアイテム最大登録数を超えてアイテム登録ができる" do
+          scenario "マスター管理ユーザーはアイテム最大登録数を超えてアイテム登録ができる" do
             expect do
               select category.name, from: "item[category_id]"
               # アイテム名、ひらがな（アイテム名）のフィールドはラベル文字列だと重複して扱われるためidを指定
@@ -713,8 +714,7 @@ RSpec.describe "Items", type: :system do
 
       context "ゲストユーザーの場合" do
         let(:guest_user) { User.guest }
-        let(:guest_user_item_maximum_count) { 10 }
-        let!(:guest_user_items) { create_list(:item, guest_user_item_maximum_count, user: guest_user, category: category) }
+        let!(:max_guest_user_items) { create_list(:item, 10, user: guest_user, category: category) }
 
         before do
           # ゲストユーザーボタンからログイン
@@ -751,27 +751,15 @@ RSpec.describe "Items", type: :system do
     let(:category_1) { create(:category) }
     let!(:category_2) { create(:category) }
     let!(:edit_item) { create(:item, user: user, category: category_1, name: "編集アイテム1", hiragana: "へんしゅうあいてむ1") }
-    let!(:exist_item) { create(:item, user: user, category: category_1, name: "既存アイテム", hiragana: "きぞんあいてむ") }
-    let!(:preset_item) { create(:item, user: master_user, category: category_1, name: "デフォルトアイテム", hiragana: "でふぉるとあいてむ") }
-
-    before do
-      sign_in_as(user)
-      # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-      expect(page).to have_content "ログインしました。"
-      visit items_path
-
-      # アイテム一覧画面のアイテムの編集ボタンから編集画面へアクセス
-      within("div.item-space", text: edit_item.name) do
-        click_link(href: edit_item_path(edit_item.hashid))
-      end
-
-      expect(page).to have_selector("h1", text: "アイテムの編集")
-      expect(current_path).to eq edit_item_path(edit_item.hashid)
-    end
 
     context "正常系" do
       let(:new_name) { "新しいアイテム名" }
       let(:new_hiragana) { "あたらしいひらがな" }
+
+      before do
+        sign_in_as(user)
+        visit edit_item_path(edit_item.hashid)
+      end
 
       scenario "ユーザーがアイテムのカテゴリーを更新する" do
         expect do
@@ -809,6 +797,14 @@ RSpec.describe "Items", type: :system do
     end
 
     context "異常系" do
+      let!(:exist_item) { create(:item, user: user, category: category_1, name: "既存アイテム", hiragana: "きぞんあいてむ") }
+      let!(:preset_item) { create(:item, user: master_user, category: category_1, name: "デフォルトアイテム", hiragana: "でふぉるとあいてむ") }
+
+      before do
+        sign_in_as(user)
+        visit edit_item_path(edit_item.hashid)
+      end
+
       scenario "アイテム名のフィールドが空の状態でアイテム更新を試みる" do
         expect do
           # アイテム名、ひらがな（アイテム名）のフィールドはラベル文字列だと重複して扱われるためidを指定
