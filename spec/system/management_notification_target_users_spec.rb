@@ -49,10 +49,6 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
           expect(page).to have_button "検索"
         end
 
-        it "初期状態では登録済み通知ユーザーの件数が表示されること" do
-          expect(page).to have_selector("h5", text: "件数： #{NotificationTargetUser.count} 件")
-        end
-
         it "通知ユーザー登録画面へのリンクが存在すること" do
           expect(page).to have_link("登録", href: new_management_notification_target_user_path)
         end
@@ -367,6 +363,59 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
                 expect(page).to have_selector("span.disabled", text: "次")
               end
             end
+          end
+        end
+      end
+
+      describe "表示件数のテスト" do
+        let(:user) { create(:user, :admin) }
+
+        context "初期状態の場合" do
+          let!(:users) { create_list(:user, 30) }
+          # 30ユーザーで2件ずつの通知ユーザーを作成し登録通知ユーザーを60件にする
+          # （表示件数がページネーションに関係しないことを確認するため50件以上に設定する）
+          let!(:notification_target_users) do
+            users.flat_map do |user|
+              create_list(:notification_target_user, 2, user: user)
+            end
+          end
+          let(:nt_user_count) { 60 }
+
+          before do
+            sign_in_as(user)
+            visit management_notification_target_users_path
+          end
+
+          it "初期状態では登録済み通知ユーザーの件数が表示されること" do
+            expect(NotificationTargetUser.count).to eq nt_user_count
+            expect(page).to have_selector("h5", text: "件数： #{nt_user_count} 件")
+          end
+        end
+
+        context "検索機能で絞り込む場合" do
+          let!(:other_user) { create(:user) }
+          # 2ユーザーで3件ずつ計6件の通知ユーザーを作成する
+          let!(:user_nt_users) { create_list(:notification_target_user, 3, user: user) }
+          let!(:other_user_nt_users) { create_list(:notification_target_user, 3, user: other_user) }
+          let(:all_nt_user_count) { 6 }
+          let(:user_nt_user_count) { 3 }
+
+          before do
+            sign_in_as(user)
+            visit management_notification_target_users_path
+          end
+
+          it "検索による絞り込み後の通知ユーザー件数が表示されること" do
+            # 初期状態の通知ユーザー件数表示を確認
+            expect(NotificationTargetUser.count).to eq all_nt_user_count
+            expect(page).to have_selector("h5", text: "件数： #{all_nt_user_count} 件")
+
+            # 親ユーザーIDによる検索
+            fill_in "q_user_id_eq", with: user.id
+            click_button "検索"
+
+            # 絞り込み後の通知ユーザー件数表示を確認
+            expect(page).to have_selector("h5", text: "件数： #{user_nt_user_count} 件")
           end
         end
       end

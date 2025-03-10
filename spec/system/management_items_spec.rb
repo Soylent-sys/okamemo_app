@@ -50,10 +50,6 @@ RSpec.describe "ManagementItems", type: :system do
           expect(page).to have_button "検索"
         end
 
-        it "初期状態では登録済みアイテムの件数が表示されること" do
-          expect(page).to have_selector("h5", text: "件数： #{Item.count} 件")
-        end
-
         it "アイテム登録画面へのリンクが存在すること" do
           expect(page).to have_link("登録", href: new_management_item_path)
         end
@@ -362,6 +358,56 @@ RSpec.describe "ManagementItems", type: :system do
                 expect(page).to have_selector("span.disabled", text: "次")
               end
             end
+          end
+        end
+      end
+
+      describe "表示件数のテスト" do
+        let(:user) { create(:user, :admin) }
+        # アイテムのcreate時にマスター管理ユーザーが必要
+        let!(:master_user) { create(:user, :master_admin) }
+        let!(:category) { create(:category) }
+
+        context "初期状態の場合" do
+          # アイテムを100件にする（表示件数がページネーションに関係しないことを確認するため50件以上に設定する）
+          let!(:items) { create_list(:item, 100, user: user, category: category) }
+          let(:item_count) { 100 }
+
+          before do
+            sign_in_as(user)
+            visit management_items_path
+          end
+
+          it "初期状態では登録済みアイテムの件数が表示されること" do
+            expect(Item.count).to eq item_count
+            expect(page).to have_selector("h5", text: "件数： #{item_count} 件")
+          end
+        end
+
+        context "検索機能で絞り込む場合" do
+          let!(:other_category) { create(:category) }
+          # categoryのアイテム10個とother_categoryのアイテム5個で計15件のアイテムを作成する
+          let!(:category_items) { create_list(:item, 10, user: user, category: category) }
+          let!(:other_user_nt_users) { create_list(:item, 5, user: user, category: other_category) }
+          let(:all_item_count) { 15 }
+          let(:category_item_count) { 10 }
+
+          before do
+            sign_in_as(user)
+            visit management_items_path
+          end
+
+          it "検索による絞り込み後の通知ユーザー件数が表示されること" do
+            # 初期状態のアイテム件数表示を確認
+            expect(Item.count).to eq all_item_count
+            expect(page).to have_selector("h5", text: "件数： #{all_item_count} 件")
+
+            # カテゴリーIDによる検索
+            fill_in "q_category_id_eq", with: category.id
+            click_button "検索"
+
+            # 絞り込み後のアイテム件数表示を確認
+            expect(page).to have_selector("h5", text: "件数： #{category_item_count} 件")
           end
         end
       end

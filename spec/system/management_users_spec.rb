@@ -47,10 +47,6 @@ RSpec.describe "ManagementUsers", type: :system do
           expect(page).to have_button "検索"
         end
 
-        it "初期状態では登録済みユーザーの件数が表示されること" do
-          expect(page).to have_selector("h5", text: "件数： #{User.count} 件")
-        end
-
         it "ユーザー登録画面へのリンクが存在すること" do
           expect(page).to have_link("登録", href: new_management_user_path)
         end
@@ -483,6 +479,54 @@ RSpec.describe "ManagementUsers", type: :system do
                 expect(page).to have_selector("span.disabled", text: "次")
               end
             end
+          end
+        end
+      end
+
+      describe "表示件数のテスト" do
+        # beforeブロックのvisit時にマスター管理ユーザーが必要
+        let!(:master_user) { create(:user, :master_admin, name: "マスター管理ユーザー") }
+        let(:user) { create(:user, :admin, name: "管理ユーザー") }
+
+        context "初期状態の場合" do
+          # ユーザーを100件にする（表示件数がページネーションに関係しないことを確認するため50件以上に設定する）
+          let!(:users) { create_list(:user, 98) }
+          let(:user_count) { 100 }
+
+          before do
+            sign_in_as(user)
+            visit management_users_path
+          end
+
+          it "初期状態では登録済みユーザーの件数が表示されること" do
+            expect(User.count).to eq user_count
+            expect(page).to have_selector("h5", text: "件数： #{user_count} 件")
+          end
+        end
+
+        context "検索機能で絞り込む場合" do
+          let!(:test_user1) { create(:user, name: "テストユーザー1") }
+          let!(:test_user2) { create(:user, name: "テストユーザー2") }
+          let!(:test_user3) { create(:user, name: "テストユーザー3") }
+          let(:all_user_count) { 5 }
+          let(:test_user_count) { 3 }
+
+          before do
+            sign_in_as(user)
+            visit management_users_path
+          end
+
+          it "検索による絞り込み後のユーザー件数が表示されること" do
+            # 初期状態のユーザー件数表示を確認
+            expect(User.count).to eq all_user_count
+            expect(page).to have_selector("h5", text: "件数： #{all_user_count} 件")
+
+            # ニックネームによる検索
+            fill_in "q_name_or_email_cont", with: "テストユーザー"
+            click_button "検索"
+
+            # 絞り込み後のユーザー件数表示を確認
+            expect(page).to have_selector("h5", text: "件数： #{test_user_count} 件")
           end
         end
       end
