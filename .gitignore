@@ -103,7 +103,11 @@ config/initializers/secret_token.rb
 # dotenv, dotenv-rails
 # TODO Comment out these rules if environment variables can be committed
 .env
+.env.test
 .env*.local
+# 環境変数のサンプルファイルは例外とする
+!.env.sample
+!.env.test.sample
 
 ## Environment normalization:
 /vendor/bundle
