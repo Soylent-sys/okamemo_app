@@ -34,7 +34,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
 
         include_examples "管理ページのサイドバーメニューのテスト"
 
-        include_examples "サイドバーにあるリンクの背景色CSSのテスト"
+        it_behaves_like "サイドバーにあるリンクの背景色CSSのテスト"
 
         it "ページタイトルが表示されること" do
           within "div.management-main" do
@@ -436,7 +436,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
 
         include_examples "管理ページのサイドバーメニューのテスト"
 
-        include_examples "サイドバーにあるリンクの背景色CSSのテスト"
+        it_behaves_like "サイドバーにあるリンクの背景色CSSのテスト"
 
         it "ページタイトルが表示されること" do
           within "div.management-main" do
