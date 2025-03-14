@@ -98,14 +98,15 @@ RSpec.describe "ManagementItems", type: :system do
       end
 
       describe "各アイテムの情報表示・ボタンのテスト" do
-        let(:user) { create(:user, :admin) }
-        let(:other_user) { create(:user) }
+        # それぞれidを固定してテーブルの情報表示テスト時に他カラムの値と重複が発生しないようにする
+        let(:user) { create(:user, :admin, id: 111) }
+        let(:other_user) { create(:user, id: 222) }
         # アイテムのcreate時にマスター管理ユーザーが必要
         let!(:master_user) { create(:user, :master_admin) }
-        let(:category1) { create(:category) }
-        let(:category2) { create(:category) }
-        let!(:item1) { create(:item, user: user, category: category1) }
-        let!(:item2) { create(:item, user: other_user, category: category2) }
+        let(:category1) { create(:category, id: 333) }
+        let(:category2) { create(:category, id: 444) }
+        let!(:item1) { create(:item, id: 555, user: user, category: category1) }
+        let!(:item2) { create(:item, id: 666, user: other_user, category: category2) }
 
         before do
           sign_in_as(user)
@@ -116,9 +117,9 @@ RSpec.describe "ManagementItems", type: :system do
 
         it "アイテム毎にID、親ユーザーID、親カテゴリーID、アイテム名、アイテムひらがな名、作成・更新日時が表示されること" do
           within("tr", text: item1.name) do
-            expect(page).to have_selector("td", text: item1.id)
-            expect(page).to have_selector("td", text: item1.user_id)
-            expect(page).to have_selector("td", text: item1.category_id)
+            expect(page).to have_selector("td", text: item1.id, exact_text: true)
+            expect(page).to have_selector("td", text: item1.user_id, exact_text: true)
+            expect(page).to have_selector("td", text: item1.category_id, exact_text: true)
             expect(page).to have_selector("td", text: item1.category.name)
             expect(page).to have_selector("td", text: item1.name)
             expect(page).to have_selector("td", text: item1.hiragana)
@@ -127,9 +128,9 @@ RSpec.describe "ManagementItems", type: :system do
           end
 
           within("tr", text: item2.name) do
-            expect(page).to have_selector("td", text: item2.id)
-            expect(page).to have_selector("td", text: item2.user_id)
-            expect(page).to have_selector("td", text: item2.category_id)
+            expect(page).to have_selector("td", text: item2.id, exact_text: true)
+            expect(page).to have_selector("td", text: item2.user_id, exact_text: true)
+            expect(page).to have_selector("td", text: item2.category_id, exact_text: true)
             expect(page).to have_selector("td", text: item2.category.name)
             expect(page).to have_selector("td", text: item2.name)
             expect(page).to have_selector("td", text: item2.hiragana)

@@ -124,14 +124,15 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
       end
 
       describe "お買い物の情報表示・ボタンのテスト" do
-        let(:user) { create(:user, :admin) }
+        # それぞれidを固定してテーブルの情報表示テスト時に他カラムの値と重複が発生しないようにする
+        let(:user) { create(:user, :admin, id: 111) }
         # アイテムのcreate時にマスター管理ユーザーが必要
         let!(:master_user) { create(:user, :master_admin) }
 
         describe "お買い物の状態で共通のテスト" do
-          let(:other_user) { create(:user) }
-          let!(:user_shopping_record) { create(:shopping_record, user: user, title: "テストお買い物1") }
-          let!(:other_user_shopping_record) { create(:shopping_record, user: other_user, title: "テストお買い物2") }
+          let(:other_user) { create(:user, id: 222) }
+          let!(:user_shopping_record) { create(:shopping_record, id: 333, user: user, title: "テストお買い物1") }
+          let!(:other_user_shopping_record) { create(:shopping_record, id: 444, user: other_user, title: "テストお買い物2") }
 
           before do
             sign_in_as(user)
@@ -142,16 +143,16 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
 
           it "お買い物毎にID、親ユーザーID、タイトル、作成・更新日時が表示されること" do
             within("tr", text: user_shopping_record.title) do
-              expect(page).to have_selector("td", text: user_shopping_record.id)
-              expect(page).to have_selector("td", text: user_shopping_record.user_id)
+              expect(page).to have_selector("td", text: user_shopping_record.id, exact_text: true)
+              expect(page).to have_selector("td", text: user_shopping_record.user_id, exact_text: true)
               expect(page).to have_selector("td", text: user_shopping_record.title)
               expect(page).to have_selector("td", text: user_shopping_record.created_at.to_fs(:date_time))
               expect(page).to have_selector("td", text: user_shopping_record.updated_at.to_fs(:date_time))
             end
 
             within("tr", text: other_user_shopping_record.title) do
-              expect(page).to have_selector("td", text: other_user_shopping_record.id)
-              expect(page).to have_selector("td", text: other_user_shopping_record.user_id)
+              expect(page).to have_selector("td", text: other_user_shopping_record.id, exact_text: true)
+              expect(page).to have_selector("td", text: other_user_shopping_record.user_id, exact_text: true)
               expect(page).to have_selector("td", text: other_user_shopping_record.title)
               expect(page).to have_selector("td", text: other_user_shopping_record.created_at.to_fs(:date_time))
               expect(page).to have_selector("td", text: other_user_shopping_record.updated_at.to_fs(:date_time))

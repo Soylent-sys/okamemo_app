@@ -95,9 +95,10 @@ RSpec.describe "ManagementUsers", type: :system do
       end
 
       describe "各ユーザーの情報表示・ボタンのテスト" do
+        # それぞれidを固定してテーブルの情報表示テスト時に他カラムの値と重複が発生しないようにする
         # beforeブロックのvisit時にマスター管理ユーザーが必要
-        let!(:master_user) { create(:user, :master_admin) }
-        let!(:user) { create(:user, :admin) }
+        let!(:master_user) { create(:user, :master_admin, id: 111) }
+        let!(:user) { create(:user, :admin, id: 222) }
 
         describe "ユーザー状態で共通のテスト" do
           before do
@@ -108,16 +109,16 @@ RSpec.describe "ManagementUsers", type: :system do
           end
 
           it "登録ユーザー毎にID、メールアドレス、ニックネーム、作成・更新日時が表示されること" do
-            within("tr", text: master_user.id) do
-              expect(page).to have_selector("td", text: master_user.id)
+            within("tr", text: master_user.email) do
+              expect(page).to have_selector("td", text: master_user.id, exact_text: true)
               expect(page).to have_selector("td", text: master_user.email)
               expect(page).to have_selector("td", text: master_user.name)
               expect(page).to have_selector("td", text: master_user.created_at.to_fs(:date_time))
               expect(page).to have_selector("td", text: master_user.updated_at.to_fs(:date_time))
             end
 
-            within("tr", text: user.id) do
-              expect(page).to have_selector("td", text: user.id)
+            within("tr", text: user.email) do
+              expect(page).to have_selector("td", text: user.id, exact_text: true)
               expect(page).to have_selector("td", text: user.email)
               expect(page).to have_selector("td", text: user.name)
               expect(page).to have_selector("td", text: user.created_at.to_fs(:date_time))
@@ -126,19 +127,19 @@ RSpec.describe "ManagementUsers", type: :system do
           end
 
           it "登録ユーザー毎に更新画面へのリンクが存在すること" do
-            within("tr", text: master_user.id) do
+            within("tr", text: master_user.email) do
               expect(page).to have_selector("i.edit-icon")
               expect(page).to have_link(href: edit_management_user_path(master_user.id))
             end
 
-            within("tr", text: user.id) do
+            within("tr", text: user.email) do
               expect(page).to have_selector("i.edit-icon")
               expect(page).to have_link(href: edit_management_user_path(user.id))
             end
           end
 
           it "ユーザーの更新画面へのリンクをクリックして該当ユーザーの更新画面へ遷移すること" do
-            within("tr", text: user.id) do
+            within("tr", text: user.email) do
               click_link(href: edit_management_user_path(user.id))
             end
 
@@ -147,13 +148,13 @@ RSpec.describe "ManagementUsers", type: :system do
           end
 
           it "マスター管理ユーザーの行には削除ボタンが存在しないこと" do
-            within("tr", text: master_user.id) do
+            within("tr", text: master_user.email) do
               expect(page).to_not have_selector("i.delete-icon")
             end
           end
 
           it "マスター管理ユーザー以外の行には削除ボタンが存在すること" do
-            within("tr", text: user.id) do
+            within("tr", text: user.email) do
               expect(page).to have_selector("i.delete-icon")
             end
           end
@@ -161,7 +162,7 @@ RSpec.describe "ManagementUsers", type: :system do
           it "ユーザー削除ボタンをクリックするとモーダルが表示されること", js: true do
             expect(page).to have_selector("#turbo-confirm-modal", visible: false)
 
-            within("tr", text: user.id) do
+            within("tr", text: user.email) do
               find("i.delete-icon").click
             end
 
@@ -169,7 +170,7 @@ RSpec.describe "ManagementUsers", type: :system do
           end
 
           it "ユーザー削除モーダルにタイトルが表示されること", js: true do
-            within("tr", text: user.id) do
+            within("tr", text: user.email) do
               find("i.delete-icon").click
             end
 
@@ -181,7 +182,7 @@ RSpec.describe "ManagementUsers", type: :system do
           end
 
           it "ユーザー削除モーダルのヘッダーにモーダルを閉じるボタンがあること", js: true do
-            within("tr", text: user.id) do
+            within("tr", text: user.email) do
               find("i.delete-icon").click
             end
 
@@ -195,7 +196,7 @@ RSpec.describe "ManagementUsers", type: :system do
           end
 
           it "ユーザー削除モーダルに削除ボタン・キャンセルボタンが表示されること", js: true do
-            within("tr", text: user.id) do
+            within("tr", text: user.email) do
               find("i.delete-icon").click
             end
 
@@ -208,7 +209,7 @@ RSpec.describe "ManagementUsers", type: :system do
           end
 
           it "ユーザー削除モーダルのキャンセルボタンでお買い物削除を中止できること", js: true do
-            within("tr", text: user.id) do
+            within("tr", text: user.email) do
               find("i.delete-icon").click
             end
 
@@ -222,7 +223,7 @@ RSpec.describe "ManagementUsers", type: :system do
           end
 
           it "ユーザー削除モーダルの外をクリックするとモーダルが閉じること", js: true do
-            within("tr", text: user.id) do
+            within("tr", text: user.email) do
               find("i.delete-icon").click
             end
 
@@ -243,7 +244,7 @@ RSpec.describe "ManagementUsers", type: :system do
             end
 
             it "'管理者'の表示が存在すること" do
-              within("tr", text: user.id) do
+              within("tr", text: user.email) do
                 expect(page).to have_selector("td", text: "管理者")
               end
             end
@@ -258,7 +259,7 @@ RSpec.describe "ManagementUsers", type: :system do
             end
 
             it "'一般'の表示が存在すること" do
-              within("tr", text: general_user.id) do
+              within("tr", text: general_user.email) do
                 expect(page).to have_selector("td", text: "一般")
               end
             end
@@ -273,7 +274,7 @@ RSpec.describe "ManagementUsers", type: :system do
             end
 
             it "'OFF'の表示が存在すること" do
-              within("tr", text: hiragana_off_user.id) do
+              within("tr", text: hiragana_off_user.email) do
                 expect(page).to have_selector("td", text: "OFF")
               end
             end
@@ -288,7 +289,7 @@ RSpec.describe "ManagementUsers", type: :system do
             end
 
             it "'ON'の表示が存在すること" do
-              within("tr", text: hiragana_on_user.id) do
+              within("tr", text: hiragana_on_user.email) do
                 expect(page).to have_selector("td", text: "ON")
               end
             end
@@ -303,7 +304,7 @@ RSpec.describe "ManagementUsers", type: :system do
             end
 
             it "認証日時（date_timeフォーマット）の表示が存在すること" do
-              within("tr", text: confirmed_user.id) do
+              within("tr", text: confirmed_user.email) do
                 expect(page).to have_selector("td", text: confirmed_user.confirmed_at.to_fs(:date_time))
               end
             end
@@ -318,7 +319,7 @@ RSpec.describe "ManagementUsers", type: :system do
             end
 
             it "'未認証'の表示が存在すること" do
-              within("tr", text: unconfirmed_user.id) do
+              within("tr", text: unconfirmed_user.email) do
                 expect(page).to have_selector("td", text: "未認証")
               end
             end
@@ -337,7 +338,7 @@ RSpec.describe "ManagementUsers", type: :system do
             end
 
             it "マスター管理ユーザーの更新画面へのリンクをクリックして更新画面へ遷移できること" do
-              within("tr", text: master_user.id) do
+              within("tr", text: master_user.email) do
                 click_link(href: edit_management_user_path(master_user.id))
               end
 
@@ -353,7 +354,7 @@ RSpec.describe "ManagementUsers", type: :system do
             end
 
             it "マスター管理ユーザーの更新画面へのリンクをクリックしてユーザー管理画面へリダイレクトされること" do
-              within("tr", text: master_user.id) do
+              within("tr", text: master_user.email) do
                 click_link(href: edit_management_user_path(master_user.id))
               end
 
