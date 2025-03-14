@@ -44,8 +44,8 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
 
         it "検索フォームが表示されること" do
           expect(page).to have_selector("form#notification_target_user_search")
-          expect(page).to have_field("q[user_id_eq]", type: "search", placeholder: "User_ID")
-          expect(page).to have_field("q[email_cont]", type: "search", placeholder: "Email 部分一致")
+          expect(page).to have_field("q_user_id_eq", type: "search", placeholder: "User_ID")
+          expect(page).to have_field("q_email_cont", type: "search", placeholder: "Email 部分一致")
           expect(page).to have_button "検索"
         end
 

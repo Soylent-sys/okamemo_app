@@ -85,8 +85,8 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
 
         it "検索フォームが表示されること" do
           expect(page).to have_selector("form#shopping_record_search")
-          expect(page).to have_field("q[user_id_eq]", type: "search", placeholder: "User_ID")
-          expect(page).to have_field("q[title_cont]", type: "search", placeholder: "Title 部分一致")
+          expect(page).to have_field("q_user_id_eq", type: "search", placeholder: "User_ID")
+          expect(page).to have_field("q_title_cont", type: "search", placeholder: "Title 部分一致")
           expect(page).to have_button "検索"
         end
 

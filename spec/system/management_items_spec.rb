@@ -44,9 +44,9 @@ RSpec.describe "ManagementItems", type: :system do
 
         it "検索フォームが表示されること" do
           expect(page).to have_selector("form#item_search")
-          expect(page).to have_field("q[user_id_eq]", type: "search", placeholder: "User_ID")
-          expect(page).to have_field("q[category_id_eq]", type: "search", placeholder: "Category_ID")
-          expect(page).to have_field("q[name_cont]", type: "search", placeholder: "Name 部分一致")
+          expect(page).to have_field("q_user_id_eq", type: "search", placeholder: "User_ID")
+          expect(page).to have_field("q_category_id_eq", type: "search", placeholder: "Category_ID")
+          expect(page).to have_field("q_name_cont", type: "search", placeholder: "Name 部分一致")
           expect(page).to have_button "検索"
         end
 
