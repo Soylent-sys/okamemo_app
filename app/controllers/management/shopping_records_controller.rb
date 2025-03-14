@@ -16,6 +16,8 @@ class Management::ShoppingRecordsController < ApplicationController
     if @shopping_location
       gon.lat = @shopping_location.latitude
       gon.lng = @shopping_location.longitude
+      # テスト環境の場合はビューのスクリプトにテスト用の処理を追加するため
+      gon.env = Rails.env
     end
   end
 

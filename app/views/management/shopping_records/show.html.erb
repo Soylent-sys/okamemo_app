@@ -63,39 +63,39 @@
   </script>
   <%# GoogleMapの構築スクリプト（詳細ページ用） %>
   <script>
-    // ビュー内の#mapの存在チェック
-    if (document.getElementById("map") != null) {
-      let gMap
+    async function initMap() {
+      // google.mapsのライブラリを取得する
+      const { Map } = await google.maps.importLibrary("maps");
+      const { Marker } = await google.maps.importLibrary("marker");
+      const { Animation } = await google.maps.importLibrary("marker");
 
-      async function initMap() {
-        // google.mapsのライブラリを取得する
-        const { Map } = await google.maps.importLibrary("maps");
-        const { Marker } = await google.maps.importLibrary("marker");
-        const { Animation } = await google.maps.importLibrary("marker");
+      // 緯度経度を設定
+      const latlng = { lat: gon.lat, lng: gon.lng };
 
-        // 緯度経度を設定
-        const latlng = { lat: gon.lat, lng: gon.lng };
+      // 設定した緯度経度を中心にマップを表示
+      const gMap = new Map(document.getElementById('map'), {
+        center: latlng,
+        zoom: 17,
+      });
 
-        // 設定した緯度経度を中心にマップを表示
-        gMap = new Map(document.getElementById('map'), {
-          center: latlng,
-          zoom: 17,
-        });
+      // 設定した緯度経度の地点にマーカーを立てる
+      const marker = new Marker({
+        map: gMap,
+        position: latlng,
+        label: {
+          text: 'ここで買ったよ！',
+          fontSize: '15px',
+          fontWeight: '900',
+        },
+        animation: Animation.DROP,
+      });
 
-        // 設定した緯度経度の地点にマーカーを立てる
-        const marker = new Marker({
-          map: gMap,
-          position: latlng,
-          label: {
-            text: 'ここで買ったよ！',
-            fontSize: '15px',
-            fontWeight: '900',
-          },
-          animation: Animation.DROP,
-        });
+      // テスト環境のみグローバルにエクスポート
+      if (gon.env === "test") {
+        window.test = { gMap, marker };
       }
-
-      initMap();
     }
+
+    initMap();
   </script>
 <% end %>
