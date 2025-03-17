@@ -476,13 +476,13 @@ RSpec.describe "ManagementItems", type: :system do
         end
 
         it "404エラーになること" do
-          expect { visit management_items_path }.to raise_error(ActionController::RoutingError)
+          expect { visit new_management_item_path }.to raise_error(ActionController::RoutingError)
         end
       end
 
       context "サインインしていない場合" do
         it "404エラーになること" do
-          expect { visit management_items_path }.to raise_error(ActionController::RoutingError)
+          expect { visit new_management_item_path }.to raise_error(ActionController::RoutingError)
         end
       end
 
@@ -579,19 +579,29 @@ RSpec.describe "ManagementItems", type: :system do
 
       context "管理ユーザー以外の場合" do
         let(:user) { create(:user) }
+        # アイテムのcreate時にマスター管理ユーザーが必要
+        let!(:master_user) { create(:user, :master_admin) }
+        let(:category) { create(:category) }
+        let!(:item) { create(:item, user: user, category: category) }
 
         before do
           sign_in_as(user)
         end
 
         it "404エラーになること" do
-          expect { visit management_items_path }.to raise_error(ActionController::RoutingError)
+          expect { visit edit_management_item_path(item.id) }.to raise_error(ActionController::RoutingError)
         end
       end
 
       context "サインインしていない場合" do
+        let(:user) { create(:user) }
+        # アイテムのcreate時にマスター管理ユーザーが必要
+        let!(:master_user) { create(:user, :master_admin) }
+        let(:category) { create(:category) }
+        let!(:item) { create(:item, user: user, category: category) }
+
         it "404エラーになること" do
-          expect { visit management_items_path }.to raise_error(ActionController::RoutingError)
+          expect { visit edit_management_item_path(item.id) }.to raise_error(ActionController::RoutingError)
         end
       end
 
