@@ -414,3 +414,39 @@ RSpec.shared_examples "ソート順による見出しのCSSのテスト" do
     end
   end
 end
+
+RSpec.shared_examples "管理画面のモバイルデバイス非対応警告のテスト" do
+  context "ブラウザ幅が 500px以下 の場合", js: true do
+    before do
+      page.driver.browser.manage.window.resize_to(500, 1050)
+    end
+
+    # window幅のリセット
+    after do
+      page.driver.browser.manage.window.resize_to(1680, 1050)
+    end
+
+    it "モバイル幅非対応の警告が表示されること" do
+      expect(page).to have_selector("div.caution-message-mobile")
+      within "div.caution-message-mobile" do
+        expect(page).to have_content "管理者機能ページはモバイル非対応です。PCによるアクセスでのご利用を推奨します。"
+      end
+    end
+  end
+
+  context "ブラウザ幅が 501px以上 の場合", js: true do
+    before do
+      page.driver.browser.manage.window.resize_to(501, 1050)
+    end
+
+    # window幅のリセット
+    after do
+      page.driver.browser.manage.window.resize_to(1680, 1050)
+    end
+
+    it "モバイル幅非対応の警告が表示されないこと" do
+      expect(page).to_not have_selector("div.caution-message-mobile")
+      expect(page).to_not have_content "管理者機能ページはモバイル非対応です。PCによるアクセスでのご利用を推奨します。"
+    end
+  end
+end

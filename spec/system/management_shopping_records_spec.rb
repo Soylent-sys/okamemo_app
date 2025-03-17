@@ -528,6 +528,19 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
           end
         end
       end
+
+      describe "モバイルデバイス時の警告表示のテスト" do
+        let(:user) { create(:user, :admin) }
+
+        before do
+          sign_in_as(user)
+          # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
+          expect(page).to have_content "ログインしました。"
+          visit management_shopping_records_path
+        end
+
+        include_examples "管理画面のモバイルデバイス非対応警告のテスト"
+      end
     end
 
     describe "show" do
@@ -744,6 +757,20 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
         end
 
         include_examples "back_linkによる戻るリンクのテスト"
+      end
+
+      describe "モバイルデバイス時の警告表示のテスト" do
+        let(:user) { create(:user, :admin) }
+        let!(:shopping_record) { create(:shopping_record, user: user) }
+
+        before do
+          sign_in_as(user)
+          # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
+          expect(page).to have_content "ログインしました。"
+          visit management_shopping_record_path(shopping_record.id)
+        end
+
+        include_examples "管理画面のモバイルデバイス非対応警告のテスト"
       end
 
       describe "Google Mapsに関連する箇所のテスト", js: true do

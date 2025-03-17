@@ -420,6 +420,19 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
           end
         end
       end
+
+      describe "モバイルデバイス時の警告表示のテスト" do
+        let(:user) { create(:user, :admin) }
+
+        before do
+          sign_in_as(user)
+          # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
+          expect(page).to have_content "ログインしました。"
+          visit management_notification_target_users_path
+        end
+
+        include_examples "管理画面のモバイルデバイス非対応警告のテスト"
+      end
     end
 
     describe "new" do
@@ -510,6 +523,19 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
         end
 
         include_examples "back_linkによる戻るリンクのテスト"
+      end
+
+      describe "モバイルデバイス時の警告表示のテスト" do
+        let(:user) { create(:user, :admin) }
+
+        before do
+          sign_in_as(user)
+          # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
+          expect(page).to have_content "ログインしました。"
+          visit new_management_notification_target_user_path
+        end
+
+        include_examples "管理画面のモバイルデバイス非対応警告のテスト"
       end
     end
   end
