@@ -128,6 +128,18 @@ resource "aws_ecs_task_definition" "main" {
         {
           "name": "ADMIN_USER_PASSWORD",
           "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:ADMIN_USER_PASSWORD::"
+        },
+        {
+          "name": "CONTACT_EMAIL",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:CONTACT_EMAIL::"
+        },
+        {
+          "name": "RECAPTCHA_SITE_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:RECAPTCHA_SITE_KEY::"
+        },
+        {
+          "name": "RECAPTCHA_SECRET_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:RECAPTCHA_SECRET_KEY::"
         }
     ],
     "logConfiguration": {
@@ -232,6 +244,18 @@ resource "aws_ecs_task_definition" "main" {
         {
           "name": "ADMIN_USER_PASSWORD",
           "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:ADMIN_USER_PASSWORD::"
+        },
+        {
+          "name": "CONTACT_EMAIL",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:CONTACT_EMAIL::"
+        },
+        {
+          "name": "RECAPTCHA_SITE_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:RECAPTCHA_SITE_KEY::"
+        },
+        {
+          "name": "RECAPTCHA_SECRET_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:${data.aws_caller_identity.self.account_id}:secret:okamemo/secrets-CIFgQn:RECAPTCHA_SECRET_KEY::"
         }
     ],
     "logConfiguration": {
@@ -276,7 +300,7 @@ resource "aws_ecs_service" "main" {
   launch_type = "FARGATE"
 
   # ECSタスクの起動数を定義(アプリリリース時は"2"に設定する)
-  desired_count = "2"
+  desired_count = "1"
 
   # 起動するECSタスクのタスク定義
   task_definition = aws_ecs_task_definition.main.arn
