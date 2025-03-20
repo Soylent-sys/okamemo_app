@@ -338,7 +338,7 @@ RSpec.describe NotificationTargetUser, type: :model do
 
         it "有効期限(expiration_date属性)が正しい値でセットされること" do
           expect(notification_target_user.expiration_date).
-            to be_within(1.second).of(Time.zone.now + NotificationTargetUser::EMAIL_CONFIRMATION_LIMIT.minutes)
+            to be_within(1.second).of(Time.current + NotificationTargetUser::EMAIL_CONFIRMATION_LIMIT.minutes)
         end
       end
 
