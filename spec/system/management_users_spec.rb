@@ -95,10 +95,9 @@ RSpec.describe "ManagementUsers", type: :system do
       end
 
       describe "各ユーザーの情報表示・ボタンのテスト" do
-        # それぞれidを固定してテーブルの情報表示テスト時に他カラムの値と重複が発生しないようにする
         # beforeブロックのvisit時にマスター管理ユーザーが必要
-        let!(:master_user) { create(:user, :master_admin, id: 111) }
-        let!(:user) { create(:user, :admin, id: 222) }
+        let!(:master_user) { create(:user, :master_admin) }
+        let!(:user) { create(:user, :admin) }
 
         describe "ユーザー状態で共通のテスト" do
           before do
@@ -110,7 +109,8 @@ RSpec.describe "ManagementUsers", type: :system do
 
           it "登録ユーザー毎にID、メールアドレス、ニックネーム、作成・更新日時が表示されること" do
             within("tr", text: master_user.email) do
-              expect(page).to have_selector("td", text: master_user.id, exact_text: true)
+              # idカラムの列を指定してidの値による他カラムの値との重複エラーが発生しないようにする
+              expect(page).to have_selector("td:nth-child(1)", text: master_user.id)
               expect(page).to have_selector("td", text: master_user.email)
               expect(page).to have_selector("td", text: master_user.name)
               expect(page).to have_selector("td", text: master_user.created_at.to_fs(:date_time))
@@ -118,7 +118,8 @@ RSpec.describe "ManagementUsers", type: :system do
             end
 
             within("tr", text: user.email) do
-              expect(page).to have_selector("td", text: user.id, exact_text: true)
+              # idカラムの列を指定してidの値による他カラムの値との重複エラーが発生しないようにする
+              expect(page).to have_selector("td:nth-child(1)", text: user.id)
               expect(page).to have_selector("td", text: user.email)
               expect(page).to have_selector("td", text: user.name)
               expect(page).to have_selector("td", text: user.created_at.to_fs(:date_time))

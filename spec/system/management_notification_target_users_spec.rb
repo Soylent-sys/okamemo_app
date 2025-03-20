@@ -95,11 +95,10 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
       end
 
       describe "各通知ユーザーの情報表示・ボタンのテスト" do
-        # それぞれidを固定してテーブルの情報表示テスト時に他カラムの値と重複が発生しないようにする
-        let(:user) { create(:user, :admin, id: 111) }
-        let(:other_user) { create(:user, id: 222) }
-        let!(:notification_target_user1) { create(:notification_target_user, id: 333, user: user) }
-        let!(:notification_target_user2) { create(:notification_target_user, id: 444, user: other_user) }
+        let(:user) { create(:user, :admin) }
+        let(:other_user) { create(:user) }
+        let!(:notification_target_user1) { create(:notification_target_user, user: user) }
+        let!(:notification_target_user2) { create(:notification_target_user, user: other_user) }
 
         describe "通知ユーザー状態で共通のテスト" do
           before do
@@ -111,8 +110,9 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
 
           it "通知ユーザー毎にID、親ユーザーID、ニックネーム、Eメールアドレス、作成・更新日時が表示されること" do
             within("tr", text: notification_target_user1.email) do
-              expect(page).to have_selector("td", text: notification_target_user1.id, exact_text: true)
-              expect(page).to have_selector("td", text: notification_target_user1.user_id, exact_text: true)
+              # id、user_idカラムの列を指定して各idの値による他カラムの値との重複エラーが発生しないようにする
+              expect(page).to have_selector("td:nth-child(1)", text: notification_target_user1.id)
+              expect(page).to have_selector("td:nth-child(2)", text: notification_target_user1.user_id)
               expect(page).to have_selector("td", text: notification_target_user1.name)
               expect(page).to have_selector("td", text: notification_target_user1.email)
               expect(page).to have_selector("td", text: notification_target_user1.created_at.to_fs(:date_time))
@@ -120,8 +120,9 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
             end
 
             within("tr", text: notification_target_user2.email) do
-              expect(page).to have_selector("td", text: notification_target_user2.id, exact_text: true)
-              expect(page).to have_selector("td", text: notification_target_user2.user_id, exact_text: true)
+              # id、user_idカラムの列を指定して各idの値による他カラムの値との重複エラーが発生しないようにする
+              expect(page).to have_selector("td:nth-child(1)", text: notification_target_user2.id)
+              expect(page).to have_selector("td:nth-child(2)", text: notification_target_user2.user_id)
               expect(page).to have_selector("td", text: notification_target_user2.name)
               expect(page).to have_selector("td", text: notification_target_user2.email)
               expect(page).to have_selector("td", text: notification_target_user2.created_at.to_fs(:date_time))
