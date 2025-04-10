@@ -16,9 +16,6 @@ AllCops:
     - 'vendor/**/*'
     - 'path/ruby'
 
-Style/AndOr:
-  Enabled: false
-
 Airbnb/OptArgParameters:
   Exclude:
     - 'app/models/*'

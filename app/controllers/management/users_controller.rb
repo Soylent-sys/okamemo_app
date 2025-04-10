@@ -39,7 +39,7 @@ class Management::UsersController < ApplicationController
     @user.skip_reconfirmation!
     if @user.update(update_user_params)
       # 管理ユーザーが自分の管理権限を解除した場合は通常のメインメニューにリダイレクトする
-      handle_admin_removal and return if is_current_user_and_not_admin?(@user)
+      handle_admin_removal && return if is_current_user_and_not_admin?(@user)
       flash[:notice] = "ユーザーの更新が完了しました。"
       redirect_to management_users_url
     else
