@@ -36,7 +36,7 @@ services:
       context: .
       dockerfile: ./docker/web/Dockerfile.dev
     volumes:
-      - ./docker/web/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/web/nginx.dev.conf:/etc/nginx/nginx.conf
       - public_data:/okamemo_app/public
       - tmp_data:/okamemo_app/tmp
     ports:
