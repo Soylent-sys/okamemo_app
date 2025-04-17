@@ -64,7 +64,7 @@ jobs:
           command: bundle check || bundle install --jobs=8 --clean
       - run:
           name: Run rubocop
-          command: bundle exec rubocop --parallel
+          command: bundle exec rubocop --require rubocop-airbnb --parallel
       - save_cache:
           key: gemfiles-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
