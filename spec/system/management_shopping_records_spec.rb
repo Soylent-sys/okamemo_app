@@ -889,9 +889,9 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
       end
 
       context "親ユーザーID（User_ID）でソートする場合" do
-        let(:user1) { create(:user, :admin) }
-        let(:user2) { create(:user) }
-        let(:user3) { create(:user) }
+        let(:user1) { create(:user, :admin, id: 1) }
+        let(:user2) { create(:user, id: 2) }
+        let(:user3) { create(:user, id: 3) }
         let!(:shopping_record1) { create(:shopping_record, user: user1, title: "テストお買い物1") }
         let!(:shopping_record2) { create(:shopping_record, user: user2, title: "テストお買い物2") }
         let!(:shopping_record3) { create(:shopping_record, user: user3, title: "テストお買い物3") }
