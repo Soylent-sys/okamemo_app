@@ -58,6 +58,13 @@ class ShoppingLocationsController < ApplicationController
 
   def update
     shopping_location = ShoppingLocation.find_by_hashid!(params[:hashid])
+    # hashidの改ざんによる他ユーザーへの不正更新対策
+    if shopping_location.shopping_record.user != current_user
+      flash[:error] = "処理中に問題が発生しました。履歴一覧ページに戻ります。"
+      redirect_to shopping_result_group_url
+      return
+    end
+
     if shopping_location.update(update_shopping_location_params)
       flash[:notice] = "お買い物場所が更新されました。"
       redirect_to shopping_results_url(shopping_location.shopping_record.hashid)
@@ -70,6 +77,13 @@ class ShoppingLocationsController < ApplicationController
   def destroy
     shopping_location = ShoppingLocation.find_by_hashid!(params[:hashid])
     shopping_record = shopping_location.shopping_record
+    # hashidの改ざんによる他ユーザーへの不正削除対策
+    if shopping_record.user != current_user
+      flash[:error] = "処理中に問題が発生しました。履歴一覧ページに戻ります。"
+      redirect_to shopping_result_group_url
+      return
+    end
+
     shopping_location.destroy!
     flash[:notice] = "お買い物場所が削除されました。"
     redirect_to shopping_results_url(shopping_record.hashid)
