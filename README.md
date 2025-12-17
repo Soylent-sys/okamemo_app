@@ -114,6 +114,7 @@
   - ヘルパースペック（各種 `helper` メソッドの挙動検証）
   - クラス単体のスペック（`AdminConstraint` の挙動検証）
   - システムスペック（ユーザー操作を再現したエンドツーエンドテスト）
+  - リクエストスペック（一部のデータへの不正アクセス制御のテスト）
 - `selenium-webdriver`（JavaScript を伴うシステムスペック）
 > **補足：** システムスペックで使用する `selenium-webdriver`（バージョン: 4.27.0）と、
 > 開発・CI環境のSeleniumコンテナ（`selenium/standalone-chromium:131.0` / `selenium/standalone-chrome:131.0`）の
