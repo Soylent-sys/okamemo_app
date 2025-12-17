@@ -1401,7 +1401,7 @@ RSpec.describe "ManagementItems", type: :system do
           # アイテム名、ひらがな（アイテム名）のフィールドはラベル文字列だと重複して扱われるためidを指定
           fill_in "item_name", with: ""
           click_button "更新"
-        end.to_not change { Item.count }
+        end.to_not change { edit_item.reload.name }
 
         expect(page).to have_content "アイテム名を入力してください。"
       end
@@ -1413,7 +1413,7 @@ RSpec.describe "ManagementItems", type: :system do
           # アイテム名、ひらがな（アイテム名）のフィールドはラベル文字列だと重複して扱われるためidを指定
           fill_in "item_name", with: over_length_name
           click_button "更新"
-        end.to_not change { Item.count }
+        end.to_not change { edit_item.reload.name }
 
         expect(page).to have_content "アイテム名は#{Item::MAX_LENGTH_NAME}文字以内で入力してください。"
       end
@@ -1423,7 +1423,7 @@ RSpec.describe "ManagementItems", type: :system do
           # アイテム名、ひらがな（アイテム名）のフィールドはラベル文字列だと重複して扱われるためidを指定
           fill_in "item_hiragana", with: ""
           click_button "更新"
-        end.to_not change { Item.count }
+        end.to_not change { edit_item.reload.hiragana }
 
         expect(page).to have_content "ひらがな（アイテム名）を入力してください。"
       end
@@ -1435,7 +1435,7 @@ RSpec.describe "ManagementItems", type: :system do
           # アイテム名、ひらがな（アイテム名）のフィールドはラベル文字列だと重複して扱われるためidを指定
           fill_in "item_hiragana", with: over_length_hiragana
           click_button "更新"
-        end.to_not change { Item.count }
+        end.to_not change { edit_item.reload.hiragana }
 
         expect(page).to have_content "ひらがな（アイテム名）は#{Item::MAX_LENGTH_HIRAGANA}文字以内で入力してください。"
       end
@@ -1447,7 +1447,7 @@ RSpec.describe "ManagementItems", type: :system do
           # アイテム名、ひらがな（アイテム名）のフィールドはラベル文字列だと重複して扱われるためidを指定
           fill_in "item_hiragana", with: invalid_hiragana
           click_button "更新"
-        end.to_not change { Item.count }
+        end.to_not change { edit_item.reload.hiragana }
 
         expect(page).to have_content "ひらがな（アイテム名）の項目は平仮名・半角数字のみ使用してください。"
       end
@@ -1458,7 +1458,7 @@ RSpec.describe "ManagementItems", type: :system do
           # アイテム名、ひらがな（アイテム名）のフィールドはラベル文字列だと重複して扱われるためidを指定
           fill_in "item_name", with: exist_item.name
           click_button "更新"
-        end.to_not change { Item.count }
+        end.to_not change { edit_item.reload.name }
 
         expect(page).to have_content "アイテム名は同じカテゴリーの中で二つ以上登録できません。"
       end
@@ -1469,7 +1469,7 @@ RSpec.describe "ManagementItems", type: :system do
           # アイテム名、ひらがな（アイテム名）のフィールドはラベル文字列だと重複して扱われるためidを指定
           fill_in "item_hiragana", with: exist_item.hiragana
           click_button "更新"
-        end.to_not change { Item.count }
+        end.to_not change { edit_item.reload.hiragana }
 
         expect(page).to have_content "ひらがな（アイテム名）は同じカテゴリーの中で二つ以上登録できません。"
       end
@@ -1480,7 +1480,7 @@ RSpec.describe "ManagementItems", type: :system do
           # アイテム名、ひらがな（アイテム名）のフィールドはラベル文字列だと重複して扱われるためidを指定
           fill_in "item_name", with: preset_item.name
           click_button "更新"
-        end.to_not change { Item.count }
+        end.to_not change { edit_item.reload.name }
 
         expect(page).to have_content "アイテム名が同じカテゴリーに存在するデフォルトアイテムと重複しています。"
       end
@@ -1491,7 +1491,7 @@ RSpec.describe "ManagementItems", type: :system do
           # アイテム名、ひらがな（アイテム名）のフィールドはラベル文字列だと重複して扱われるためidを指定
           fill_in "item_hiragana", with: preset_item.hiragana
           click_button "更新"
-        end.to_not change { Item.count }
+        end.to_not change { edit_item.reload.hiragana }
 
         expect(page).to have_content "ひらがな（アイテム名）が同じカテゴリーに存在するデフォルトアイテムと重複しています。"
       end
