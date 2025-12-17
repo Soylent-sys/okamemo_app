@@ -1,3 +1,4 @@
+# システムスペック用（Capybara専用）のログインヘルパー
 module LoginSupport
   def sign_in_as(user)
     visit root_path
@@ -8,6 +9,19 @@ module LoginSupport
   end
 end
 
+# リクエストスペック用のログインヘルパー
+module RequestLoginSupport
+  def sign_in_as_request(user)
+    post user_session_path, params: {
+      user: {
+        email: user.email,
+        password: user.password,
+      },
+    }
+  end
+end
+
 RSpec.configure do |config|
-  config.include LoginSupport
+  config.include LoginSupport, type: :system
+  config.include RequestLoginSupport, type: :request
 end
