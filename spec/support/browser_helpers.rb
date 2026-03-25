@@ -1,4 +1,4 @@
-module BrowerHelpers
+module BrowserHelpers
   # execute_cdp('Page.addScriptToEvaluateOnNewDocument')で事前設定したスクリプトを削除する
   def remove_script(script_id)
     return unless script_id
@@ -11,5 +11,5 @@ module BrowerHelpers
 end
 
 RSpec.configure do |config|
-  config.include BrowerHelpers, type: :system
+  config.include BrowserHelpers, type: :system
 end
