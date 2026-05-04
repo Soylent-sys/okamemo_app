@@ -10,9 +10,7 @@ class Category < ApplicationRecord
   class << self
     # ユーザーが登録したアイテムのカテゴリーのみを取得
     def created_item_categories(current_user_id)
-      user = User.find(current_user_id)
-      category_ids = user.items.select(:category_id).distinct.order(:category_id).pluck(:category_id)
-      Category.where(id: category_ids)
+      Category.joins(:items).where(items: { user_id: current_user_id }).distinct.order(:id)
     end
 
     # ransackでの検索・ソートが可能なカラム、アソシエーションのホワイトリスト
