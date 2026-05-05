@@ -70,7 +70,7 @@ RSpec.describe ContactMailer, type: :mailer do
       end
 
       it "メール本文にユーザーIDが含まれていること" do
-        expect(mail.body.encoded).to include(user.id.to_fs)
+        expect(mail.body.encoded).to include(user.id.to_s)
       end
     end
   end
