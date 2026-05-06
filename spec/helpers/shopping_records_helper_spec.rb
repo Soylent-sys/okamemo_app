@@ -209,22 +209,6 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
     end
   end
 
-  describe "#wish_items" do
-    let(:user) { create(:user) }
-    let(:category) { create(:category) }
-    # Itemモデル登録時のvalidateメソッドにマスター管理ユーザーが必要
-    let!(:master_user) { create(:user, :master_admin) }
-    let!(:item1) { create(:item, user: user, category: category) }
-    let!(:item2) { create(:item, user: user, category: category) }
-
-    # アプリのフローにおいて引数に渡されるのはShoppingRecordFormオブジェクトのみのため
-    # その他が引数に渡されるテストケースは不要
-    it "引数オブジェクトのhashidsを基にItemモデルの配列を返すこと" do
-      shopping_record_form = double(ShoppingRecordForm, hashids: [item1.hashid, item2.hashid])
-      expect(helper.wish_items(shopping_record_form)).to contain_exactly(item1, item2)
-    end
-  end
-
   describe "#bought_items" do
     let(:user) { create(:user) }
     let(:shopping_record) { create(:shopping_record, user: user) }

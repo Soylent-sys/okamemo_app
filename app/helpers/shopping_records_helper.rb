@@ -36,13 +36,6 @@ module ShoppingRecordsHelper
     end
   end
 
-  # お買い物登録時にチェックしたアイテムを取得
-  def wish_items(shopping_record_form)
-    shopping_record_form.hashids.map do |item_hashid|
-      Item.find_by_hashid!(item_hashid)
-    end
-  end
-
   # 購入したアイテムを取得（お買い物単位）
   def bought_items(shopping_record_form)
     shopping_record_form.hashids.map do |buy_hashid|

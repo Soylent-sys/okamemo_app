@@ -11,7 +11,7 @@
   <div class="p-3 rounded-2 confirm-window">
     <h4 class="py-2 mb-0"><i class="fas fa-apple-whole me-2"></i>買う予定のアイテム</h4>
     <ol class="h5">
-      <% wish_items(@shopping_record_form).each do |item| %>
+      <% @items.each do |item| %>
         <li class="ps-2 mb-2"><%= display_name_of_category_or_item(item) %></li>
       <% end %>
     </ol>

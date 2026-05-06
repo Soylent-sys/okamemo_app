@@ -43,6 +43,11 @@ class ShoppingRecordForm
     end
   end
 
+  # お買い物登録時にチェックしたアイテムを取得
+  def wish_items
+    Item.find(hashids)
+  end
+
   private
 
   # 未完了のお買い物登録数を制御

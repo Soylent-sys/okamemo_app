@@ -178,4 +178,29 @@ RSpec.describe ShoppingRecordForm, type: :model do
       end
     end
   end
+
+  describe "#wish_items" do
+    let(:category) { create(:category) }
+    let(:wish_item1) { create(:item, user: user, category: category, name: "テストアイテム", hiragana: "てすとあいてむ") }
+    let(:wish_item2) { create(:item, user: user, category: category, name: "テストアイテム2", hiragana: "てすとあいてむ2") }
+    let(:no_wish_item) { create(:item, user: user, category: category, name: "テストアイテム3", hiragana: "てすとあいてむ3") }
+    # Itemモデル登録時のvalidateメソッドにマスター管理ユーザーが必要
+    let!(:master_user) { create(:user, :master_admin) }
+    let(:form) do
+      ShoppingRecordForm.new(
+        user_id: user.id,
+        title: "テストのお買い物",
+        # wish_itemsメソッド実行時のhashids属性はItemモデルのhashidを使用する
+        hashids: [wish_item1.hashid, wish_item2.hashid]
+      )
+    end
+
+    # アプリのフローにおいてこのメソッドが使用されるときは
+    # formに必ず正常に動作するhashidsが格納されるため異常系のテストケースは不要
+    it "formのhashidsを基にItemモデルの配列を返すこと" do
+      items = form.wish_items
+
+      expect(items).to contain_exactly(wish_item1, wish_item2)
+    end
+  end
 end

@@ -17,6 +17,7 @@ class ShoppingRecordsController < ApplicationController
   def confirm
     @shopping_record_form = ShoppingRecordForm.new(shopping_record_params)
     if @shopping_record_form.valid?
+      @items = @shopping_record_form.wish_items
       render "confirm", status: :see_other
     else
       @categories = Category.all
