@@ -21,8 +21,8 @@ class ShoppingRecordForm
   def save
     ActiveRecord::Base.transaction do
       shopping_record = ShoppingRecord.create!(user_id:, title:)
-      hashids.each do |item_hashid|
-        item = Item.available_items(shopping_record.user_id).find_by_hashid!(item_hashid)
+      items = Item.available_items(shopping_record.user_id).find(hashids)
+      items.each do |item|
         Buy.create!(user_id: shopping_record.user_id, shopping_record_id: shopping_record.id,
                     item_name: item.name, item_hiragana: item.hiragana)
       end
@@ -34,8 +34,8 @@ class ShoppingRecordForm
     ActiveRecord::Base.transaction do
       shopping_record = current_user.shopping_records.opened.find_by_hashid!(shopping_record_hashid)
       if hashids.present?
-        hashids.each do |buy_hashid|
-          buy = shopping_record.buys.find_by_hashid!(buy_hashid)
+        buys = shopping_record.buys.find(hashids)
+        buys.each do |buy|
           buy.update!(purchased: true)
         end
       end
