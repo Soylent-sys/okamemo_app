@@ -36,26 +36,6 @@ module ShoppingRecordsHelper
     end
   end
 
-  # 購入したアイテムを取得（お買い物単位）
-  def bought_items(shopping_record_form)
-    shopping_record_form.hashids.map do |buy_hashid|
-      Buy.find_by_hashid!(buy_hashid)
-    end
-  end
-
-  # 未購入のアイテムを取得（お買い物単位）
-  def no_bought_items(shopping_record_form)
-    shopping_record = current_user.shopping_records.find_by_hashid!(shopping_record_form.shopping_record_hashid)
-    if shopping_record_form.hashids.present?
-      buy_item_ids = shopping_record_form.hashids.map do |buy_hashid|
-        Buy.find_by_hashid!(buy_hashid).id
-      end
-      shopping_record.buys.where.not(id: buy_item_ids)
-    else
-      shopping_record.buys
-    end
-  end
-
   # お買い物完了日（更新日）を'%Y年 %-m月'に変換
   def updated_at_change_format_ja(shopping_record)
     shopping_record.updated_at.to_fs(:month_ja)

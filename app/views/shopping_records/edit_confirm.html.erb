@@ -10,9 +10,9 @@
   </div>
   <div class="p-3 mb-4 rounded-2 confirm-window">
     <h4 class="py-2 mb-0"><i class="fas fa-bag-shopping"></i>&ensp;買ったアイテム</h4>
-    <% if @shopping_record_form.hashids.present? %>
+    <% if @bought_items.present? %>
       <ul class="h5">
-        <% bought_items(@shopping_record_form).each do |buy| %>
+        <% @bought_items.each do |buy| %>
           <li class="ps-2 mb-2"><%= display_item_name_of_buy(buy) %></li>
         <% end %>
       </ul>
@@ -22,9 +22,9 @@
   </div>
   <div class="p-3 mb-4 rounded-2 confirm-window">
     <h4 class="py-2 mb-0"><i class="fas fa-apple-whole"></i>&ensp;買わなかったアイテム</h4>
-    <% if no_bought_items(@shopping_record_form).present? %>
+    <% if @no_bought_items.present? %>
       <ul class="h5">
-        <% no_bought_items(@shopping_record_form).each do |buy| %>
+        <% @no_bought_items.each do |buy| %>
           <li class="ps-2 mb-2"><%= display_item_name_of_buy(buy) %></li>
         <% end %>
       </ul>

@@ -53,6 +53,8 @@ class ShoppingRecordsController < ApplicationController
   def edit_confirm
     @shopping_record = set_shopping_record_from_post
     @shopping_record_form = set_shopping_record_form_from_post
+    @bought_items = @shopping_record_form.bought_items
+    @no_bought_items = @shopping_record_form.no_bought_items(@shopping_record)
     render "edit_confirm", status: :see_other
   end
 

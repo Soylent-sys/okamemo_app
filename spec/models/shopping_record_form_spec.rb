@@ -203,4 +203,88 @@ RSpec.describe ShoppingRecordForm, type: :model do
       expect(items).to contain_exactly(wish_item1, wish_item2)
     end
   end
+
+  describe "#bought_items" do
+    context "hashidsが存在する場合" do
+      let(:shopping_record) { create(:shopping_record, user: user) }
+      let!(:bought_buy1) { create(:buy, user: user, shopping_record: shopping_record) }
+      let!(:bought_buy2) { create(:buy, user: user, shopping_record: shopping_record) }
+      let!(:no_bought_buy) { create(:buy, user: user, shopping_record: shopping_record) }
+      let(:form) do
+        ShoppingRecordForm.new(
+          user_id: user.id,
+          title: "テストのお買い物",
+          # bought_itemsメソッド実行時のhashids属性はBuyモデルのhashidを使用する
+          hashids: [bought_buy1.hashid, bought_buy2.hashid]
+        )
+      end
+
+      # アプリのフローにおいてこのメソッドが使用されるときは
+      # formに必ず正常に動作するhashidsが格納されるため異常系のテストケースは不要
+      it "formのhashidsを基にBuyモデルの配列を返すこと" do
+        buys = form.bought_items
+
+        expect(buys).to contain_exactly(bought_buy1, bought_buy2)
+      end
+    end
+
+    context "hashidsが空の場合" do
+      let(:form) do
+        ShoppingRecordForm.new(
+          user_id: user.id,
+          title: "テストのお買い物",
+          hashids: []
+        )
+      end
+
+      it "空の配列を返すこと" do
+        expect(form.bought_items).to be_empty
+      end
+    end
+  end
+
+  describe "#no_bought_items" do
+    let(:shopping_record) { create(:shopping_record, user: user) }
+    let!(:buy1) { create(:buy, user: user, shopping_record: shopping_record) }
+    let!(:buy2) { create(:buy, user: user, shopping_record: shopping_record) }
+    let!(:buy3) { create(:buy, user: user, shopping_record: shopping_record) }
+    let!(:buy4) { create(:buy, user: user, shopping_record: shopping_record) }
+
+    context "hashidsが存在する場合" do
+      let(:form) do
+        ShoppingRecordForm.new(
+          user_id: user.id,
+          title: "テストのお買い物",
+          # bought_itemsメソッド実行時のhashids属性はBuyモデルのhashidを使用する
+          hashids: [buy1.hashid, buy2.hashid]
+        )
+      end
+
+      # アプリのフローにおいてこのメソッドが使用されるときは
+      # formに必ず正常に動作するhashidsが格納されるため異常系のテストケースは不要
+      it "hashidsで指定されていないBuyレコードの配列を返すこと" do
+        buys = form.no_bought_items(shopping_record)
+
+        expect(buys).to contain_exactly(buy3, buy4)
+      end
+    end
+
+    context "hashidsが空の場合" do
+      let(:other_shopping_record) { create(:shopping_record, user: user) }
+      let!(:other_shopping_record_buy) { create(:buy, user: user, shopping_record: other_shopping_record) }
+      let(:form) do
+        ShoppingRecordForm.new(
+          user_id: user.id,
+          title: "テストのお買い物",
+          hashids: []
+        )
+      end
+
+      it "shopping_recordに紐付く全てのBuyレコードの配列を返すこと" do
+        buys = form.no_bought_items(shopping_record)
+
+        expect(buys).to contain_exactly(buy1, buy2, buy3, buy4)
+      end
+    end
+  end
 end

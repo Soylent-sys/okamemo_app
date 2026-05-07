@@ -48,6 +48,25 @@ class ShoppingRecordForm
     Item.find(hashids)
   end
 
+  # お買い物モード時に購入したアイテムのBuyレコードを取得
+  def bought_items
+    if hashids.present?
+      Buy.find(hashids)
+    else
+      Buy.none
+    end
+  end
+
+  # お買い物モード時に未購入のアイテムのBuyレコードを取得（お買い物単位）
+  def no_bought_items(shopping_record)
+    buy_item_ids = bought_items.map(&:id)
+    if buy_item_ids.present?
+      shopping_record.buys.where.not(id: buy_item_ids)
+    else
+      shopping_record.buys
+    end
+  end
+
   private
 
   # 未完了のお買い物登録数を制御

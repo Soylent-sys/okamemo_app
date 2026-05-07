@@ -209,51 +209,6 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
     end
   end
 
-  describe "#bought_items" do
-    let(:user) { create(:user) }
-    let(:shopping_record) { create(:shopping_record, user: user) }
-    let!(:buy1) { create(:buy, user: user, shopping_record: shopping_record) }
-    let!(:buy2) { create(:buy, user: user, shopping_record: shopping_record) }
-
-    # アプリのフローにおいて引数に渡されるのはShoppingRecordFormオブジェクトのみのため
-    # その他が引数に渡されるテストケースは不要
-    it "引数オブジェクトのhashidsを基にBuyモデルの配列を返すこと" do
-      shopping_record_form = double(ShoppingRecordForm, hashids: [buy1.hashid, buy2.hashid])
-      expect(helper.bought_items(shopping_record_form)).to contain_exactly(buy1, buy2)
-    end
-  end
-
-  describe "#no_bought_items" do
-    let(:user) { create(:user) }
-    let(:shopping_record) { create(:shopping_record, user: user) }
-    let!(:buy1) { create(:buy, user: user, shopping_record: shopping_record) }
-    let!(:buy2) { create(:buy, user: user, shopping_record: shopping_record) }
-    let(:shopping_record_form) { double(ShoppingRecordForm, shopping_record_hashid: shopping_record.hashid, hashids: hashids) }
-
-    # メソッド内でcurrent_userを使用するためサインインが必要
-    before do
-      sign_in user
-    end
-
-    # アプリのフローにおいて引数に渡されるのはShoppingRecordFormオブジェクトのみのため
-    # その他が引数に渡されるテストケースは不要
-    context "引数オブジェクトのhashids属性が存在する場合" do
-      let(:hashids) { [buy1.hashid] }
-
-      it "引数オブジェクトのshopping_record_hashidに対応するお買い物(ShoppingRecord)からhashidsに該当しないBuyモデルの配列を返すこと" do
-        expect(helper.no_bought_items(shopping_record_form)).to contain_exactly(buy2)
-      end
-    end
-
-    context "引数オブジェクトのhashids属性が空の場合" do
-      let(:hashids) { [] }
-
-      it "引数オブジェクトのshopping_record_hashidに対応するお買い物(ShoppingRecord)に属するすべてのBuyモデルの配列を返すこと" do
-        expect(helper.no_bought_items(shopping_record_form)).to contain_exactly(buy1, buy2)
-      end
-    end
-  end
-
   describe "#updated_at_change_format_ja" do
     # アプリのフローにおいて引数に渡されるのはShoppingRecordオブジェクトのみのため
     # その他が引数に渡されるテストケースは不要
