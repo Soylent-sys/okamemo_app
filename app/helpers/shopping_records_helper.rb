@@ -1,14 +1,4 @@
 module ShoppingRecordsHelper
-  # 各カテゴリーのプリセットアイテムとcurrent_userの登録アイテムを取得し「おまとめ」カテゴリ以外をソートする
-  def categoy_items(category)
-    category_items = category.items.where(user_id: [User.master_admin_user.id, current_user.id])
-    if category.name == "おまとめ"
-      category_items
-    else
-      category_items.sorted
-    end
-  end
-
   # お買い物登録フォームのタイトルをセット
   def shopping_title(shopping_record_form)
     if shopping_record_form.title.blank?

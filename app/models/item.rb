@@ -28,6 +28,11 @@ class Item < ApplicationRecord
       where(user_id: [User.master_admin_user.id, user_id])
     end
 
+    # 各カテゴリーのユーザー利用可能アイテムをhiraganaの昇順で取得
+    def available_items_grouped_by_category(user_id)
+      available_items(user_id).sorted.includes(:category).group_by(&:category)
+    end
+
     # ransackでの検索・ソートが可能なカラム、アソシエーションのホワイトリスト
     def ransackable_attributes(auth_object = nil)
       ["id", "user_id", "category_id", "name", "hiragana", "created_at", "updated_at"]
