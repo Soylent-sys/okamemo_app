@@ -362,10 +362,9 @@ RSpec.describe Item, type: :model do
     let!(:other_user_create_item) { create(:item, user: other_user, category: category) }
 
     it "引数のユーザーとマスター管理ユーザーに紐付くアイテムを返すこと" do
-      result = Item.available_items(user)
+      items = Item.available_items(user.id)
 
-      expect(result).to include master_user_create_item, user_create_item
-      expect(result).to_not include other_user_create_item
+      expect(items).to contain_exactly(master_user_create_item, user_create_item)
     end
   end
 
