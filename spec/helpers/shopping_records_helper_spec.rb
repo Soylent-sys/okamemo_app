@@ -23,66 +23,52 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
   end
 
   describe "#last_bought_day" do
-    let(:user) { create(:user) }
-    let(:category) { create(:category) }
-    # Itemモデル登録時のvalidateメソッドにマスター管理ユーザーが必要
-    let!(:master_user) { create(:user, :master_admin) }
-    let!(:item) { create(:item, user: user, category: category) }
-
-    # メソッド内でcurrent_userを使用するためサインインが必要
-    before do
-      sign_in user
-    end
-
-    context "Buyモデルにユーザーに紐づいた引数アイテム名のレコードが存在しない場合" do
+    context "引数がnilの場合" do
       it "\"購入記録なし\"を返すこと" do
-        expect(helper.last_bought_day(item)).to eq "購入記録なし"
+        expect(helper.last_bought_day(nil)).to eq "購入記録なし"
       end
     end
 
-    context "Buyモデルにユーザーに紐づいた引数アイテム名のレコードが存在する場合" do
-      let(:shopping_record) { create(:shopping_record, :closed, user: user) }
-      let(:buy_attributes) do
-        { user: user, shopping_record: shopping_record, item_name: item.name }
-      end
-      let!(:buy) { create(:buy, :purchased, buy_attributes.merge(updated_at: buy_updated_at)) }
-
-      context "最後に更新されたレコードの更新日が今日の場合" do
-        let(:buy_updated_at) { Time.current }
-        let!(:before_buy) { create(:buy, :purchased, buy_attributes.merge(updated_at: 1.day.ago)) }
+    context "引数が日時の場合" do
+      context "日時がメソッド実行日以内の場合" do
+        let(:date) { Time.current }
 
         it "\"今日購入してます\"を返すこと" do
-          expect(helper.last_bought_day(item)).to eq "今日購入してます"
+          expect(helper.last_bought_day(date)).to eq "今日購入してます"
         end
       end
 
-      context "最後に更新されたレコードの更新日が昨日の場合" do
-        let(:buy_updated_at) { 1.day.ago }
-        let!(:before_buy) { create(:buy, :purchased, buy_attributes.merge(updated_at: 2.day.ago)) }
+      context "日時がメソッド実行1日前の場合" do
+        let(:date) { 1.day.ago }
 
         it "\"昨日購入してます\"を返すこと" do
-          expect(helper.last_bought_day(item)).to eq "昨日購入してます"
+          expect(helper.last_bought_day(date)).to eq "昨日購入してます"
         end
       end
 
-      context "最後に更新されたレコードの更新日が6日前以内の場合" do
-        let(:buy_updated_at) { 6.day.ago }
-        let!(:before_buy) { create(:buy, :purchased, buy_attributes.merge(updated_at: 7.day.ago)) }
+      context "日時がメソッド実行6日前以内の場合" do
+        let(:date1) { 2.day.ago }
+        let(:date2) { 3.day.ago }
+        let(:date3) { 4.day.ago }
+        let(:date4) { 5.day.ago }
+        let(:date5) { 6.day.ago }
 
         it "購入した日が何日前かを返すこと" do
-          last_bought_day = buy.updated_at
-          expected_output = "#{(Date.current - last_bought_day.to_date).to_i}日前に購入"
-          expect(helper.last_bought_day(item)).to eq expected_output
+          expect(helper.last_bought_day(date1)).to eq "2日前に購入"
+          expect(helper.last_bought_day(date2)).to eq "3日前に購入"
+          expect(helper.last_bought_day(date3)).to eq "4日前に購入"
+          expect(helper.last_bought_day(date4)).to eq "5日前に購入"
+          expect(helper.last_bought_day(date5)).to eq "6日前に購入"
         end
       end
 
-      context "最後に更新されたレコードの更新日が7日以上前の場合" do
-        let(:buy_updated_at) { 7.day.ago }
+      context "日時がメソッド実行7日前以前の場合" do
+        let(:date1) { 7.day.ago }
+        let(:date2) { 8.day.ago }
 
         it "購入した日付を返すこと" do
-          last_bought_day = buy.updated_at.to_fs(:date_ymd)
-          expected_output = "#{last_bought_day} 購入"
-          expect(helper.last_bought_day(item)).to eq expected_output
+          expect(helper.last_bought_day(date1)).to eq "#{date1.to_fs(:date_ymd)} 購入"
+          expect(helper.last_bought_day(date2)).to eq "#{date2.to_fs(:date_ymd)} 購入"
         end
       end
     end

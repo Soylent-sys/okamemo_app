@@ -9,20 +9,17 @@ module ShoppingRecordsHelper
   end
 
   # 各アイテムの最終購入日を表示
-  def last_bought_day(item)
-    last_bought_day = current_user.buys.purchased.where(item_name: item.name).
-      order(updated_at: :desc).pick(:updated_at)
-
-    if last_bought_day.blank?
+  def last_bought_day(buy_updated_at)
+    if buy_updated_at.blank?
       "購入記録なし"
-    elsif Date.current.all_day.cover? last_bought_day
+    elsif Date.current.all_day.cover? buy_updated_at
       "今日購入してます"
-    elsif Date.yesterday.all_day.cover? last_bought_day
+    elsif Date.yesterday.all_day.cover? buy_updated_at
       "昨日購入してます"
-    elsif Date.current - 7.day < last_bought_day.to_date
-      "#{(Date.current - last_bought_day.to_date).to_i}日前に購入"
+    elsif Date.current - 7.day < buy_updated_at.to_date
+      "#{(Date.current - buy_updated_at.to_date).to_i}日前に購入"
     else
-      "#{last_bought_day.to_fs(:date_ymd)} 購入"
+      "#{buy_updated_at.to_fs(:date_ymd)} 購入"
     end
   end
 

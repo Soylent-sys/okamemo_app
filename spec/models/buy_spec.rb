@@ -89,6 +89,122 @@ RSpec.describe Buy, type: :model do
     end
   end
 
+  describe ".last_bought_times" do
+    # Itemモデル登録時のvalidateメソッドにマスター管理ユーザーが必要
+    let!(:master_user) { create :user, :master_admin }
+    let(:user) { create :user }
+    let(:category) { create :category }
+    let(:user_item1) { create(:item, user: user, category: category, name: "テストアイテム1") }
+    let(:shopping_record) { create(:shopping_record, :closed, user: user) }
+
+    context "ユーザー指定のテスト" do
+      let(:other_user) { create :user }
+      let(:user_item2) { create(:item, user: user, category: category, name: "テストアイテム2") }
+      let(:other_user_item) { create(:item, user: other_user, category: category) }
+      let(:other_shopping_record) { create(:shopping_record, :closed, user: other_user) }
+      let!(:user_buy1) { create(:buy, :purchased, user: user, shopping_record: shopping_record, item_name: user_item1.name) }
+      let!(:user_buy2) { create(:buy, :purchased, user: user, shopping_record: shopping_record, item_name: user_item2.name) }
+      let!(:other_user_buy) do
+        create(:buy, :purchased, user: other_user, shopping_record: other_shopping_record, item_name: other_user.name)
+      end
+
+      it "引数ユーザーに紐付くBuyレコードのkey:アイテム名 value:更新日時のハッシュを返すこと" do
+        hash = Buy.last_bought_times(user)
+
+        expect(hash.keys).to contain_exactly(user_buy1.item_name, user_buy2.item_name)
+        expect(hash[user_buy1.item_name]).to eq user_buy1.updated_at
+        expect(hash[user_buy2.item_name]).to eq user_buy2.updated_at
+      end
+    end
+
+    context "purchasedスコープのテスト" do
+      let(:user_item2) { create(:item, user: user, category: category, name: "テストアイテム2") }
+      let(:unclosed_shopping_record) { create(:shopping_record, user: user, closed: false) }
+      let!(:user_purchased_buy) do
+        create(:buy, user: user, shopping_record: shopping_record, item_name: user_item1.name, purchased: true)
+      end
+      let!(:user_no_purchased_buy) do
+        create(:buy, user: user, shopping_record: unclosed_shopping_record, item_name: user_item2.name, purchased: false)
+      end
+
+      it "purchased: trueのBuyレコードのkey:アイテム名 value:更新日時のハッシュを返すこと" do
+        hash = Buy.last_bought_times(user)
+
+        expect(hash.keys).to contain_exactly(user_purchased_buy.item_name)
+        expect(hash[user_purchased_buy.item_name]).to eq user_purchased_buy.updated_at
+      end
+    end
+
+    context "value:更新日時のテスト" do
+      let(:old_shopping_record) { create(:shopping_record, :closed, user: user) }
+      let!(:new_buy) do
+        create(
+          :buy, :purchased,
+          user: user,
+          shopping_record: shopping_record,
+          item_name: user_item1.name,
+          updated_at: Time.current
+        )
+      end
+      let!(:old_buy) do
+        create(
+          :buy, :purchased,
+          user: user,
+          shopping_record: old_shopping_record,
+          item_name: user_item1.name,
+          updated_at: 1.minutes.ago
+        )
+      end
+
+      it "keyに対応するvalueは最新の更新日時であること" do
+        hash = Buy.last_bought_times(user)
+
+        expect(hash[user_item1.name]).to eq new_buy.updated_at
+      end
+    end
+
+    context "カテゴリーを跨いだ同名アイテムのBuyレコードが存在する場合" do
+      let(:other_category) { create(:category) }
+      let(:other_category_item) { create(:item, user: user, category: other_category, name: user_item1.name) }
+      let(:old_shopping_record) { create(:shopping_record, :closed, user: user) }
+      let!(:new_buy) do
+        create(
+          :buy, :purchased,
+          user: user,
+          shopping_record: shopping_record,
+          item_name: user_item1.name,
+          updated_at: Time.current
+        )
+      end
+      let!(:old_buy) do
+        create(
+          :buy, :purchased,
+          user: user,
+          shopping_record: old_shopping_record,
+          item_name: user_item1.name,
+          updated_at: 1.minutes.ago
+        )
+      end
+
+      it "最新更新日時のレコードのvalue:更新日時であること" do
+        hash = Buy.last_bought_times(user)
+
+        expect(hash.keys).to contain_exactly(user_item1.name)
+        expect(hash[user_item1.name]).to eq new_buy.updated_at
+      end
+    end
+
+    context "引数ユーザーに purchased: true のBuyレコードが存在しない場合" do
+      let!(:no_purchased_buy) do
+        create(:buy, user: user, shopping_record: shopping_record, item_name: user_item1.name, purchased: false)
+      end
+
+      it "空の配列を返すこと" do
+        expect(Buy.last_bought_times(user)).to be_empty
+      end
+    end
+  end
+
   describe "アソシエーション" do
     let(:association) { described_class.reflect_on_association(model) }
 

@@ -12,6 +12,7 @@ class ShoppingRecordsController < ApplicationController
   def new
     @categories = Category.all
     @items_by_category = Item.available_items_grouped_by_category(current_user.id)
+    @last_bought_times = Buy.last_bought_times(current_user)
     @shopping_record_form = ShoppingRecordForm.new
   end
 
@@ -23,6 +24,7 @@ class ShoppingRecordsController < ApplicationController
     else
       @categories = Category.all
       @items_by_category = Item.available_items_grouped_by_category(current_user.id)
+      @last_bought_times = Buy.last_bought_times(current_user)
       render "new", status: :unprocessable_entity
     end
   end
@@ -30,6 +32,7 @@ class ShoppingRecordsController < ApplicationController
   def back_new
     @categories = Category.all
     @items_by_category = Item.available_items_grouped_by_category(current_user.id)
+    @last_bought_times = Buy.last_bought_times(current_user)
     @shopping_record_form = ShoppingRecordForm.new(back_shopping_record_params)
     render "new", status: :see_other
   end
