@@ -287,6 +287,32 @@ RSpec.describe "Items", type: :system do
         include_examples "非ログイン状態で認可が必要なページにアクセスした時のリダイレクトテスト"
       end
 
+      describe "おまかせカテゴリーのアイテムソート順のテスト" do
+        let(:user) { create(:user) }
+        let!(:master_user) { create(:user, :master_admin) }
+        let(:category) { create(:category, name: "おまかせ") }
+        let!(:item1) { create(:item, user: user, category: category, name: "うど", created_at: 3.minutes.ago) }
+        let!(:item2) { create(:item, user: user, category: category, name: "いも", created_at: 2.minutes.ago) }
+        let!(:item3) { create(:item, user: user, category: category, name: "あすぱら", created_at: 1.minutes.ago) }
+
+        before do
+          sign_in_as(user)
+          # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
+          expect(page).to have_content "ログインしました。"
+          visit items_path
+        end
+
+        it "アイテムの表示が作成日時の昇順でソートされること" do
+          expect(page).to have_selector("button.active", text: category.name)
+          within "div.tab-content" do
+            item_spaces = all(".item-space")
+            expect(item_spaces[0]).to have_selector(".item-name-space", text: item1.name)
+            expect(item_spaces[1]).to have_selector(".item-name-space", text: item2.name)
+            expect(item_spaces[2]).to have_selector(".item-name-space", text: item3.name)
+          end
+        end
+      end
+
       describe "ユーザー区分で異なる箇所のテスト" do
         before do
           sign_in_as(user)

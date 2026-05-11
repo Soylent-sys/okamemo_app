@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
 
   def index
     @categories = Category.created_item_categories(current_user.id)
+    @items_by_category = Item.user_items_grouped_by_category(current_user.id)
   end
 
   def new

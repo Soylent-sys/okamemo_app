@@ -33,6 +33,11 @@ class Item < ApplicationRecord
       available_items(user_id).sorted.includes(:category).group_by(&:category)
     end
 
+    # 各カテゴリーでユーザーが作成したアイテムをhiraganaの昇順で取得
+    def user_items_grouped_by_category(user_id)
+      where(user_id: user_id).sorted.includes(:category).group_by(&:category)
+    end
+
     # ransackでの検索・ソートが可能なカラム、アソシエーションのホワイトリスト
     def ransackable_attributes(auth_object = nil)
       ["id", "user_id", "category_id", "name", "hiragana", "created_at", "updated_at"]

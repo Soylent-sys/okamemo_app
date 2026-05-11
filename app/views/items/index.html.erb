@@ -30,7 +30,10 @@
         <% @categories.each_with_index do |category, i| %>
           <div class="tab-pane fade <%= "show active" if i.zero? %>" id="v-pills-<%= i %>" role="tabpanel" aria-labelledby="v-pills-<%= i %>-tab" tabindex="0">
             <div class="row mx-auto my-3">
-              <% my_items(category).each do |item| %>
+              <% items = @items_by_category[category] || [] %>
+              <%#「おまとめ」カテゴリのアイテムのみ作成日時でソートする %>
+              <% items = items.sort_by(&:created_at) if category.name == "おまとめ" %>
+              <% items.each do |item| %>
                 <div class="h5 justify-content-between align-items-center col-md-4 d-flex px-3 py-3 mx-md-2 rounded-2 item-space item-bg">
                   <div class="item-name-space"><%= item.name %></div>
                   <div class="d-sm-flex d-block">

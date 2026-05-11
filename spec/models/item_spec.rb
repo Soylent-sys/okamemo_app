@@ -402,6 +402,46 @@ RSpec.describe Item, type: :model do
     end
   end
 
+  describe ".user_items_grouped_by_category" do
+    context "グルーピングのテスト" do
+      let(:other_user) { create(:user) }
+      let(:category2) { create(:category) }
+      let!(:no_item_category) { create(:category) }
+      let!(:c1_master_user_create_item) { create(:item, user: master_user, category: category) }
+      let!(:c2_master_user_create_item) { create(:item, user: master_user, category: category2) }
+      let!(:c1_user_create_item) { create(:item, user: user, category: category) }
+      let!(:c2_user_create_item) { create(:item, user: user, category: category2) }
+      let!(:c1_other_user_create_item) { create(:item, user: other_user, category: category) }
+      let!(:c2_other_user_create_item) { create(:item, user: other_user, category: category2) }
+
+      it "key:引数ユーザーに紐付くアイテムが存在するカテゴリー value:引数ユーザーに紐付くアイテム のハッシュを返すこと" do
+        hash = Item.user_items_grouped_by_category(user.id)
+
+        expect(hash.keys).to contain_exactly(category, category2)
+        expect(hash[category]).to contain_exactly(c1_user_create_item)
+        expect(hash[category2]).to contain_exactly(c2_user_create_item)
+      end
+    end
+
+    context "ソート順のテスト" do
+      let!(:item1) { create(:item, user: user, category: category, hiragana: "あすぱら") }
+      let!(:item2) { create(:item, user: user, category: category, hiragana: "いも") }
+      let!(:item3) { create(:item, user: user, category: category, hiragana: "うど") }
+
+      it "valueの配列がhiraganaの昇順でソートされていること" do
+        hash = Item.user_items_grouped_by_category(user.id)
+
+        expect(hash[category]).to eq([item1, item2, item3])
+      end
+    end
+
+    context "引数ユーザーに紐付くアイテムが存在しない場合" do
+      it "空の配列を返すこと" do
+        expect(Item.user_items_grouped_by_category(user.id)).to be_empty
+      end
+    end
+  end
+
   describe "アソシエーション" do
     let(:association) { described_class.reflect_on_association(model) }
 
