@@ -7,7 +7,7 @@
 <%= render "shared/back_link" %>
 <%= render "shared/page_title" %>
 <%= render "shared/help_modal" %>
-<% unless @shopping_records.count.zero? %>
+<% unless @shopping_records.size.zero? %>
   <div class="col-xl-7 col-md-9 col-11 py-4 px-sm-2 px-3 my-5 mx-auto rounded-2 shopping-record-window-bg">
     <div class="col-sm-11 text-md-start text-center mx-auto mb-4">
       <h2>お買い物選択</h2>
@@ -32,7 +32,7 @@
       </div>
     <% end %>
   </div>
-  <% if @shopping_records.count == ConstantsHelper::ONE_RECORD %>
+  <% if @shopping_records.size == ConstantsHelper::ONE_RECORD %>
     <div class="one-record-margin"></div>
   <% end %>
 <% else %>
