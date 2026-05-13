@@ -30,12 +30,12 @@ class Item < ApplicationRecord
 
     # 各カテゴリーのユーザー利用可能アイテムをhiraganaの昇順で取得
     def available_items_grouped_by_category(user_id)
-      available_items(user_id).sorted.includes(:category).group_by(&:category)
+      grouped_by_category(available_items(user_id))
     end
 
     # 各カテゴリーでユーザーが作成したアイテムをhiraganaの昇順で取得
     def user_items_grouped_by_category(user_id)
-      where(user_id: user_id).sorted.includes(:category).group_by(&:category)
+      grouped_by_category(where(user_id: user_id))
     end
 
     # ransackでの検索・ソートが可能なカラム、アソシエーションのホワイトリスト
@@ -45,6 +45,13 @@ class Item < ApplicationRecord
 
     def ransackable_associations(auth_object = nil)
       ["category"]
+    end
+
+    private
+
+    # 引数のitemsをcategoryでグルーピングされたハッシュで返す
+    def grouped_by_category(items)
+      items.sorted.includes(:category).group_by(&:category)
     end
   end
 
