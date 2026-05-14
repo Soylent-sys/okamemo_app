@@ -78,20 +78,33 @@ RSpec.describe Category, type: :model do
 
   describe ".created_item_categories" do
     let(:current_user) { create(:user, id: 1) }
-    let(:other_user) { create(:user, id: 2) }
-    let(:category1) { create(:category, id: 1) }
-    let(:category2) { create(:category, id: 2) }
-    let(:category3) { create(:category, id: 3) }
-    # Itemモデル登録時のvalidateメソッドにマスター管理ユーザーが必要
-    let!(:master_user) { create(:user, :master_admin) }
-    let!(:current_user_create_item1) { create(:item, user: current_user, category: category1) }
-    let!(:current_user_create_item2) { create(:item, user: current_user, category: category2) }
-    let!(:other_user_create_item) { create(:item, user: other_user, category: category3) }
 
-    it "引数のidを持つユーザーの作成したアイテムが存在するカテゴリーのみを返すこと" do
-      category = Category.created_item_categories(current_user.id)
+    context "引数ユーザーの作成したアイテムが存在する場合" do
+      let(:other_user) { create(:user, id: 2) }
+      let(:category1) { create(:category, id: 1) }
+      let(:category2) { create(:category, id: 2) }
+      let(:category3) { create(:category, id: 3) }
+      # Itemモデル登録時のvalidateメソッドにマスター管理ユーザーが必要
+      let!(:master_user) { create(:user, :master_admin) }
+      let!(:current_user_create_item1) { create(:item, user: current_user, category: category1) }
+      let!(:current_user_create_item2) { create(:item, user: current_user, category: category2) }
+      let!(:other_user_create_item) { create(:item, user: other_user, category: category3) }
 
-      expect(category).to contain_exactly(category1, category2)
+      it "引数ユーザーの作成したアイテムが存在するカテゴリーを返すこと" do
+        array = Category.created_item_categories(current_user.id)
+
+        expect(array).to contain_exactly(category1, category2)
+      end
+    end
+
+    context "引数ユーザーの作成したアイテムが存在しない場合" do
+      let(:empty_array) { [] }
+
+      it "空の配列を返すこと" do
+        array = Category.created_item_categories(current_user.id)
+
+        expect(array).to eq empty_array
+      end
     end
   end
 
