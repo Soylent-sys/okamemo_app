@@ -83,14 +83,14 @@ RSpec.describe NotificationTargetUser, type: :model do
   describe "enum型カラム confirmation_status" do
     it "有効な認証状態(confirmation_status)が存在すること" do
       enum_hash = { "unconfirmed" => 0, "confirmed" => 1 }
-      expect(NotificationTargetUser.confirmation_statuses).to eq enum_hash
+      expect(NotificationTargetUser.confirmation_statuses).to eq(enum_hash)
     end
 
     describe "デフォルト値" do
       let(:notification_target_user) { NotificationTargetUser.new }
 
       it "認証状態(confirmation_status属性)の値は指定がなければ unconfirmed であること" do
-        expect(notification_target_user.confirmation_status).to eq "unconfirmed"
+        expect(notification_target_user.confirmation_status).to eq("unconfirmed")
       end
     end
 
@@ -156,7 +156,7 @@ RSpec.describe NotificationTargetUser, type: :model do
       token = NotificationTargetUser.confirmation_new_token
 
       expect(token).to be_present
-      expect(token).to match sequre_random_urlsafe_base64_n47_regex
+      expect(token).to match(sequre_random_urlsafe_base64_n47_regex)
     end
 
     context "重複したトークンが生成された場合" do
@@ -167,7 +167,7 @@ RSpec.describe NotificationTargetUser, type: :model do
         allow(SecureRandom).to receive(:urlsafe_base64).and_return("duplicate_token", "duplicate_token", "unique_token")
         token = NotificationTargetUser.confirmation_new_token
 
-        expect(token).to eq "unique_token"
+        expect(token).to eq("unique_token")
         expect(NotificationTargetUser.exists?(confirmation_token: token)).to be_falsey
       end
     end
@@ -280,7 +280,7 @@ RSpec.describe NotificationTargetUser, type: :model do
 
         notification_target_user.reset_email_confirmation
 
-        expect(notification_target_user.confirmation_token).to_not eq "existing_token"
+        expect(notification_target_user.confirmation_token).to_not eq("existing_token")
         expect(notification_target_user.expiration_date).to be > Time.current
       end
 
@@ -369,7 +369,7 @@ RSpec.describe NotificationTargetUser, type: :model do
     context "Userモデルとの関係性" do
       let(:model) { :user }
 
-      it { is_expected.to eq :belongs_to }
+      it { is_expected.to eq(:belongs_to) }
     end
   end
 
@@ -381,7 +381,7 @@ RSpec.describe NotificationTargetUser, type: :model do
 
       it "作成日時が古い順にソートすること" do
         expect(NotificationTargetUser.old_created).
-          to eq [notification_target_user_old, notification_target_user_new, notification_target_user_newest]
+          to eq([notification_target_user_old, notification_target_user_new, notification_target_user_newest])
       end
     end
   end
@@ -396,7 +396,7 @@ RSpec.describe NotificationTargetUser, type: :model do
       expect(hashid).to be_a(String)
       # ハッシュ化したIDを元のIDにデコードできているかを検証
       decode_id = notification_target_user.class.decode_id(hashid)
-      expect(decode_id).to eq notification_target_user.id
+      expect(decode_id).to eq(notification_target_user.id)
     end
   end
 end

@@ -20,7 +20,7 @@ RSpec.describe "Contacts", type: :system do
           click_link "トップページ にもどる"
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq root_path
+          expect(current_path).to eq(root_path)
         end
 
         it "お問い合わせ用のフォームが表示されること" do
@@ -77,7 +77,7 @@ RSpec.describe "Contacts", type: :system do
           before do
             sign_in_as(user)
             # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-            expect(page).to have_content "ログインしました。"
+            expect(page).to have_content("ログインしました。")
             visit contact_path
           end
 
@@ -121,7 +121,7 @@ RSpec.describe "Contacts", type: :system do
           before do
             sign_in_as(user)
             # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-            expect(page).to have_content "ログインしました。"
+            expect(page).to have_content("ログインしました。")
             visit contact_path
           end
 
@@ -136,7 +136,7 @@ RSpec.describe "Contacts", type: :system do
           before do
             sign_in_as(user)
             # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-            expect(page).to have_content "ログインしました。"
+            expect(page).to have_content("ログインしました。")
             visit contact_path
           end
 
@@ -168,66 +168,66 @@ RSpec.describe "Contacts", type: :system do
 
       it "入力画面で入力したお名前が表示されること" do
         within("div.confirm-window", text: "お名前") do
-          expect(page).to have_content "テストユーザー"
+          expect(page).to have_content("テストユーザー")
         end
       end
 
       it "入力画面で入力したEメールアドレスが表示されること" do
         within("div.confirm-window", text: "Eメールアドレス") do
-          expect(page).to have_content "test-user@example.test"
+          expect(page).to have_content("test-user@example.test")
         end
       end
 
       it "入力画面で入力した件名が表示されること" do
         within("div.confirm-window", text: "件名") do
-          expect(page).to have_content "テスト件名"
+          expect(page).to have_content("テスト件名")
         end
       end
 
       it "入力画面で入力したお問い合わせ内容が表示されること" do
         within("div.confirm-window", text: "お問い合わせ内容") do
-          expect(page).to have_content "お問い合わせ内容をテストする"
+          expect(page).to have_content("お問い合わせ内容をテストする")
         end
       end
 
       it "送信ボタンが存在すること" do
-        expect(page).to have_button "送信"
+        expect(page).to have_button("送信")
       end
 
       it "お名前が入力されたhiddenフィールドが存在すること（送信ボタン用）" do
-        expect(find_field("confirm_contact_name", type: "hidden").value).to eq "テストユーザー"
+        expect(find_field("confirm_contact_name", type: "hidden").value).to eq("テストユーザー")
       end
 
       it "Eメールアドレスが入力されたhiddenフィールドが存在すること（送信ボタン用）" do
-        expect(find_field("confirm_contact_email", type: "hidden").value).to eq "test-user@example.test"
+        expect(find_field("confirm_contact_email", type: "hidden").value).to eq("test-user@example.test")
       end
 
       it "件名が入力されたhiddenフィールドが存在すること（送信ボタン用）" do
-        expect(find_field("confirm_contact_subject", type: "hidden").value).to eq "テスト件名"
+        expect(find_field("confirm_contact_subject", type: "hidden").value).to eq("テスト件名")
       end
 
       it "お問い合わせ内容が入力されたhiddenフィールドが存在すること（送信ボタン用）" do
-        expect(find_field("confirm_contact_message", type: "hidden").value).to eq "お問い合わせ内容をテストする"
+        expect(find_field("confirm_contact_message", type: "hidden").value).to eq("お問い合わせ内容をテストする")
       end
 
       it "もどるボタンが存在すること" do
-        expect(page).to have_button "もどる"
+        expect(page).to have_button("もどる")
       end
 
       it "お名前が入力されたhiddenフィールドが存在すること（もどるボタン用）" do
-        expect(find_field("back_contact_name", type: "hidden").value).to eq "テストユーザー"
+        expect(find_field("back_contact_name", type: "hidden").value).to eq("テストユーザー")
       end
 
       it "Eメールアドレスが入力されたhiddenフィールドが存在すること（もどるボタン用）" do
-        expect(find_field("back_contact_email", type: "hidden").value).to eq "test-user@example.test"
+        expect(find_field("back_contact_email", type: "hidden").value).to eq("test-user@example.test")
       end
 
       it "件名が入力されたhiddenフィールドが存在すること（もどるボタン用）" do
-        expect(find_field("back_contact_subject", type: "hidden").value).to eq "テスト件名"
+        expect(find_field("back_contact_subject", type: "hidden").value).to eq("テスト件名")
       end
 
       it "お問い合わせ内容が入力されたhiddenフィールドが存在すること（もどるボタン用）" do
-        expect(find_field("back_contact_message", type: "hidden").value).to eq "お問い合わせ内容をテストする"
+        expect(find_field("back_contact_message", type: "hidden").value).to eq("お問い合わせ内容をテストする")
       end
 
       it "もどるボタンをクリックするとお問い合わせの入力画面に遷移すること" do
@@ -262,7 +262,7 @@ RSpec.describe "Contacts", type: :system do
       end
 
       it "お問い合わせについての対応を示すメッセージが表示されること" do
-        expect(page).to have_content "お問い合わせの内容を確認・受付の後、ご入力いただいたEメールアドレスへご連絡いたします。しばらくお待ちください。"
+        expect(page).to have_content("お問い合わせの内容を確認・受付の後、ご入力いただいたEメールアドレスへご連絡いたします。しばらくお待ちください。")
       end
 
       it "トップページにもどる のリンクが存在すること" do
@@ -273,7 +273,7 @@ RSpec.describe "Contacts", type: :system do
         click_link "トップページにもどる"
 
         expect(page).to have_http_status(:success)
-        expect(current_path).to eq root_path
+        expect(current_path).to eq(root_path)
       end
     end
   end
@@ -304,16 +304,16 @@ RSpec.describe "Contacts", type: :system do
           # 送信内容の確認画面
           expect(page).to have_selector("h2", text: "お問い合わせ内容の確認")
           within("div.confirm-window", text: "お名前") do
-            expect(page).to have_content "テストユーザー"
+            expect(page).to have_content("テストユーザー")
           end
           within("div.confirm-window", text: "Eメールアドレス") do
-            expect(page).to have_content "test-user@example.test"
+            expect(page).to have_content("test-user@example.test")
           end
           within("div.confirm-window", text: "件名") do
-            expect(page).to have_content "テスト件名"
+            expect(page).to have_content("テスト件名")
           end
           within("div.confirm-window", text: "お問い合わせ内容") do
-            expect(page).to have_content "お問い合わせ内容をテストする"
+            expect(page).to have_content("お問い合わせ内容をテストする")
           end
           click_button "送信"
 
@@ -322,14 +322,14 @@ RSpec.describe "Contacts", type: :system do
 
           # 送信されたお問い合わせメール内容
           mail = ActionMailer::Base.deliveries.last
-          expect(mail.to).to include "test-contact-email@example.com"
-          expect(mail.subject).to eq "【お問い合わせ】テスト件名"
-          expect(mail.body.encoded).to include "テストユーザー"
-          expect(mail.body.encoded).to include "test-user@example.test"
-          expect(mail.body.encoded).to include "テスト件名"
-          expect(mail.body.encoded).to include "【ユーザー登録の有無】： 未登録"
-          expect(mail.body.encoded).to include "【ユーザーID】: 未登録"
-          expect(mail.body.encoded).to include "お問い合わせ内容をテストする"
+          expect(mail.to).to include("test-contact-email@example.com")
+          expect(mail.subject).to eq("【お問い合わせ】テスト件名")
+          expect(mail.body.encoded).to include("テストユーザー")
+          expect(mail.body.encoded).to include("test-user@example.test")
+          expect(mail.body.encoded).to include("テスト件名")
+          expect(mail.body.encoded).to include("【ユーザー登録の有無】： 未登録")
+          expect(mail.body.encoded).to include("【ユーザーID】: 未登録")
+          expect(mail.body.encoded).to include("お問い合わせ内容をテストする")
         end
       end
 
@@ -344,7 +344,7 @@ RSpec.describe "Contacts", type: :system do
 
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit contact_path
         end
 
@@ -361,16 +361,16 @@ RSpec.describe "Contacts", type: :system do
           # 送信内容の確認画面
           expect(page).to have_selector("h2", text: "お問い合わせ内容の確認")
           within("div.confirm-window", text: "お名前") do
-            expect(page).to have_content user.name
+            expect(page).to have_content(user.name)
           end
           within("div.confirm-window", text: "Eメールアドレス") do
-            expect(page).to have_content user.email
+            expect(page).to have_content(user.email)
           end
           within("div.confirm-window", text: "件名") do
-            expect(page).to have_content "テスト件名"
+            expect(page).to have_content("テスト件名")
           end
           within("div.confirm-window", text: "お問い合わせ内容") do
-            expect(page).to have_content "お問い合わせ内容をテストする"
+            expect(page).to have_content("お問い合わせ内容をテストする")
           end
           click_button "送信"
 
@@ -379,14 +379,14 @@ RSpec.describe "Contacts", type: :system do
 
           # 送信されたお問い合わせメール内容
           mail = ActionMailer::Base.deliveries.last
-          expect(mail.to).to include "test-contact-email@example.com"
-          expect(mail.subject).to eq "【お問い合わせ】テスト件名"
-          expect(mail.body.encoded).to include user.name
-          expect(mail.body.encoded).to include user.email
-          expect(mail.body.encoded).to include "テスト件名"
-          expect(mail.body.encoded).to include "【ユーザー登録の有無】： 登録済み"
-          expect(mail.body.encoded).to include "【ユーザーID】: #{user.id}"
-          expect(mail.body.encoded).to include "お問い合わせ内容をテストする"
+          expect(mail.to).to include("test-contact-email@example.com")
+          expect(mail.subject).to eq("【お問い合わせ】テスト件名")
+          expect(mail.body.encoded).to include(user.name)
+          expect(mail.body.encoded).to include(user.email)
+          expect(mail.body.encoded).to include("テスト件名")
+          expect(mail.body.encoded).to include("【ユーザー登録の有無】： 登録済み")
+          expect(mail.body.encoded).to include("【ユーザーID】: #{user.id}")
+          expect(mail.body.encoded).to include("お問い合わせ内容をテストする")
         end
       end
 
@@ -404,16 +404,16 @@ RSpec.describe "Contacts", type: :system do
           # 送信内容の確認画面
           expect(page).to have_selector("h2", text: "お問い合わせ内容の確認")
           within("div.confirm-window", text: "お名前") do
-            expect(page).to have_content "テストユーザー"
+            expect(page).to have_content("テストユーザー")
           end
           within("div.confirm-window", text: "Eメールアドレス") do
-            expect(page).to have_content "test-user@example.test"
+            expect(page).to have_content("test-user@example.test")
           end
           within("div.confirm-window", text: "件名") do
-            expect(page).to have_content "テスト件名"
+            expect(page).to have_content("テスト件名")
           end
           within("div.confirm-window", text: "お問い合わせ内容") do
-            expect(page).to have_content "お問い合わせ内容をテストする"
+            expect(page).to have_content("お問い合わせ内容をテストする")
           end
           click_button "もどる"
 
@@ -444,10 +444,10 @@ RSpec.describe "Contacts", type: :system do
         fill_in "お問い合わせ内容", with: ""
         click_button "送信内容の確認"
 
-        expect(page).to have_content "お名前を入力してください。"
-        expect(page).to have_content "Eメールアドレスを入力してください。"
-        expect(page).to have_content "件名を入力してください。"
-        expect(page).to have_content "お問い合わせ内容を入力してください。"
+        expect(page).to have_content("お名前を入力してください。")
+        expect(page).to have_content("Eメールアドレスを入力してください。")
+        expect(page).to have_content("件名を入力してください。")
+        expect(page).to have_content("お問い合わせ内容を入力してください。")
       end
 
       let(:over_length_name) { "a" * 21 }
@@ -459,7 +459,7 @@ RSpec.describe "Contacts", type: :system do
         fill_in "お問い合わせ内容", with: valid_message
         click_button "送信内容の確認"
 
-        expect(page).to have_content "お名前は#{Contact::MAX_LENGTH_NAME}文字以内で入力してください。"
+        expect(page).to have_content("お名前は#{Contact::MAX_LENGTH_NAME}文字以内で入力してください。")
       end
 
       let(:over_length_email) { "#{"a" * 244}@example.com" }
@@ -471,7 +471,7 @@ RSpec.describe "Contacts", type: :system do
         fill_in "お問い合わせ内容", with: valid_message
         click_button "送信内容の確認"
 
-        expect(page).to have_content "Eメールアドレスは#{Contact::MAX_LENGTH_EMAIL}文字以内で入力してください。"
+        expect(page).to have_content("Eメールアドレスは#{Contact::MAX_LENGTH_EMAIL}文字以内で入力してください。")
       end
 
       scenario "メールアドレスのフォーマットが正しくない状態でお問い合わせの送信を試みる" do
@@ -481,7 +481,7 @@ RSpec.describe "Contacts", type: :system do
         fill_in "お問い合わせ内容", with: valid_message
         click_button "送信内容の確認"
 
-        expect(page).to have_content "Eメールアドレスは不正な値です。"
+        expect(page).to have_content("Eメールアドレスは不正な値です。")
       end
 
       let(:over_length_subject) { "あ" * 51 }
@@ -493,7 +493,7 @@ RSpec.describe "Contacts", type: :system do
         fill_in "お問い合わせ内容", with: valid_message
         click_button "送信内容の確認"
 
-        expect(page).to have_content "件名は#{Contact::MAX_LENGTH_SUBJECT}文字以内で入力してください。"
+        expect(page).to have_content("件名は#{Contact::MAX_LENGTH_SUBJECT}文字以内で入力してください。")
       end
 
       let(:over_length_message) { "あ" * 501 }
@@ -505,7 +505,7 @@ RSpec.describe "Contacts", type: :system do
         fill_in "お問い合わせ内容", with: over_length_message
         click_button "送信内容の確認"
 
-        expect(page).to have_content "お問い合わせ内容は#{Contact::MAX_LENGTH_MESSAGE}文字以内で入力してください。"
+        expect(page).to have_content("お問い合わせ内容は#{Contact::MAX_LENGTH_MESSAGE}文字以内で入力してください。")
       end
     end
   end

@@ -25,7 +25,7 @@ RSpec.describe "ShoppingLocations", type: :request do
         expect(response).to redirect_to(shopping_result_group_url)
         follow_redirect!
 
-        expect(flash[:error]).to include "処理中に問題が発生しました。履歴一覧ページに戻ります。"
+        expect(flash[:error]).to include("処理中に問題が発生しました。履歴一覧ページに戻ります。")
       end
     end
   end
@@ -40,7 +40,7 @@ RSpec.describe "ShoppingLocations", type: :request do
         expect(response).to redirect_to(shopping_result_group_url)
         follow_redirect!
 
-        expect(flash[:error]).to include "処理中に問題が発生しました。履歴一覧ページに戻ります。"
+        expect(flash[:error]).to include("処理中に問題が発生しました。履歴一覧ページに戻ります。")
       end
     end
   end

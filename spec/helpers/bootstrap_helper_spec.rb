@@ -7,19 +7,19 @@ RSpec.describe BootstrapHelper, type: :helper do
     context "引数が alert の文字列の場合" do
       let(:message_type) { "alert" }
 
-      it { is_expected.to eq "warning" }
+      it { is_expected.to eq("warning") }
     end
 
     context "引数が notice の文字列の場合" do
       let(:message_type) { "notice" }
 
-      it { is_expected.to eq "success" }
+      it { is_expected.to eq("success") }
     end
 
     context "引数が error の文字列の場合" do
       let(:message_type) { "error" }
 
-      it { is_expected.to eq "danger" }
+      it { is_expected.to eq("danger") }
     end
   end
 
@@ -29,19 +29,19 @@ RSpec.describe BootstrapHelper, type: :helper do
     context "引数が alert の文字列の場合" do
       let(:message_type) { "alert" }
 
-      it { is_expected.to eq "fas fa-circle-exclamation" }
+      it { is_expected.to eq("fas fa-circle-exclamation") }
     end
 
     context "引数が notice の文字列の場合" do
       let(:message_type) { "notice" }
 
-      it { is_expected.to eq "fas fa-circle-check" }
+      it { is_expected.to eq("fas fa-circle-check") }
     end
 
     context "引数が error の文字列の場合" do
       let(:message_type) { "error" }
 
-      it { is_expected.to eq "fas fa-triangle-exclamation" }
+      it { is_expected.to eq("fas fa-triangle-exclamation") }
     end
   end
 end

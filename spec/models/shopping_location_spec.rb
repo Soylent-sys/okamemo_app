@@ -111,7 +111,7 @@ RSpec.describe ShoppingLocation, type: :model do
     context "ShoppingRecordモデルとの関係性" do
       let(:model) { :shopping_record }
 
-      it { is_expected.to eq :belongs_to }
+      it { is_expected.to eq(:belongs_to) }
     end
   end
 
@@ -125,7 +125,7 @@ RSpec.describe ShoppingLocation, type: :model do
       expect(hashid).to be_a(String)
       # ハッシュ化したIDを元のIDにデコードできているかを検証
       decode_id = shopping_location.class.decode_id(hashid)
-      expect(decode_id).to eq shopping_location.id
+      expect(decode_id).to eq(shopping_location.id)
     end
   end
 end

@@ -8,7 +8,7 @@ RSpec.describe NotificationTargetUsersHelper, type: :helper do
       it "disabled の文字列を返すこと" do
         notification_target_users = double("notification_target_users", count: maximum_count)
         result = helper.disabled_if_limited(notification_target_users)
-        expect(result).to eq "disabled"
+        expect(result).to eq("disabled")
       end
     end
 
@@ -16,7 +16,7 @@ RSpec.describe NotificationTargetUsersHelper, type: :helper do
       it "disabled の文字列を返すこと" do
         notification_target_users = double("notification_target_users", count: maximum_count + 1)
         result = helper.disabled_if_limited(notification_target_users)
-        expect(result).to eq "disabled"
+        expect(result).to eq("disabled")
       end
     end
 

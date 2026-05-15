@@ -32,7 +32,7 @@ RSpec.describe "UserPasswords", type: :system do
           end
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq new_user_session_path
+          expect(current_path).to eq(new_user_session_path)
         end
 
         it "未登録ユーザー向けのユーザー登録画面へのリンクが存在すること" do
@@ -47,7 +47,7 @@ RSpec.describe "UserPasswords", type: :system do
           end
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq new_user_registration_path
+          expect(current_path).to eq(new_user_registration_path)
         end
 
         it "確認メール再送画面へのリンクが存在すること" do
@@ -62,7 +62,7 @@ RSpec.describe "UserPasswords", type: :system do
           end
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq new_user_confirmation_path
+          expect(current_path).to eq(new_user_confirmation_path)
         end
       end
 
@@ -72,7 +72,7 @@ RSpec.describe "UserPasswords", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit new_user_password_path
         end
 
@@ -123,7 +123,7 @@ RSpec.describe "UserPasswords", type: :system do
             end
 
             expect(page).to have_http_status(:success)
-            expect(current_path).to eq new_user_session_path
+            expect(current_path).to eq(new_user_session_path)
           end
 
           it "未登録ユーザー向けのユーザー登録画面へのリンクが存在すること" do
@@ -138,7 +138,7 @@ RSpec.describe "UserPasswords", type: :system do
             end
 
             expect(page).to have_http_status(:success)
-            expect(current_path).to eq new_user_registration_path
+            expect(current_path).to eq(new_user_registration_path)
           end
 
           it "確認メール再送画面へのリンクが存在すること" do
@@ -153,7 +153,7 @@ RSpec.describe "UserPasswords", type: :system do
             end
 
             expect(page).to have_http_status(:success)
-            expect(current_path).to eq new_user_confirmation_path
+            expect(current_path).to eq(new_user_confirmation_path)
           end
         end
 
@@ -162,8 +162,8 @@ RSpec.describe "UserPasswords", type: :system do
             # クエリパラメータを付けずにアクセス
             visit edit_user_password_path
 
-            expect(current_path).to eq new_user_session_path
-            expect(page).to have_content "このページにはアクセスできません。パスワード再設定メールのリンクからアクセスされた場合には、URL をご確認ください。"
+            expect(current_path).to eq(new_user_session_path)
+            expect(page).to have_content("このページにはアクセスできません。パスワード再設定メールのリンクからアクセスされた場合には、URL をご確認ください。")
           end
         end
       end
@@ -176,7 +176,7 @@ RSpec.describe "UserPasswords", type: :system do
           token = user.reload.reset_password_token
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           # userのreset_password_tokenをクエリパラメータにパスワード変更ページへアクセス
           visit edit_user_password_path(reset_password_token: token)
         end
@@ -199,12 +199,12 @@ RSpec.describe "UserPasswords", type: :system do
         fill_in "Eメールアドレス", with: user.email
         click_button "パスワード再設定方法の送信"
 
-        expect(page).to have_content "メールアドレスが登録済みの場合、パスワード再設定用のメールが数分以内に送信されます。"
+        expect(page).to have_content("メールアドレスが登録済みの場合、パスワード再設定用のメールが数分以内に送信されます。")
 
         # パスワード再設定メール送信確認
         email = ActionMailer::Base.deliveries.last
-        expect(email.to).to include user.email
-        expect(email.subject).to eq "パスワードの再設定について"
+        expect(email.to).to include(user.email)
+        expect(email.subject).to eq("パスワードの再設定について")
 
         # メール内のURLからアカウント有効化
         reset_password_link = email.body.match(/(https?:\/\/[^\s]+)/)[0]
@@ -218,8 +218,8 @@ RSpec.describe "UserPasswords", type: :system do
           fill_in "user_password_confirmation", with: new_password
           click_button "パスワード変更"
         end.to change { user.reload.encrypted_password }
-        expect(current_path).to eq root_path
-        expect(page).to have_content "パスワードが正しく変更されました。"
+        expect(current_path).to eq(root_path)
+        expect(page).to have_content("パスワードが正しく変更されました。")
         expect(user.valid_password?(new_password)).to be_truthy
       end
     end
@@ -239,8 +239,8 @@ RSpec.describe "UserPasswords", type: :system do
           click_button "パスワード再設定方法の送信"
 
           # Deviseのparanoidモードを使用しているため正常系と同じメッセージが表示される
-          expect(current_path).to eq new_user_session_path
-          expect(page).to have_content "メールアドレスが登録済みの場合、パスワード再設定用のメールが数分以内に送信されます。"
+          expect(current_path).to eq(new_user_session_path)
+          expect(page).to have_content("メールアドレスが登録済みの場合、パスワード再設定用のメールが数分以内に送信されます。")
 
           # メール送信が行われていないことを確認
           expect(ActionMailer::Base.deliveries).to be_empty
@@ -250,8 +250,8 @@ RSpec.describe "UserPasswords", type: :system do
           click_button "パスワード再設定方法の送信"
 
           # Deviseのparanoidモードを使用しているため正常系と同じメッセージが表示される
-          expect(current_path).to eq new_user_session_path
-          expect(page).to have_content "メールアドレスが登録済みの場合、パスワード再設定用のメールが数分以内に送信されます。"
+          expect(current_path).to eq(new_user_session_path)
+          expect(page).to have_content("メールアドレスが登録済みの場合、パスワード再設定用のメールが数分以内に送信されます。")
 
           # メール送信が行われていないことを確認
           expect(ActionMailer::Base.deliveries).to be_empty
@@ -261,8 +261,8 @@ RSpec.describe "UserPasswords", type: :system do
           fill_in "Eメールアドレス", with: guest_user.email
           click_button "パスワード再設定方法の送信"
 
-          expect(current_path).to eq new_user_session_path
-          expect(page).to have_content "ゲストユーザーのパスワード再設定は許可されていません。"
+          expect(current_path).to eq(new_user_session_path)
+          expect(page).to have_content("ゲストユーザーのパスワード再設定は許可されていません。")
 
           # メール送信が行われていないことを確認
           expect(ActionMailer::Base.deliveries).to be_empty
@@ -279,12 +279,12 @@ RSpec.describe "UserPasswords", type: :system do
           visit new_user_password_path
           fill_in "Eメールアドレス", with: user.email
           click_button "パスワード再設定方法の送信"
-          expect(page).to have_content "メールアドレスが登録済みの場合、パスワード再設定用のメールが数分以内に送信されます。"
+          expect(page).to have_content("メールアドレスが登録済みの場合、パスワード再設定用のメールが数分以内に送信されます。")
 
           # パスワード再設定メール送信確認
           email = ActionMailer::Base.deliveries.last
-          expect(email.to).to include user.email
-          expect(email.subject).to eq "パスワードの再設定について"
+          expect(email.to).to include(user.email)
+          expect(email.subject).to eq("パスワードの再設定について")
 
           # メール内のURLからアカウント有効化
           reset_password_link = email.body.match(/(https?:\/\/[^\s]+)/)[0]
@@ -295,8 +295,8 @@ RSpec.describe "UserPasswords", type: :system do
           expect do
             click_button "パスワード変更"
           end.to_not change { user.reload.encrypted_password }
-          expect(current_path).to eq user_password_path
-          expect(page).to have_content "パスワードを入力してください。"
+          expect(current_path).to eq(user_password_path)
+          expect(page).to have_content("パスワードを入力してください。")
           expect(page).to have_selector("h2", text: "パスワードの再設定")
         end
 
@@ -309,8 +309,8 @@ RSpec.describe "UserPasswords", type: :system do
             fill_in "user_password_confirmation", with: lack_length_password
             click_button "パスワード変更"
           end.to_not change { user.reload.encrypted_password }
-          expect(current_path).to eq user_password_path
-          expect(page).to have_content "パスワードは#{Devise.password_length.min}文字以上で入力してください。"
+          expect(current_path).to eq(user_password_path)
+          expect(page).to have_content("パスワードは#{Devise.password_length.min}文字以上で入力してください。")
           expect(page).to have_selector("h2", text: "パスワードの再設定")
         end
 
@@ -323,8 +323,8 @@ RSpec.describe "UserPasswords", type: :system do
             fill_in "user_password_confirmation", with: over_length_password
             click_button "パスワード変更"
           end.to_not change { user.reload.encrypted_password }
-          expect(current_path).to eq user_password_path
-          expect(page).to have_content "パスワードは#{Devise.password_length.max}文字以内で入力してください。"
+          expect(current_path).to eq(user_password_path)
+          expect(page).to have_content("パスワードは#{Devise.password_length.max}文字以内で入力してください。")
           expect(page).to have_selector("h2", text: "パスワードの再設定")
         end
 
@@ -337,8 +337,8 @@ RSpec.describe "UserPasswords", type: :system do
             fill_in "user_password_confirmation", with: invalid_password
             click_button "パスワード変更"
           end.to_not change { user.reload.encrypted_password }
-          expect(current_path).to eq user_password_path
-          expect(page).to have_content "パスワードは不正な値です。"
+          expect(current_path).to eq(user_password_path)
+          expect(page).to have_content("パスワードは不正な値です。")
           expect(page).to have_selector("h2", text: "パスワードの再設定")
         end
 
@@ -349,8 +349,8 @@ RSpec.describe "UserPasswords", type: :system do
             fill_in "user_password_confirmation", with: "DifferentPass123"
             click_button "パスワード変更"
           end.to_not change { user.reload.encrypted_password }
-          expect(current_path).to eq user_password_path
-          expect(page).to have_content "パスワード（確認用）とパスワードの入力が一致しません。"
+          expect(current_path).to eq(user_password_path)
+          expect(page).to have_content("パスワード（確認用）とパスワードの入力が一致しません。")
           expect(page).to have_selector("h2", text: "パスワードの再設定")
         end
       end
@@ -366,12 +366,12 @@ RSpec.describe "UserPasswords", type: :system do
           visit new_user_password_path
           fill_in "Eメールアドレス", with: user.email
           click_button "パスワード再設定方法の送信"
-          expect(page).to have_content "メールアドレスが登録済みの場合、パスワード再設定用のメールが数分以内に送信されます。"
+          expect(page).to have_content("メールアドレスが登録済みの場合、パスワード再設定用のメールが数分以内に送信されます。")
 
           # パスワード再設定メール送信確認
           email = ActionMailer::Base.deliveries.last
-          expect(email.to).to include user.email
-          expect(email.subject).to eq "パスワードの再設定について"
+          expect(email.to).to include(user.email)
+          expect(email.subject).to eq("パスワードの再設定について")
 
           # Deviseに設定している有効期限
           password_reset_expiration = 6.hours
@@ -390,8 +390,8 @@ RSpec.describe "UserPasswords", type: :system do
             end.to_not change { user.reload.encrypted_password }
 
             # パスワードリセット用トークンの有効期限切れを確認
-            expect(current_path).to eq user_password_path
-            expect(page).to have_content "パスワードリセット用トークンの有効期限が切れました。新しくリクエストしてください。"
+            expect(current_path).to eq(user_password_path)
+            expect(page).to have_content("パスワードリセット用トークンの有効期限が切れました。新しくリクエストしてください。")
             expect(page).to have_selector("h2", text: "パスワードの再設定")
           end
         end
@@ -412,8 +412,8 @@ RSpec.describe "UserPasswords", type: :system do
           click_button "パスワード変更"
 
           # パスワードリセット用トークンの有効期限切れを確認
-          expect(current_path).to eq user_password_path
-          expect(page).to have_content "パスワードリセット用トークンは不正な値です。"
+          expect(current_path).to eq(user_password_path)
+          expect(page).to have_content("パスワードリセット用トークンは不正な値です。")
           expect(page).to have_selector("h2", text: "パスワードの再設定")
         end
       end

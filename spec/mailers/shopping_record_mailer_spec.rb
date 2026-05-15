@@ -11,27 +11,27 @@ RSpec.describe ShoppingRecordMailer, type: :mailer do
   describe "#send_shopping_result" do
     shared_examples "メールの基本テスト" do
       it "メールの件名が正しいこと" do
-        expect(mail.subject).to eq "【お知らせ】#{notification_target_user.user.name}さんがお買い物しました！"
+        expect(mail.subject).to eq("【お知らせ】#{notification_target_user.user.name}さんがお買い物しました！")
       end
 
       it "メールの送信先のメールアドレスが正しいこと" do
-        expect(mail.to).to eq [notification_target_user.email]
+        expect(mail.to).to eq([notification_target_user.email])
       end
 
       it "メールの送信元が正しいこと" do
-        expect(mail.from).to eq ["no-reply@okamemo.com"]
+        expect(mail.from).to eq(["no-reply@okamemo.com"])
       end
 
       it "メール本文に通知対象ユーザーの名前が含まれていること" do
-        expect(mail.body.encoded).to include notification_target_user.name
+        expect(mail.body.encoded).to include(notification_target_user.name)
       end
 
       it "メール本文に通知対象ユーザーのメールアドレスが含まれていること" do
-        expect(mail.body.encoded).to include notification_target_user.email
+        expect(mail.body.encoded).to include(notification_target_user.email)
       end
 
       it "メール本文に通知対象ユーザーを登録したユーザー名が含まれていること" do
-        expect(mail.body.encoded).to include notification_target_user.user.name
+        expect(mail.body.encoded).to include(notification_target_user.user.name)
       end
     end
 
@@ -42,15 +42,15 @@ RSpec.describe ShoppingRecordMailer, type: :mailer do
       it_behaves_like "メールの基本テスト"
 
       it "メール本文に購入記録のアイテム名が含まれていること" do
-        expect(mail.body.encoded).to include purchased_buy.item_name, unpurchased_buy.item_name
+        expect(mail.body.encoded).to include(purchased_buy.item_name, unpurchased_buy.item_name)
       end
 
       it "購入済みアイテムが無い事を示す文言が含まれないこと" do
-        expect(mail.body.encoded).to_not include "買ったアイテムはありません"
+        expect(mail.body.encoded).to_not include("買ったアイテムはありません")
       end
 
       it "未購入アイテムが無い事を示す文言が含まれないこと" do
-        expect(mail.body.encoded).to_not include "買わなかったアイテムはありません"
+        expect(mail.body.encoded).to_not include("買わなかったアイテムはありません")
       end
     end
 
@@ -60,15 +60,15 @@ RSpec.describe ShoppingRecordMailer, type: :mailer do
       it_behaves_like "メールの基本テスト"
 
       it "メール本文に購入記録のアイテム名が含まれていること" do
-        expect(mail.body.encoded).to include purchased_buy.item_name
+        expect(mail.body.encoded).to include(purchased_buy.item_name)
       end
 
       it "購入済みアイテムが無い事を示す文言が含まれないこと" do
-        expect(mail.body.encoded).to_not include "買ったアイテムはありません"
+        expect(mail.body.encoded).to_not include("買ったアイテムはありません")
       end
 
       it "未購入アイテムが無い事を示す文言が含まれること" do
-        expect(mail.body.encoded).to include "買わなかったアイテムはありません"
+        expect(mail.body.encoded).to include("買わなかったアイテムはありません")
       end
     end
 
@@ -80,15 +80,15 @@ RSpec.describe ShoppingRecordMailer, type: :mailer do
       it_behaves_like "メールの基本テスト"
 
       it "メール本文に購入記録のアイテム名が含まれていること" do
-        expect(mail.body.encoded).to include unpurchased_buy.item_name
+        expect(mail.body.encoded).to include(unpurchased_buy.item_name)
       end
 
       it "購入済みアイテムが無い事を示す文言が含まれること" do
-        expect(mail.body.encoded).to include "買ったアイテムはありません"
+        expect(mail.body.encoded).to include("買ったアイテムはありません")
       end
 
       it "未購入アイテムが無い事を示す文言が含まれないこと" do
-        expect(mail.body.encoded).to_not include "買わなかったアイテムはありません"
+        expect(mail.body.encoded).to_not include("買わなかったアイテムはありません")
       end
     end
   end

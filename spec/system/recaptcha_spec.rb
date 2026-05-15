@@ -31,7 +31,7 @@ RSpec.describe "Recaptcha", type: :system do
         click_button "ユーザー登録"
       end.to change { User.count }.by(1)
 
-      expect(page).to have_content "本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。"
+      expect(page).to have_content("本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。")
     end
 
     it "reCAPTCHAが有効でなかったときにユーザー登録が許可されないこと" do
@@ -47,7 +47,7 @@ RSpec.describe "Recaptcha", type: :system do
         click_button "ユーザー登録"
       end.to_not change { User.count }
 
-      expect(page).to have_content "reCAPTCHA認証に失敗しました。もう一度お試しください。"
+      expect(page).to have_content("reCAPTCHA認証に失敗しました。もう一度お試しください。")
     end
   end
 
@@ -65,7 +65,7 @@ RSpec.describe "Recaptcha", type: :system do
 
       # お問い合わせ内容の確認ページの表示を確認
       expect(page).to have_selector("h2", text: "お問い合わせ内容の確認")
-      expect(page).to have_button "送信"
+      expect(page).to have_button("送信")
     end
 
     it "reCAPTCHAが有効でなかったときにお問い合わせの投稿が許可されないこと" do
@@ -79,7 +79,7 @@ RSpec.describe "Recaptcha", type: :system do
       fill_in "お問い合わせ内容", with: "お問い合わせ内容をテストする"
       click_button "送信内容の確認"
 
-      expect(page).to have_content "reCAPTCHA認証に失敗しました。もう一度お試しください。"
+      expect(page).to have_content("reCAPTCHA認証に失敗しました。もう一度お試しください。")
     end
   end
 end

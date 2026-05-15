@@ -44,7 +44,7 @@ RSpec.describe "ManagementUsers", type: :system do
         it "検索フォームが表示されること" do
           expect(page).to have_selector("form#user_search")
           expect(page).to have_field("q_name_or_email_cont", type: "search", placeholder: "Email または Name 部分一致")
-          expect(page).to have_button "検索"
+          expect(page).to have_button("検索")
         end
 
         it "ユーザー登録画面へのリンクが存在すること" do
@@ -57,7 +57,7 @@ RSpec.describe "ManagementUsers", type: :system do
           end
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq new_management_user_path
+          expect(current_path).to eq(new_management_user_path)
         end
 
         it "ユーザー一覧テーブルの各見出しが表示されること" do
@@ -103,7 +103,7 @@ RSpec.describe "ManagementUsers", type: :system do
           before do
             sign_in_as(user)
             # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-            expect(page).to have_content "ログインしました。"
+            expect(page).to have_content("ログインしました。")
             visit management_users_path
           end
 
@@ -145,7 +145,7 @@ RSpec.describe "ManagementUsers", type: :system do
             end
 
             expect(page).to have_http_status(:success)
-            expect(current_path).to eq edit_management_user_path(user.id)
+            expect(current_path).to eq(edit_management_user_path(user.id))
           end
 
           it "マスター管理ユーザーの行には削除ボタンが存在しないこと" do
@@ -344,7 +344,7 @@ RSpec.describe "ManagementUsers", type: :system do
               end
 
               expect(page).to have_http_status(:success)
-              expect(current_path).to eq edit_management_user_path(master_user.id)
+              expect(current_path).to eq(edit_management_user_path(master_user.id))
             end
           end
 
@@ -359,8 +359,8 @@ RSpec.describe "ManagementUsers", type: :system do
                 click_link(href: edit_management_user_path(master_user.id))
               end
 
-              expect(page).to have_content "対象のユーザーはマスター管理ユーザーのみ編集可能です。"
-              expect(current_path).to eq management_users_path
+              expect(page).to have_content("対象のユーザーはマスター管理ユーザーのみ編集可能です。")
+              expect(current_path).to eq(management_users_path)
             end
           end
         end
@@ -439,7 +439,7 @@ RSpec.describe "ManagementUsers", type: :system do
           context "2ページ目に移動した場合" do
             before do
               click_link "次"
-              expect(URI.parse(current_url).request_uri).to eq management_users_path(page: 2)
+              expect(URI.parse(current_url).request_uri).to eq(management_users_path(page: 2))
             end
 
             it "51件目のユーザーが表示されること" do
@@ -501,7 +501,7 @@ RSpec.describe "ManagementUsers", type: :system do
           end
 
           it "初期状態では登録済みユーザーの件数が表示されること" do
-            expect(User.count).to eq user_count
+            expect(User.count).to eq(user_count)
             expect(page).to have_selector("h5", text: "件数： #{user_count} 件")
           end
         end
@@ -520,7 +520,7 @@ RSpec.describe "ManagementUsers", type: :system do
 
           it "検索による絞り込み後のユーザー件数が表示されること" do
             # 初期状態のユーザー件数表示を確認
-            expect(User.count).to eq all_user_count
+            expect(User.count).to eq(all_user_count)
             expect(page).to have_selector("h5", text: "件数： #{all_user_count} 件")
 
             # ニックネームによる検索
@@ -541,7 +541,7 @@ RSpec.describe "ManagementUsers", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit management_users_path
         end
 
@@ -573,7 +573,7 @@ RSpec.describe "ManagementUsers", type: :system do
         end
 
         it "戻るリンクが表示されること" do
-          expect(page).to have_link "戻る"
+          expect(page).to have_link("戻る")
         end
 
         it "ユーザー登録フォームが表示されること" do
@@ -629,7 +629,7 @@ RSpec.describe "ManagementUsers", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
         end
 
         include_examples "back_linkによる戻るリンクのテスト"
@@ -641,7 +641,7 @@ RSpec.describe "ManagementUsers", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit new_management_user_path
         end
 
@@ -673,7 +673,7 @@ RSpec.describe "ManagementUsers", type: :system do
         end
 
         it "戻るリンクが表示されること" do
-          expect(page).to have_link "戻る"
+          expect(page).to have_link("戻る")
         end
 
         it "ユーザー編集フォームが表示されること" do
@@ -829,7 +829,7 @@ RSpec.describe "ManagementUsers", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
         end
 
         include_examples "back_linkによる戻るリンクのテスト"
@@ -843,7 +843,7 @@ RSpec.describe "ManagementUsers", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit edit_management_user_path(user.id)
         end
 
@@ -1202,8 +1202,8 @@ RSpec.describe "ManagementUsers", type: :system do
         new_user = User.last
         expect(new_user.admin?).to be_falsey
 
-        expect(page).to have_content "ユーザーの登録が完了しました。"
-        expect(current_path).to eq management_users_path
+        expect(page).to have_content("ユーザーの登録が完了しました。")
+        expect(current_path).to eq(management_users_path)
       end
 
       scenario "管理ユーザーを新規登録する" do
@@ -1220,8 +1220,8 @@ RSpec.describe "ManagementUsers", type: :system do
         new_user = User.last
         expect(new_user.admin?).to be_truthy
 
-        expect(page).to have_content "ユーザーの登録が完了しました。"
-        expect(current_path).to eq management_users_path
+        expect(page).to have_content("ユーザーの登録が完了しました。")
+        expect(current_path).to eq(management_users_path)
       end
     end
 
@@ -1235,9 +1235,9 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "登録"
         end.to_not change { User.count }
 
-        expect(page).to have_content "ニックネームを入力してください。"
-        expect(page).to have_content "Eメールアドレスを入力してください。"
-        expect(page).to have_content "パスワードを入力してください。"
+        expect(page).to have_content("ニックネームを入力してください。")
+        expect(page).to have_content("Eメールアドレスを入力してください。")
+        expect(page).to have_content("パスワードを入力してください。")
       end
 
       let(:over_length_name) { "a" * 21 }
@@ -1252,7 +1252,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "登録"
         end.to_not change { User.count }
 
-        expect(page).to have_content "ニックネームは#{User::MAX_LENGTH_NAME}文字以内で入力してください。"
+        expect(page).to have_content("ニックネームは#{User::MAX_LENGTH_NAME}文字以内で入力してください。")
       end
 
       scenario "既に登録済みのメールアドレスでユーザー登録を試みる" do
@@ -1265,7 +1265,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "登録"
         end.to_not change { User.count }
 
-        expect(page).to have_content "Eメールアドレスはすでに存在します。"
+        expect(page).to have_content("Eメールアドレスはすでに存在します。")
       end
 
       let(:over_length_email) { "#{"a" * 244}@example.com" }
@@ -1280,7 +1280,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "登録"
         end.to_not change { User.count }
 
-        expect(page).to have_content "Eメールアドレスは#{User::MAX_LENGTH_EMAIL}文字以内で入力してください。"
+        expect(page).to have_content("Eメールアドレスは#{User::MAX_LENGTH_EMAIL}文字以内で入力してください。")
       end
 
       scenario "メールアドレスのフォーマットが正しくない状態でユーザー登録を試みる" do
@@ -1293,7 +1293,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "登録"
         end.to_not change { User.count }
 
-        expect(page).to have_content "Eメールアドレスは不正な値です。"
+        expect(page).to have_content("Eメールアドレスは不正な値です。")
       end
 
       let(:lack_length_password) { "pass123" }
@@ -1308,7 +1308,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "登録"
         end.to_not change { User.count }
 
-        expect(page).to have_content "パスワードは#{Devise.password_length.min}文字以上で入力してください。"
+        expect(page).to have_content("パスワードは#{Devise.password_length.min}文字以上で入力してください。")
       end
 
       let(:over_length_password) { "Ab1" * 43 } # 129文字
@@ -1323,7 +1323,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "登録"
         end.to_not change { User.count }
 
-        expect(page).to have_content "パスワードは#{Devise.password_length.max}文字以内で入力してください。"
+        expect(page).to have_content("パスワードは#{Devise.password_length.max}文字以内で入力してください。")
       end
 
       let(:invalid_password) { "password" }
@@ -1338,7 +1338,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "登録"
         end.to_not change { User.count }
 
-        expect(page).to have_content "パスワードは不正な値です。"
+        expect(page).to have_content("パスワードは不正な値です。")
       end
 
       scenario "パスワードとパスワード確認が一致しない状態でユーザー登録を試みる" do
@@ -1351,7 +1351,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "登録"
         end.to_not change { User.count }
 
-        expect(page).to have_content "パスワード（確認用）とパスワードの入力が一致しません。"
+        expect(page).to have_content("パスワード（確認用）とパスワードの入力が一致しません。")
       end
     end
   end
@@ -1380,8 +1380,8 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "更新"
         end.to change { edit_user.reload.admin }.from(false).to(true)
 
-        expect(current_path).to eq management_users_path
-        expect(page).to have_content "ユーザーの更新が完了しました。"
+        expect(current_path).to eq(management_users_path)
+        expect(page).to have_content("ユーザーの更新が完了しました。")
       end
 
       scenario "ユーザーのニックネームを更新する" do
@@ -1391,8 +1391,8 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "更新"
         end.to change { edit_user.reload.name }.from(before_name).to(new_name)
 
-        expect(current_path).to eq management_users_path
-        expect(page).to have_content "ユーザーの更新が完了しました。"
+        expect(current_path).to eq(management_users_path)
+        expect(page).to have_content("ユーザーの更新が完了しました。")
       end
 
       scenario "ユーザーのEメールアドレスを更新する" do
@@ -1402,8 +1402,8 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "更新"
         end.to change { edit_user.reload.email }.from(before_email).to(new_email)
 
-        expect(current_path).to eq management_users_path
-        expect(page).to have_content "ユーザーの更新が完了しました。"
+        expect(current_path).to eq(management_users_path)
+        expect(page).to have_content("ユーザーの更新が完了しました。")
       end
 
       scenario "ユーザーのパスワードを更新する" do
@@ -1417,8 +1417,8 @@ RSpec.describe "ManagementUsers", type: :system do
         end.to change { edit_user.reload.encrypted_password }
         expect(edit_user.valid_password?(new_password)).to be_truthy
 
-        expect(current_path).to eq management_users_path
-        expect(page).to have_content "ユーザーの更新が完了しました。"
+        expect(current_path).to eq(management_users_path)
+        expect(page).to have_content("ユーザーの更新が完了しました。")
       end
 
       scenario "パスワードとパスワード（確認用）のフィールドが空だとパスワードが更新されない" do
@@ -1437,8 +1437,8 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "更新"
         end.to change { edit_user.reload.hiragana_view }.from(false).to(true)
 
-        expect(current_path).to eq management_users_path
-        expect(page).to have_content "ユーザーの更新が完了しました。"
+        expect(current_path).to eq(management_users_path)
+        expect(page).to have_content("ユーザーの更新が完了しました。")
       end
     end
 
@@ -1454,7 +1454,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "更新"
         end.to_not change { edit_user.reload.name }
 
-        expect(page).to have_content "ニックネームを入力してください。"
+        expect(page).to have_content("ニックネームを入力してください。")
         expect(page).to have_selector("h2", text: "編集情報の入力")
       end
 
@@ -1466,7 +1466,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "更新"
         end.to_not change { edit_user.reload.name }
 
-        expect(page).to have_content "ニックネームは#{User::MAX_LENGTH_NAME}文字以内で入力してください。"
+        expect(page).to have_content("ニックネームは#{User::MAX_LENGTH_NAME}文字以内で入力してください。")
         expect(page).to have_selector("h2", text: "編集情報の入力")
       end
 
@@ -1476,7 +1476,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "更新"
         end.to_not change { edit_user.reload.unconfirmed_email }
 
-        expect(page).to have_content "Eメールアドレスを入力してください。"
+        expect(page).to have_content("Eメールアドレスを入力してください。")
         expect(page).to have_selector("h2", text: "編集情報の入力")
       end
 
@@ -1488,7 +1488,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "更新"
         end.to_not change { edit_user.reload.unconfirmed_email }
 
-        expect(page).to have_content "Eメールアドレスは#{User::MAX_LENGTH_EMAIL}文字以内で入力してください。"
+        expect(page).to have_content("Eメールアドレスは#{User::MAX_LENGTH_EMAIL}文字以内で入力してください。")
         expect(page).to have_selector("h2", text: "編集情報の入力")
       end
 
@@ -1498,7 +1498,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "更新"
         end.to_not change { edit_user.reload.unconfirmed_email }
 
-        expect(page).to have_content "Eメールアドレスは不正な値です。"
+        expect(page).to have_content("Eメールアドレスは不正な値です。")
         expect(page).to have_selector("h2", text: "編集情報の入力")
       end
 
@@ -1512,7 +1512,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "更新"
         end.to_not change { edit_user.reload.encrypted_password }
 
-        expect(page).to have_content "パスワードは#{Devise.password_length.min}文字以上で入力してください。"
+        expect(page).to have_content("パスワードは#{Devise.password_length.min}文字以上で入力してください。")
         expect(page).to have_selector("h2", text: "編集情報の入力")
       end
 
@@ -1526,7 +1526,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "更新"
         end.to_not change { edit_user.reload.encrypted_password }
 
-        expect(page).to have_content "パスワードは#{Devise.password_length.max}文字以内で入力してください"
+        expect(page).to have_content("パスワードは#{Devise.password_length.max}文字以内で入力してください")
         expect(page).to have_selector("h2", text: "編集情報の入力")
       end
 
@@ -1540,7 +1540,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "更新"
         end.to_not change { edit_user.reload.encrypted_password }
 
-        expect(page).to have_content "パスワードは不正な値です。"
+        expect(page).to have_content("パスワードは不正な値です。")
         expect(page).to have_selector("h2", text: "編集情報の入力")
       end
     end
@@ -1563,7 +1563,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "更新"
         end.to_not change { guest_user.reload.admin }
 
-        expect(page).to have_content "ユーザー区分は変更できません。ゲストユーザーの権限変更は制限されています。"
+        expect(page).to have_content("ユーザー区分は変更できません。ゲストユーザーの権限変更は制限されています。")
         expect(page).to have_selector("h2", text: "編集情報の入力")
       end
 
@@ -1573,7 +1573,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "更新"
         end.to_not change { guest_user.reload.name }
 
-        expect(page).to have_content "ニックネームは変更できません。ゲストユーザーのニックネーム変更は制限されています。"
+        expect(page).to have_content("ニックネームは変更できません。ゲストユーザーのニックネーム変更は制限されています。")
         expect(page).to have_selector("h2", text: "編集情報の入力")
       end
 
@@ -1583,7 +1583,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "更新"
         end.to_not change { guest_user.reload.email }
 
-        expect(page).to have_content "Eメールアドレスは変更できません。ゲストユーザーのメールアドレス変更は制限されています。"
+        expect(page).to have_content("Eメールアドレスは変更できません。ゲストユーザーのメールアドレス変更は制限されています。")
         expect(page).to have_selector("h2", text: "編集情報の入力")
       end
 
@@ -1595,7 +1595,7 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "更新"
         end.to_not change { guest_user.reload.encrypted_password }
 
-        expect(page).to have_content "パスワードは変更できません。ゲストユーザーのパスワード変更は制限されています。"
+        expect(page).to have_content("パスワードは変更できません。ゲストユーザーのパスワード変更は制限されています。")
         expect(page).to have_selector("h2", text: "編集情報の入力")
       end
     end
@@ -1613,8 +1613,8 @@ RSpec.describe "ManagementUsers", type: :system do
         click_button "更新"
 
         # 更新後メインメニュー画面にリダイレクトする
-        expect(page).to have_content "更新が完了し管理者権限が解除されました。メインメニューにリダイレクトします。"
-        expect(current_path).to eq root_path
+        expect(page).to have_content("更新が完了し管理者権限が解除されました。メインメニューにリダイレクトします。")
+        expect(current_path).to eq(root_path)
         # 管理者機能へのリンクが存在しないことを確認
         expect(page).to_not have_link("管理者機能", href: management_users_path)
         # 管理者機能へのアクセスができないことを確認
@@ -1632,7 +1632,7 @@ RSpec.describe "ManagementUsers", type: :system do
     before do
       sign_in_as(user)
       # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-      expect(page).to have_content "ログインしました。"
+      expect(page).to have_content("ログインしました。")
       visit management_users_path
     end
 
@@ -1653,8 +1653,8 @@ RSpec.describe "ManagementUsers", type: :system do
           click_button "削除する"
         end
 
-        expect(page).to have_content "ユーザーが削除されました。"
-        expect(current_path).to eq management_users_path
+        expect(page).to have_content("ユーザーが削除されました。")
+        expect(current_path).to eq(management_users_path)
       end.to change { User.count }.by(-1)
 
       # 削除したユーザーがDBに存在しないことを確認
@@ -1680,8 +1680,8 @@ RSpec.describe "ManagementUsers", type: :system do
           end
 
           # アカウント削除と同時にログアウトしrootページへリダイレクトする
-          expect(page).to have_content "ログイン中の管理ユーザーが削除されました。再度登録が必要な場合は管理者に依頼してください。"
-          expect(current_path).to eq root_path
+          expect(page).to have_content("ログイン中の管理ユーザーが削除されました。再度登録が必要な場合は管理者に依頼してください。")
+          expect(current_path).to eq(root_path)
 
           within "nav" do
             expect(page).to have_link("ログイン", href: new_user_session_path)

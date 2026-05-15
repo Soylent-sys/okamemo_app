@@ -25,7 +25,7 @@ RSpec.describe "Home", type: :system do
         end
 
         expect(page).to have_http_status(:success)
-        expect(current_path).to eq new_user_registration_path
+        expect(current_path).to eq(new_user_registration_path)
       end
 
       it "アプリの利用が推奨されるケースについて表示されていること" do
@@ -790,7 +790,7 @@ RSpec.describe "Home", type: :system do
         end
 
         expect(page).to have_http_status(:success)
-        expect(current_path).to eq shopping_new_path
+        expect(current_path).to eq(shopping_new_path)
       end
 
       it "お買い物モード画面へ遷移するリンクが存在すること" do
@@ -805,7 +805,7 @@ RSpec.describe "Home", type: :system do
         end
 
         expect(page).to have_http_status(:success)
-        expect(current_path).to eq shopping_index_path
+        expect(current_path).to eq(shopping_index_path)
       end
 
       it "お買い物履歴画面へ遷移するリンクが存在すること" do
@@ -820,7 +820,7 @@ RSpec.describe "Home", type: :system do
         end
 
         expect(page).to have_http_status(:success)
-        expect(current_path).to eq shopping_result_group_path
+        expect(current_path).to eq(shopping_result_group_path)
       end
 
       it "通知対象ユーザー一覧画面へ遷移するリンクが存在すること" do
@@ -835,7 +835,7 @@ RSpec.describe "Home", type: :system do
         end
 
         expect(page).to have_http_status(:success)
-        expect(current_path).to eq notification_target_users_path
+        expect(current_path).to eq(notification_target_users_path)
       end
 
       it "アイテム一覧画面へ遷移するリンクが存在すること" do
@@ -850,7 +850,7 @@ RSpec.describe "Home", type: :system do
         end
 
         expect(page).to have_http_status(:success)
-        expect(current_path).to eq items_path
+        expect(current_path).to eq(items_path)
       end
 
       it "ユーザー編集画面へ遷移するリンクが存在すること" do
@@ -865,7 +865,7 @@ RSpec.describe "Home", type: :system do
         end
 
         expect(page).to have_http_status(:success)
-        expect(current_path).to eq edit_user_registration_path
+        expect(current_path).to eq(edit_user_registration_path)
       end
 
       # ログアウトボタン・モーダルの基本機能テスト用変数
@@ -927,7 +927,7 @@ RSpec.describe "Home", type: :system do
           end
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq management_users_path
+          expect(current_path).to eq(management_users_path)
         end
       end
     end

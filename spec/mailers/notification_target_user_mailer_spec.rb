@@ -14,27 +14,27 @@ RSpec.describe NotificationTargetUserMailer, type: :mailer do
     end
 
     it "メールの件名が正しいこと" do
-      expect(mail.subject).to eq "メールアドレス認証のお願い"
+      expect(mail.subject).to eq("メールアドレス認証のお願い")
     end
 
     it "メールの送信先のメールアドレスが正しいこと" do
-      expect(mail.to).to eq [notification_target_user.email]
+      expect(mail.to).to eq([notification_target_user.email])
     end
 
     it "メールの送信元が正しいこと" do
-      expect(mail.from).to eq ["no-reply@okamemo.com"]
+      expect(mail.from).to eq(["no-reply@okamemo.com"])
     end
 
     it "メール本文に通知対象ユーザーの名前が含まれていること" do
-      expect(mail.body.encoded).to include notification_target_user.name
+      expect(mail.body.encoded).to include(notification_target_user.name)
     end
 
     it "メール本文に通知対象ユーザーのメールアドレスが含まれていること" do
-      expect(mail.body.encoded).to include notification_target_user.email
+      expect(mail.body.encoded).to include(notification_target_user.email)
     end
 
     it "メール本文に通知対象ユーザーを登録したユーザー名が含まれていること" do
-      expect(mail.body.encoded).to include notification_target_user.user.name
+      expect(mail.body.encoded).to include(notification_target_user.user.name)
     end
 
     it "メール本文に正しいURLリンクが含まれていること" do

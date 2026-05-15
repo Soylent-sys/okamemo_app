@@ -10,7 +10,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit shopping_index_path
         end
 
@@ -33,7 +33,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
           click_link "メインメニュー にもどる"
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq root_path
+          expect(current_path).to eq(root_path)
         end
 
         # ヘルプモーダルの基本機能テスト用変数
@@ -65,7 +65,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
         end
 
         context "未完了のお買い物が存在する場合" do
@@ -139,7 +139,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
             end
 
             expect(page).to have_http_status(:success)
-            expect(current_path).to eq shopping_progress_path(unclosed_user_shopping_records[0].hashid)
+            expect(current_path).to eq(shopping_progress_path(unclosed_user_shopping_records[0].hashid))
           end
 
           it "表示中の各お買い物にお買い物削除ボタンが存在すること" do
@@ -239,10 +239,10 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
               end
 
               within ".alert" do
-                expect(page).to have_content "お買い物が削除されました。"
+                expect(page).to have_content("お買い物が削除されました。")
               end
 
-              expect(current_path).to eq shopping_index_path
+              expect(current_path).to eq(shopping_index_path)
             end.to change { ShoppingRecord.count }.by(-1)
 
             # お買い物がDBに存在しないことを確認
@@ -286,7 +286,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit shopping_progress_path(user_shopping_record.hashid)
         end
 
@@ -331,7 +331,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
           click_link "中止"
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq shopping_index_path
+          expect(current_path).to eq(shopping_index_path)
         end
 
         # ヘルプモーダルの基本機能テスト用変数
@@ -370,7 +370,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
             expect(user.hiragana_view).to be_falsey
             sign_in_as(user)
             # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-            expect(page).to have_content "ログインしました。"
+            expect(page).to have_content("ログインしました。")
             visit shopping_progress_path(user_shopping_record.hashid)
           end
 
@@ -390,7 +390,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
             user.update(hiragana_view: true)
             sign_in_as(user)
             # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-            expect(page).to have_content "ログインしました。"
+            expect(page).to have_content("ログインしました。")
             visit shopping_progress_path(user_shopping_record.hashid)
           end
 
@@ -426,7 +426,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
       before do
         sign_in_as(user)
         # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-        expect(page).to have_content "ログインしました。"
+        expect(page).to have_content("ログインしました。")
         visit shopping_progress_path(user_shopping_record.hashid)
       end
 
@@ -474,13 +474,13 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
         it "お買い物hashidが入力されたhiddenフィールドが存在すること（お買い物更新用）" do
           hashid = user_shopping_record.hashid
 
-          expect(find_field("confirm_shopping_record_form_shopping_record_hashid", type: "hidden").value).to eq hashid
+          expect(find_field("confirm_shopping_record_form_shopping_record_hashid", type: "hidden").value).to eq(hashid)
         end
 
         it "お買い物hashidが入力されたhiddenフィールドが存在すること（もどるボタン用）" do
           hashid = user_shopping_record.hashid
 
-          expect(find_field("back_shopping_record_form_shopping_record_hashid", type: "hidden").value).to eq hashid
+          expect(find_field("back_shopping_record_form_shopping_record_hashid", type: "hidden").value).to eq(hashid)
         end
 
         it "OK!ボタンが存在すること" do
@@ -550,7 +550,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
           end
 
           it "買ったアイテムに紐付く購入情報のhashidが入力されたhiddenフィールドが存在すること（OK!ボタン用）" do
-            expect(find_field("confirm_shopping_record_form_hashids_#{buy1.hashid}", type: "hidden").value).to eq buy1.hashid
+            expect(find_field("confirm_shopping_record_form_hashids_#{buy1.hashid}", type: "hidden").value).to eq(buy1.hashid)
           end
 
           it "買わなかったアイテムに紐付く購入情報のhiddenフィールドが存在しないこと（OK!ボタン用）" do
@@ -558,7 +558,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
           end
 
           it "買ったアイテムに紐付く購入情報のhashidが入力されたhiddenフィールドが存在すること（もどるボタン用）" do
-            expect(find_field("back_shopping_record_form_hashids_#{buy1.hashid}", type: "hidden").value).to eq buy1.hashid
+            expect(find_field("back_shopping_record_form_hashids_#{buy1.hashid}", type: "hidden").value).to eq(buy1.hashid)
           end
 
           it "買わなかったアイテムに紐付く購入情報のhiddenフィールドが存在しないこと（もどるボタン用）" do
@@ -607,13 +607,13 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
           end
 
           it "買ったアイテムに紐付く購入情報のhashidが入力されたhiddenフィールドが存在すること（OK!ボタン用）" do
-            expect(find_field("confirm_shopping_record_form_hashids_#{buy1.hashid}", type: "hidden").value).to eq buy1.hashid
-            expect(find_field("confirm_shopping_record_form_hashids_#{buy2.hashid}", type: "hidden").value).to eq buy2.hashid
+            expect(find_field("confirm_shopping_record_form_hashids_#{buy1.hashid}", type: "hidden").value).to eq(buy1.hashid)
+            expect(find_field("confirm_shopping_record_form_hashids_#{buy2.hashid}", type: "hidden").value).to eq(buy2.hashid)
           end
 
           it "買ったアイテムに紐付く購入情報のhashidが入力されたhiddenフィールドが存在すること（もどるボタン用）" do
-            expect(find_field("back_shopping_record_form_hashids_#{buy1.hashid}", type: "hidden").value).to eq buy1.hashid
-            expect(find_field("back_shopping_record_form_hashids_#{buy2.hashid}", type: "hidden").value).to eq buy2.hashid
+            expect(find_field("back_shopping_record_form_hashids_#{buy1.hashid}", type: "hidden").value).to eq(buy1.hashid)
+            expect(find_field("back_shopping_record_form_hashids_#{buy2.hashid}", type: "hidden").value).to eq(buy2.hashid)
           end
         end
       end
@@ -703,13 +703,13 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
       before do
         sign_in_as(user)
         # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-        expect(page).to have_content "ログインしました。"
+        expect(page).to have_content("ログインしました。")
         visit shopping_progress_path(user_shopping_record.hashid)
         # アイテムをチェックせずお買い物内容確認画面へ
         click_button "お買い物完了"
         # お買い物を完了させお買い物場所保存選択画面へ
         click_button "OK!"
-        expect(page).to have_content "お買い物が完了しました。"
+        expect(page).to have_content("お買い物が完了しました。")
       end
 
       # この時点のrequest.pathは/shopping_records/:hashidであり
@@ -742,7 +742,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
         click_link "する"
 
         expect(page).to have_selector("h1", text: "お買い物場所の記録")
-        expect(current_path).to eq new_shopping_location_path(user_shopping_record.hashid)
+        expect(current_path).to eq(new_shopping_location_path(user_shopping_record.hashid))
       end
 
       it "メインメニューへ遷移するリンクが存在すること" do
@@ -753,7 +753,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
         click_link "しない"
 
         expect(page).to have_selector("h1", text: "メインメニュー")
-        expect(current_path).to eq root_path
+        expect(current_path).to eq(root_path)
       end
     end
   end
@@ -777,7 +777,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
     before do
       sign_in_as(user)
       # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-      expect(page).to have_content "ログインしました。"
+      expect(page).to have_content("ログインしました。")
     end
 
     context "正常系", js: true do
@@ -812,7 +812,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
         # お買い物の完了と紐付く購入記録の購入状態の更新を確認
         expect do
           click_button "OK!"
-          expect(page).to have_content "お買い物が完了しました。"
+          expect(page).to have_content("お買い物が完了しました。")
         end.to change { shopping_record.reload.closed }.from(false).to(true).
           and change { shopping_record_buy1.reload.purchased }.from(false).to(true).
           and change { shopping_record_buy2.reload.purchased }.from(false).to(true)
@@ -835,7 +835,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
         # お買い物の完了と紐付く購入記録の購入状態の更新を確認
         expect do
           click_button "OK!"
-          expect(page).to have_content "お買い物が完了しました。"
+          expect(page).to have_content("お買い物が完了しました。")
         end.to change { shopping_record.reload.closed }.from(false).to(true).
           and change { shopping_record_buy1.reload.purchased }.from(false).to(true)
         expect(shopping_record_buy2.reload.purchased).to be_falsey
@@ -858,7 +858,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
         # お買い物の完了と紐付く購入記録の購入状態が更新されないことを確認
         expect do
           click_button "OK!"
-          expect(page).to have_content "お買い物が完了しました。"
+          expect(page).to have_content("お買い物が完了しました。")
         end.to change { shopping_record.reload.closed }.from(false).to(true)
         expect(shopping_record_buy1.reload.purchased).to be_falsey
         expect(shopping_record_buy2.reload.purchased).to be_falsey
@@ -882,27 +882,27 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
         visit shopping_progress_path(closed_shopping_record.hashid)
 
         within ".alert" do
-          expect(page).to have_content "指定されたお買い物は終了しています。"
+          expect(page).to have_content("指定されたお買い物は終了しています。")
         end
-        expect(current_path).to eq shopping_index_path
+        expect(current_path).to eq(shopping_index_path)
       end
 
       scenario "他のユーザーのお買い物のhashidでお買い物モードへのアクセスを試みる" do
         visit shopping_progress_path(other_user_shopping_record.hashid)
 
         within ".alert" do
-          expect(page).to have_content "指定されたお買い物は存在しません。"
+          expect(page).to have_content("指定されたお買い物は存在しません。")
         end
-        expect(current_path).to eq shopping_index_path
+        expect(current_path).to eq(shopping_index_path)
       end
 
       scenario "不正なhashidでお買い物モードへのアクセスを試みる" do
         visit shopping_progress_path("invalid_hashid")
 
         within ".alert" do
-          expect(page).to have_content "指定されたお買い物は存在しません。"
+          expect(page).to have_content("指定されたお買い物は存在しません。")
         end
-        expect(current_path).to eq shopping_index_path
+        expect(current_path).to eq(shopping_index_path)
       end
     end
 
@@ -935,20 +935,20 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
         # 非同期のメール送信を即時実行する
         perform_enqueued_jobs do
           click_button "OK!"
-          expect(page).to have_content "お買い物が完了しました。"
+          expect(page).to have_content("お買い物が完了しました。")
         end
 
         # 通知メール送信回数の確認
-        expect(ActionMailer::Base.deliveries.count).to eq one_send_mail
+        expect(ActionMailer::Base.deliveries.count).to eq(one_send_mail)
 
         # 通知メールの内容確認
         mail = ActionMailer::Base.deliveries.last
-        expect(mail.to).to include confirmed_notification_target_user.email
-        expect(mail.subject).to eq "【お知らせ】#{user.name}さんがお買い物しました！"
-        expect(mail.body.encoded).to include confirmed_notification_target_user.name
-        expect(mail.body.encoded).to include confirmed_notification_target_user.email
-        expect(mail.body.encoded).to include user.name
-        expect(mail.body.encoded).to include shopping_record_buy1.item_name, shopping_record_buy2.item_name
+        expect(mail.to).to include(confirmed_notification_target_user.email)
+        expect(mail.subject).to eq("【お知らせ】#{user.name}さんがお買い物しました！")
+        expect(mail.body.encoded).to include(confirmed_notification_target_user.name)
+        expect(mail.body.encoded).to include(confirmed_notification_target_user.email)
+        expect(mail.body.encoded).to include(user.name)
+        expect(mail.body.encoded).to include(shopping_record_buy1.item_name, shopping_record_buy2.item_name)
       end
     end
   end
@@ -967,7 +967,7 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
     before do
       sign_in_as(user)
       # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-      expect(page).to have_content "ログインしました。"
+      expect(page).to have_content("ログインしました。")
       visit shopping_index_path
     end
 
@@ -985,10 +985,10 @@ RSpec.describe "ShoppingRecordProgresses", type: :system do
         end
 
         within ".alert" do
-          expect(page).to have_content "お買い物が削除されました。"
+          expect(page).to have_content("お買い物が削除されました。")
         end
 
-        expect(current_path).to eq shopping_index_path
+        expect(current_path).to eq(shopping_index_path)
       end.to change { ShoppingRecord.count }.by(-1)
 
       # お買い物がDBに存在しないことを確認

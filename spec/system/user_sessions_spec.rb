@@ -42,7 +42,7 @@ RSpec.describe "UserSessions", type: :system do
           end
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq new_user_registration_path
+          expect(current_path).to eq(new_user_registration_path)
         end
 
         it "パスワード再設定画面へのリンクが存在すること" do
@@ -57,7 +57,7 @@ RSpec.describe "UserSessions", type: :system do
           end
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq new_user_password_path
+          expect(current_path).to eq(new_user_password_path)
         end
 
         it "確認メール再送画面へのリンクが存在すること" do
@@ -72,7 +72,7 @@ RSpec.describe "UserSessions", type: :system do
           end
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq new_user_confirmation_path
+          expect(current_path).to eq(new_user_confirmation_path)
         end
       end
 
@@ -82,7 +82,7 @@ RSpec.describe "UserSessions", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit new_user_session_path
         end
 
@@ -102,8 +102,8 @@ RSpec.describe "UserSessions", type: :system do
         fill_in "パスワード", with: "password123"
         click_button "ログイン"
 
-        expect(page).to have_content "ログインしました。"
-        expect(current_path).to eq root_path
+        expect(page).to have_content("ログインしました。")
+        expect(current_path).to eq(root_path)
       end
     end
 
@@ -122,8 +122,8 @@ RSpec.describe "UserSessions", type: :system do
           fill_in "パスワード", with: "password123"
           click_button "ログイン"
 
-          expect(page).to have_content "Eメールアドレスまたはパスワードが違います。"
-          expect(current_path).to eq new_user_session_path
+          expect(page).to have_content("Eメールアドレスまたはパスワードが違います。")
+          expect(current_path).to eq(new_user_session_path)
         end
 
         scenario "間違ったパスワードでログインを試みる" do
@@ -131,15 +131,15 @@ RSpec.describe "UserSessions", type: :system do
           fill_in "パスワード", with: "WrongPass123"
           click_button "ログイン"
 
-          expect(page).to have_content "Eメールアドレスまたはパスワードが違います。"
-          expect(current_path).to eq new_user_session_path
+          expect(page).to have_content("Eメールアドレスまたはパスワードが違います。")
+          expect(current_path).to eq(new_user_session_path)
         end
 
         scenario "必須フィールドが空の状態でログインを試みる" do
           click_button "ログイン"
 
-          expect(page).to have_content "Eメールアドレスまたはパスワードが違います。"
-          expect(current_path).to eq new_user_session_path
+          expect(page).to have_content("Eメールアドレスまたはパスワードが違います。")
+          expect(current_path).to eq(new_user_session_path)
         end
 
         scenario "未認証のユーザーがログインを試みる" do
@@ -151,8 +151,8 @@ RSpec.describe "UserSessions", type: :system do
           fill_in "パスワード", with: "password111"
           click_button "ログイン"
 
-          expect(page).to have_content "メールアドレスの本人確認が必要です。"
-          expect(current_path).to eq new_user_session_path
+          expect(page).to have_content("メールアドレスの本人確認が必要です。")
+          expect(current_path).to eq(new_user_session_path)
         end
       end
 
@@ -164,8 +164,8 @@ RSpec.describe "UserSessions", type: :system do
           expect(page).to have_content("ログインしました。")
           visit new_user_session_path
 
-          expect(page).to have_content "すでにログインしています。"
-          expect(current_path).to eq root_path
+          expect(page).to have_content("すでにログインしています。")
+          expect(current_path).to eq(root_path)
         end
       end
     end
@@ -189,7 +189,7 @@ RSpec.describe "UserSessions", type: :system do
       check "ログインを記憶する"
       click_button "ログイン"
 
-      expect(page).to have_content "ログインしました。"
+      expect(page).to have_content("ログインしました。")
       expect(user.reload.remember_created_at).to_not be_nil
 
       window_close
@@ -207,7 +207,7 @@ RSpec.describe "UserSessions", type: :system do
       uncheck "ログインを記憶する"
       click_button "ログイン"
 
-      expect(page).to have_content "ログインしました。"
+      expect(page).to have_content("ログインしました。")
       expect(user.reload.remember_created_at).to be_nil
 
       window_close
@@ -225,7 +225,7 @@ RSpec.describe "UserSessions", type: :system do
       check "ログインを記憶する"
       click_button "ログイン"
 
-      expect(page).to have_content "ログインしました。"
+      expect(page).to have_content("ログインしました。")
       expect(user.reload.remember_created_at).to_not be_nil
 
       within "nav" do
@@ -235,7 +235,7 @@ RSpec.describe "UserSessions", type: :system do
       within "#turbo-confirm-modal" do
         click_button "ログアウトする"
       end
-      expect(page).to have_content "ログアウトしました。"
+      expect(page).to have_content("ログアウトしました。")
       expect(user.reload.remember_created_at).to be_nil
 
       window_close
@@ -253,7 +253,7 @@ RSpec.describe "UserSessions", type: :system do
       check "ログインを記憶する"
       click_button "ログイン"
 
-      expect(page).to have_content "ログインしました。"
+      expect(page).to have_content("ログインしました。")
       expect(user.reload.remember_created_at).to_not be_nil
 
       window_close
@@ -281,18 +281,18 @@ RSpec.describe "UserSessions", type: :system do
     context "ログインを記憶しない場合" do
       before do
         sign_in_as(user)
-        expect(page).to have_content "ログインしました。"
+        expect(page).to have_content("ログインしました。")
       end
 
       scenario "ログアウト後に非サインイン時のrootページにリダイレクトする" do
         # rootページからプライバシーポリシーのページに移動
         click_link "プライバシーポリシー"
         expect(page).to have_selector("h1", text: "プライバシーポリシー")
-        expect(current_path).to eq policy_path
+        expect(current_path).to eq(policy_path)
 
         within "nav" do
-          expect(page).to_not have_button "ログイン"
-          expect(page).to have_button "ログアウト"
+          expect(page).to_not have_button("ログイン")
+          expect(page).to have_button("ログアウト")
           click_button "ログアウト"
         end
         expect(page).to have_selector("#turbo-confirm-modal", visible: true)
@@ -300,11 +300,11 @@ RSpec.describe "UserSessions", type: :system do
           click_button "ログアウトする"
         end
 
-        expect(page).to have_content "ログアウトしました。"
-        expect(current_path).to eq root_path
+        expect(page).to have_content("ログアウトしました。")
+        expect(current_path).to eq(root_path)
         within "nav" do
-          expect(page).to_not have_button "ログアウト"
-          expect(page).to have_button "ログイン"
+          expect(page).to_not have_button("ログアウト")
+          expect(page).to have_button("ログイン")
         end
       end
 
@@ -314,11 +314,11 @@ RSpec.describe "UserSessions", type: :system do
           click_link "ユーザー設定"
         end
         expect(page).to have_selector("h2", text: "ユーザー情報の編集")
-        expect(current_path).to eq edit_user_registration_path
+        expect(current_path).to eq(edit_user_registration_path)
 
         within "nav" do
-          expect(page).to_not have_button "ログイン"
-          expect(page).to have_button "ログアウト"
+          expect(page).to_not have_button("ログイン")
+          expect(page).to have_button("ログアウト")
           click_button "ログアウト"
         end
         expect(page).to have_selector("#turbo-confirm-modal", visible: true)
@@ -326,16 +326,16 @@ RSpec.describe "UserSessions", type: :system do
           click_button "ログアウトする"
         end
 
-        expect(page).to have_content "ログアウトしました。"
-        expect(current_path).to eq root_path
+        expect(page).to have_content("ログアウトしました。")
+        expect(current_path).to eq(root_path)
         within "nav" do
-          expect(page).to_not have_button "ログアウト"
-          expect(page).to have_button "ログイン"
+          expect(page).to_not have_button("ログアウト")
+          expect(page).to have_button("ログイン")
         end
 
         visit edit_user_registration_path
-        expect(page).to have_content "ログインもしくはアカウント登録してください。"
-        expect(current_path).to eq new_user_session_path
+        expect(page).to have_content("ログインもしくはアカウント登録してください。")
+        expect(current_path).to eq(new_user_session_path)
       end
     end
 
@@ -347,37 +347,37 @@ RSpec.describe "UserSessions", type: :system do
         fill_in "パスワード", with: user.password
         check "ログインを記憶する"
         click_button "ログイン"
-        expect(page).to have_content "ログインしました。"
+        expect(page).to have_content("ログインしました。")
 
         # 保護されたページに移動
         visit edit_user_registration_path
         expect(page).to have_selector("h2", text: "ユーザー情報の編集")
-        expect(current_path).to eq edit_user_registration_path
+        expect(current_path).to eq(edit_user_registration_path)
 
         # remember_user_token クッキーがセットされていることを確認する
         # ログアウト前の全てのクッキー情報をall_cookies_before_logout変数に格納
         all_cookies_before_logout = page.driver.browser.manage.all_cookies
         # クッキー情報からクッキーの名前の配列を取得
         before_logout_cookies = all_cookies_before_logout.map { |cookie| cookie[:name] }
-        expect(before_logout_cookies).to include "remember_user_token"
+        expect(before_logout_cookies).to include("remember_user_token")
 
         within "nav" do
-          expect(page).to_not have_button "ログイン"
-          expect(page).to have_button "ログアウト"
+          expect(page).to_not have_button("ログイン")
+          expect(page).to have_button("ログアウト")
           click_button "ログアウト"
         end
         expect(page).to have_selector("#turbo-confirm-modal", visible: true)
         within "#turbo-confirm-modal" do
           click_button "ログアウトする"
         end
-        expect(page).to have_content "ログアウトしました。"
+        expect(page).to have_content("ログアウトしました。")
 
         # remember_user_token クッキーが削除されていることを確認する
         # ログアウト前の全てのクッキー情報をall_cookies_before_logout変数に格納
         all_cookies_after_logout = page.driver.browser.manage.all_cookies
         # クッキー情報からクッキーの名前の配列を取得
         after_logout_cookies = all_cookies_after_logout.map { |cookie| cookie[:name] }
-        expect(after_logout_cookies).to_not include "remember_user_token"
+        expect(after_logout_cookies).to_not include("remember_user_token")
       end
     end
   end

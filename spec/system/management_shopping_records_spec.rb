@@ -87,7 +87,7 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
           expect(page).to have_selector("form#shopping_record_search")
           expect(page).to have_field("q_user_id_eq", type: "search", placeholder: "User_ID")
           expect(page).to have_field("q_title_cont", type: "search", placeholder: "Title 部分一致")
-          expect(page).to have_button "検索"
+          expect(page).to have_button("検索")
         end
 
         it "お買い物一覧テーブルの各見出しが表示されること" do
@@ -136,7 +136,7 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
           before do
             sign_in_as(user)
             # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-            expect(page).to have_content "ログインしました。"
+            expect(page).to have_content("ログインしました。")
             visit management_shopping_records_path
           end
 
@@ -178,7 +178,7 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
             end
 
             expect(page).to have_http_status(:success)
-            expect(current_path).to eq management_shopping_record_path(user_shopping_record.id)
+            expect(current_path).to eq(management_shopping_record_path(user_shopping_record.id))
           end
 
           it "お買い物毎の行に削除ボタンが存在すること" do
@@ -438,7 +438,7 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
           context "2ページ目に移動した場合" do
             before do
               click_link "次"
-              expect(URI.parse(current_url).request_uri).to eq management_shopping_records_path(page: 2)
+              expect(URI.parse(current_url).request_uri).to eq(management_shopping_records_path(page: 2))
             end
 
             it "51件目のお買い物が表示されること" do
@@ -497,7 +497,7 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
           end
 
           it "初期状態では登録済みお買い物の件数が表示されること" do
-            expect(ShoppingRecord.count).to eq shopping_record_count
+            expect(ShoppingRecord.count).to eq(shopping_record_count)
             expect(page).to have_selector("h5", text: "件数： #{shopping_record_count} 件")
           end
         end
@@ -517,7 +517,7 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
 
           it "検索による絞り込み後の通知ユーザー件数が表示されること" do
             # 初期状態のお買い物件数表示を確認
-            expect(ShoppingRecord.count).to eq all_shopping_record_count
+            expect(ShoppingRecord.count).to eq(all_shopping_record_count)
             expect(page).to have_selector("h5", text: "件数： #{all_shopping_record_count} 件")
 
             # 親ユーザーIDによる検索
@@ -536,7 +536,7 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit management_shopping_records_path
         end
 
@@ -578,53 +578,53 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
           end
 
           it "戻るリンクが表示されること" do
-            expect(page).to have_link "戻る"
+            expect(page).to have_link("戻る")
           end
 
           it "お買い物のID情報が表示されること" do
             within("div.confirm-window", text: "お買い物ID（ID）") do
-              expect(page).to have_content shopping_record.id
+              expect(page).to have_content(shopping_record.id)
             end
           end
 
           it "お買い物を登録した親ユーザーのID情報が表示されること" do
             within("div.confirm-window", text: "登録ユーザーID（User_id）") do
-              expect(page).to have_content shopping_record.user.id
+              expect(page).to have_content(shopping_record.user.id)
             end
           end
 
           it "お買い物のタイトル情報が表示されること" do
             within("div.confirm-window", text: "お買い物タイトル（Title）") do
-              expect(page).to have_content shopping_record.title
+              expect(page).to have_content(shopping_record.title)
             end
           end
 
           it "お買い物の登録日時（created_at）情報が表示されること" do
             within("div.confirm-window", text: "登録日時（Created_at）") do
-              expect(page).to have_content shopping_record.created_at.to_fs(:date_time)
+              expect(page).to have_content(shopping_record.created_at.to_fs(:date_time))
             end
           end
 
           it "お買い物の完了日時（updated_at）情報が表示されること" do
             within("div.confirm-window", text: "完了日時（Updated_at）") do
-              expect(page).to have_content shopping_record.updated_at.to_fs(:date_time)
+              expect(page).to have_content(shopping_record.updated_at.to_fs(:date_time))
             end
           end
 
           it "お買い物に紐づく購入記録（アイテム名（アイテムひらがな名）〈購入有無〉）の情報が表示されること" do
             within("div.confirm-window", text: "アイテム") do
               within("li", text: purchased_buy.item_name) do
-                expect(page).to have_content "肉"
-                expect(page).to have_content "（にく）"
-                expect(page).to have_content "〈購入〉"
-                expect(page).to_not have_content "〈未購入〉"
+                expect(page).to have_content("肉")
+                expect(page).to have_content("（にく）")
+                expect(page).to have_content("〈購入〉")
+                expect(page).to_not have_content("〈未購入〉")
               end
 
               within("li", text: unpurchased_buy.item_name) do
-                expect(page).to have_content "野菜"
-                expect(page).to have_content "（やさい）"
-                expect(page).to have_content "〈未購入〉"
-                expect(page).to_not have_content "〈購入〉"
+                expect(page).to have_content("野菜")
+                expect(page).to have_content("（やさい）")
+                expect(page).to have_content("〈未購入〉")
+                expect(page).to_not have_content("〈購入〉")
               end
             end
           end
@@ -640,7 +640,7 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
 
           it "お買い物状態（Closed）情報に'未完了'が表示されること" do
             within("div.confirm-window", text: "お買い物状態（Closed）") do
-              expect(page).to have_content "未完了"
+              expect(page).to have_content("未完了")
             end
           end
 
@@ -661,13 +661,13 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
 
           it "お買い物状態（Closed）情報に'完了'が表示されること" do
             within("div.confirm-window", text: "お買い物状態（Closed）") do
-              expect(page).to have_content "完了"
+              expect(page).to have_content("完了")
             end
           end
 
           it "お買い物状態（Closed）情報に'未完了'が表示されないこと" do
             within("div.confirm-window", text: "お買い物状態（Closed）") do
-              expect(page).to_not have_content "未完了"
+              expect(page).to_not have_content("未完了")
             end
           end
         end
@@ -682,7 +682,7 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
 
           it "お買い物した場所の情報に'登録なし'が表示されること" do
             within("div.confirm-window", text: "お買い物した場所") do
-              expect(page).to have_content "登録なし"
+              expect(page).to have_content("登録なし")
             end
           end
 
@@ -711,7 +711,7 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
 
           it "お買い物した場所の情報に'登録なし'が表示されないこと" do
             within("div.confirm-window", text: "お買い物した場所") do
-              expect(page).to_not have_content "登録なし"
+              expect(page).to_not have_content("登録なし")
             end
           end
         end
@@ -754,7 +754,7 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
         end
 
         include_examples "back_linkによる戻るリンクのテスト"
@@ -767,7 +767,7 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit management_shopping_record_path(shopping_record.id)
         end
 
@@ -784,7 +784,7 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
 
           @google_maps_script_id = google_maps_mock_setup
           visit management_shopping_record_path(shopping_record.id)
@@ -798,8 +798,8 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
         it "JavaScript(gon)で設定されたGoogleマップの緯度(lat)・経度(lng)が正しいこと" do
           lat = page.evaluate_script("gon.lat")
           lng = page.evaluate_script("gon.lng")
-          expect(lat).to eq shopping_location.latitude
-          expect(lng).to eq shopping_location.longitude
+          expect(lat).to eq(shopping_location.latitude)
+          expect(lng).to eq(shopping_location.longitude)
         end
 
         it "登録済みのお買い物の緯度・経度でマップが初期化されること" do
@@ -1196,7 +1196,7 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
     before do
       sign_in_as(user)
       # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-      expect(page).to have_content "ログインしました。"
+      expect(page).to have_content("ログインしました。")
       visit management_shopping_records_path
     end
 
@@ -1217,8 +1217,8 @@ RSpec.describe "ManagementShoppingRecords", type: :system do
           click_button "削除する"
         end
 
-        expect(page).to have_content "お買い物の削除が完了しました。"
-        expect(current_path).to eq management_shopping_records_path
+        expect(page).to have_content("お買い物の削除が完了しました。")
+        expect(current_path).to eq(management_shopping_records_path)
       end.to change { ShoppingRecord.count }.by(-1)
 
       # 削除したアイテムがDBに存在しないことを確認

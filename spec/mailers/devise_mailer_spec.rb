@@ -8,16 +8,16 @@ RSpec.describe "Devise Mailer", type: :mailer do
   describe "メールアドレス確認メール" do
     shared_examples "メールアドレス確認メールの共通テスト" do
       it "メールの件名が正しいこと" do
-        expect(mail.subject).to eq "メールアドレス確認メール"
+        expect(mail.subject).to eq("メールアドレス確認メール")
       end
 
       it "メールの送信先のメールアドレスが正しいこと" do
         # テスト先でentry_email変数を定義する
-        expect(mail.to).to eq [entry_email]
+        expect(mail.to).to eq([entry_email])
       end
 
       it "メールの送信元が正しいこと" do
-        expect(mail.from).to eq ["no-reply@okamemo.com"]
+        expect(mail.from).to eq(["no-reply@okamemo.com"])
       end
 
       it "メール本文に正しいURLリンクが含まれていること" do
@@ -27,7 +27,7 @@ RSpec.describe "Devise Mailer", type: :mailer do
 
       it "メール本文に正しい登録メールアドレスが表示されること" do
         # テスト先でentry_email変数を定義する
-        expect(mail.body.encoded).to include "登録メールアドレス： #{entry_email}"
+        expect(mail.body.encoded).to include("登録メールアドレス： #{entry_email}")
       end
     end
 
@@ -75,15 +75,15 @@ RSpec.describe "Devise Mailer", type: :mailer do
     end
 
     it "メールの件名が正しいこと" do
-      expect(mail.subject).to eq "パスワードの再設定について"
+      expect(mail.subject).to eq("パスワードの再設定について")
     end
 
     it "メールの送信先のメールアドレスが正しいこと" do
-      expect(mail.to).to eq [user.email]
+      expect(mail.to).to eq([user.email])
     end
 
     it "メールの送信元が正しいこと" do
-      expect(mail.from).to eq ["no-reply@okamemo.com"]
+      expect(mail.from).to eq(["no-reply@okamemo.com"])
     end
 
     it "メール本文に正しいURLリンクが含まれていること" do

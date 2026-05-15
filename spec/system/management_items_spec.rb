@@ -47,7 +47,7 @@ RSpec.describe "ManagementItems", type: :system do
           expect(page).to have_field("q_user_id_eq", type: "search", placeholder: "User_ID")
           expect(page).to have_field("q_category_id_eq", type: "search", placeholder: "Category_ID")
           expect(page).to have_field("q_name_cont", type: "search", placeholder: "Name 部分一致")
-          expect(page).to have_button "検索"
+          expect(page).to have_button("検索")
         end
 
         it "アイテム登録画面へのリンクが存在すること" do
@@ -60,7 +60,7 @@ RSpec.describe "ManagementItems", type: :system do
           end
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq new_management_item_path
+          expect(current_path).to eq(new_management_item_path)
         end
 
         it "アイテム一覧テーブルの各見出しが表示されること" do
@@ -110,7 +110,7 @@ RSpec.describe "ManagementItems", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit management_items_path
         end
 
@@ -158,7 +158,7 @@ RSpec.describe "ManagementItems", type: :system do
           end
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq edit_management_item_path(item1.id)
+          expect(current_path).to eq(edit_management_item_path(item1.id))
         end
 
         it "アイテム毎の行に削除ボタンが存在すること" do
@@ -320,7 +320,7 @@ RSpec.describe "ManagementItems", type: :system do
           context "2ページ目に移動した場合" do
             before do
               click_link "次"
-              expect(URI.parse(current_url).request_uri).to eq management_items_path(page: 2)
+              expect(URI.parse(current_url).request_uri).to eq(management_items_path(page: 2))
             end
 
             it "51件目のアイテムが表示されること" do
@@ -381,7 +381,7 @@ RSpec.describe "ManagementItems", type: :system do
           end
 
           it "初期状態では登録済みアイテムの件数が表示されること" do
-            expect(Item.count).to eq item_count
+            expect(Item.count).to eq(item_count)
             expect(page).to have_selector("h5", text: "件数： #{item_count} 件")
           end
         end
@@ -401,7 +401,7 @@ RSpec.describe "ManagementItems", type: :system do
 
           it "検索による絞り込み後の通知ユーザー件数が表示されること" do
             # 初期状態のアイテム件数表示を確認
-            expect(Item.count).to eq all_item_count
+            expect(Item.count).to eq(all_item_count)
             expect(page).to have_selector("h5", text: "件数： #{all_item_count} 件")
 
             # カテゴリーIDによる検索
@@ -420,7 +420,7 @@ RSpec.describe "ManagementItems", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit management_items_path
         end
 
@@ -454,7 +454,7 @@ RSpec.describe "ManagementItems", type: :system do
         end
 
         it "戻るリンクが表示されること" do
-          expect(page).to have_link "戻る"
+          expect(page).to have_link("戻る")
         end
 
         it "アイテム登録フォームが表示されること" do
@@ -505,7 +505,7 @@ RSpec.describe "ManagementItems", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
         end
 
         include_examples "back_linkによる戻るリンクのテスト"
@@ -517,7 +517,7 @@ RSpec.describe "ManagementItems", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit new_management_item_path
         end
 
@@ -552,18 +552,18 @@ RSpec.describe "ManagementItems", type: :system do
         end
 
         it "戻るリンクが表示されること" do
-          expect(page).to have_link "戻る"
+          expect(page).to have_link("戻る")
         end
 
         it "編集対象アイテムのIDが表示されること" do
           within("tr", text: "アイテムID") do
-            expect(page).to have_content item.id
+            expect(page).to have_content(item.id)
           end
         end
 
         it "編集対象アイテムの親ユーザーIDが表示されること" do
           within("tr", text: "親ユーザーID") do
-            expect(page).to have_content item.user.id
+            expect(page).to have_content(item.user.id)
           end
         end
 
@@ -624,7 +624,7 @@ RSpec.describe "ManagementItems", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
         end
 
         include_examples "back_linkによる戻るリンクのテスト"
@@ -640,7 +640,7 @@ RSpec.describe "ManagementItems", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit edit_management_item_path(item.id)
         end
 
@@ -1121,8 +1121,8 @@ RSpec.describe "ManagementItems", type: :system do
             click_button "登録"
           end.to change { Item.count }.by(1)
 
-          expect(page).to have_content "アイテムの登録が完了しました。"
-          expect(current_path).to eq management_items_path
+          expect(page).to have_content("アイテムの登録が完了しました。")
+          expect(current_path).to eq(management_items_path)
         end
       end
 
@@ -1137,10 +1137,10 @@ RSpec.describe "ManagementItems", type: :system do
             click_button "登録"
           end.to_not change { Item.count }
 
-          expect(page).to have_content "登録されているユーザーIDを入力してください。"
-          expect(page).to have_content "カテゴリーを入力してください。"
-          expect(page).to have_content "アイテム名を入力してください。"
-          expect(page).to have_content "ひらがな（アイテム名）を入力してください。"
+          expect(page).to have_content("登録されているユーザーIDを入力してください。")
+          expect(page).to have_content("カテゴリーを入力してください。")
+          expect(page).to have_content("アイテム名を入力してください。")
+          expect(page).to have_content("ひらがな（アイテム名）を入力してください。")
         end
 
         let(:invalid_user_id) { 999 }
@@ -1155,7 +1155,7 @@ RSpec.describe "ManagementItems", type: :system do
             click_button "登録"
           end.to_not change { Item.count }
 
-          expect(page).to have_content "登録されているユーザーIDを入力してください。"
+          expect(page).to have_content("登録されているユーザーIDを入力してください。")
         end
 
         let(:over_length_name) { "a" * 21 }
@@ -1170,7 +1170,7 @@ RSpec.describe "ManagementItems", type: :system do
             click_button "登録"
           end.to_not change { Item.count }
 
-          expect(page).to have_content "アイテム名は#{Item::MAX_LENGTH_NAME}文字以内で入力してください。"
+          expect(page).to have_content("アイテム名は#{Item::MAX_LENGTH_NAME}文字以内で入力してください。")
         end
 
         let(:over_length_hiragana) { "あ" * 21 }
@@ -1185,7 +1185,7 @@ RSpec.describe "ManagementItems", type: :system do
             click_button "登録"
           end.to_not change { Item.count }
 
-          expect(page).to have_content "ひらがな（アイテム名）は#{Item::MAX_LENGTH_HIRAGANA}文字以内で入力してください。"
+          expect(page).to have_content("ひらがな（アイテム名）は#{Item::MAX_LENGTH_HIRAGANA}文字以内で入力してください。")
         end
 
         let(:invalid_hiragana) { "テストアイテム壱" }
@@ -1200,7 +1200,7 @@ RSpec.describe "ManagementItems", type: :system do
             click_button "登録"
           end.to_not change { Item.count }
 
-          expect(page).to have_content "ひらがな（アイテム名）の項目は平仮名・半角数字のみ使用してください。"
+          expect(page).to have_content("ひらがな（アイテム名）の項目は平仮名・半角数字のみ使用してください。")
         end
 
         scenario "登録済みのアイテムと同じカテゴリー、アイテム名で登録を試みる" do
@@ -1213,7 +1213,7 @@ RSpec.describe "ManagementItems", type: :system do
             click_button "登録"
           end.to_not change { Item.count }
 
-          expect(page).to have_content "アイテム名は同じカテゴリーの中で二つ以上登録できません。"
+          expect(page).to have_content("アイテム名は同じカテゴリーの中で二つ以上登録できません。")
         end
 
         scenario "登録済みのアイテムと同じカテゴリー、ひらがな（アイテム名）で登録を試みる" do
@@ -1226,7 +1226,7 @@ RSpec.describe "ManagementItems", type: :system do
             click_button "登録"
           end.to_not change { Item.count }
 
-          expect(page).to have_content "ひらがな（アイテム名）は同じカテゴリーの中で二つ以上登録できません。"
+          expect(page).to have_content("ひらがな（アイテム名）は同じカテゴリーの中で二つ以上登録できません。")
         end
 
         scenario "デフォルトアイテム（マスター管理ユーザーの登録アイテム）と同じカテゴリー、アイテム名で登録を試みる" do
@@ -1239,7 +1239,7 @@ RSpec.describe "ManagementItems", type: :system do
             click_button "登録"
           end.to_not change { Item.count }
 
-          expect(page).to have_content "アイテム名が同じカテゴリーに存在するデフォルトアイテムと重複しています。"
+          expect(page).to have_content("アイテム名が同じカテゴリーに存在するデフォルトアイテムと重複しています。")
         end
 
         scenario "デフォルトアイテム（マスター管理ユーザーの登録アイテム）と同じカテゴリー、ひらがな（アイテム名）で登録を試みる" do
@@ -1252,7 +1252,7 @@ RSpec.describe "ManagementItems", type: :system do
             click_button "登録"
           end.to_not change { Item.count }
 
-          expect(page).to have_content "ひらがな（アイテム名）が同じカテゴリーに存在するデフォルトアイテムと重複しています。"
+          expect(page).to have_content("ひらがな（アイテム名）が同じカテゴリーに存在するデフォルトアイテムと重複しています。")
         end
       end
     end
@@ -1277,7 +1277,7 @@ RSpec.describe "ManagementItems", type: :system do
               click_button "登録"
             end.to_not change { Item.count }
 
-            expect(page).to have_content "登録できるアイテムは#{Item::ITEM_MAXIMUM_COUNT}個までです。新しく登録する場合は登録済みアイテムを削除してください。"
+            expect(page).to have_content("登録できるアイテムは#{Item::ITEM_MAXIMUM_COUNT}個までです。新しく登録する場合は登録済みアイテムを削除してください。")
           end
         end
       end
@@ -1302,8 +1302,8 @@ RSpec.describe "ManagementItems", type: :system do
               click_button "登録"
             end.to change { Item.count }.by(1)
 
-            expect(page).to have_content "アイテムの登録が完了しました。"
-            expect(current_path).to eq management_items_path
+            expect(page).to have_content("アイテムの登録が完了しました。")
+            expect(current_path).to eq(management_items_path)
           end
         end
       end
@@ -1328,7 +1328,7 @@ RSpec.describe "ManagementItems", type: :system do
               click_button "登録"
             end.to_not change { Item.count }
 
-            expect(page).to have_content "ゲストユーザーが登録できるアイテムは#{Item::GUEST_ITEM_MAXIMUM_COUNT}個までです。新しく登録する場合は登録済みアイテムを削除してください。"
+            expect(page).to have_content("ゲストユーザーが登録できるアイテムは#{Item::GUEST_ITEM_MAXIMUM_COUNT}個までです。新しく登録する場合は登録済みアイテムを削除してください。")
           end
         end
       end
@@ -1358,8 +1358,8 @@ RSpec.describe "ManagementItems", type: :system do
           click_button "更新"
         end.to change { edit_item.reload.category_id }.from(category1.id).to(category2.id)
 
-        expect(page).to have_content "アイテムの更新が完了しました。"
-        expect(current_path).to eq management_items_path
+        expect(page).to have_content("アイテムの更新が完了しました。")
+        expect(current_path).to eq(management_items_path)
       end
 
       scenario "アイテム名を更新する" do
@@ -1370,8 +1370,8 @@ RSpec.describe "ManagementItems", type: :system do
           click_button "更新"
         end.to change { edit_item.reload.name }.from(before_name).to(new_name)
 
-        expect(page).to have_content "アイテムの更新が完了しました。"
-        expect(current_path).to eq management_items_path
+        expect(page).to have_content("アイテムの更新が完了しました。")
+        expect(current_path).to eq(management_items_path)
       end
 
       scenario "ひらがな（アイテム名）を更新する" do
@@ -1382,8 +1382,8 @@ RSpec.describe "ManagementItems", type: :system do
           click_button "更新"
         end.to change { edit_item.reload.hiragana }.from(before_hiragana).to(new_hiragana)
 
-        expect(page).to have_content "アイテムの更新が完了しました。"
-        expect(current_path).to eq management_items_path
+        expect(page).to have_content("アイテムの更新が完了しました。")
+        expect(current_path).to eq(management_items_path)
       end
     end
 
@@ -1403,7 +1403,7 @@ RSpec.describe "ManagementItems", type: :system do
           click_button "更新"
         end.to_not change { edit_item.reload.name }
 
-        expect(page).to have_content "アイテム名を入力してください。"
+        expect(page).to have_content("アイテム名を入力してください。")
       end
 
       let(:over_length_name) { "a" * 21 }
@@ -1415,7 +1415,7 @@ RSpec.describe "ManagementItems", type: :system do
           click_button "更新"
         end.to_not change { edit_item.reload.name }
 
-        expect(page).to have_content "アイテム名は#{Item::MAX_LENGTH_NAME}文字以内で入力してください。"
+        expect(page).to have_content("アイテム名は#{Item::MAX_LENGTH_NAME}文字以内で入力してください。")
       end
 
       scenario "ひらがな（アイテム名）のフィールドが空の状態でアイテム更新を試みる" do
@@ -1425,7 +1425,7 @@ RSpec.describe "ManagementItems", type: :system do
           click_button "更新"
         end.to_not change { edit_item.reload.hiragana }
 
-        expect(page).to have_content "ひらがな（アイテム名）を入力してください。"
+        expect(page).to have_content("ひらがな（アイテム名）を入力してください。")
       end
 
       let(:over_length_hiragana) { "あ" * 21 }
@@ -1437,7 +1437,7 @@ RSpec.describe "ManagementItems", type: :system do
           click_button "更新"
         end.to_not change { edit_item.reload.hiragana }
 
-        expect(page).to have_content "ひらがな（アイテム名）は#{Item::MAX_LENGTH_HIRAGANA}文字以内で入力してください。"
+        expect(page).to have_content("ひらがな（アイテム名）は#{Item::MAX_LENGTH_HIRAGANA}文字以内で入力してください。")
       end
 
       let(:invalid_hiragana) { "テストアイテム壱" }
@@ -1449,7 +1449,7 @@ RSpec.describe "ManagementItems", type: :system do
           click_button "更新"
         end.to_not change { edit_item.reload.hiragana }
 
-        expect(page).to have_content "ひらがな（アイテム名）の項目は平仮名・半角数字のみ使用してください。"
+        expect(page).to have_content("ひらがな（アイテム名）の項目は平仮名・半角数字のみ使用してください。")
       end
 
       scenario "登録済みのアイテムと同じカテゴリー、アイテム名で更新を試みる" do
@@ -1460,7 +1460,7 @@ RSpec.describe "ManagementItems", type: :system do
           click_button "更新"
         end.to_not change { edit_item.reload.name }
 
-        expect(page).to have_content "アイテム名は同じカテゴリーの中で二つ以上登録できません。"
+        expect(page).to have_content("アイテム名は同じカテゴリーの中で二つ以上登録できません。")
       end
 
       scenario "登録済みのアイテムと同じカテゴリー、ひらがな（アイテム名）で更新を試みる" do
@@ -1471,7 +1471,7 @@ RSpec.describe "ManagementItems", type: :system do
           click_button "更新"
         end.to_not change { edit_item.reload.hiragana }
 
-        expect(page).to have_content "ひらがな（アイテム名）は同じカテゴリーの中で二つ以上登録できません。"
+        expect(page).to have_content("ひらがな（アイテム名）は同じカテゴリーの中で二つ以上登録できません。")
       end
 
       scenario "デフォルトアイテム（マスター管理ユーザーの登録アイテム）と同じカテゴリー、アイテム名で更新を試みる" do
@@ -1482,7 +1482,7 @@ RSpec.describe "ManagementItems", type: :system do
           click_button "更新"
         end.to_not change { edit_item.reload.name }
 
-        expect(page).to have_content "アイテム名が同じカテゴリーに存在するデフォルトアイテムと重複しています。"
+        expect(page).to have_content("アイテム名が同じカテゴリーに存在するデフォルトアイテムと重複しています。")
       end
 
       scenario "デフォルトアイテム（マスター管理ユーザーの登録アイテム）と同じカテゴリー、ひらがな（アイテム名）で更新を試みる" do
@@ -1493,7 +1493,7 @@ RSpec.describe "ManagementItems", type: :system do
           click_button "更新"
         end.to_not change { edit_item.reload.hiragana }
 
-        expect(page).to have_content "ひらがな（アイテム名）が同じカテゴリーに存在するデフォルトアイテムと重複しています。"
+        expect(page).to have_content("ひらがな（アイテム名）が同じカテゴリーに存在するデフォルトアイテムと重複しています。")
       end
     end
   end
@@ -1508,7 +1508,7 @@ RSpec.describe "ManagementItems", type: :system do
     before do
       sign_in_as(user)
       # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-      expect(page).to have_content "ログインしました。"
+      expect(page).to have_content("ログインしました。")
       visit management_items_path
     end
 
@@ -1529,8 +1529,8 @@ RSpec.describe "ManagementItems", type: :system do
           click_button "削除する"
         end
 
-        expect(page).to have_content "アイテムの削除が完了しました。"
-        expect(current_path).to eq management_items_path
+        expect(page).to have_content("アイテムの削除が完了しました。")
+        expect(current_path).to eq(management_items_path)
       end.to change { Item.count }.by(-1)
 
       # 削除したアイテムがDBに存在しないことを確認

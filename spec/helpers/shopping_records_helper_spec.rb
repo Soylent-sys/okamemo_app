@@ -9,7 +9,7 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
 
       it "本日の日付を加えたデフォルトタイトルを返すこと" do
         expected_title = "#{Date.today.to_fs(:date_ja)}のお買い物"
-        expect(helper.shopping_title(shopping_record_form)).to eq expected_title
+        expect(helper.shopping_title(shopping_record_form)).to eq(expected_title)
       end
     end
 
@@ -17,7 +17,7 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
       let(:title) { "テストタイトル" }
 
       it "タイトルの値を返すこと" do
-        expect(helper.shopping_title(shopping_record_form)).to eq "テストタイトル"
+        expect(helper.shopping_title(shopping_record_form)).to eq("テストタイトル")
       end
     end
   end
@@ -25,7 +25,7 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
   describe "#last_bought_day" do
     context "引数がnilの場合" do
       it "\"購入記録なし\"を返すこと" do
-        expect(helper.last_bought_day(nil)).to eq "購入記録なし"
+        expect(helper.last_bought_day(nil)).to eq("購入記録なし")
       end
     end
 
@@ -34,7 +34,7 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
         let(:date) { Time.current }
 
         it "\"今日購入してます\"を返すこと" do
-          expect(helper.last_bought_day(date)).to eq "今日購入してます"
+          expect(helper.last_bought_day(date)).to eq("今日購入してます")
         end
       end
 
@@ -42,7 +42,7 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
         let(:date) { 1.day.ago }
 
         it "\"昨日購入してます\"を返すこと" do
-          expect(helper.last_bought_day(date)).to eq "昨日購入してます"
+          expect(helper.last_bought_day(date)).to eq("昨日購入してます")
         end
       end
 
@@ -54,11 +54,11 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
         let(:date5) { 6.day.ago }
 
         it "購入した日が何日前かを返すこと" do
-          expect(helper.last_bought_day(date1)).to eq "2日前に購入"
-          expect(helper.last_bought_day(date2)).to eq "3日前に購入"
-          expect(helper.last_bought_day(date3)).to eq "4日前に購入"
-          expect(helper.last_bought_day(date4)).to eq "5日前に購入"
-          expect(helper.last_bought_day(date5)).to eq "6日前に購入"
+          expect(helper.last_bought_day(date1)).to eq("2日前に購入")
+          expect(helper.last_bought_day(date2)).to eq("3日前に購入")
+          expect(helper.last_bought_day(date3)).to eq("4日前に購入")
+          expect(helper.last_bought_day(date4)).to eq("5日前に購入")
+          expect(helper.last_bought_day(date5)).to eq("6日前に購入")
         end
       end
 
@@ -67,8 +67,8 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
         let(:date2) { 8.day.ago }
 
         it "購入した日付を返すこと" do
-          expect(helper.last_bought_day(date1)).to eq "#{date1.to_fs(:date_ymd)} 購入"
-          expect(helper.last_bought_day(date2)).to eq "#{date2.to_fs(:date_ymd)} 購入"
+          expect(helper.last_bought_day(date1)).to eq("#{date1.to_fs(:date_ymd)} 購入")
+          expect(helper.last_bought_day(date2)).to eq("#{date2.to_fs(:date_ymd)} 購入")
         end
       end
     end
@@ -79,7 +79,7 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
     # その他が引数に渡されるテストケースは不要
     it "引数オブジェクトのupdated_at属性の値を'%Y年 %-m月'フォーマットに変換すること" do
       shopping_record = double(ShoppingRecord, updated_at: Time.zone.local(2024, 1, 1, 0, 0, 0))
-      expect(helper.updated_at_change_format_ja(shopping_record)).to eq "2024年 1月"
+      expect(helper.updated_at_change_format_ja(shopping_record)).to eq("2024年 1月")
     end
   end
 
@@ -88,7 +88,7 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
     # その他が引数に渡されるテストケースは不要
     it "引数オブジェクトのupdated_at属性の値を'%Y-%m'フォーマットに変換すること" do
       shopping_record = double(ShoppingRecord, updated_at: Time.zone.local(2024, 1, 1, 0, 0, 0))
-      expect(helper.updated_at_change_format_ym(shopping_record)).to eq "2024-01"
+      expect(helper.updated_at_change_format_ym(shopping_record)).to eq("2024-01")
     end
   end
 
@@ -97,7 +97,7 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
     # その他が引数に渡されるテストケースは不要
     it "'%Y-%m'で渡された年月を'%Y年%-m月'の形に変換すること" do
       params_date = "2024-01"
-      expect(helper.date_change_format_ja(params_date)).to eq "2024年1月"
+      expect(helper.date_change_format_ja(params_date)).to eq("2024年1月")
     end
   end
 
@@ -119,14 +119,14 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
       context "引数がカテゴリーの場合" do
         it "カテゴリーのひらがな名を返すこと" do
           expect(user.hiragana_view).to be_truthy
-          expect(helper.display_name_of_category_or_item(category)).to eq "てすとかてごりー"
+          expect(helper.display_name_of_category_or_item(category)).to eq("てすとかてごりー")
         end
       end
 
       context "引数がアイテムの場合" do
         it "アイテムのひらがな名を返すこと" do
           expect(user.hiragana_view).to be_truthy
-          expect(helper.display_name_of_category_or_item(item)).to eq "てすとあいてむ"
+          expect(helper.display_name_of_category_or_item(item)).to eq("てすとあいてむ")
         end
       end
     end
@@ -137,14 +137,14 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
       context "引数がカテゴリーの場合" do
         it "カテゴリー名を返すこと" do
           expect(user.hiragana_view).to be_falsey
-          expect(helper.display_name_of_category_or_item(category)).to eq "テストカテゴリー"
+          expect(helper.display_name_of_category_or_item(category)).to eq("テストカテゴリー")
         end
       end
 
       context "引数がアイテムの場合" do
         it "アイテム名を返すこと" do
           expect(user.hiragana_view).to be_falsey
-          expect(helper.display_name_of_category_or_item(item)).to eq "テストアイテム"
+          expect(helper.display_name_of_category_or_item(item)).to eq("テストアイテム")
         end
       end
     end
@@ -166,7 +166,7 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
 
       it "引数の購入記録のアイテム名（ひらがな）を返すこと" do
         expect(user.hiragana_view).to be_truthy
-        expect(helper.display_item_name_of_buy(buy)).to eq "てすとばい"
+        expect(helper.display_item_name_of_buy(buy)).to eq("てすとばい")
       end
     end
 
@@ -175,7 +175,7 @@ RSpec.describe ShoppingRecordsHelper, type: :helper do
 
       it "引数の購入記録のアイテム名を返すこと" do
         expect(user.hiragana_view).to be_falsey
-        expect(helper.display_item_name_of_buy(buy)).to eq "テストバイ"
+        expect(helper.display_item_name_of_buy(buy)).to eq("テストバイ")
       end
     end
   end

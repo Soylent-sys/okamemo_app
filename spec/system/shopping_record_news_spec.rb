@@ -79,7 +79,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit shopping_new_path
         end
 
@@ -102,7 +102,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
           click_link "メインメニュー にもどる"
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq root_path
+          expect(current_path).to eq(root_path)
         end
 
         it "タイトルを入力するフォームが存在すること" do
@@ -153,14 +153,14 @@ RSpec.describe "ShoppingRecordNews", type: :system do
           click_button category2.name
 
           expect(page).to have_selector("button.active", text: category2.name)
-          expect(c2_user_item.category).to eq category2
+          expect(c2_user_item.category).to eq(category2)
           expect(page).to have_selector(".item-name-space-shopping", text: c2_user_item.name, visible: true)
         end
 
         it "選択しているカテゴリーで別のユーザーが登録したアイテムが表示されないこと", js: true do
           expect(page).to have_selector("button.active", text: category1.name)
 
-          expect(other_user_item.category).to eq category1
+          expect(other_user_item.category).to eq(category1)
           expect(page).to_not have_selector(".item-name-space-shopping", text: other_user_item.name)
         end
 
@@ -190,7 +190,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
           expect(page).to have_selector("button.active", text: category1.name)
 
           within("div.item-space", text: c1_user_item.name) do
-            expect(page).to have_content "購入記録なし"
+            expect(page).to have_content("購入記録なし")
           end
         end
 
@@ -200,7 +200,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
           expect(page).to have_selector("button.active", text: category1.name)
 
           within("div.item-space", text: c1_preset_item1.name) do
-            expect(page).to have_content "今日購入してます"
+            expect(page).to have_content("今日購入してます")
           end
         end
 
@@ -210,7 +210,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
           expect(page).to have_selector("button.active", text: category1.name)
 
           within("div.item-space", text: c1_preset_item2.name) do
-            expect(page).to have_content "昨日購入してます"
+            expect(page).to have_content("昨日購入してます")
           end
         end
 
@@ -220,7 +220,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
           expect(page).to have_selector("button.active", text: category1.name)
 
           within("div.item-space", text: c1_preset_item3.name) do
-            expect(page).to have_content "2日前に購入"
+            expect(page).to have_content("2日前に購入")
           end
         end
 
@@ -230,7 +230,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
           expect(page).to have_selector("button.active", text: category1.name)
 
           within("div.item-space", text: c1_preset_item4.name) do
-            expect(page).to have_content "6日前に購入"
+            expect(page).to have_content("6日前に購入")
           end
         end
 
@@ -240,7 +240,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
           expect(page).to have_selector("button.active", text: category1.name)
 
           within("div.item-space", text: c1_preset_item5.name) do
-            expect(page).to have_content "#{buy_seven_days_ago.updated_at.to_fs(:date_ymd)} 購入"
+            expect(page).to have_content("#{buy_seven_days_ago.updated_at.to_fs(:date_ymd)} 購入")
           end
         end
 
@@ -248,15 +248,15 @@ RSpec.describe "ShoppingRecordNews", type: :system do
 
         it "同じアイテムの購入履歴が複数存在するときは最新の購入日がアイテムに表示されること" do
           # ユーザーの同アイテムの購入履歴が複数存在することを確認
-          expect(user.buys.purchased.where(item_name: c1_preset_item1.name).count).to eq two_records
-          expect(buy_today.item_name).to eq buy_same_item.item_name
+          expect(user.buys.purchased.where(item_name: c1_preset_item1.name).count).to eq(two_records)
+          expect(buy_today.item_name).to eq(buy_same_item.item_name)
           # 最新の購入履歴を確認
           expect(buy_today.updated_at).to be > buy_same_item.updated_at
 
           expect(page).to have_selector("button.active", text: category1.name)
 
           within("div.item-space", text: c1_preset_item1.name) do
-            expect(page).to have_content "今日購入してます"
+            expect(page).to have_content("今日購入してます")
           end
         end
 
@@ -441,7 +441,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit shopping_new_path
         end
 
@@ -465,7 +465,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
           before do
             sign_in_as(user)
             # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-            expect(page).to have_content "ログインしました。"
+            expect(page).to have_content("ログインしました。")
             visit shopping_new_path
           end
 
@@ -486,7 +486,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
           before do
             sign_in_as(user)
             # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-            expect(page).to have_content "ログインしました。"
+            expect(page).to have_content("ログインしました。")
             visit shopping_new_path
           end
 
@@ -513,7 +513,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
             expect(user.hiragana_view).to be_falsey
             sign_in_as(user)
             # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-            expect(page).to have_content "ログインしました。"
+            expect(page).to have_content("ログインしました。")
             visit shopping_new_path
           end
 
@@ -539,7 +539,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
             user.update(hiragana_view: true)
             sign_in_as(user)
             # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-            expect(page).to have_content "ログインしました。"
+            expect(page).to have_content("ログインしました。")
             visit shopping_new_path
           end
 
@@ -576,7 +576,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
       before do
         sign_in_as(user)
         # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-        expect(page).to have_content "ログインしました。"
+        expect(page).to have_content("ログインしました。")
         visit shopping_new_path
 
         # タイトルフィールドにデフォルトタイトルが入力されていることを確認
@@ -626,27 +626,27 @@ RSpec.describe "ShoppingRecordNews", type: :system do
         end
 
         it "お買い物タイトルが入力されたhiddenフィールドが存在すること（登録ボタン用）" do
-          expect(find_field("confirm_shopping_record_form_title", type: "hidden").value).to eq default_title
+          expect(find_field("confirm_shopping_record_form_title", type: "hidden").value).to eq(default_title)
         end
 
         it "アイテムのhashidが入力されたhiddenフィールドが存在すること（登録ボタン用）" do
           hashid1 = c1_preset_item1.hashid
           hashid2 = c2_preset_item.hashid
 
-          expect(find_field("confirm_shopping_record_form_hashids_#{hashid1}", type: "hidden").value).to eq hashid1
-          expect(find_field("confirm_shopping_record_form_hashids_#{hashid2}", type: "hidden").value).to eq hashid2
+          expect(find_field("confirm_shopping_record_form_hashids_#{hashid1}", type: "hidden").value).to eq(hashid1)
+          expect(find_field("confirm_shopping_record_form_hashids_#{hashid2}", type: "hidden").value).to eq(hashid2)
         end
 
         it "お買い物タイトルが入力されたhiddenフィールドが存在すること（もどるボタン用）" do
-          expect(find_field("back_shopping_record_form_title", type: "hidden").value).to eq default_title
+          expect(find_field("back_shopping_record_form_title", type: "hidden").value).to eq(default_title)
         end
 
         it "アイテムのhashidが入力されたhiddenフィールドが存在すること（もどるボタン用）" do
           hashid1 = c1_preset_item1.hashid
           hashid2 = c2_preset_item.hashid
 
-          expect(find_field("back_shopping_record_form_hashids_#{hashid1}", type: "hidden").value).to eq hashid1
-          expect(find_field("back_shopping_record_form_hashids_#{hashid2}", type: "hidden").value).to eq hashid2
+          expect(find_field("back_shopping_record_form_hashids_#{hashid1}", type: "hidden").value).to eq(hashid1)
+          expect(find_field("back_shopping_record_form_hashids_#{hashid2}", type: "hidden").value).to eq(hashid2)
         end
 
         it "お買い物を登録するボタンが存在すること" do
@@ -745,7 +745,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
       before do
         sign_in_as(user)
         # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-        expect(page).to have_content "ログインしました。"
+        expect(page).to have_content("ログインしました。")
       end
 
       context "正常系" do
@@ -775,23 +775,23 @@ RSpec.describe "ShoppingRecordNews", type: :system do
           click_button "登録内容の確認"
           expect(page).to have_selector("h2", text: "登録内容の確認")
           within(".confirm-window", text: "タイトル") do
-            expect(page).to have_content "お買い物テスト"
+            expect(page).to have_content("お買い物テスト")
           end
           within(".confirm-window", text: "買う予定のアイテム") do
-            expect(page).to have_content c1_item1.name
-            expect(page).to have_content c1_item2.name
-            expect(page).to have_content c2_item.name
+            expect(page).to have_content(c1_item1.name)
+            expect(page).to have_content(c1_item2.name)
+            expect(page).to have_content(c2_item.name)
           end
 
           expect do
             click_button "お買い物を登録"
 
-            expect(page).to have_content "お買い物が登録されました。"
-            expect(current_path).to eq root_path
+            expect(page).to have_content("お買い物が登録されました。")
+            expect(current_path).to eq(root_path)
           end.to change { ShoppingRecord.count }.by(1)
 
           shopping_record = ShoppingRecord.last
-          expect(shopping_record.title).to eq "お買い物テスト"
+          expect(shopping_record.title).to eq("お買い物テスト")
           expect(shopping_record.buys.pluck(:item_name)).to include(c1_item1.name, c1_item2.name, c2_item.name)
         end
 
@@ -816,12 +816,12 @@ RSpec.describe "ShoppingRecordNews", type: :system do
           click_button "登録内容の確認"
           expect(page).to have_selector("h2", text: "登録内容の確認")
           within(".confirm-window", text: "タイトル") do
-            expect(page).to have_content "お買い物テスト"
+            expect(page).to have_content("お買い物テスト")
           end
           within(".confirm-window", text: "買う予定のアイテム") do
-            expect(page).to have_content c1_item1.name
-            expect(page).to_not have_content c1_item2.name
-            expect(page).to have_content c2_item.name
+            expect(page).to have_content(c1_item1.name)
+            expect(page).to_not have_content(c1_item2.name)
+            expect(page).to have_content(c2_item.name)
           end
 
           click_button "もどる"
@@ -848,8 +848,8 @@ RSpec.describe "ShoppingRecordNews", type: :system do
             click_button "登録内容の確認"
 
             within ".alert" do
-              expect(page).to have_content "タイトルを入力してください。"
-              expect(page).to have_content "アイテムは#{ShoppingRecordForm::HASHIDS_MINIMUM_SIZE} つ以上選択してください。"
+              expect(page).to have_content("タイトルを入力してください。")
+              expect(page).to have_content("アイテムは#{ShoppingRecordForm::HASHIDS_MINIMUM_SIZE} つ以上選択してください。")
             end
 
             expect(page).to have_field("タイトル", with: default_title)
@@ -865,7 +865,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
             click_button "登録内容の確認"
 
             within ".alert" do
-              expect(page).to have_content "タイトルは#{ShoppingRecord::MAX_LENGTH_TITLE}文字以内で入力してください。"
+              expect(page).to have_content("タイトルは#{ShoppingRecord::MAX_LENGTH_TITLE}文字以内で入力してください。")
             end
           end
         end
@@ -892,7 +892,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
             click_button "登録内容の確認"
 
             within ".alert" do
-              expect(page).to have_content "アイテムのチェック数が#{ShoppingRecordForm::HASHIDS_MAXIMUM_SIZE} 個を超えています。"
+              expect(page).to have_content("アイテムのチェック数が#{ShoppingRecordForm::HASHIDS_MAXIMUM_SIZE} 個を超えています。")
             end
           end
         end
@@ -918,7 +918,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
             click_button "登録内容の確認"
 
             within ".alert" do
-              expect(page).to have_content "お買い物の登録数が最大数（#{ShoppingRecordForm::SHOPPING_REGISTRATION_MAXIMUM_COUNT}つ）に達しています。"
+              expect(page).to have_content("お買い物の登録数が最大数（#{ShoppingRecordForm::SHOPPING_REGISTRATION_MAXIMUM_COUNT}つ）に達しています。")
             end
           end
         end
@@ -955,7 +955,7 @@ RSpec.describe "ShoppingRecordNews", type: :system do
             within "nav" do
               click_button "ゲストログイン"
             end
-            expect(page).to have_content "ゲストユーザーとしてログインしました。"
+            expect(page).to have_content("ゲストユーザーとしてログインしました。")
             visit shopping_new_path
           end
 

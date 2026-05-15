@@ -103,7 +103,7 @@ RSpec.describe Category, type: :model do
       it "空の配列を返すこと" do
         array = Category.created_item_categories(current_user.id)
 
-        expect(array).to eq empty_array
+        expect(array).to eq(empty_array)
       end
     end
   end
@@ -116,7 +116,7 @@ RSpec.describe Category, type: :model do
     context "Itemモデルとの関係性" do
       let(:model) { :items }
 
-      it { is_expected.to eq :has_many }
+      it { is_expected.to eq(:has_many) }
     end
   end
 

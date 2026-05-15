@@ -54,7 +54,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit shopping_result_group_path
         end
 
@@ -77,7 +77,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
           click_link "メインメニュー にもどる"
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq root_path
+          expect(current_path).to eq(root_path)
         end
       end
 
@@ -93,7 +93,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
         end
 
         context "完了状態のお買い物が存在する場合" do
@@ -152,7 +152,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
           it "同月内に完了したお買い物が複数存在しても年月別のリンクは一つであること" do
             shopping_closed_time1 = closed_user_shopping_records[0].updated_at
             shopping_closed_time2 = closed_user_shopping_records[1].updated_at
-            expect(shopping_closed_time1).to eq shopping_closed_time2
+            expect(shopping_closed_time1).to eq(shopping_closed_time2)
             link_text = shopping_closed_time1.to_fs(:month_ja)
             link_path = shopping_result_path(shopping_closed_time1.to_fs(:date_ym))
 
@@ -167,7 +167,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
             click_link link_text
 
             expect(page).to have_http_status(:success)
-            expect(current_path).to eq link_path
+            expect(current_path).to eq(link_path)
           end
 
           it "未完了状態のお買い物の更新年月が表記されたリンクが存在しないこと" do
@@ -213,7 +213,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
         end
 
         context "月を跨ぐお買い物履歴が10件以下の場合" do
@@ -296,7 +296,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
           context "2ページ目に移動した場合" do
             before do
               click_link "次"
-              expect(URI.parse(current_url).request_uri).to eq shopping_result_group_path(page: 2)
+              expect(URI.parse(current_url).request_uri).to eq(shopping_result_group_path(page: 2))
             end
 
             it "11件目の完了年月のリンクが存在すること" do
@@ -382,7 +382,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit shopping_result_path(date: time_current.to_fs(:date_ym))
         end
 
@@ -405,7 +405,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
           click_link "年月選択 にもどる"
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq shopping_result_group_path
+          expect(current_path).to eq(shopping_result_group_path)
         end
 
         it "年月履歴の一覧 の項目が表示されること" do
@@ -434,7 +434,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
           end
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq shopping_results_path(closed_user_shopping_record.hashid)
+          expect(current_path).to eq(shopping_results_path(closed_user_shopping_record.hashid))
         end
 
         it "お買い物履歴の削除ボタンが存在すること" do
@@ -532,10 +532,10 @@ RSpec.describe "ShoppingRecordResults", type: :system do
             end
 
             within ".alert" do
-              expect(page).to have_content "お買い物履歴が削除されました。"
+              expect(page).to have_content("お買い物履歴が削除されました。")
             end
 
-            expect(current_path).to eq shopping_result_group_path
+            expect(current_path).to eq(shopping_result_group_path)
           end.to change { ShoppingRecord.count }.by(-1)
 
           # お買い物履歴がDBに存在しないことを確認
@@ -580,13 +580,13 @@ RSpec.describe "ShoppingRecordResults", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit shopping_result_path(date: time_current.to_fs(:date_ym))
         end
 
         it "お買い物履歴の年月選択画面にリダイレクトすること" do
-          expect(page).to have_content "指定した年月のお買い物履歴は存在しません。"
-          expect(current_path).to eq shopping_result_group_path
+          expect(page).to have_content("指定した年月のお買い物履歴は存在しません。")
+          expect(current_path).to eq(shopping_result_group_path)
         end
       end
 
@@ -594,7 +594,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
         end
 
         context "お買物履歴が1件の場合" do
@@ -635,8 +635,8 @@ RSpec.describe "ShoppingRecordResults", type: :system do
           it "お買物履歴の新旧を示すガイドが表示されること" do
             expect(page).to have_selector("div.latest-oldest-icon")
             within "div.latest-oldest-icon" do
-              expect(page).to have_content "新"
-              expect(page).to have_content "古"
+              expect(page).to have_content("新")
+              expect(page).to have_content("古")
             end
           end
         end
@@ -657,7 +657,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
         end
 
         context "お買い物履歴が10件以下の場合" do
@@ -721,7 +721,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
           context "2ページ目に移動した場合" do
             before do
               click_link "次"
-              expect(URI.parse(current_url).request_uri).to eq shopping_result_path(date: params_date_ym, page: 2)
+              expect(URI.parse(current_url).request_uri).to eq(shopping_result_path(date: params_date_ym, page: 2))
             end
 
             it "11件目のお買い物履歴が存在すること" do
@@ -784,7 +784,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
           before do
             sign_in_as(user)
             # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-            expect(page).to have_content "ログインしました。"
+            expect(page).to have_content("ログインしました。")
             visit shopping_results_path(user_shopping_record.hashid)
           end
 
@@ -803,7 +803,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
             click_link "履歴一覧 にもどる"
 
             expect(page).to have_http_status(:success)
-            expect(current_path).to eq shopping_result_path(user_shopping_record.updated_at.to_fs(:date_ym))
+            expect(current_path).to eq(shopping_result_path(user_shopping_record.updated_at.to_fs(:date_ym)))
           end
 
           it "ページタイトルが表示されること" do
@@ -880,7 +880,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
         end
 
         context "買ったアイテムと買わなかったアイテムがある場合" do
@@ -1001,7 +1001,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
         end
 
         context "ひらがなモードOFF（デフォルト）の場合" do
@@ -1072,7 +1072,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
         end
 
         context "お買い物場所が登録されていない場合" do
@@ -1099,7 +1099,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
             end
 
             expect(page).to have_http_status(:success)
-            expect(current_path).to eq new_shopping_location_path(user_shopping_record.hashid)
+            expect(current_path).to eq(new_shopping_location_path(user_shopping_record.hashid))
           end
 
           it "お買い物場所編集画面へのリンクが存在しないこと" do
@@ -1156,7 +1156,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
             end
 
             expect(page).to have_http_status(:success)
-            expect(current_path).to eq edit_shopping_location_path(user_shopping_record.hashid)
+            expect(current_path).to eq(edit_shopping_location_path(user_shopping_record.hashid))
           end
 
           it "お買い物場所削除ボタンが存在すること" do
@@ -1254,10 +1254,10 @@ RSpec.describe "ShoppingRecordResults", type: :system do
               end
 
               within ".alert" do
-                expect(page).to have_content "お買い物場所が削除されました。"
+                expect(page).to have_content("お買い物場所が削除されました。")
               end
 
-              expect(current_path).to eq shopping_results_path(user_shopping_record.hashid)
+              expect(current_path).to eq(shopping_results_path(user_shopping_record.hashid))
             end.to change { ShoppingLocation.count }.by(-1)
 
             # お買い物場所がDBに存在しないことを確認
@@ -1290,7 +1290,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
 
           @google_maps_script_id = google_maps_mock_setup
           visit shopping_results_path(shopping_record.hashid)
@@ -1304,8 +1304,8 @@ RSpec.describe "ShoppingRecordResults", type: :system do
         it "JavaScript(gon)で設定されたGoogleマップの緯度(lat)・経度(lng)が正しいこと" do
           lat = page.evaluate_script("gon.lat")
           lng = page.evaluate_script("gon.lng")
-          expect(lat).to eq shopping_location.latitude
-          expect(lng).to eq shopping_location.longitude
+          expect(lat).to eq(shopping_location.latitude)
+          expect(lng).to eq(shopping_location.longitude)
         end
 
         it "登録済みのお買い物の緯度・経度でマップが初期化されること" do
@@ -1346,7 +1346,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
     before do
       sign_in_as(user)
       # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-      expect(page).to have_content "ログインしました。"
+      expect(page).to have_content("ログインしました。")
       visit shopping_result_group_path
     end
 
@@ -1411,27 +1411,27 @@ RSpec.describe "ShoppingRecordResults", type: :system do
         visit shopping_results_path(unclosed_shopping_record.hashid)
 
         within ".alert" do
-          expect(page).to have_content "指定されたお買い物履歴は存在しません。"
+          expect(page).to have_content("指定されたお買い物履歴は存在しません。")
         end
-        expect(current_path).to eq shopping_result_group_path
+        expect(current_path).to eq(shopping_result_group_path)
       end
 
       scenario "他のユーザーの完了状態のお買い物のhashidでお買い物履歴へのアクセスを試みる" do
         visit shopping_results_path(other_user_shopping_record.hashid)
 
         within ".alert" do
-          expect(page).to have_content "指定されたお買い物履歴は存在しません。"
+          expect(page).to have_content("指定されたお買い物履歴は存在しません。")
         end
-        expect(current_path).to eq shopping_result_group_path
+        expect(current_path).to eq(shopping_result_group_path)
       end
 
       scenario "不正なhashidでお買い物履歴へのアクセスを試みる" do
         visit shopping_results_path("invalid_hashid")
 
         within ".alert" do
-          expect(page).to have_content "指定されたお買い物履歴は存在しません。"
+          expect(page).to have_content("指定されたお買い物履歴は存在しません。")
         end
-        expect(current_path).to eq shopping_result_group_path
+        expect(current_path).to eq(shopping_result_group_path)
       end
     end
   end
@@ -1453,7 +1453,7 @@ RSpec.describe "ShoppingRecordResults", type: :system do
     before do
       sign_in_as(user)
       # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-      expect(page).to have_content "ログインしました。"
+      expect(page).to have_content("ログインしました。")
       visit shopping_result_group_path
 
       # 月別履歴一覧画面へ遷移する
@@ -1475,10 +1475,10 @@ RSpec.describe "ShoppingRecordResults", type: :system do
         end
 
         within ".alert" do
-          expect(page).to have_content "お買い物履歴が削除されました。"
+          expect(page).to have_content("お買い物履歴が削除されました。")
         end
 
-        expect(current_path).to eq shopping_result_group_path
+        expect(current_path).to eq(shopping_result_group_path)
       end.to change { ShoppingRecord.count }.by(-1)
 
       # お買い物履歴がDBに存在しないことを確認

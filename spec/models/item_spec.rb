@@ -274,7 +274,7 @@ RSpec.describe Item, type: :model do
       let(:other_user) { create(:user) }
 
       before do
-        expect(user.id).to_not eq other_user.id
+        expect(user.id).to_not eq(other_user.id)
       end
 
       it "別の一般ユーザーが同じアイテム名を使うことを許可すること" do
@@ -316,7 +316,7 @@ RSpec.describe Item, type: :model do
       let(:other_category) { create(:category) }
 
       before do
-        expect(category.id).to_not eq other_category.id
+        expect(category.id).to_not eq(other_category.id)
       end
 
       it "別のカテゴリーであれば同じアイテム名を使うことを許可すること" do
@@ -450,13 +450,13 @@ RSpec.describe Item, type: :model do
     context "Userモデルとの関係性" do
       let(:model) { :user }
 
-      it { is_expected.to eq :belongs_to }
+      it { is_expected.to eq(:belongs_to) }
     end
 
     context "Categoryモデルとの関係性" do
       let(:model) { :category }
 
-      it { is_expected.to eq :belongs_to }
+      it { is_expected.to eq(:belongs_to) }
     end
   end
 
@@ -469,7 +469,7 @@ RSpec.describe Item, type: :model do
       let(:category2) { create(:category, id: 2) }
 
       it "カテゴリーIDの昇順、アイテム名（ひらがな）の昇順でアイテムを返すこと" do
-        expect(Item.sorted).to eq [first_item, second_item, third_item]
+        expect(Item.sorted).to eq([first_item, second_item, third_item])
       end
 
       it "アイテムが存在しない場合は空の配列を返すこと" do
@@ -485,7 +485,7 @@ RSpec.describe Item, type: :model do
       let!(:guest_user_create_item) { create(:item, user: guest_user, category: category) }
 
       it "マスター管理ユーザーが作成したアイテムのみ返すこと" do
-        expect(Item.preset).to eq [master_user_create_item]
+        expect(Item.preset).to eq([master_user_create_item])
       end
 
       it "マスター管理ユーザーのアイテムが存在しない場合は空の配列を返すこと" do
@@ -505,7 +505,7 @@ RSpec.describe Item, type: :model do
       expect(hashid).to be_a(String)
       # ハッシュ化したIDを元のIDにデコードできているかを検証
       decode_id = item.class.decode_id(hashid)
-      expect(decode_id).to eq item.id
+      expect(decode_id).to eq(item.id)
     end
   end
 end

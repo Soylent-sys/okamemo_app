@@ -22,7 +22,7 @@ RSpec.shared_examples "ナビゲーションのテスト" do
       within ".okamechan_nav" do
         expect(page).to have_selector("img[src*='okame_reverse']")
         expect(page).to have_selector(".arrow-box-left", visible: true)
-        expect(page).to have_content navigation_content
+        expect(page).to have_content(navigation_content)
       end
     end
 
@@ -47,7 +47,7 @@ RSpec.shared_examples "ナビゲーションのテスト" do
       within ".okamechan_nav" do
         expect(page).to have_selector("img[src*='okame_reverse']")
         expect(page).to have_selector(".arrow-box-bottom-left", visible: true)
-        expect(page).to have_content navigation_content
+        expect(page).to have_content(navigation_content)
       end
     end
 
@@ -155,10 +155,10 @@ RSpec.shared_examples "ログアウトボタン・モーダルの基本機能テ
       click_button "ログアウトする"
     end
 
-    expect(current_path).to eq root_path
+    expect(current_path).to eq(root_path)
 
     within ".alert" do
-      expect(page).to have_content "ログアウトしました。"
+      expect(page).to have_content("ログアウトしました。")
     end
 
     within "nav" do
@@ -265,7 +265,7 @@ end
 
 RSpec.shared_examples "非ログイン状態で認可が必要なページにアクセスした時のリダイレクトテスト" do
   it "ログイン画面にリダイレクトされること" do
-    expect(current_path).to eq new_user_session_path
+    expect(current_path).to eq(new_user_session_path)
 
     within ".alert" do
       expect(page).to have_content("ログインもしくはアカウント登録してください。")
@@ -275,10 +275,10 @@ end
 
 RSpec.shared_examples "ログイン状態で非ログイン専用ページにアクセスした時のリダイレクトテスト" do
   it "rootページにリダイレクトされること" do
-    expect(current_path).to eq root_path
+    expect(current_path).to eq(root_path)
 
     within ".alert" do
-      expect(page).to have_content "すでにログインしています。"
+      expect(page).to have_content("すでにログインしています。")
     end
   end
 end
@@ -302,7 +302,7 @@ RSpec.shared_examples "管理ページのサイドバーメニューのテスト
     end
 
     expect(page).to have_http_status(:success)
-    expect(current_path).to eq management_users_path
+    expect(current_path).to eq(management_users_path)
   end
 
   it "サイドバーに通知ユーザー管理画面へのリンクが存在すること" do
@@ -317,7 +317,7 @@ RSpec.shared_examples "管理ページのサイドバーメニューのテスト
     end
 
     expect(page).to have_http_status(:success)
-    expect(current_path).to eq management_notification_target_users_path
+    expect(current_path).to eq(management_notification_target_users_path)
   end
 
   it "サイドバーにアイテム管理画面へのリンクが存在すること" do
@@ -332,7 +332,7 @@ RSpec.shared_examples "管理ページのサイドバーメニューのテスト
     end
 
     expect(page).to have_http_status(:success)
-    expect(current_path).to eq management_items_path
+    expect(current_path).to eq(management_items_path)
   end
 
   it "サイドバーにお買い物管理画面へのリンクが存在すること" do
@@ -347,7 +347,7 @@ RSpec.shared_examples "管理ページのサイドバーメニューのテスト
     end
 
     expect(page).to have_http_status(:success)
-    expect(current_path).to eq management_shopping_records_path
+    expect(current_path).to eq(management_shopping_records_path)
   end
 
   it "サイドバーにrootへのリンクが存在すること" do
@@ -362,7 +362,7 @@ RSpec.shared_examples "管理ページのサイドバーメニューのテスト
     end
 
     expect(page).to have_http_status(:success)
-    expect(current_path).to eq root_path
+    expect(current_path).to eq(root_path)
   end
 end
 
@@ -376,16 +376,16 @@ RSpec.shared_examples "back_linkによる戻るリンクのテスト" do
     # 一覧ページの2ページ目で対象となるデータのテキストをtd_text変数で定義すること
     expect(page).to have_selector("td", text: td_text) # 2ページ目の表示テキストを確認
     # 各管理機能の一覧ページの2ページ目のパスをtest_page_index_path変数で定義すること
-    expect(URI.parse(current_url).request_uri).to eq test_index_page2_path
+    expect(URI.parse(current_url).request_uri).to eq(test_index_page2_path)
 
     # 遷移するページのパスをtest_page_path変数で定義すること
     visit test_page_path
-    expect(current_path).to eq test_page_path
+    expect(current_path).to eq(test_page_path)
 
     # 戻るリンクをクリックする
     click_link "戻る"
     # 一つ前のページに戻ったことを確認
-    expect(URI.parse(current_url).request_uri).to eq test_index_page2_path
+    expect(URI.parse(current_url).request_uri).to eq(test_index_page2_path)
   end
 end
 
@@ -429,7 +429,7 @@ RSpec.shared_examples "管理画面のモバイルデバイス非対応警告の
     it "モバイル幅非対応の警告が表示されること" do
       expect(page).to have_selector("div.caution-message-mobile")
       within "div.caution-message-mobile" do
-        expect(page).to have_content "管理者機能ページはモバイル非対応です。PCによるアクセスでのご利用を推奨します。"
+        expect(page).to have_content("管理者機能ページはモバイル非対応です。PCによるアクセスでのご利用を推奨します。")
       end
     end
   end
@@ -446,7 +446,7 @@ RSpec.shared_examples "管理画面のモバイルデバイス非対応警告の
 
     it "モバイル幅非対応の警告が表示されないこと" do
       expect(page).to_not have_selector("div.caution-message-mobile")
-      expect(page).to_not have_content "管理者機能ページはモバイル非対応です。PCによるアクセスでのご利用を推奨します。"
+      expect(page).to_not have_content("管理者機能ページはモバイル非対応です。PCによるアクセスでのご利用を推奨します。")
     end
   end
 end

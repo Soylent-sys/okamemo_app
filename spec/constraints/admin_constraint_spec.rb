@@ -8,7 +8,7 @@ RSpec.describe AdminConstraint do
     let(:user) { instance_double("User", admin?: true) }
 
     it "true を返すこと" do
-      expect(AdminConstraint.matches?(request)).to be true
+      expect(AdminConstraint.matches?(request)).to be(true)
     end
   end
 
@@ -16,7 +16,7 @@ RSpec.describe AdminConstraint do
     let(:user) { instance_double("User", admin?: false) }
 
     it "false を返すこと" do
-      expect(AdminConstraint.matches?(request)).to be false
+      expect(AdminConstraint.matches?(request)).to be(false)
     end
   end
 
@@ -24,7 +24,7 @@ RSpec.describe AdminConstraint do
     let(:user) { nil }
 
     it "false を返すこと" do
-      expect(AdminConstraint.matches?(request)).to be false
+      expect(AdminConstraint.matches?(request)).to be(false)
     end
   end
 end

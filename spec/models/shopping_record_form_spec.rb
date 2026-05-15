@@ -115,11 +115,11 @@ RSpec.describe ShoppingRecordForm, type: :model do
       it "フォームのタイトルを持つお買い物(ShoppingRecord)とハッシュ化したIDに対応するアイテムの購入記録(Buy)が保存されること" do
         expect { form.save }.to change { ShoppingRecord.count }.by(1).
           and change { Buy.count }.by(2)
-        expect(ShoppingRecord.last.title).to eq "テストのお買い物"
-        expect(Buy.second_to_last.item_name).to eq "テストアイテム"
-        expect(Buy.second_to_last.item_hiragana).to eq "てすとあいてむ"
-        expect(Buy.last.item_name).to eq "テストアイテム2"
-        expect(Buy.last.item_hiragana).to eq "てすとあいてむ2"
+        expect(ShoppingRecord.last.title).to eq("テストのお買い物")
+        expect(Buy.second_to_last.item_name).to eq("テストアイテム")
+        expect(Buy.second_to_last.item_hiragana).to eq("てすとあいてむ")
+        expect(Buy.last.item_name).to eq("テストアイテム2")
+        expect(Buy.last.item_hiragana).to eq("てすとあいてむ2")
       end
     end
 
@@ -136,8 +136,8 @@ RSpec.describe ShoppingRecordForm, type: :model do
         allow(Buy).to receive(:create!).and_raise(ActiveRecord::RecordNotSaved, "errors")
 
         expect { form.save }.to raise_error(ActiveRecord::RecordNotSaved)
-        expect(ShoppingRecord.count).to eq no_record
-        expect(Buy.count).to eq no_record
+        expect(ShoppingRecord.count).to eq(no_record)
+        expect(Buy.count).to eq(no_record)
       end
     end
   end

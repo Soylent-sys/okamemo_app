@@ -8,7 +8,7 @@ RSpec.describe "StaticPages", type: :system do
       end
 
       it "ページタイトルが正しいこと" do
-        expect(page).to have_title "利用規約"
+        expect(page).to have_title("利用規約")
       end
 
       it "メインの見出しが表示されること" do
@@ -23,12 +23,12 @@ RSpec.describe "StaticPages", type: :system do
         click_link "トップページ にもどる"
 
         expect(page).to have_http_status(:success)
-        expect(current_path).to eq root_path
+        expect(current_path).to eq(root_path)
       end
 
       it "利用規約の本文が表示されること" do
-        expect(page).to have_content "この利用規約（以下、「本規約」といいます。）は、"
-        expect(page).to have_content "登録ユーザーの皆さま（以下、「ユーザー」といいます。）には、本規約に従って、本サービスをご利用いただきます。"
+        expect(page).to have_content("この利用規約（以下、「本規約」といいます。）は、")
+        expect(page).to have_content("登録ユーザーの皆さま（以下、「ユーザー」といいます。）には、本規約に従って、本サービスをご利用いただきます。")
       end
 
       it "利用規約の各セクションの見出しが表示されること" do
@@ -59,7 +59,7 @@ RSpec.describe "StaticPages", type: :system do
         click_link "プライバシーポリシー"
 
         expect(page).to have_http_status(:success)
-        expect(current_path).to eq policy_path
+        expect(current_path).to eq(policy_path)
       end
 
       it "推奨環境の各セクションの見出しが表示されること" do
@@ -79,8 +79,8 @@ RSpec.describe "StaticPages", type: :system do
       end
 
       it "推奨環境の本文が表示されること" do
-        expect(page).to have_content "当サイトのご利用にあたっては以下の環境にてご利用ください。"
-        expect(page).to have_content "推奨以外のOS、デバイス、ブラウザをご利用の場合、動作や表示が正しく行われない可能性があります。"
+        expect(page).to have_content("当サイトのご利用にあたっては以下の環境にてご利用ください。")
+        expect(page).to have_content("推奨以外のOS、デバイス、ブラウザをご利用の場合、動作や表示が正しく行われない可能性があります。")
       end
     end
 
@@ -90,7 +90,7 @@ RSpec.describe "StaticPages", type: :system do
       end
 
       it "ページタイトルが正しいこと" do
-        expect(page).to have_title "プライバシーポリシー"
+        expect(page).to have_title("プライバシーポリシー")
       end
 
       it "メインの見出しが表示されること" do
@@ -105,12 +105,12 @@ RSpec.describe "StaticPages", type: :system do
         click_link "トップページ にもどる"
 
         expect(page).to have_http_status(:success)
-        expect(current_path).to eq root_path
+        expect(current_path).to eq(root_path)
       end
 
       it "プライバシーポリシーの本文が表示されること" do
-        expect(page).to have_content "当サイト、okamemo.com（以下、「当サイト」といいます。）は、"
-        expect(page).to have_content "ユーザーの個人情報の取扱いについて、以下のとおりプライバシーポリシー（以下、「本ポリシー」といいます。）を定めます。"
+        expect(page).to have_content("当サイト、okamemo.com（以下、「当サイト」といいます。）は、")
+        expect(page).to have_content("ユーザーの個人情報の取扱いについて、以下のとおりプライバシーポリシー（以下、「本ポリシー」といいます。）を定めます。")
       end
 
       it "プライバシーポリシーの各セクションの見出しが表示されること" do

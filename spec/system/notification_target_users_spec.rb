@@ -12,7 +12,7 @@ RSpec.describe "NotificationTargetUsers", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit notification_target_users_path
         end
 
@@ -37,7 +37,7 @@ RSpec.describe "NotificationTargetUsers", type: :system do
           click_link "メインメニュー にもどる"
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq root_path
+          expect(current_path).to eq(root_path)
         end
 
         it "通知対象ユーザーの登録用リンクが存在すること" do
@@ -50,7 +50,7 @@ RSpec.describe "NotificationTargetUsers", type: :system do
           end
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq new_notification_target_user_path
+          expect(current_path).to eq(new_notification_target_user_path)
         end
 
         # ヘルプモーダルの基本機能テスト用変数
@@ -88,7 +88,7 @@ RSpec.describe "NotificationTargetUsers", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
         end
 
         context "通知対象ユーザーが未登録の場合" do
@@ -222,7 +222,7 @@ RSpec.describe "NotificationTargetUsers", type: :system do
                 end
 
                 within ".alert" do
-                  expect(page).to have_content "通知対象ユーザーが削除されました。"
+                  expect(page).to have_content("通知対象ユーザーが削除されました。")
                 end
               end.to change { NotificationTargetUser.count }.by(-1)
 
@@ -300,8 +300,8 @@ RSpec.describe "NotificationTargetUsers", type: :system do
 
                 # 確認メール送信確認
                 email = ActionMailer::Base.deliveries.last
-                expect(email.to).to include notification_target_user.email
-                expect(email.subject).to eq "メールアドレス認証のお願い"
+                expect(email.to).to include(notification_target_user.email)
+                expect(email.subject).to eq("メールアドレス認証のお願い")
               end
             end
           end
@@ -331,7 +331,7 @@ RSpec.describe "NotificationTargetUsers", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit new_notification_target_user_path
         end
 
@@ -354,7 +354,7 @@ RSpec.describe "NotificationTargetUsers", type: :system do
           click_link "通知メールアドレス一覧 にもどる"
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq notification_target_users_path
+          expect(current_path).to eq(notification_target_users_path)
         end
 
         it "通知対象ユーザーの登録フォームが表示されること" do
@@ -413,20 +413,20 @@ RSpec.describe "NotificationTargetUsers", type: :system do
 
         it "通知対象ユーザーのニックネームが文章内に表示されていること" do
           within "p.ce-info-text" do
-            have_content "#{notification_target_user.name} さんのメールアドレス"
-            have_content "このアプリで記録したお買い物の内容が #{notification_target_user.name} さん にメールで通知されます。"
+            have_content("#{notification_target_user.name} さんのメールアドレス")
+            have_content("このアプリで記録したお買い物の内容が #{notification_target_user.name} さん にメールで通知されます。")
           end
         end
 
         it "通知対象ユーザーのEメールアドレスが文章内に表示されていること" do
           within "p.ce-info-text" do
-            have_content "#{notification_target_user.email} が認証されました。"
+            have_content("#{notification_target_user.email} が認証されました。")
           end
         end
 
         it "通知対象ユーザーを登録したユーザーのニックネームが文章内に表示されていること" do
           within "p.ce-info-text" do
-            have_content "今後、#{user.name} さん がこのアプリで記録したお買い物の内容が"
+            have_content("今後、#{user.name} さん がこのアプリで記録したお買い物の内容が")
           end
         end
       end
@@ -453,7 +453,7 @@ RSpec.describe "NotificationTargetUsers", type: :system do
 
         it "通知対象ユーザーを登録したユーザーのニックネームが文章内に表示されていること" do
           within "p.ce-info-text" do
-            have_content "#{user.name} さん に確認メールを再送信してもらい、受信したメールから再度メールアドレス認証をお願いいたします。"
+            have_content("#{user.name} さん に確認メールを再送信してもらい、受信したメールから再度メールアドレス認証をお願いいたします。")
           end
         end
       end
@@ -466,10 +466,10 @@ RSpec.describe "NotificationTargetUsers", type: :system do
 
         it "rootページにリダイレクトされること" do
           within ".alert" do
-            expect(page).to have_content "メールアドレス認証以外でのアクセスは禁止されています。"
+            expect(page).to have_content("メールアドレス認証以外でのアクセスは禁止されています。")
           end
 
-          expect(current_path).to eq root_path
+          expect(current_path).to eq(root_path)
         end
       end
     end
@@ -482,7 +482,7 @@ RSpec.describe "NotificationTargetUsers", type: :system do
     before do
       sign_in_as(user)
       # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-      expect(page).to have_content "ログインしました。"
+      expect(page).to have_content("ログインしました。")
       visit new_notification_target_user_path
     end
 
@@ -494,15 +494,15 @@ RSpec.describe "NotificationTargetUsers", type: :system do
           # 非同期のメール送信を即時実行する
           perform_enqueued_jobs do
             click_button "登録"
-            expect(page).to have_content "登録したメールアドレスへ確認メールを送信しました。確認メールの認証の有効期限は#{email_confirmation_limit}分です。"
-            expect(current_path).to eq notification_target_users_path
+            expect(page).to have_content("登録したメールアドレスへ確認メールを送信しました。確認メールの認証の有効期限は#{email_confirmation_limit}分です。")
+            expect(current_path).to eq(notification_target_users_path)
           end
         end.to change { NotificationTargetUser.count }.by(1)
 
         notification_target_user = NotificationTargetUser.last
-        expect(notification_target_user.name).to eq "テスト通知ユーザー"
-        expect(notification_target_user.email).to eq "test-notification-target-user@example.com"
-        expect(notification_target_user.confirmation_status).to eq "unconfirmed"
+        expect(notification_target_user.name).to eq("テスト通知ユーザー")
+        expect(notification_target_user.email).to eq("test-notification-target-user@example.com")
+        expect(notification_target_user.confirmation_status).to eq("unconfirmed")
       end
     end
 
@@ -515,8 +515,8 @@ RSpec.describe "NotificationTargetUsers", type: :system do
           fill_in "ニックネーム", with: ""
           fill_in "Eメールアドレス", with: ""
           click_button "登録"
-          expect(page).to have_content "ニックネームを入力してください。"
-          expect(page).to have_content "Eメールアドレスを入力してください。"
+          expect(page).to have_content("ニックネームを入力してください。")
+          expect(page).to have_content("Eメールアドレスを入力してください。")
         end.to_not change { NotificationTargetUser.count }
       end
 
@@ -527,7 +527,7 @@ RSpec.describe "NotificationTargetUsers", type: :system do
           fill_in "ニックネーム", with: over_length_name
           fill_in "Eメールアドレス", with: valid_email
           click_button "登録"
-          expect(page).to have_content "ニックネームは#{NotificationTargetUser::MAX_LENGTH_NAME}文字以内で入力してください。"
+          expect(page).to have_content("ニックネームは#{NotificationTargetUser::MAX_LENGTH_NAME}文字以内で入力してください。")
         end.to_not change { NotificationTargetUser.count }
       end
 
@@ -538,7 +538,7 @@ RSpec.describe "NotificationTargetUsers", type: :system do
           fill_in "ニックネーム", with: valid_name
           fill_in "Eメールアドレス", with: existing_nt_user.email
           click_button "登録"
-          expect(page).to have_content "Eメールアドレスは既に登録されています。"
+          expect(page).to have_content("Eメールアドレスは既に登録されています。")
         end.to_not change { NotificationTargetUser.count }
       end
 
@@ -549,7 +549,7 @@ RSpec.describe "NotificationTargetUsers", type: :system do
           fill_in "ニックネーム", with: valid_name
           fill_in "Eメールアドレス", with: over_length_email
           click_button "登録"
-          expect(page).to have_content "Eメールアドレスは#{NotificationTargetUser::MAX_LENGTH_EMAIL}文字以内で入力してください。"
+          expect(page).to have_content("Eメールアドレスは#{NotificationTargetUser::MAX_LENGTH_EMAIL}文字以内で入力してください。")
         end.to_not change { NotificationTargetUser.count }
       end
 
@@ -558,7 +558,7 @@ RSpec.describe "NotificationTargetUsers", type: :system do
           fill_in "ニックネーム", with: valid_name
           fill_in "Eメールアドレス", with: "invalid-email"
           click_button "登録"
-          expect(page).to have_content "Eメールアドレスは不正な値です。"
+          expect(page).to have_content("Eメールアドレスは不正な値です。")
         end.to_not change { NotificationTargetUser.count }
       end
     end
@@ -574,7 +574,7 @@ RSpec.describe "NotificationTargetUsers", type: :system do
     before do
       sign_in_as(user)
       # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-      expect(page).to have_content "ログインしました。"
+      expect(page).to have_content("ログインしました。")
 
       # ユーザーの通知対象ユーザー登録のシミュレート
       visit new_notification_target_user_path
@@ -584,14 +584,14 @@ RSpec.describe "NotificationTargetUsers", type: :system do
         # 非同期のメール送信を即時実行する
         perform_enqueued_jobs do
           click_button "登録"
-          expect(page).to have_content "登録したメールアドレスへ確認メールを送信しました。確認メールの認証の有効期限は#{email_confirmation_limit}分です。"
-          expect(current_path).to eq notification_target_users_path
+          expect(page).to have_content("登録したメールアドレスへ確認メールを送信しました。確認メールの認証の有効期限は#{email_confirmation_limit}分です。")
+          expect(current_path).to eq(notification_target_users_path)
         end
       end.to change { NotificationTargetUser.count }.by(1)
 
-      expect(added_notification_target_user.name).to eq "テスト通知ユーザー"
-      expect(added_notification_target_user.email).to eq "test-notification-target-user@example.com"
-      expect(added_notification_target_user.confirmation_status).to eq "unconfirmed"
+      expect(added_notification_target_user.name).to eq("テスト通知ユーザー")
+      expect(added_notification_target_user.email).to eq("test-notification-target-user@example.com")
+      expect(added_notification_target_user.confirmation_status).to eq("unconfirmed")
 
       # このあとは通知対象ユーザー側の操作となるため
       # 親ユーザーをログアウトさせて擬似的に別のセッションとする
@@ -602,14 +602,14 @@ RSpec.describe "NotificationTargetUsers", type: :system do
       within "#turbo-confirm-modal" do
         click_button "ログアウトする"
       end
-      expect(page).to have_content "ログアウトしました。"
+      expect(page).to have_content("ログアウトしました。")
     end
 
     scenario "通知対象ユーザーが確認メールから認証を実施する" do
       # 通知対象ユーザーが確認メールを取得し認証用URLをクリックする操作のシミュレート
       email = ActionMailer::Base.deliveries.last
-      expect(email.to).to include "test-notification-target-user@example.com"
-      expect(email.subject).to eq "メールアドレス認証のお願い"
+      expect(email.to).to include("test-notification-target-user@example.com")
+      expect(email.subject).to eq("メールアドレス認証のお願い")
       confirmation_link = email.body.encoded.match(/(https?:\/\/[^\s]+)/)[0]
       # js: trueのテストではリモートのブラウザでテストが実行されるため
       # 確認メールのURLのホスト名を"localhost"からリモートのホスト名に置き換える必要がある
@@ -626,8 +626,8 @@ RSpec.describe "NotificationTargetUsers", type: :system do
     scenario "確認メールの期限が切れた状態で通知対象ユーザーが認証を試みる" do
       # 通知対象ユーザーが確認メールを取得し認証用URLをクリックする操作のシミュレート
       email = ActionMailer::Base.deliveries.last
-      expect(email.to).to include "test-notification-target-user@example.com"
-      expect(email.subject).to eq "メールアドレス認証のお願い"
+      expect(email.to).to include("test-notification-target-user@example.com")
+      expect(email.subject).to eq("メールアドレス認証のお願い")
       confirmation_link = email.body.encoded.match(/(https?:\/\/[^\s]+)/)[0]
       # js: trueのテストではリモートのブラウザでテストが実行されるため
       # 確認メールのURLのホスト名を"localhost"からリモートのホスト名に置き換える必要がある
@@ -662,7 +662,7 @@ RSpec.describe "NotificationTargetUsers", type: :system do
         # ユーザーの操作
         sign_in_as(user)
         # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-        expect(page).to have_content "ログインしました。"
+        expect(page).to have_content("ログインしました。")
         visit notification_target_users_path
       end
     end
@@ -687,11 +687,11 @@ RSpec.describe "NotificationTargetUsers", type: :system do
 
         # 確認メール送信確認
         email = ActionMailer::Base.deliveries.last
-        expect(email.to).to include notification_target_user.email
-        expect(email.subject).to eq "メールアドレス認証のお願い"
+        expect(email.to).to include(notification_target_user.email)
+        expect(email.subject).to eq("メールアドレス認証のお願い")
         # URLのトークン部分が更新されていることを確認
         confirmation_link = email.body.encoded.match(/(https?:\/\/[^\s]+)/)[0]
-        expect(confirmation_link).to include notification_target_user.confirmation_token
+        expect(confirmation_link).to include(notification_target_user.confirmation_token)
       end
     end
   end
@@ -703,7 +703,7 @@ RSpec.describe "NotificationTargetUsers", type: :system do
     before do
       sign_in_as(user)
       # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-      expect(page).to have_content "ログインしました。"
+      expect(page).to have_content("ログインしました。")
       visit notification_target_users_path
     end
 
@@ -721,7 +721,7 @@ RSpec.describe "NotificationTargetUsers", type: :system do
         end
 
         within ".alert" do
-          expect(page).to have_content "通知対象ユーザーが削除されました。"
+          expect(page).to have_content("通知対象ユーザーが削除されました。")
         end
       end.to change { NotificationTargetUser.count }.by(-1)
 

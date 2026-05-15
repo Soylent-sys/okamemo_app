@@ -46,7 +46,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
           expect(page).to have_selector("form#notification_target_user_search")
           expect(page).to have_field("q_user_id_eq", type: "search", placeholder: "User_ID")
           expect(page).to have_field("q_email_cont", type: "search", placeholder: "Email 部分一致")
-          expect(page).to have_button "検索"
+          expect(page).to have_button("検索")
         end
 
         it "通知ユーザー登録画面へのリンクが存在すること" do
@@ -59,7 +59,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
           end
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq new_management_notification_target_user_path
+          expect(current_path).to eq(new_management_notification_target_user_path)
         end
 
         it "通知ユーザー一覧テーブルの各見出しが表示されること" do
@@ -104,7 +104,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
           before do
             sign_in_as(user)
             # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-            expect(page).to have_content "ログインしました。"
+            expect(page).to have_content("ログインしました。")
             visit management_notification_target_users_path
           end
 
@@ -325,7 +325,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
           context "2ページ目に移動した場合" do
             before do
               click_link "次"
-              expect(URI.parse(current_url).request_uri).to eq management_notification_target_users_path(page: 2)
+              expect(URI.parse(current_url).request_uri).to eq(management_notification_target_users_path(page: 2))
             end
 
             it "51件目の通知ユーザーが表示されること" do
@@ -389,7 +389,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
           end
 
           it "初期状態では登録済み通知ユーザーの件数が表示されること" do
-            expect(NotificationTargetUser.count).to eq nt_user_count
+            expect(NotificationTargetUser.count).to eq(nt_user_count)
             expect(page).to have_selector("h5", text: "件数： #{nt_user_count} 件")
           end
         end
@@ -409,7 +409,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
 
           it "検索による絞り込み後の通知ユーザー件数が表示されること" do
             # 初期状態の通知ユーザー件数表示を確認
-            expect(NotificationTargetUser.count).to eq all_nt_user_count
+            expect(NotificationTargetUser.count).to eq(all_nt_user_count)
             expect(page).to have_selector("h5", text: "件数： #{all_nt_user_count} 件")
 
             # 親ユーザーIDによる検索
@@ -428,7 +428,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit management_notification_target_users_path
         end
 
@@ -477,7 +477,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
 
         it "フォームの認証区分のセレクトボックスは初期状態で'未認証(unconfirmed)'が選択されていること" do
           within "form.new_user" do
-            expect(find_field("notification_target_user[confirmation_status]").value).to eq "unconfirmed"
+            expect(find_field("notification_target_user[confirmation_status]").value).to eq("unconfirmed")
           end
         end
       end
@@ -520,7 +520,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
         end
 
         include_examples "back_linkによる戻るリンクのテスト"
@@ -532,7 +532,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit new_management_notification_target_user_path
         end
 
@@ -858,8 +858,8 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
         new_nt_user = NotificationTargetUser.last
         expect(new_nt_user.unconfirmed?).to be_truthy
 
-        expect(page).to have_content "通知ユーザーの登録が完了しました。"
-        expect(current_path).to eq management_notification_target_users_path
+        expect(page).to have_content("通知ユーザーの登録が完了しました。")
+        expect(current_path).to eq(management_notification_target_users_path)
       end
 
       scenario "認証完了状態の通知ユーザーを登録する" do
@@ -874,8 +874,8 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
         new_nt_user = NotificationTargetUser.last
         expect(new_nt_user.confirmed?).to be_truthy
 
-        expect(page).to have_content "通知ユーザーの登録が完了しました。"
-        expect(current_path).to eq management_notification_target_users_path
+        expect(page).to have_content("通知ユーザーの登録が完了しました。")
+        expect(current_path).to eq(management_notification_target_users_path)
       end
     end
 
@@ -889,9 +889,9 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
           click_button "登録"
         end.to_not change { NotificationTargetUser.count }
 
-        expect(page).to have_content "登録されているユーザーIDを入力してください。"
-        expect(page).to have_content "ニックネームを入力してください。"
-        expect(page).to have_content "Eメールアドレスを入力してください。"
+        expect(page).to have_content("登録されているユーザーIDを入力してください。")
+        expect(page).to have_content("ニックネームを入力してください。")
+        expect(page).to have_content("Eメールアドレスを入力してください。")
       end
 
       let(:invalid_user_id) { 999 }
@@ -904,7 +904,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
           click_button "登録"
         end.to_not change { NotificationTargetUser.count }
 
-        expect(page).to have_content "登録されているユーザーIDを入力してください。"
+        expect(page).to have_content("登録されているユーザーIDを入力してください。")
       end
 
       let(:over_length_name) { "a" * 21 }
@@ -917,7 +917,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
           click_button "登録"
         end.to_not change { NotificationTargetUser.count }
 
-        expect(page).to have_content "ニックネームは#{NotificationTargetUser::MAX_LENGTH_NAME}文字以内で入力してください。"
+        expect(page).to have_content("ニックネームは#{NotificationTargetUser::MAX_LENGTH_NAME}文字以内で入力してください。")
       end
 
       let(:over_length_email) { "#{"a" * 244}@example.com" }
@@ -930,7 +930,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
           click_button "登録"
         end.to_not change { NotificationTargetUser.count }
 
-        expect(page).to have_content "Eメールアドレスは#{NotificationTargetUser::MAX_LENGTH_EMAIL}文字以内で入力してください。"
+        expect(page).to have_content("Eメールアドレスは#{NotificationTargetUser::MAX_LENGTH_EMAIL}文字以内で入力してください。")
       end
 
       scenario "メールアドレスのフォーマットが正しくない状態で通知ユーザー登録を試みる" do
@@ -941,7 +941,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
           click_button "登録"
         end.to_not change { NotificationTargetUser.count }
 
-        expect(page).to have_content "Eメールアドレスは不正な値です。"
+        expect(page).to have_content("Eメールアドレスは不正な値です。")
       end
     end
 
@@ -959,7 +959,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
             click_button "登録"
           end.to_not change { NotificationTargetUser.count }
 
-          expect(page).to have_content "通知メールアドレスの登録数が最大数（3つ）に達しています。"
+          expect(page).to have_content("通知メールアドレスの登録数が最大数（3つ）に達しています。")
         end
       end
     end
@@ -972,7 +972,7 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
     before do
       sign_in_as(user)
       # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-      expect(page).to have_content "ログインしました。"
+      expect(page).to have_content("ログインしました。")
       visit management_notification_target_users_path
     end
 
@@ -993,8 +993,8 @@ RSpec.describe "ManagementNotificationTargetUsers", type: :system do
           click_button "削除する"
         end
 
-        expect(page).to have_content "通知ユーザーが削除されました。"
-        expect(current_path).to eq management_notification_target_users_path
+        expect(page).to have_content("通知ユーザーが削除されました。")
+        expect(current_path).to eq(management_notification_target_users_path)
       end.to change { NotificationTargetUser.count }.by(-1)
 
       # 削除した通知ユーザーがDBに存在しないことを確認

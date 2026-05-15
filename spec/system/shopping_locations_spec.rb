@@ -142,7 +142,7 @@ RSpec.describe "ShoppingLocations", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
         end
 
         context "お買い物場所が未登録の場合" do
@@ -169,7 +169,7 @@ RSpec.describe "ShoppingLocations", type: :system do
             click_link "詳細ページ にもどる"
 
             expect(page).to have_selector("h1", text: "お買い物履歴の詳細")
-            expect(current_path).to eq shopping_results_path(shopping_record.hashid)
+            expect(current_path).to eq(shopping_results_path(shopping_record.hashid))
           end
 
           it "お買い物場所を記録するの項目が表示されること" do
@@ -229,7 +229,7 @@ RSpec.describe "ShoppingLocations", type: :system do
 
           it "お買い物更新画面にリダイレクトされること" do
             expect(page).to have_selector("h1", text: "お買い物場所の更新")
-            expect(current_path).to eq edit_shopping_location_path(shopping_record.hashid)
+            expect(current_path).to eq(edit_shopping_location_path(shopping_record.hashid))
           end
         end
       end
@@ -246,7 +246,7 @@ RSpec.describe "ShoppingLocations", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
 
           @google_maps_script_id = google_maps_mock_setup
         end
@@ -287,8 +287,8 @@ RSpec.describe "ShoppingLocations", type: :system do
             page.execute_script("window.test.gMap.trigger('click', { lat: 35.68962, lng: 139.70076 })")
 
             # フォームの値がクリックした座標に更新されることを確認
-            expect(find_field("shopping_location_latitude", type: "hidden").value).to eq "35.68962"
-            expect(find_field("shopping_location_longitude", type: "hidden").value).to eq "139.70076"
+            expect(find_field("shopping_location_latitude", type: "hidden").value).to eq("35.68962")
+            expect(find_field("shopping_location_longitude", type: "hidden").value).to eq("139.70076")
           end
         end
 
@@ -310,8 +310,8 @@ RSpec.describe "ShoppingLocations", type: :system do
 
           it "初期状態でユーザーの現在位置の緯度・経度がフォームに反映されていること" do
             # hidden フィールドに期待する値が設定されているか確認
-            expect(find_field("shopping_location_latitude", type: "hidden").value).to eq "35.68956"
-            expect(find_field("shopping_location_longitude", type: "hidden").value).to eq "139.69167"
+            expect(find_field("shopping_location_latitude", type: "hidden").value).to eq("35.68956")
+            expect(find_field("shopping_location_longitude", type: "hidden").value).to eq("139.69167")
           end
         end
 
@@ -337,8 +337,8 @@ RSpec.describe "ShoppingLocations", type: :system do
 
           it "初期状態でデフォルトの緯度・経度がフォームに反映されていること" do
             # hidden フィールドに期待する値が設定されているか確認
-            expect(find_field("shopping_location_latitude", type: "hidden").value).to eq default_position['latitude'].to_s
-            expect(find_field("shopping_location_longitude", type: "hidden").value).to eq default_position['longitude'].to_s
+            expect(find_field("shopping_location_latitude", type: "hidden").value).to eq(default_position['latitude'].to_s)
+            expect(find_field("shopping_location_longitude", type: "hidden").value).to eq(default_position['longitude'].to_s)
           end
         end
       end
@@ -349,7 +349,7 @@ RSpec.describe "ShoppingLocations", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
         end
 
         context "お買い物場所が登録済みの場合" do
@@ -378,7 +378,7 @@ RSpec.describe "ShoppingLocations", type: :system do
             click_link "詳細ページ にもどる"
 
             expect(page).to have_selector("h1", text: "お買い物履歴の詳細")
-            expect(current_path).to eq shopping_results_path(shopping_record.hashid)
+            expect(current_path).to eq(shopping_results_path(shopping_record.hashid))
           end
 
           it "お買い物場所を更新するの項目が表示されること" do
@@ -425,8 +425,8 @@ RSpec.describe "ShoppingLocations", type: :system do
           end
 
           it "お買い物履歴の年月一覧画面へリダイレクトされること" do
-            expect(page).to have_content "指定されたお買い物場所の記録は存在しません。"
-            expect(current_path).to eq shopping_result_group_path
+            expect(page).to have_content("指定されたお買い物場所の記録は存在しません。")
+            expect(current_path).to eq(shopping_result_group_path)
           end
         end
       end
@@ -447,7 +447,7 @@ RSpec.describe "ShoppingLocations", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
 
           @google_maps_script_id = google_maps_mock_setup
           visit edit_shopping_location_path(shopping_record.hashid)
@@ -480,8 +480,8 @@ RSpec.describe "ShoppingLocations", type: :system do
 
         it "初期状態でお買い物場所の緯度・経度がフォームに反映されていること" do
           # 登録済みの緯度・経度の値が設定されているか確認
-          expect(find_field("shopping_location_latitude", type: "hidden").value).to eq shopping_location.latitude.to_s
-          expect(find_field("shopping_location_longitude", type: "hidden").value).to eq shopping_location.longitude.to_s
+          expect(find_field("shopping_location_latitude", type: "hidden").value).to eq(shopping_location.latitude.to_s)
+          expect(find_field("shopping_location_longitude", type: "hidden").value).to eq(shopping_location.longitude.to_s)
         end
 
         it "マップ上のクリックでマーカーの位置が更新されること" do
@@ -498,8 +498,8 @@ RSpec.describe "ShoppingLocations", type: :system do
           page.execute_script("window.test.gMap.trigger('click', { lat: 35.68962, lng: 139.70076 })")
 
           # フォームの値がクリックした座標に更新されることを確認
-          expect(find_field("shopping_location_latitude", type: "hidden").value).to eq "35.68962"
-          expect(find_field("shopping_location_longitude", type: "hidden").value).to eq "139.70076"
+          expect(find_field("shopping_location_latitude", type: "hidden").value).to eq("35.68962")
+          expect(find_field("shopping_location_longitude", type: "hidden").value).to eq("139.70076")
         end
       end
     end
@@ -524,7 +524,7 @@ RSpec.describe "ShoppingLocations", type: :system do
     before do
       sign_in_as(user)
       # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-      expect(page).to have_content "ログインしました。"
+      expect(page).to have_content("ログインしました。")
 
       @google_maps_script_id = google_maps_mock_setup
     end
@@ -556,14 +556,14 @@ RSpec.describe "ShoppingLocations", type: :system do
 
         expect do
           click_button "お買い物場所を記録"
-          expect(page).to have_content "お買い物場所が登録されました。"
-          expect(current_path).to eq shopping_results_path(shopping_record.hashid)
+          expect(page).to have_content("お買い物場所が登録されました。")
+          expect(current_path).to eq(shopping_results_path(shopping_record.hashid))
         end.to change { ShoppingLocation.count }.by(1)
 
         shopping_location = ShoppingLocation.last
-        expect(shopping_location.shopping_record_id).to eq shopping_record.id
-        expect(shopping_location.latitude).to eq 35.68956
-        expect(shopping_location.longitude).to eq 139.69167
+        expect(shopping_location.shopping_record_id).to eq(shopping_record.id)
+        expect(shopping_location.latitude).to eq(35.68956)
+        expect(shopping_location.longitude).to eq(139.69167)
       end
 
       scenario "ユーザーがお買い物履歴のお買い物場所登録画面へのリンクからお買い物場所を登録する（位置情報変更あり）" do
@@ -586,14 +586,14 @@ RSpec.describe "ShoppingLocations", type: :system do
 
         expect do
           click_button "お買い物場所を記録"
-          expect(page).to have_content "お買い物場所が登録されました。"
-          expect(current_path).to eq shopping_results_path(shopping_record.hashid)
+          expect(page).to have_content("お買い物場所が登録されました。")
+          expect(current_path).to eq(shopping_results_path(shopping_record.hashid))
         end.to change { ShoppingLocation.count }.by(1)
 
         shopping_location = ShoppingLocation.last
-        expect(shopping_location.shopping_record_id).to eq shopping_record.id
-        expect(shopping_location.latitude).to eq 35.68962
-        expect(shopping_location.longitude).to eq 139.70076
+        expect(shopping_location.shopping_record_id).to eq(shopping_record.id)
+        expect(shopping_location.latitude).to eq(35.68962)
+        expect(shopping_location.longitude).to eq(139.70076)
       end
     end
 
@@ -628,14 +628,14 @@ RSpec.describe "ShoppingLocations", type: :system do
 
         expect do
           click_button "お買い物場所を記録"
-          expect(page).to have_content "お買い物場所が登録されました。"
-          expect(current_path).to eq shopping_results_path(shopping_record.hashid)
+          expect(page).to have_content("お買い物場所が登録されました。")
+          expect(current_path).to eq(shopping_results_path(shopping_record.hashid))
         end.to change { ShoppingLocation.count }.by(1)
 
         shopping_location = ShoppingLocation.last
-        expect(shopping_location.shopping_record_id).to eq shopping_record.id
-        expect(shopping_location.latitude).to eq 35.68962
-        expect(shopping_location.longitude).to eq 139.70076
+        expect(shopping_location.shopping_record_id).to eq(shopping_record.id)
+        expect(shopping_location.latitude).to eq(35.68962)
+        expect(shopping_location.longitude).to eq(139.70076)
       end
     end
   end
@@ -660,7 +660,7 @@ RSpec.describe "ShoppingLocations", type: :system do
     before do
       sign_in_as(user)
       # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-      expect(page).to have_content "ログインしました。"
+      expect(page).to have_content("ログインしました。")
 
       @google_maps_script_id = google_maps_mock_setup
 
@@ -694,8 +694,8 @@ RSpec.describe "ShoppingLocations", type: :system do
 
       expect do
         click_button "お買い物場所を更新"
-        expect(page).to have_content "お買い物場所が更新されました。"
-        expect(current_path).to eq shopping_results_path(shopping_record.hashid)
+        expect(page).to have_content("お買い物場所が更新されました。")
+        expect(current_path).to eq(shopping_results_path(shopping_record.hashid))
       end.to change { shopping_location.reload.latitude }.from(35.68956).to(35.68962).
         and change { shopping_location.reload.longitude }.from(139.69167).to(139.70076)
     end
@@ -721,7 +721,7 @@ RSpec.describe "ShoppingLocations", type: :system do
     before do
       sign_in_as(user)
       # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-      expect(page).to have_content "ログインしました。"
+      expect(page).to have_content("ログインしました。")
 
       visit shopping_results_path(shopping_record.hashid)
       expect(page).to have_selector("h1", text: "お買い物履歴の詳細")
@@ -738,10 +738,10 @@ RSpec.describe "ShoppingLocations", type: :system do
         end
 
         within ".alert" do
-          expect(page).to have_content "お買い物場所が削除されました。"
+          expect(page).to have_content("お買い物場所が削除されました。")
         end
 
-        expect(current_path).to eq shopping_results_path(shopping_record.hashid)
+        expect(current_path).to eq(shopping_results_path(shopping_record.hashid))
       end.to change { ShoppingLocation.count }.by(-1)
 
       # お買い物場所がDBに存在しないことを確認

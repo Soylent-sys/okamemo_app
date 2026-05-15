@@ -167,7 +167,7 @@ RSpec.describe User, type: :model do
       let(:user) { User.new }
 
       it "ひらがなモード(hiragana_view属性)の値は指定がなければOFF(false)であること" do
-        expect(user.hiragana_view).to eq false
+        expect(user.hiragana_view).to eq(false)
       end
 
       it "ひらがなモード(hiragana_view属性)の値をtrueに設定できること" do
@@ -221,8 +221,8 @@ RSpec.describe User, type: :model do
 
       it "マスター管理ユーザーを返すこと" do
         user = User.master_admin_user
-        expect(user).to eq master_user
-        expect(user.email).to eq "master_admin_user@example.com"
+        expect(user).to eq(master_user)
+        expect(user.email).to eq("master_admin_user@example.com")
       end
     end
 
@@ -248,7 +248,7 @@ RSpec.describe User, type: :model do
         expect { User.guest }.to_not change { User.count }
 
         guest_user = User.guest
-        expect(guest_user.id).to eq existing_guest_user.id
+        expect(guest_user.id).to eq(existing_guest_user.id)
       end
     end
 
@@ -260,7 +260,7 @@ RSpec.describe User, type: :model do
         expect { User.guest }.to change { User.count }.by(1)
 
         guest_user = User.find_by(email: guest_email)
-        expect(guest_user.name).to eq guest_name
+        expect(guest_user.name).to eq(guest_name)
         expect(guest_user).to be_confirmed
       end
     end
@@ -276,8 +276,8 @@ RSpec.describe User, type: :model do
       password = User.send(:generate_guest_password)
 
       expect(password).to be_present
-      expect(password).to match valid_password_regex
-      expect(password).to match sequre_random_urlsafe_base64_regex
+      expect(password).to match(valid_password_regex)
+      expect(password).to match(sequre_random_urlsafe_base64_regex)
       expect(password.length).to be_between(valid_password_length_min, valid_password_length_max).inclusive
     end
   end
@@ -342,7 +342,7 @@ RSpec.describe User, type: :model do
       end
 
       it "falseを返すこと" do
-        expect(no_guest_user.id).to_not eq guest_user.id
+        expect(no_guest_user.id).to_not eq(guest_user.id)
 
         expect(no_guest_user.guest?).to be_falsey
       end
@@ -376,8 +376,8 @@ RSpec.describe User, type: :model do
       user.skip_reconfirmation!
 
       expect(user.update_without_current_password(params)).to be_truthy
-      expect(user.reload.name).to eq params[:name]
-      expect(user.reload.email).to eq params[:email]
+      expect(user.reload.name).to eq(params[:name])
+      expect(user.reload.email).to eq(params[:email])
       expect(user.reload.valid_password?(params[:password])).to be_truthy
       expect(user.reload.hiragana_view).to be_truthy
     end
@@ -430,7 +430,7 @@ RSpec.describe User, type: :model do
 
         # deviseのメール認証を介する場合のemailのupdate処理（フォームからの更新を想定）
         it "unconfirmed_email属性が変更できないこと" do
-          expect(master_user.unconfirmed_email).to eq nil
+          expect(master_user.unconfirmed_email).to eq(nil)
 
           expect { master_user.update(unconfirmed_email: "test-email@example.com") }.
             to_not change { User.master_admin_user.unconfirmed_email }
@@ -531,7 +531,7 @@ RSpec.describe User, type: :model do
         end
 
         it "ニックネームが変更できないこと" do
-          expect(guest_user.name).to eq "ゲストユーザー"
+          expect(guest_user.name).to eq("ゲストユーザー")
 
           expect { guest_user.update(name: "変更後ゲストユーザー") }.to_not change { guest_user.reload.name }
           expect(guest_user.errors.of_kind?(:name, "は変更できません。ゲストユーザーのニックネーム変更は制限されています。")).to be_truthy
@@ -539,7 +539,7 @@ RSpec.describe User, type: :model do
 
         # deviseのメール認証を介する場合のemailのupdate処理（フォームからの更新を想定）
         it "unconfirmed_email属性が変更できないこと" do
-          expect(guest_user.unconfirmed_email).to eq nil
+          expect(guest_user.unconfirmed_email).to eq(nil)
 
           expect { guest_user.update(unconfirmed_email: "change-guest@example.com") }.
             to_not change { guest_user.reload.unconfirmed_email }
@@ -548,7 +548,7 @@ RSpec.describe User, type: :model do
 
         # deviseのメール認証をスキップする場合のemailのupdate処理（管理画面からの更新を想定）
         it "メールアドレスが変更できないこと" do
-          expect(guest_user.email).to eq "guest@example.com"
+          expect(guest_user.email).to eq("guest@example.com")
 
           expect { guest_user.update(email: "change-guest@example.com") }.to_not change { guest_user.reload.email }
           expect(guest_user.errors.of_kind?(:email, "は変更できません。ゲストユーザーのメールアドレス変更は制限されています。")).to be_truthy
@@ -559,7 +559,7 @@ RSpec.describe User, type: :model do
 
           expect { guest_user.update(password: "ChangePassword123") }.to_not change { guest_user.reload.encrypted_password }
           expect(guest_user.errors.of_kind?(:password, "は変更できません。ゲストユーザーのパスワード変更は制限されています。")).to be_truthy
-          expect(guest_user.encrypted_password).to eq before_encrypted_password
+          expect(guest_user.encrypted_password).to eq(before_encrypted_password)
         end
       end
 
@@ -577,7 +577,7 @@ RSpec.describe User, type: :model do
           before_encrypted_password = master_user.encrypted_password
 
           expect { master_user.update(password: "ChangePassword123") }.to change { master_user.reload.encrypted_password }
-          expect(master_user.encrypted_password).to_not eq before_encrypted_password
+          expect(master_user.encrypted_password).to_not eq(before_encrypted_password)
         end
       end
 
@@ -618,7 +618,7 @@ RSpec.describe User, type: :model do
           before_encrypted_password = general_user.encrypted_password
 
           expect { general_user.update(password: "ChangePassword123") }.to change { general_user.reload.encrypted_password }
-          expect(general_user.encrypted_password).to_not eq before_encrypted_password
+          expect(general_user.encrypted_password).to_not eq(before_encrypted_password)
         end
       end
     end
@@ -632,25 +632,25 @@ RSpec.describe User, type: :model do
     context "Itemモデルとの関係性" do
       let(:model) { :items }
 
-      it { is_expected.to eq :has_many }
+      it { is_expected.to eq(:has_many) }
     end
 
     context "Buyモデルとの関係性" do
       let(:model) { :buys }
 
-      it { is_expected.to eq :has_many }
+      it { is_expected.to eq(:has_many) }
     end
 
     context "ShoppingRecordモデルとの関係性" do
       let(:model) { :shopping_records }
 
-      it { is_expected.to eq :has_many }
+      it { is_expected.to eq(:has_many) }
     end
 
     context "NotificationTargetUserモデルとの関係性" do
       let(:model) { :notification_target_users }
 
-      it { is_expected.to eq :has_many }
+      it { is_expected.to eq(:has_many) }
     end
   end
 

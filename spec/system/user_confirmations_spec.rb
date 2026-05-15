@@ -31,7 +31,7 @@ RSpec.describe "UserConfirmations", type: :system do
         end
 
         expect(page).to have_http_status(:success)
-        expect(current_path).to eq new_user_session_path
+        expect(current_path).to eq(new_user_session_path)
       end
 
       it "未登録ユーザー向けのユーザー登録画面へのリンクが存在すること" do
@@ -46,7 +46,7 @@ RSpec.describe "UserConfirmations", type: :system do
         end
 
         expect(page).to have_http_status(:success)
-        expect(current_path).to eq new_user_registration_path
+        expect(current_path).to eq(new_user_registration_path)
       end
 
       it "パスワード再設定画面へのリンクが存在すること" do
@@ -61,7 +61,7 @@ RSpec.describe "UserConfirmations", type: :system do
         end
 
         expect(page).to have_http_status(:success)
-        expect(current_path).to eq new_user_password_path
+        expect(current_path).to eq(new_user_password_path)
       end
     end
   end
@@ -80,19 +80,19 @@ RSpec.describe "UserConfirmations", type: :system do
         fill_in "Eメールアドレス", with: user.email
         click_button "確認メール再送"
 
-        expect(page).to have_content "メールアドレスが登録済みの場合、本人確認用のメールが数分以内に送信されます。"
+        expect(page).to have_content("メールアドレスが登録済みの場合、本人確認用のメールが数分以内に送信されます。")
 
         # パスワード再設定メール送信確認
         email = ActionMailer::Base.deliveries.last
-        expect(email.to).to include user.email
-        expect(email.subject).to eq "メールアドレス確認メール"
+        expect(email.to).to include(user.email)
+        expect(email.subject).to eq("メールアドレス確認メール")
 
         # メール内のURLからアカウント有効化
         confirmation_link = email.body.match(/(https?:\/\/[^\s]+)/)[0]
         visit confirmation_link
 
-        expect(page).to have_content "メールアドレスが確認できました。"
-        expect(current_path).to eq new_user_session_path
+        expect(page).to have_content("メールアドレスが確認できました。")
+        expect(current_path).to eq(new_user_session_path)
         expect(user.reload.confirmed_at).not_to be_nil
       end
     end
@@ -112,8 +112,8 @@ RSpec.describe "UserConfirmations", type: :system do
             click_button "確認メール再送"
 
             # Deviseのparanoidモードを使用しているため正常系と同じメッセージが表示される
-            expect(current_path).to eq new_user_session_path
-            expect(page).to have_content "メールアドレスが登録済みの場合、本人確認用のメールが数分以内に送信されます。"
+            expect(current_path).to eq(new_user_session_path)
+            expect(page).to have_content("メールアドレスが登録済みの場合、本人確認用のメールが数分以内に送信されます。")
 
             # メール送信が行われていないことを確認
             expect(ActionMailer::Base.deliveries).to be_empty
@@ -123,8 +123,8 @@ RSpec.describe "UserConfirmations", type: :system do
             click_button "確認メール再送"
 
             # Deviseのparanoidモードを使用しているため正常系と同じメッセージが表示される
-            expect(current_path).to eq new_user_session_path
-            expect(page).to have_content "メールアドレスが登録済みの場合、本人確認用のメールが数分以内に送信されます。"
+            expect(current_path).to eq(new_user_session_path)
+            expect(page).to have_content("メールアドレスが登録済みの場合、本人確認用のメールが数分以内に送信されます。")
 
             # メール送信が行われていないことを確認
             expect(ActionMailer::Base.deliveries).to be_empty
@@ -144,12 +144,12 @@ RSpec.describe "UserConfirmations", type: :system do
             fill_in "Eメールアドレス", with: user.email
             click_button "確認メール再送"
 
-            expect(page).to have_content "メールアドレスが登録済みの場合、本人確認用のメールが数分以内に送信されます。"
+            expect(page).to have_content("メールアドレスが登録済みの場合、本人確認用のメールが数分以内に送信されます。")
 
             # パスワード再設定メール送信確認
             email = ActionMailer::Base.deliveries.last
-            expect(email.to).to include user.email
-            expect(email.subject).to eq "メールアドレス確認メール"
+            expect(email.to).to include(user.email)
+            expect(email.subject).to eq("メールアドレス確認メール")
 
             # Deviseに設定している有効期限
             confirmation_expiration = 6.hours
@@ -161,7 +161,7 @@ RSpec.describe "UserConfirmations", type: :system do
               visit confirmation_link
 
               # URLの有効期限切れと未アクティベート状態を確認
-              expect(page).to have_content "Eメールアドレスの期限が切れました。約6時間 以内に確認する必要があります。 新しくリクエストしてください。"
+              expect(page).to have_content("Eメールアドレスの期限が切れました。約6時間 以内に確認する必要があります。 新しくリクエストしてください。")
               expect(user.reload.confirmed_at).to be_nil
             end
           end
@@ -173,7 +173,7 @@ RSpec.describe "UserConfirmations", type: :system do
 
         before do
           sign_in_as(user)
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit new_user_confirmation_path
         end
 
@@ -181,8 +181,8 @@ RSpec.describe "UserConfirmations", type: :system do
           fill_in "Eメールアドレス", with: user.email
           click_button "確認メール再送"
 
-          expect(page).to have_content "すでにログインしています。"
-          expect(current_path).to eq root_path
+          expect(page).to have_content("すでにログインしています。")
+          expect(current_path).to eq(root_path)
 
           # メール送信が行われていないことを確認
           expect(ActionMailer::Base.deliveries).to be_empty
@@ -191,8 +191,8 @@ RSpec.describe "UserConfirmations", type: :system do
         scenario "ログイン状態のユーザーでEメールアドレスの項目を入力せずに確認メールの再送を試みる" do
           click_button "確認メール再送"
 
-          expect(page).to have_content "すでにログインしています。"
-          expect(current_path).to eq root_path
+          expect(page).to have_content("すでにログインしています。")
+          expect(current_path).to eq(root_path)
 
           # メール送信が行われていないことを確認
           expect(ActionMailer::Base.deliveries).to be_empty

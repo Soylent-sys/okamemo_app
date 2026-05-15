@@ -44,7 +44,7 @@ RSpec.describe ShoppingRecord, type: :model do
       let(:shopping_record) { ShoppingRecord.new }
 
       it "お買い物完了状態(closed属性)の値は指定がなければ未完了(false)であること" do
-        expect(shopping_record.closed).to eq false
+        expect(shopping_record.closed).to eq(false)
       end
 
       it "お買い物完了状態(closed属性)の値をtrueに設定できること" do
@@ -144,19 +144,19 @@ RSpec.describe ShoppingRecord, type: :model do
     context "Userモデルとの関係性" do
       let(:model) { :user }
 
-      it { is_expected.to eq :belongs_to }
+      it { is_expected.to eq(:belongs_to) }
     end
 
     context "ShoppingLocationモデルとの関係性" do
       let(:model) { :shopping_location }
 
-      it { is_expected.to eq :has_one }
+      it { is_expected.to eq(:has_one) }
     end
 
     context "Buyモデルとの関係性" do
       let(:model) { :buys }
 
-      it { is_expected.to eq :has_many }
+      it { is_expected.to eq(:has_many) }
     end
   end
 
@@ -218,7 +218,7 @@ RSpec.describe ShoppingRecord, type: :model do
       let!(:shopping_record_updated_new) { create(:shopping_record, user: user, updated_at: Time.current) }
 
       it "更新日時（updated_at）の降順（新しい順）でお買い物を返すこと" do
-        expect(ShoppingRecord.recent_updated).to eq [shopping_record_updated_new, shopping_record_updated_old]
+        expect(ShoppingRecord.recent_updated).to eq([shopping_record_updated_new, shopping_record_updated_old])
       end
 
       it "お買い物が存在しない場合は空の配列を返すこと" do
@@ -238,7 +238,7 @@ RSpec.describe ShoppingRecord, type: :model do
       expect(hashid).to be_a(String)
       # ハッシュ化したIDを元のIDにデコードできているかを検証
       decode_id = shopping_record.class.decode_id(hashid)
-      expect(decode_id).to eq shopping_record.id
+      expect(decode_id).to eq(shopping_record.id)
     end
   end
 end

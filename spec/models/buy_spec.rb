@@ -58,7 +58,7 @@ RSpec.describe Buy, type: :model do
       let(:buy) { Buy.new }
 
       it "購入状態(purchased属性)の値は指定がなければ未購入(false)であること" do
-        expect(buy.purchased).to eq false
+        expect(buy.purchased).to eq(false)
       end
 
       it "購入状態(purchased属性)の値をtrueに設定できること" do
@@ -112,8 +112,8 @@ RSpec.describe Buy, type: :model do
         hash = Buy.last_bought_times(user)
 
         expect(hash.keys).to contain_exactly(user_buy1.item_name, user_buy2.item_name)
-        expect(hash[user_buy1.item_name]).to eq user_buy1.updated_at
-        expect(hash[user_buy2.item_name]).to eq user_buy2.updated_at
+        expect(hash[user_buy1.item_name]).to eq(user_buy1.updated_at)
+        expect(hash[user_buy2.item_name]).to eq(user_buy2.updated_at)
       end
     end
 
@@ -131,7 +131,7 @@ RSpec.describe Buy, type: :model do
         hash = Buy.last_bought_times(user)
 
         expect(hash.keys).to contain_exactly(user_purchased_buy.item_name)
-        expect(hash[user_purchased_buy.item_name]).to eq user_purchased_buy.updated_at
+        expect(hash[user_purchased_buy.item_name]).to eq(user_purchased_buy.updated_at)
       end
     end
 
@@ -159,7 +159,7 @@ RSpec.describe Buy, type: :model do
       it "keyに対応するvalueは最新の更新日時であること" do
         hash = Buy.last_bought_times(user)
 
-        expect(hash[user_item1.name]).to eq new_buy.updated_at
+        expect(hash[user_item1.name]).to eq(new_buy.updated_at)
       end
     end
 
@@ -190,7 +190,7 @@ RSpec.describe Buy, type: :model do
         hash = Buy.last_bought_times(user)
 
         expect(hash.keys).to contain_exactly(user_item1.name)
-        expect(hash[user_item1.name]).to eq new_buy.updated_at
+        expect(hash[user_item1.name]).to eq(new_buy.updated_at)
       end
     end
 
@@ -213,13 +213,13 @@ RSpec.describe Buy, type: :model do
     context "Userモデルとの関係性" do
       let(:model) { :user }
 
-      it { is_expected.to eq :belongs_to }
+      it { is_expected.to eq(:belongs_to) }
     end
 
     context "ShoppingRecprdモデルとの関係性" do
       let(:model) { :shopping_record }
 
-      it { is_expected.to eq :belongs_to }
+      it { is_expected.to eq(:belongs_to) }
     end
   end
 
@@ -260,7 +260,7 @@ RSpec.describe Buy, type: :model do
       expect(hashid).to be_a(String)
       # ハッシュ化したIDを元のIDにデコードできているかを検証
       decode_id = buy.class.decode_id(hashid)
-      expect(decode_id).to eq buy.id
+      expect(decode_id).to eq(buy.id)
     end
   end
 end

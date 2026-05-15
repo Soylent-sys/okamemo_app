@@ -38,7 +38,7 @@ RSpec.describe "UserRegistrations", type: :system do
           end
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq new_user_session_path
+          expect(current_path).to eq(new_user_session_path)
         end
 
         it "確認メール再送画面へのリンクが存在すること" do
@@ -53,7 +53,7 @@ RSpec.describe "UserRegistrations", type: :system do
           end
 
           expect(page).to have_http_status(:success)
-          expect(current_path).to eq new_user_confirmation_path
+          expect(current_path).to eq(new_user_confirmation_path)
         end
       end
 
@@ -63,7 +63,7 @@ RSpec.describe "UserRegistrations", type: :system do
         before do
           sign_in_as(user)
           # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-          expect(page).to have_content "ログインしました。"
+          expect(page).to have_content("ログインしました。")
           visit new_user_registration_path
         end
 
@@ -114,7 +114,7 @@ RSpec.describe "UserRegistrations", type: :system do
           before do
             sign_in_as(user)
             # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-            expect(page).to have_content "ログインしました。"
+            expect(page).to have_content("ログインしました。")
             visit edit_user_registration_path
           end
 
@@ -137,7 +137,7 @@ RSpec.describe "UserRegistrations", type: :system do
             click_link "メインメニュー にもどる"
 
             expect(page).to have_http_status(:success)
-            expect(current_path).to eq root_path
+            expect(current_path).to eq(root_path)
           end
 
           it "ユーザー編集フォームが表示されること" do
@@ -203,7 +203,7 @@ RSpec.describe "UserRegistrations", type: :system do
           before do
             sign_in_as(user)
             # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-            expect(page).to have_content "ログインしました。"
+            expect(page).to have_content("ログインしました。")
             visit edit_user_registration_path
           end
 
@@ -292,10 +292,10 @@ RSpec.describe "UserRegistrations", type: :system do
               end
 
               within ".alert" do
-                expect(page).to have_content "アカウントを削除しました。またのご利用をお待ちしております。"
+                expect(page).to have_content("アカウントを削除しました。またのご利用をお待ちしております。")
               end
 
-              expect(current_path).to eq root_path
+              expect(current_path).to eq(root_path)
 
               within "nav" do
                 expect(page).to have_link("ログイン", href: new_user_session_path)
@@ -315,7 +315,7 @@ RSpec.describe "UserRegistrations", type: :system do
           before do
             sign_in_as(user)
             # ログイン処理完了前にvisitを実行しないようログイン成功の確認を挟む
-            expect(page).to have_content "ログインしました。"
+            expect(page).to have_content("ログインしました。")
             visit edit_user_registration_path
           end
 
@@ -337,7 +337,7 @@ RSpec.describe "UserRegistrations", type: :system do
             within "nav" do
               click_button "ゲストログイン"
             end
-            expect(page).to have_content "ゲストユーザーとしてログインしました。"
+            expect(page).to have_content("ゲストユーザーとしてログインしました。")
             visit edit_user_registration_path
           end
 
@@ -395,19 +395,19 @@ RSpec.describe "UserRegistrations", type: :system do
           click_button "ユーザー登録"
         end.to change { User.count }.by(1)
 
-        expect(page).to have_content "本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。"
+        expect(page).to have_content("本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。")
 
         # 認証メール送信確認
         email = ActionMailer::Base.deliveries.last
-        expect(email.to).to include user_email
-        expect(email.subject).to eq "メールアドレス確認メール"
+        expect(email.to).to include(user_email)
+        expect(email.subject).to eq("メールアドレス確認メール")
 
         # メール内のURLからアカウント有効化
         confirmation_link = email.body.match(/(https?:\/\/[^\s]+)/)[0]
         visit confirmation_link
 
-        expect(page).to have_content "メールアドレスが確認できました。"
-        expect(current_path).to eq new_user_session_path
+        expect(page).to have_content("メールアドレスが確認できました。")
+        expect(current_path).to eq(new_user_session_path)
         expect(User.find_by(email: user_email).confirmed_at).not_to be_nil
       end
     end
@@ -426,9 +426,9 @@ RSpec.describe "UserRegistrations", type: :system do
           click_button "ユーザー登録"
         end.to_not change { User.count }
 
-        expect(page).to have_content "ニックネームを入力してください。"
-        expect(page).to have_content "Eメールアドレスを入力してください。"
-        expect(page).to have_content "パスワードを入力してください。"
+        expect(page).to have_content("ニックネームを入力してください。")
+        expect(page).to have_content("Eメールアドレスを入力してください。")
+        expect(page).to have_content("パスワードを入力してください。")
       end
 
       let(:over_length_name) { "a" * 21 }
@@ -443,7 +443,7 @@ RSpec.describe "UserRegistrations", type: :system do
           click_button "ユーザー登録"
         end.to_not change { User.count }
 
-        expect(page).to have_content "ニックネームは#{User::MAX_LENGTH_NAME}文字以内で入力してください。"
+        expect(page).to have_content("ニックネームは#{User::MAX_LENGTH_NAME}文字以内で入力してください。")
       end
 
       scenario "既に登録済みのメールアドレスでユーザー登録を試みる" do
@@ -458,7 +458,7 @@ RSpec.describe "UserRegistrations", type: :system do
           click_button "ユーザー登録"
         end.to_not change { User.count }
 
-        expect(page).to have_content "Eメールアドレスはすでに存在します。"
+        expect(page).to have_content("Eメールアドレスはすでに存在します。")
       end
 
       let(:over_length_email) { "#{"a" * 244}@example.com" }
@@ -473,7 +473,7 @@ RSpec.describe "UserRegistrations", type: :system do
           click_button "ユーザー登録"
         end.to_not change { User.count }
 
-        expect(page).to have_content "Eメールアドレスは#{User::MAX_LENGTH_EMAIL}文字以内で入力してください。"
+        expect(page).to have_content("Eメールアドレスは#{User::MAX_LENGTH_EMAIL}文字以内で入力してください。")
       end
 
       scenario "メールアドレスのフォーマットが正しくない状態でユーザー登録を試みる" do
@@ -486,7 +486,7 @@ RSpec.describe "UserRegistrations", type: :system do
           click_button "ユーザー登録"
         end.to_not change { User.count }
 
-        expect(page).to have_content "Eメールアドレスは不正な値です。"
+        expect(page).to have_content("Eメールアドレスは不正な値です。")
       end
 
       let(:lack_length_password) { "pass123" }
@@ -501,7 +501,7 @@ RSpec.describe "UserRegistrations", type: :system do
           click_button "ユーザー登録"
         end.to_not change { User.count }
 
-        expect(page).to have_content "パスワードは#{Devise.password_length.min}文字以上で入力してください。"
+        expect(page).to have_content("パスワードは#{Devise.password_length.min}文字以上で入力してください。")
       end
 
       let(:over_length_password) { "Ab1" * 43 } # 129文字
@@ -516,7 +516,7 @@ RSpec.describe "UserRegistrations", type: :system do
           click_button "ユーザー登録"
         end.to_not change { User.count }
 
-        expect(page).to have_content "パスワードは#{Devise.password_length.max}文字以内で入力してください。"
+        expect(page).to have_content("パスワードは#{Devise.password_length.max}文字以内で入力してください。")
       end
 
       let(:invalid_password) { "password" }
@@ -531,7 +531,7 @@ RSpec.describe "UserRegistrations", type: :system do
           click_button "ユーザー登録"
         end.to_not change { User.count }
 
-        expect(page).to have_content "パスワードは不正な値です。"
+        expect(page).to have_content("パスワードは不正な値です。")
       end
 
       scenario "パスワードとパスワード確認が一致しない状態でユーザー登録を試みる" do
@@ -544,7 +544,7 @@ RSpec.describe "UserRegistrations", type: :system do
           click_button "ユーザー登録"
         end.to_not change { User.count }
 
-        expect(page).to have_content "パスワード（確認用）とパスワードの入力が一致しません。"
+        expect(page).to have_content("パスワード（確認用）とパスワードの入力が一致しません。")
       end
 
       scenario "メール認証の有効期限が切れた状態でアカウントのアクティベートをしようとする" do
@@ -557,12 +557,12 @@ RSpec.describe "UserRegistrations", type: :system do
           click_button "ユーザー登録"
         end.to change { User.count }.by(1)
 
-        expect(page).to have_content "本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。"
+        expect(page).to have_content("本人確認用のメールを送信しました。メール内のリンクからアカウントを有効化させてください。")
 
         # 認証メール送信確認
         email = ActionMailer::Base.deliveries.last
-        expect(email.to).to include valid_email
-        expect(email.subject).to eq "メールアドレス確認メール"
+        expect(email.to).to include(valid_email)
+        expect(email.subject).to eq("メールアドレス確認メール")
 
         # Deviseに設定している有効期限
         confirmation_expiration = 6.hours
@@ -574,7 +574,7 @@ RSpec.describe "UserRegistrations", type: :system do
           visit confirmation_link
 
           # URLの有効期限切れと未アクティベート状態を確認
-          expect(page).to have_content "Eメールアドレスの期限が切れました。約6時間 以内に確認する必要があります。 新しくリクエストしてください。"
+          expect(page).to have_content("Eメールアドレスの期限が切れました。約6時間 以内に確認する必要があります。 新しくリクエストしてください。")
           expect(User.find_by(email: valid_email).confirmed_at).to be_nil
         end
       end
@@ -593,8 +593,8 @@ RSpec.describe "UserRegistrations", type: :system do
           click_button "更新"
         end.to change { user.reload.name }.from(before_name).to(new_name)
 
-        expect(current_path).to eq root_path
-        expect(page).to have_content "アカウント情報を変更しました。"
+        expect(current_path).to eq(root_path)
+        expect(page).to have_content("アカウント情報を変更しました。")
       end
 
       scenario "ユーザーがパスワードを更新する" do
@@ -608,8 +608,8 @@ RSpec.describe "UserRegistrations", type: :system do
         end.to change { user.reload.encrypted_password }
         expect(user.valid_password?(new_password)).to be_truthy
 
-        expect(current_path).to eq root_path
-        expect(page).to have_content "アカウント情報を変更しました。"
+        expect(current_path).to eq(root_path)
+        expect(page).to have_content("アカウント情報を変更しました。")
       end
 
       scenario "パスワードとパスワード（確認用）のフィールドが空だとパスワードが更新されない" do
@@ -630,8 +630,8 @@ RSpec.describe "UserRegistrations", type: :system do
           click_button "更新"
         end.to change { user.reload.hiragana_view }.from(false).to(true)
 
-        expect(current_path).to eq root_path
-        expect(page).to have_content "アカウント情報を変更しました。"
+        expect(current_path).to eq(root_path)
+        expect(page).to have_content("アカウント情報を変更しました。")
       end
     end
 
@@ -642,8 +642,8 @@ RSpec.describe "UserRegistrations", type: :system do
           click_button "更新"
         end.to_not change { user.reload.name }
 
-        expect(current_path).to eq user_registration_path
-        expect(page).to have_content "ニックネームを入力してください。"
+        expect(current_path).to eq(user_registration_path)
+        expect(page).to have_content("ニックネームを入力してください。")
         expect(page).to have_selector("h2", text: "ユーザー情報の編集")
       end
 
@@ -655,8 +655,8 @@ RSpec.describe "UserRegistrations", type: :system do
           click_button "更新"
         end.to_not change { user.reload.name }
 
-        expect(current_path).to eq user_registration_path
-        expect(page).to have_content "ニックネームは#{User::MAX_LENGTH_NAME}文字以内で入力してください。"
+        expect(current_path).to eq(user_registration_path)
+        expect(page).to have_content("ニックネームは#{User::MAX_LENGTH_NAME}文字以内で入力してください。")
         expect(page).to have_selector("h2", text: "ユーザー情報の編集")
       end
 
@@ -670,8 +670,8 @@ RSpec.describe "UserRegistrations", type: :system do
           click_button "更新"
         end.to_not change { user.reload.encrypted_password }
 
-        expect(current_path).to eq user_registration_path
-        expect(page).to have_content "パスワードは#{Devise.password_length.min}文字以上で入力してください。"
+        expect(current_path).to eq(user_registration_path)
+        expect(page).to have_content("パスワードは#{Devise.password_length.min}文字以上で入力してください。")
         expect(page).to have_selector("h2", text: "ユーザー情報の編集")
       end
 
@@ -685,8 +685,8 @@ RSpec.describe "UserRegistrations", type: :system do
           click_button "更新"
         end.to_not change { user.reload.encrypted_password }
 
-        expect(current_path).to eq user_registration_path
-        expect(page).to have_content "パスワードは#{Devise.password_length.max}文字以内で入力してください"
+        expect(current_path).to eq(user_registration_path)
+        expect(page).to have_content("パスワードは#{Devise.password_length.max}文字以内で入力してください")
         expect(page).to have_selector("h2", text: "ユーザー情報の編集")
       end
 
@@ -700,8 +700,8 @@ RSpec.describe "UserRegistrations", type: :system do
           click_button "更新"
         end.to_not change { user.reload.encrypted_password }
 
-        expect(current_path).to eq user_registration_path
-        expect(page).to have_content "パスワードは不正な値です。"
+        expect(current_path).to eq(user_registration_path)
+        expect(page).to have_content("パスワードは不正な値です。")
         expect(page).to have_selector("h2", text: "ユーザー情報の編集")
       end
     end
@@ -716,7 +716,7 @@ RSpec.describe "UserRegistrations", type: :system do
 
       before do
         sign_in_as(user)
-        expect(page).to have_content "ログインしました。"
+        expect(page).to have_content("ログインしました。")
         visit edit_user_registration_path
       end
 
@@ -727,28 +727,28 @@ RSpec.describe "UserRegistrations", type: :system do
           fill_in "Eメールアドレス", with: new_email
           click_button "更新"
 
-          expect(current_path).to eq root_path
-          expect(page).to have_content "アカウント情報を変更しました。変更されたメールアドレスの本人確認のため、本人確認用メールより確認処理をおこなってください。"
-          expect(user.reload.unconfirmed_email).to eq new_email
+          expect(current_path).to eq(root_path)
+          expect(page).to have_content("アカウント情報を変更しました。変更されたメールアドレスの本人確認のため、本人確認用メールより確認処理をおこなってください。")
+          expect(user.reload.unconfirmed_email).to eq(new_email)
 
           # 編集ページのEメールアドレスフォームの確認メッセージの確認
           within "nav" do
             click_link "ユーザー設定"
           end
-          expect(current_path).to eq edit_user_registration_path
-          expect(page).to have_content "#{new_email} の確認待ち"
+          expect(current_path).to eq(edit_user_registration_path)
+          expect(page).to have_content("#{new_email} の確認待ち")
 
           # 本人確認メール送信確認
           email = ActionMailer::Base.deliveries.last
-          expect(email.to).to include new_email
-          expect(email.subject).to eq "メールアドレス確認メール"
+          expect(email.to).to include(new_email)
+          expect(email.subject).to eq("メールアドレス確認メール")
 
           # メール内のURLから新メールアドレスを有効化
           confirmation_link = email.body.match(/(https?:\/\/[^\s]+)/)[0]
           visit confirmation_link
 
-          expect(page).to have_content "メールアドレスが確認できました。"
-          expect(current_path).to eq new_user_session_path
+          expect(page).to have_content("メールアドレスが確認できました。")
+          expect(current_path).to eq(new_user_session_path)
           expect(user.reload.unconfirmed_email).to be_nil
         end
 
@@ -764,8 +764,8 @@ RSpec.describe "UserRegistrations", type: :system do
             click_button "更新"
           end.to_not change { user.reload.unconfirmed_email }
 
-          expect(current_path).to eq user_registration_path
-          expect(page).to have_content "Eメールアドレスを入力してください。"
+          expect(current_path).to eq(user_registration_path)
+          expect(page).to have_content("Eメールアドレスを入力してください。")
           expect(page).to have_selector("h2", text: "ユーザー情報の編集")
         end
 
@@ -777,8 +777,8 @@ RSpec.describe "UserRegistrations", type: :system do
             click_button "更新"
           end.to_not change { user.reload.unconfirmed_email }
 
-          expect(current_path).to eq user_registration_path
-          expect(page).to have_content "Eメールアドレスは#{User::MAX_LENGTH_EMAIL}文字以内で入力してください。"
+          expect(current_path).to eq(user_registration_path)
+          expect(page).to have_content("Eメールアドレスは#{User::MAX_LENGTH_EMAIL}文字以内で入力してください。")
           expect(page).to have_selector("h2", text: "ユーザー情報の編集")
         end
 
@@ -788,8 +788,8 @@ RSpec.describe "UserRegistrations", type: :system do
             click_button "更新"
           end.to_not change { user.reload.unconfirmed_email }
 
-          expect(current_path).to eq user_registration_path
-          expect(page).to have_content "Eメールアドレスは不正な値です。"
+          expect(current_path).to eq(user_registration_path)
+          expect(page).to have_content("Eメールアドレスは不正な値です。")
           expect(page).to have_selector("h2", text: "ユーザー情報の編集")
         end
       end
@@ -800,7 +800,7 @@ RSpec.describe "UserRegistrations", type: :system do
 
       before do
         sign_in_as(user)
-        expect(page).to have_content "ログインしました。"
+        expect(page).to have_content("ログインしました。")
         visit edit_user_registration_path
       end
 
@@ -834,7 +834,7 @@ RSpec.describe "UserRegistrations", type: :system do
         within "nav" do
           click_button "ゲストログイン"
         end
-        expect(page).to have_content "ゲストユーザーとしてログインしました。"
+        expect(page).to have_content("ゲストユーザーとしてログインしました。")
         visit edit_user_registration_path
       end
 
@@ -853,8 +853,8 @@ RSpec.describe "UserRegistrations", type: :system do
         click_button "更新"
 
         user.reload
-        expect(user.name).to eq guest_name
-        expect(user.email).to eq guest_email
+        expect(user.name).to eq(guest_name)
+        expect(user.email).to eq(guest_email)
       end
     end
   end
@@ -867,7 +867,7 @@ RSpec.describe "UserRegistrations", type: :system do
 
       before do
         sign_in_as(user)
-        expect(page).to have_content "ログインしました。"
+        expect(page).to have_content("ログインしました。")
         visit edit_user_registration_path
       end
 
@@ -887,10 +887,10 @@ RSpec.describe "UserRegistrations", type: :system do
 
           # アカウント削除と同時にログアウトしrootページへリダイレクトする
           within ".alert" do
-            expect(page).to have_content "アカウントを削除しました。またのご利用をお待ちしております。"
+            expect(page).to have_content("アカウントを削除しました。またのご利用をお待ちしております。")
           end
 
-          expect(current_path).to eq root_path
+          expect(current_path).to eq(root_path)
 
           within "nav" do
             expect(page).to have_link("ログイン", href: new_user_session_path)
@@ -907,7 +907,7 @@ RSpec.describe "UserRegistrations", type: :system do
 
       before do
         sign_in_as(user)
-        expect(page).to have_content "ログインしました。"
+        expect(page).to have_content("ログインしました。")
         visit edit_user_registration_path
       end
 
@@ -927,7 +927,7 @@ RSpec.describe "UserRegistrations", type: :system do
         within "nav" do
           click_button "ゲストログイン"
         end
-        expect(page).to have_content "ゲストユーザーとしてログインしました。"
+        expect(page).to have_content("ゲストユーザーとしてログインしました。")
         visit edit_user_registration_path
       end
 
