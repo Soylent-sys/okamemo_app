@@ -98,12 +98,8 @@ RSpec.describe Category, type: :model do
     end
 
     context "引数ユーザーの作成したアイテムが存在しない場合" do
-      let(:empty_array) { [] }
-
       it "空の配列を返すこと" do
-        array = Category.created_item_categories(current_user.id)
-
-        expect(array).to eq(empty_array)
+        expect(Category.created_item_categories(current_user.id)).to be_empty
       end
     end
   end
