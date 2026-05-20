@@ -111,8 +111,7 @@ RSpec.describe NotificationTargetUser, type: :model do
       let(:confirmed_nt_user) { create(:notification_target_user, user: user, confirmation_status: :confirmed) }
 
       it "unconfirmedスコープに対して認証状態がunconfirmedの通知対象ユーザーのみを返すこと" do
-        expect(NotificationTargetUser.unconfirmed).to include(unconfirmed_nt_user)
-        expect(NotificationTargetUser.unconfirmed).to_not include(confirmed_nt_user)
+        expect(NotificationTargetUser.unconfirmed).to contain_exactly(unconfirmed_nt_user)
       end
     end
 
