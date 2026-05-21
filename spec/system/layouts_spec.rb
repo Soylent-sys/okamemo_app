@@ -409,13 +409,13 @@ RSpec.describe "Layouts", type: :system do
 
     it "著作権表示が存在すること" do
       within "footer" do
-        expect(page).to have_content("© 2024 okamemo.com")
+        expect(page).to have_content("© 2024-#{Date.current.year} okamemo.com")
       end
     end
 
     it "著作権表示をクリックするとrootページへ遷移すること" do
       within "footer" do
-        click_link "© 2024 okamemo.com"
+        click_link "© 2024-#{Date.current.year} okamemo.com"
       end
 
       expect(page).to have_http_status(:success)
