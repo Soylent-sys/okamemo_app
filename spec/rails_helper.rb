@@ -20,7 +20,8 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+# spec/supportのファイルを自動で読み込む設定
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -60,4 +61,16 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # FactoryBotメソッド使用時にモジュール名 (FactoryBot)を省略できるようする
+  config.include FactoryBot::Syntax::Methods
+
+  # ヘルパースペックでDeviseのテストヘルパーを使用可能にする
+  config.include Devise::Test::ControllerHelpers, type: :helper
+
+  # テスト内でtravel_toメソッドを使用可能にする
+  config.include ActiveSupport::Testing::TimeHelpers
+
+  # 各テストの実行前にメールキューをクリアする
+  config.before { ActionMailer::Base.deliveries.clear }
 end

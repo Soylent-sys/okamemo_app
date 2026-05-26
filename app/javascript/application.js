@@ -1,3 +1,10 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails"
 import "controllers"
+import "popper"
+import "bootstrap"
+import "custom/bootstrap_tooltip"
+import "custom/bootstrap_confirm"
+import "custom/form_uncheck_all"
+import "custom/form_check_count"
+import "custom/hide_help"

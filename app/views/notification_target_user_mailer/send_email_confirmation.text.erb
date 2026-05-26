@@ -1,0 +1,23 @@
+<%= @notification_target_user.name %>（<%= @notification_target_user.email %>） 様
+
+買い物お助けサービスアプリ【 おかメchan 】です。
+
+アプリをご利用中の <%= @notification_target_user.user.name %> さん が、
+あなたのメールアドレスを「お買い物の通知対象メールアドレス」として登録しました。
+
+以下のリンクをクリックして登録を許可してください。
+
+<%= confirm_email_notification_target_users_url(token: @notification_target_user.confirmation_token) %>
+このURLの有効期限は<%= NotificationTargetUser::EMAIL_CONFIRMATION_LIMIT %>分間です。
+
+【ご注意】
+※このメールはシステムより自動で送信されているメールです。このメールに返信することは出来ませんのでご注意ください。
+※このメールにお心当たりの無い場合は、このメールを破棄してください。
+
+
+＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+
+　買い物お助けサービスアプリ【 おかメchan 】
+　okamemo.com <%= Time.current.year %>
+
+＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊

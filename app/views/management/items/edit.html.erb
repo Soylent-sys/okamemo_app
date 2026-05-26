@@ -1,0 +1,45 @@
+<%= render "shared/error_messages", model: @item %>
+<div class="container-fluid g-0 bg-white">
+  <%= render "management/shared/caution" %>
+  <div class="d-flex">
+    <%= render "management/shared/sidebar" %>
+    <div class="management-main p-4 bg-body-secondary">
+      <h2 class="d-inline-block px-4 py-2 mb-3 rounded-2 bg-white">アイテム編集</h2>
+      <%= render "management/shared/back_link" %>
+      <%= form_with model: @item, url: management_item_path, method: "put", class: "col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 bg-white", local: true do |f| %>
+        <h2 class="mb-4">編集情報の入力</h2>
+        <table class="management-item-id-table h5 mb-3">
+          <tr>
+            <th><i class="fas fa-apple-whole"></i>&ensp;アイテムID</th>
+            <td><%= @item.id %></td>
+          </tr>
+          <tr>
+            <th><i class="fas fa-id-card"></i>&ensp;親ユーザーID</th>
+            <td><%= @item.user_id %></td>
+          </tr>
+        </table>
+
+        <%= f.label :category, class: "h5 mb-1" %>
+        <%= f.collection_select :category_id, @categories, :id, :name, {prompt: "カテゴリーを選択"}, {class: "form-select form-select-lg mb-3 #{"is-invalid" if f.object.errors[:category].present?}"} %>
+
+        <div class="field form-floating mb-3">
+          <%= f.text_field :name, autocomplete: "off", placeholder: "アイテム", class: "form-control #{"is-invalid" if f.object.errors[:name].present?}" %>
+          <%= f.label :name do %>
+            <i class="fas fa-apple-whole"></i>&ensp;アイテム名
+          <% end %>
+        </div>
+
+        <div class="field form-floating mb-5">
+          <%= f.text_field :hiragana, autocomplete: "off", placeholder: "ひらがな", class: "form-control #{"is-invalid" if f.object.errors[:hiragana].present?}" %>
+          <%= f.label :hiragana do %>
+            <i class="far fa-comment-dots"></i>&ensp;ひらがな（アイテム名）
+          <% end %>
+        </div>
+
+        <div>
+          <%= f.submit "更新", class: "w-100 btn btn-lg btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

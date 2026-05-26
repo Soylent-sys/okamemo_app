@@ -1,0 +1,2 @@
+module ShoppingLocationsHelper
+end

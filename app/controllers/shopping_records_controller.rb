@@ -1,0 +1,151 @@
+class ShoppingRecordsController < ApplicationController
+  include Pagy::Backend
+
+  before_action :authenticate_user!
+
+  RESULT_PAGENATION_SIZE = 10
+
+  def index
+    @shopping_records = current_user.shopping_records.opened
+  end
+
+  def new
+    @categories = Category.all
+    @items_by_category = Item.available_items_grouped_by_category(current_user.id)
+    @last_bought_times = Buy.last_bought_times(current_user)
+    @shopping_record_form = ShoppingRecordForm.new
+  end
+
+  def confirm
+    @shopping_record_form = ShoppingRecordForm.new(shopping_record_params)
+    if @shopping_record_form.valid?
+      @items = @shopping_record_form.wish_items
+      render "confirm", status: :see_other
+    else
+      @categories = Category.all
+      @items_by_category = Item.available_items_grouped_by_category(current_user.id)
+      @last_bought_times = Buy.last_bought_times(current_user)
+      render "new", status: :unprocessable_entity
+    end
+  end
+
+  def back_new
+    @categories = Category.all
+    @items_by_category = Item.available_items_grouped_by_category(current_user.id)
+    @last_bought_times = Buy.last_bought_times(current_user)
+    @shopping_record_form = ShoppingRecordForm.new(back_shopping_record_params)
+    render "new", status: :see_other
+  end
+
+  def create
+    shopping_record_form = ShoppingRecordForm.new(shopping_record_params)
+    shopping_record_form.save
+    flash[:notice] = "お買い物が登録されました。"
+    redirect_to root_url
+  end
+
+  def edit
+    @shopping_record = current_user.shopping_records.find_by_hashid(params[:hashid])
+    @shopping_record_form = ShoppingRecordForm.new
+    if @shopping_record.blank?
+      flash[:error] = "指定されたお買い物は存在しません。"
+      redirect_to shopping_index_url
+    elsif @shopping_record.closed?
+      flash[:error] = "指定されたお買い物は終了しています。"
+      redirect_to shopping_index_url
+    end
+  end
+
+  def edit_confirm
+    @shopping_record = set_shopping_record_from_post
+    @shopping_record_form = set_shopping_record_form_from_post
+    @bought_items = @shopping_record_form.bought_items
+    @no_bought_items = @shopping_record_form.no_bought_items(@shopping_record)
+    render "edit_confirm", status: :see_other
+  end
+
+  def back_edit
+    @shopping_record = set_shopping_record_from_post
+    @shopping_record_form = set_shopping_record_form_from_post
+    render "edit", status: :see_other
+  end
+
+  def update
+    shopping_record_form = set_shopping_record_form_from_post
+    shopping_record_form.update_shopping_record(current_user)
+    @shopping_record = set_shopping_record_from_post
+    if current_user.notification_target_users.confirmed.present?
+      ShoppingRecordMailer.send_shopping_result_to_notification_target_users(@shopping_record)
+    end
+    flash[:notice] = "お買い物が完了しました。"
+    render "choose", status: :see_other
+  end
+
+  def destroy
+    shopping_record = current_user.shopping_records.find_by_hashid!(params[:hashid])
+    if shopping_record.closed?
+      shopping_record.destroy!
+      flash[:notice] = "お買い物履歴が削除されました。"
+      redirect_to shopping_result_group_url
+    else
+      shopping_record.destroy!
+      flash[:notice] = "お買い物が削除されました。"
+      redirect_to shopping_index_url
+    end
+  end
+
+  def result_group
+    @pagy, @shopping_records_one_record_by_month = pagy(ShoppingRecord.first_record_by_month(current_user).recent_updated,
+                                                        items: RESULT_PAGENATION_SIZE, size: [1, 1, 1, 1])
+  end
+
+  def result
+    @pagy, @shopping_records = pagy(ShoppingRecord.extract_one_month(current_user, params[:date]).recent_updated,
+                                    items: RESULT_PAGENATION_SIZE, size: [1, 1, 1, 1])
+    if @shopping_records.blank?
+      flash[:error] = "指定した年月のお買い物履歴は存在しません。"
+      redirect_to shopping_result_group_url
+    end
+  end
+
+  def show
+    @shopping_record = current_user.shopping_records.closed.find_by_hashid(params[:hashid])
+    if @shopping_record.blank?
+      flash[:error] = "指定されたお買い物履歴は存在しません。"
+      redirect_to shopping_result_group_url
+      return
+    end
+
+    @shopping_location = @shopping_record.shopping_location
+    if @shopping_location
+      gon.lat = @shopping_location.latitude
+      gon.lng = @shopping_location.longitude
+      # テスト環境の場合はビューのスクリプトにテスト用の処理を追加するため
+      gon.env = Rails.env
+    end
+  end
+
+  private
+
+  def shopping_record_params
+    params.require(:shopping_record_form).permit(:title, hashids: []).merge(user_id: current_user.id)
+  end
+
+  def back_shopping_record_params
+    params.require(:shopping_record_form).permit(:title, hashids: [])
+  end
+
+  def update_shopping_record_params
+    params.require(:shopping_record_form).permit(:shopping_record_hashid, hashids: [])
+  end
+
+  # edit（edit_confirm）からpostで渡されるshopping_recordインスタンスのセット用
+  def set_shopping_record_from_post
+    current_user.shopping_records.find_by_hashid!(update_shopping_record_params[:shopping_record_hashid])
+  end
+
+  # edit（edit_confirm）からpostで渡されるshopping_record_formインスタンスのセット用
+  def set_shopping_record_form_from_post
+    ShoppingRecordForm.new(update_shopping_record_params)
+  end
+end

@@ -1,0 +1,5 @@
+<% if user_signed_in? %>
+  <%= render "home/login_home" %>
+<% else %>
+  <%= render "home/no_login_home" %>
+<% end %>

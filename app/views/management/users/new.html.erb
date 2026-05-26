@@ -1,0 +1,61 @@
+<%= render "shared/error_messages", model: @user %>
+<div class="container-fluid g-0 bg-white">
+  <%= render "management/shared/caution" %>
+  <div class="d-flex">
+    <%= render "management/shared/sidebar" %>
+    <div class="management-main p-4 bg-body-secondary">
+      <h2 class="d-inline-block px-4 py-2 mb-3 rounded-2 bg-white">ユーザー登録</h2>
+      <%= render "management/shared/back_link" %>
+      <%= form_with model: @user, url: management_users_path, id: "new user", class: "new_user col-xl-6 col-lg-8 col-md-10 p-md-5 p-4 mx-auto mb-5 rounded-3 bg-white", local: true do |f| %>
+        <h2 class="mb-4">登録情報の入力</h2>
+        <div class="mb-4">
+          <div class="mb-3">
+            <h5 class="mb-1">ユーザー区分</h5>
+          </div>
+          <div class="h5 d-flex justify-content-evenly">
+            <div class="form-check">
+              <%= f.radio_button :admin, true, id: "user_admin_true", class: "form-check-input" %>
+              <%= f.label :admin_true, t(".user_admin_true"), class: "form-check-label" %>
+            </div>
+            <div class="form-check">
+              <%= f.radio_button :admin, false, id: "user_admin_false", class: "form-check-input" %>
+              <%= f.label :admin_false, t(".user_admin_false"), class: "form-check-label" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="field form-floating mb-3">
+          <%= f.text_field :name, autofocus: true, autocomplete: "off", placeholder: "おかメちゃん", class: "form-control #{"is-invalid" if f.object.errors[:name].present?}" %>
+          <%= f.label :name do %>
+            <i class="fas fa-user"></i>&ensp;ニックネーム
+          <% end %>
+        </div>
+
+        <div class="field form-floating mb-3">
+          <%= f.email_field :email, autocomplete: "email", placeholder: "email@example.com", class: "form-control #{"is-invalid" if f.object.errors[:email].present?}" %>
+          <%= f.label :email do %>
+            <i class="far fa-envelope"></i>&ensp;Eメールアドレス
+          <% end %>
+        </div>
+
+        <div class="field form-floating mb-3">
+          <%= f.password_field :password, autocomplete: "new-password", placeholder: "password", class: "form-control #{"is-invalid" if f.object.errors[:password].present?}" %>
+          <%= f.label :password do %>
+            <i class="fas fa-lock"></i>&ensp;パスワード
+          <% end %>
+        </div>
+
+        <div class="field form-floating mb-4">
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "password", class: "form-control #{"is-invalid" if f.object.errors[:password_confirmation].present?}" %>
+          <%= f.label :password_confirmation do %>
+            <i class="fas fa-lock"></i>&ensp;パスワード（確認用）
+          <% end %>
+        </div>
+
+        <div>
+          <%= f.submit "登録", class: "w-100 btn btn-lg btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

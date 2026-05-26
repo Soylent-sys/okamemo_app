@@ -1,0 +1,27 @@
+<div class="container-fluid layouts-footer">
+  <footer class="row pt-4 pb-sm-4 pb-5">
+    <div class="col-sm-4 justify-content-sm-start justify-content-center d-flex ps-sm-5 mb-sm-0 mb-3 order-sm-1 order-2 text-start">
+      <div class="d-flex flex-column">
+        <%= link_to terms_path, class: "footer-other-link mb-sm-0 mb-1" do %>
+          <i class="fas fa-circle-chevron-right"></i>&ensp;利用規約・推奨環境
+        <% end %>
+        <%= link_to policy_path, class: "footer-other-link mb-sm-0 mb-1" do %>
+          <i class="fas fa-circle-chevron-right"></i>&ensp;プライバシーポリシー
+        <% end %>
+        <%= link_to contact_path, class: "footer-other-link mb-sm-0 mb-1" do %>
+          <i class="fas fa-circle-chevron-right"></i>&ensp;お問い合わせ
+        <% end %>
+      </div>
+    </div>
+    <div class="col-sm-4 d-sm-flex align-items-sm-center justify-content-sm-end pe-sm-5 mb-sm-0 mb-3 order-sm-3 order-1 text-sm-end text-center">
+      <%= link_to "#", class: "h5 footer-top-link" do %>
+        <i class="fas fa-circle-up link-icon"></i><span class="ms-1">ページTOPへ</span>
+      <% end %>
+    </div>
+    <div class="col-sm-4 d-sm-flex align-items-sm-center justify-content-center order-sm-2 order-3">
+      <%= link_to root_path, class: "text-decoration-none" do %>
+        <p class="text-center text-body-secondary">&copy; 2024-<%= Date.current.year %> okamemo.com</p>
+      <% end %>
+    </div>
+  </footer>
+</div>

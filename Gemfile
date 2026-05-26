@@ -43,17 +43,31 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "bootsnap", require: false
 
 # Use Sass to process CSS
-# gem "sassc-rails"
+gem "sassc-rails"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+gem "bootstrap", "~> 5.3.1"
+gem "mini_racer", "~> 0.8.0"
+gem "devise", "~> 4.9.2"
+gem "devise-i18n", "~> 1.11.0"
+gem "aws-sdk-rails", "~> 3.8.0"
+gem "font-awesome-sass", "~> 6.4.2"
+gem "hashid-rails", "~> 1.4.1"
+gem "pagy", "~> 6.2"
+gem "gon", "~> 6.4"
+gem "sidekiq", "~> 7.2.2"
+gem "recaptcha", "~> 5.16", require: "recaptcha/rails"
+gem "ransack", "~> 4.1"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rspec-rails'
-  gem 'factory_bot_rails'
-  gem 'rubocop-airbnb'
+  gem "rspec-rails"
+  gem "factory_bot_rails"
+  gem "rubocop-airbnb"
+  gem "dotenv-rails"
 end
 
 group :development do
@@ -70,6 +84,5 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  gem "selenium-webdriver"
-  gem "webdrivers"
+  gem "selenium-webdriver", "4.27.0"
 end

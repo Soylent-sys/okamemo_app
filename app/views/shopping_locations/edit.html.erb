@@ -1,0 +1,87 @@
+<% provide(:page_title, "お買い物場所の更新") %>
+<% provide(:help_path, "shopping_locations/edit_help") %>
+<% provide(:okame_info, "「#{@shopping_record.title}」のお買い物場所を登録し直すよ！\n地図の新しい場所にマーカーを立てて「お買い物場所を更新」ボタンを押すとお買い物場所が更新されるよ。") %>
+<%= render "shared/navigation" %>
+<% provide(:back_link_path, shopping_results_path(@shopping_record.hashid)) %>
+<% provide(:back_link_text, "詳細ページ にもどる") %>
+<%= render "shared/back_link" %>
+<%= render "shared/page_title" %>
+<%= render "shared/help_modal" %>
+<div class="col-xl-6 col-md-8 col-11 p-md-5 p-4 mb-5 mx-auto rounded-2 form-bg confirm-window-text">
+  <h2 class="mb-md-4 mb-3">お買い物場所を更新する</h2>
+  <div class="mb-2 text-muted"><small><i class="fas fa-circle-info"></i> マップ上でクリック（タップ）した場所にマーカーが移動します</small></div>
+  <div id="map"></div>
+  <%# 更新後のリダイレクト先でページ全体をリロードしている関係で、turboでフォーム送信するとflashが表示されないため以下のフォームではturboを無効にしている %>
+  <%= form_with model: @shopping_location, url: shopping_location_path(@shopping_location.hashid), data: { turbo: false }, method: "put", local: true do |f| %>
+    <%= f.hidden_field :latitude %>
+    <%= f.hidden_field :longitude %>
+    <%= f.submit "お買い物場所を更新", class: "w-100 mt-4 btn btn-lg btn-custom-send" %>
+  <% end %>
+</div>
+<%# 強制ページ全体リロードのmetaタグ追加 %>
+<% provide(:map_js, "true") %>
+<%# Maps JavaScript API 読込 %>
+<script>
+  (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+    key: "<%= ENV['GOOGLE_MAP_API_KEY'] %>",
+    v: "weekly",
+  });
+</script>
+<%# GoogleMapの構築スクリプト（買い物場所更新ページ用） %>
+<script>
+  // shopping_locationモデルに緯度・経度を送信するhiddenフォームの要素を取得する
+  const mapLat = document.getElementById('shopping_location_latitude');
+  const mapLng = document.getElementById('shopping_location_longitude');
+
+  async function initMap() {
+    // google.mapsのライブラリを取得する
+    const { Map } = await google.maps.importLibrary("maps");
+    const { Marker } = await google.maps.importLibrary("marker");
+    const { Animation } = await google.maps.importLibrary("marker");
+    const { event } = await google.maps.importLibrary("core");
+    const { LatLng } = await google.maps.importLibrary("core");
+
+    // DBに登録された緯度経度を取得する
+    const latlng = { lat: gon.lat, lng: gon.lng };
+    // 取得した緯度・経度をshopping_locationのhiddenフォームの値に設定する
+    mapLat.value = latlng.lat;
+    mapLng.value = latlng.lng;
+
+    // 取得した位置情報を中心にマップを表示
+    const gMap = new Map(document.getElementById('map'), {
+      center: latlng,
+      zoom: 17,
+    });
+
+    // 取得した位置情報の地点にマーカーを立てる
+    const marker = new Marker({
+      map: gMap,
+      position: latlng,
+      label: {
+        text: '買い物した場所',
+        fontSize: '15px',
+        fontWeight: '900',
+      },
+      animation: Animation.DROP,
+    });
+
+    // クリックでマーカーの位置を変更するためのイベントを設定する
+    event.addListener(gMap, 'click', setmarker);
+
+    // マップをクリックしたときの処理
+    function setmarker(e) {
+      // markerの位置をクリックした地点の緯度経度に指定する
+      marker.setPosition(new LatLng(e.latLng.lat(), e.latLng.lng()));
+      // 指定した緯度・経度でshopping_locationのhiddenフォームの値を更新する
+      mapLat.value = e.latLng.lat();
+      mapLng.value = e.latLng.lng();
+    }
+
+    // テスト環境のみグローバルにエクスポート
+    if (gon.env === "test") {
+      window.test = { gMap, marker };
+    }
+  }
+
+  initMap();
+</script>

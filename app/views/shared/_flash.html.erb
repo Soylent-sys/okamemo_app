@@ -1,0 +1,6 @@
+<% flash.each do |message_type, message| %>
+  <div class="alert alert-<%= bootstrap_alert(message_type) %> alert-dismissible <%= position_flash %> <%= management_flash_margin_off(request.path) %> rounded-0">
+    <i class="<%= bootstrap_alert_icon(message_type) %>"></i>&nbsp;<%= message %>
+    <button type="button" class="btn-close btn-close-cs" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>

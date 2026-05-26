@@ -15,3 +15,7 @@ AllCops:
     - 'lib/tasks/*'
     - 'vendor/**/*'
     - 'path/ruby'
+
+Airbnb/OptArgParameters:
+  Exclude:
+    - 'app/models/*'

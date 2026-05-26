@@ -1,0 +1,43 @@
+<%= render "shared/error_messages", model: @notification_target_user %>
+<div class="container-fluid g-0 bg-white">
+  <%= render "management/shared/caution" %>
+  <div class="d-flex">
+    <%= render "management/shared/sidebar" %>
+    <div class="management-main p-4 bg-body-secondary">
+      <h2 class="d-inline-block px-4 py-2 mb-3 rounded-2 bg-white">通知ユーザー登録</h2>
+      <%= render "management/shared/back_link" %>
+      <%= form_with model: @notification_target_user, url: management_notification_target_users_path, id: "new user", class: "new_user col-xl-6 col-lg-8 col-md-10 p-md-5 p-4 mx-auto mb-5 rounded-3 bg-white", local: true do |f| %>
+        <h2 class="mb-4">登録情報の入力</h2>
+        <div class="field form-floating mb-3">
+          <%= f.number_field :user_id, autofocus: true, autocomplete: "off", placeholder: "1", class: "form-control #{"is-invalid" if f.object.errors[:user].present?}" %>
+          <%= f.label :user_id do %>
+            <i class="fas fa-id-card"></i>&ensp;親ユーザーID
+          <% end %>
+        </div>
+
+        <div class="field form-floating mb-3">
+          <%= f.text_field :name, autocomplete: "off", placeholder: "おかメちゃん", class: "form-control #{"is-invalid" if f.object.errors[:name].present?}" %>
+          <%= f.label :name do %>
+            <i class="fas fa-user"></i>&ensp;ニックネーム
+          <% end %>
+        </div>
+
+        <div class="field form-floating mb-3">
+          <%= f.email_field :email, autocomplete: "email", placeholder: "email@example.com", class: "form-control #{"is-invalid" if f.object.errors[:email].present?}" %>
+          <%= f.label :email do %>
+            <i class="far fa-envelope"></i>&ensp;Eメールアドレス
+          <% end %>
+        </div>
+
+        <div class="mb-4">
+          <%= f.label :confirmation_status, class: "h5 mb-1" %>
+          <%= f.select :confirmation_status, options_for_select(NotificationTargetUser.confirmation_statuses.keys.map { |k| [t("activerecord.attributes.notification_target_user.confirmation_statuses.#{k}"), k] }), {}, class: "form-select form-select-lg" %>
+        </div>
+
+        <div>
+          <%= f.submit "登録", class: "w-100 btn btn-lg btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

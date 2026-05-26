@@ -1,0 +1,33 @@
+<div class="sidebar">
+  <div class="sidebar-menu py-3 text-center">
+    <h4 class="px-3 py-2 mx-3 mb-3 rounded-pill bg-secondary text-light">管理メニュー</h4>
+    <ul class="management-menu-list list-deco-none">
+      <li class="<%= management_menu_active_class(management_users_path, request.path) %>">
+        <%= link_to management_users_path, class: "text-decoration-none link-text" do %>
+          <span class="h5">ユーザー管理</span>
+        <% end %>
+      </li>
+      <li class="<%= management_menu_active_class(management_notification_target_users_path, request.path) %>">
+        <%= link_to management_notification_target_users_path, class: "text-decoration-none link-text" do %>
+          <span class="h5">通知ユーザー管理</span>
+        <% end %>
+      </li>
+      <li class="<%= management_menu_active_class(management_items_path, request.path) %>">
+        <%= link_to management_items_path, class: "text-decoration-none link-text" do %>
+          <span class="h5">アイテム管理</span>
+        <% end %>
+      </li>
+      <li class="<%= management_menu_active_class(management_shopping_records_path, request.path) %>">
+        <%= link_to management_shopping_records_path, class: "text-decoration-none link-text" do %>
+          <span class="h5">お買い物管理</span>
+        <% end %>
+      </li>
+      <li class="mt-5">
+        <%= link_to root_path, class: "text-decoration-none link-text h5" do %>
+          <i class="fas fa-circle-left link-icon"></i><span class="ms-2">通常メニュー</span>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>
+

@@ -1,0 +1,71 @@
+<% provide(:page_title, "お買い物の登録") %>
+<% provide(:help_path, "shopping_records/new_help") %>
+<% provide(:okame_info, "ここは買い物登録する画面だよ！\nお買い物のタイトルを入力して買う予定のアイテムにチェックを入れたら、最後に「登録内容の確認」のボタンを押してね。\nアイテムのチェックをやり直したい時は「リセット」ボタンを押すと全てのチェックが外せるよ。") %>
+<%= render "shared/error_messages", model: @shopping_record_form %>
+<%= render "shared/navigation" %>
+<% provide(:back_link_path, root_path) %>
+<% provide(:back_link_text, "メインメニュー にもどる") %>
+<%= render "shared/back_link" %>
+<%= render "shared/page_title" %>
+<%= render "shared/help_modal" %>
+<%= form_with model: @shopping_record_form, url: shopping_new_confirm_path, local: true do |f| %>
+  <div class="col-xl-6 col-md-8 col-11 p-md-4 p-3 mb-5 mx-auto rounded-2 form-bg">
+    <h3 class="mb-3">タイトルを入力</h3>
+    <div class="field form-floating">
+      <%= f.text_field :title, autocomplete: "off", placeholder: "タイトル", value: shopping_title(@shopping_record_form), class: "form-control #{"is-invalid" if f.object.errors[:title].present?}" %>
+      <%= f.label :title do %>
+        <i class="fas fa-book"></i>&ensp;タイトル
+      <% end %>
+      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> タイトルは最大<%= ShoppingRecord::MAX_LENGTH_TITLE %>文字まで入力できます</small>
+    </div>
+  </div>
+  <h3 class="px-4 py-3 mx-1 mb-0 rounded-2 form-bg">買うものにチェック</h3>
+  <div class="container-fluid">
+    <div class="row d-flex align-items-start px-1 pt-3 position-under-header category-item-head">
+      <div class="col-xl-2 col-sm-3 col-5 category-window border-1rem-up"><h4 class="pt-2 pb-sm-2 pb-c my-auto category-window-heading"><i class="fas fa-tree me-2"></i>カテゴリー</h4></div>
+      <div class="col-xl-10 col-sm-9 col-7 pb-sm-0 pb-2 item-window rounded-2"><h4 class="d-sm-inline-block pt-2 pb-sm-2 pb-0 my-auto me-2 item-window-heading"><i class="fas fa-apple-whole me-2"></i>アイテム</h4><small class="item-window-heading"><i class="fas fa-circle-info"></i> チェックは最大<%= ShoppingRecordForm::HASHIDS_MAXIMUM_SIZE %>個まで</small></div>
+    </div>
+    <div class="row d-flex align-items-start px-1 mb-4">
+      <div class="col-xl-2 col-sm-3 col-5 px-2 pb-2 category-window border-1rem-down">
+        <div class="nav flex-column nav-pills category-bg" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <% @categories.each_with_index do |category, i| %>
+            <button class="nav-link <%= "hiragana-view" if current_user.hiragana_view.present? %> <%= "active" if i.zero? %>" id="v-pills-<%= i %>-tab" data-bs-toggle="pill" data-bs-target="#v-pills-<%= i %>" type="button" role="tab" aria-controls="v-pills-home" aria-selected="<%= i.zero? ? "true" : "false" %>"><%= display_name_of_category_or_item(category) %></button>
+          <% end %>
+        </div>
+      </div>
+      <div class="tab-content col-xl-10 col-sm-9 col-7 p-0 position-items" id="v-pills-tabContent">
+        <% @categories.each_with_index do |category, i| %>
+          <div class="tab-pane fade <%= "show active" if i.zero? %>" id="v-pills-<%= i %>" role="tabpanel" aria-labelledby="v-pills-<%= i %>-tab" tabindex="0">
+            <div class="row mx-auto my-3">
+              <% items = @items_by_category[category] || [] %>
+              <%#「おまとめ」カテゴリのアイテムのみ作成日時でソートする %>
+              <% items = items.sort_by(&:created_at) if category.name == "おまとめ" %>
+              <% items.each do |item| %>
+                <div class="col-md-3 p-0 mx-2 mb-2 rounded-2 item-space item-bg">
+                  <label name="checkbox_click_point" class="d-block item-pointer" for="shopping_record_form_hashids_<%= item.hashid %>">
+                    <div class="d-flex justify-content-between align-items-center px-3 py-3">
+                      <div>
+                        <div class="h5 item-name-space-shopping"><%= display_name_of_category_or_item(item) %></div>
+                        <div class="h6 mb-0 text-muted"><i class="fas fa-tag"></i>&ensp;<%= last_bought_day(@last_bought_times[item.name]) %></div>
+                      </div>
+                      <div class="custom-checkbox">
+                        <%= f.check_box :hashids, { multiple: true }, item.hashid, false %>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mb-4">
+    <%= f.submit "登録内容の確認", class: "btn btn-lg btn-custom-send me-5" %>
+    <%= button_tag "リセット", type: :button, id: "check_reset_button", class: "btn btn-lg btn-secondary" %>
+  </div>
+<% end %>
+<div id="check-count-box" class="check-count-container h5 rounded-5 check-count-bg-color d-none">
+  <p class="p-3 m-0">チェック数 <span id="check-count"></span></p>
+</div>

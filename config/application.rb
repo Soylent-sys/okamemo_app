@@ -21,6 +21,9 @@ module OkamemoApp
     config.time_zone = "Asia/Tokyo"
     config.active_record.default_timezone = :local
 
+    config.i18n.default_locale = :ja
+    config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}").to_s]
+
     config.generators do |g|
       g.test_framework :rspec,
         fixtures: false,
@@ -28,5 +31,13 @@ module OkamemoApp
         view_specs: false,
         routing_specs: false
     end
+
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag.html_safe }
+
+    # メール送信処理のジョブを永続化するためジョブキューアダプターをsidekiqに設定
+    config.active_job.queue_adapter = :sidekiq
+
+    # DBを使用しないモデルを格納するディレクトリを自動読み込み対象に追加
+    config.autoload_paths << "#{config.root}/app/models/non_db_models"
   end
 end

@@ -1,0 +1,70 @@
+<h3 class="mb-3">お買い物登録の仕方</h3>
+<ul class="px-3 py-4 mb-5 rounded-3 help-list-bg">
+  <li class="row mb-3">
+    <div class="col-12">
+      <h5>①&ensp;タイトルの入力</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">お買い物に設定するタイトルを入力します。最大<%= ShoppingRecord::MAX_LENGTH_TITLE %>文字まで入力できます。デフォルトでは今日の日付で「◯◯◯◯年 ◯月◯日のお買い物」が入力されます。</p>
+    </div>
+  </li>
+  <li class="row mb-3">
+    <div class="col-12">
+      <h5>②&ensp;買うものにチェック</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">出先で買う予定のアイテムをチェックしていきます。最大<%= ShoppingRecordForm::HASHIDS_MAXIMUM_SIZE %>個までチェックできます。カテゴリーを選択すると関連するアイテムが表示されるので、アイテムをクリック（タップ）してチェックを付けていきます。</p>
+    </div>
+  </li>
+  <li class="row">
+    <div class="col-12">
+      <h5>③&ensp;登録内容の確認ボタンを押す</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">アイテムのチェックが終わったら「登録内容の確認」ボタンを押します。登録内容の確認画面に移ります。</p>
+    </div>
+  </li>
+</ul>
+<% if current_user.guest? %>
+  <h3 class="mb-3">ゲストユーザーのお買い物の最大登録数</h3>
+  <p class="px-3 py-4 mb-5 rounded-3 bg-danger-subtle">ゲストユーザーで登録できるお買い物の数はお買い物履歴を含めて最大<%= ShoppingRecordForm::GUEST_SHOPPING_MAXIMUM_COUNT %>件です。</p>
+<% end %>
+<h3 class="mb-3">ボタン・カテゴリーについて</h3>
+<h4>各ボタンの説明</h4>
+<ul class="px-3">
+  <li class="row p-2 mb-3 rounded-3 help-list-button-bg">
+    <div class="col-12">
+      <div class="col-md-3 p-0 mb-2 rounded-2 item-space item-bg">
+        <div class="d-flex justify-content-between align-items-center px-3 py-3">
+          <div>
+            <div class="h5 item-name-space-shopping">アイテム名</div>
+            <div class="h6 mb-0 text-muted"><i class="fas fa-tag"></i>&ensp;購入記録なし</div>
+          </div>
+        </div>
+      </div>
+      <h5>各アイテムボタン</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">アイテムの名前が書いてあります。クリック（タップ）するとチェックの付け外しができます。アイテム名の下にある「<i class="fas fa-tag"></i>&ensp;最終購入日タグ」にはそのアイテムを最後に購入した日が表示されます。</p>
+    </div>
+  </li>
+  <li class="row p-2 mb-3 rounded-3 help-list-button-bg">
+    <div class="col-12">
+      <div class="btn btn-lg btn-custom-send mb-2">登録内容の確認</div>
+      <h5>登録内容の確認ボタン</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">登録内容の確認画面に移動します。アイテムのチェックが終わったら押してください。</p>
+    </div>
+  </li>
+  <li class="row p-2 mb-3 rounded-3 help-list-button-bg">
+    <div class="col-12">
+      <div class="btn btn-lg btn-secondary mb-2">リセット</div>
+      <h5>リセットボタン</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">アイテムに付けたチェックをすべて外します。</p>
+    </div>
+  </li>
+</ul>
+<%= render "shared/help_category_info" %>

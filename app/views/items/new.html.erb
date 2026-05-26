@@ -1,0 +1,37 @@
+<% provide(:page_title, "アイテムの登録") %>
+<% provide(:help_path, "items/new_help") %>
+<% provide(:okame_info, "ここでは新しいアイテムを登録できるよ！\n登録する「カテゴリー」を選択して「アイテム名」と「ひらがな」を入力したら「登録」ボタンを押してね。") %>
+<%= render "shared/error_messages", model: @item %>
+<%= render "shared/navigation" %>
+<% provide(:back_link_path, items_path) %>
+<% provide(:back_link_text, "アイテム一覧 にもどる") %>
+<%= render "shared/back_link" %>
+<%= render "shared/page_title" %>
+<%= render "shared/help_modal" %>
+<div class="container">
+  <%= form_with model: @item, url: items_path, class: "col-xl-6 col-md-8 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
+    <h2 class="mb-4">登録内容の入力</h2>
+
+    <%= f.collection_select :category_id, @categories, :id, :name, {prompt: "カテゴリーを選択"}, {class: "form-select form-select-lg mb-5 #{"is-invalid" if f.object.errors[:category].present?}"} %>
+
+    <div class="field form-floating mb-3">
+      <%= f.text_field :name, autocomplete: "off", placeholder: "アイテム", class: "form-control #{"is-invalid" if f.object.errors[:name].present?}" %>
+      <%= f.label :name do %>
+        <i class="fas fa-apple-whole"></i>&ensp;アイテム名
+      <% end %>
+      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> アイテム名は最大<%= Item::MAX_LENGTH_NAME %>文字まで入力できます</small>
+    </div>
+
+    <div class="field form-floating mb-5">
+      <%= f.text_field :hiragana, autocomplete: "off", placeholder: "ひらがな", class: "form-control #{"is-invalid" if f.object.errors[:hiragana].present?}" %>
+      <%= f.label :hiragana do %>
+        <i class="far fa-comment-dots"></i>&ensp;ひらがな（アイテム名）
+      <% end %>
+      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> ひらがな（アイテム名）は最大<%= Item::MAX_LENGTH_HIRAGANA %>文字まで入力でき、平仮名と半角数字のみ使用できます</small>
+    </div>
+
+    <div>
+      <%= f.submit "登録", class: "w-100 btn btn-lg btn-custom-send" %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,70 @@
+<h3 class="mb-3">フォームについて</h3>
+<h4>入力項目の説明</h4>
+<ul class="px-3 mb-5">
+  <li class="row p-2 mb-3 rounded-3 help-list-form-bg">
+    <div class="col-12">
+      <h5>ニックネーム</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">ニックネームを入力します。最大<%= UserSharedConstants::MAX_LENGTH_NAME %>文字まで入力できます。</p>
+    </div>
+  </li>
+  <li class="row p-2 mb-3 rounded-3 help-list-form-bg">
+    <div class="col-12">
+      <h5>Eメールアドレス</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">メールアドレスを入力します。ここで入力したメールアドレスに確認メールが送信されます。確認メールでの認証が完了しないと新しいメールアドレスが反映されないのでご注意ください。</p>
+    </div>
+  </li>
+  <li class="row p-2 mb-3 rounded-3 help-list-form-bg">
+    <div class="col-12">
+      <h5>パスワード</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">パスワードを入力します。パスワードは<%= @minimum_password_length %>文字以上で半角の英字と数字を含めてください。パスワード変更しない場合は空欄のままにしてください。</p>
+    </div>
+  </li>
+  <li class="row p-2 mb-3 rounded-3 help-list-form-bg">
+    <div class="col-12">
+      <h5>パスワード（確認用）</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">確認のためパスワードをもう一度入力します。パスワード変更しない場合は空欄のままにしてください。</p>
+    </div>
+  </li>
+  <li class="row p-2 mb-3 rounded-3 help-list-form-bg">
+    <div class="col-12">
+      <h5>ひらがなモード</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">ひらがなモードを使用するかどうか選択します。「使う」に設定するとお買い物関連の機能でアイテム名が平仮名で表示されます。デフォルトは「使わない」に設定されています。</p>
+    </div>
+  </li>
+</ul>
+<% if current_user.guest? %>
+  <h3 class="mb-3">ゲストユーザーの編集制限</h3>
+  <p class="px-3 py-4 mb-5 rounded-3 bg-danger-subtle">ゲストユーザーはニックネーム、Eメールアドレス、パスワードの編集とアカウント削除はできません。ひらがなモードの使用選択のみ行えます。</p>
+<% end %>
+<h3 class="mb-3">ボタンについて</h3>
+<h4>各ボタンの説明</h4>
+<ul class="px-3">
+  <li class="row p-2 mb-3 rounded-3 help-list-button-bg">
+    <div class="col-12">
+      <div class="btn btn-lg btn-custom-send mb-2">更新</div>
+      <h5>更新ボタン</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">フォームの入力内容でユーザー設定を更新します。</p>
+    </div>
+  </li>
+  <li class="row p-2 mb-3 rounded-3 help-list-button-bg">
+    <div class="col-12">
+      <div class="btn btn-lg btn-danger mb-2">アカウント削除</div>
+      <h5>アカウント削除ボタン</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">ユーザーアカウントを削除します。ユーザー情報や登録済みのお買い物リスト・履歴などのデータが全て削除されます。ユーザーアカウントは削除すると元には戻せないのでご注意ください。</p>
+    </div>
+  </li>
+</ul>

@@ -1,0 +1,8 @@
+:verbose: false
+:pidfile: ./tmp/pids/sidekiq.pid
+:logfile: ./log/sidekiq.log
+:concurrency: <%= ENV.fetch('SIDEKIQ_CONCURRENCY', 5) %>
+:queues:
+  - default
+  - mailers
+:max_retries: 0

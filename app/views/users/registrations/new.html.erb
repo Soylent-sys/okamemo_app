@@ -1,0 +1,56 @@
+<% provide(:page_title, "ユーザー登録") %>
+<%= render "users/shared/error_messages", resource: resource %>
+<%= render "shared/page_title" %>
+<div class="container my-4">
+  <%= form_with model: @user, url: user_registration_path, id: "new user", class: "new_user col-xl-6 col-lg-8 col-md-10 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
+    <h2 class="mb-4">登録情報の入力</h2>
+    <div class="field form-floating mb-3">
+      <%= f.text_field :name, autofocus: true, autocomplete: "off", placeholder: "おかメちゃん", class: "form-control #{"is-invalid" if f.object.errors[:name].present?}" %>
+      <%= f.label :name do %>
+        <i class="fas fa-user"></i>&ensp;ニックネーム
+      <% end %>
+      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> ニックネームは最大<%= UserSharedConstants::MAX_LENGTH_NAME %>文字まで入力できます</small>
+    </div>
+
+    <div class="field form-floating mb-3">
+      <%= f.email_field :email, autocomplete: "email", placeholder: "email@example.com", class: "form-control #{"is-invalid" if f.object.errors[:email].present?}" %>
+      <%= f.label :email do %>
+        <i class="far fa-envelope"></i>&ensp;Eメールアドレス
+      <% end %>
+      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> このメールアドレスに確認用のメールが送信されます</small>
+    </div>
+
+    <div class="field form-floating mb-3">
+      <%= f.password_field :password, autocomplete: "new-password", placeholder: "password", class: "form-control #{"is-invalid" if f.object.errors[:password].present?}" %>
+      <%= f.label :password do %>
+        <i class="fas fa-lock"></i>&ensp;パスワード
+      <% end %>
+      <% if @minimum_password_length %>
+        <small class="form-text text-muted"><i class="fas fa-circle-info"></i> パスワードは<%= @minimum_password_length %> 文字以上で半角の英字と数字を含めてください</small>
+      <% end %>
+    </div>
+
+    <div class="field form-floating mb-4">
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "password", class: "form-control #{"is-invalid" if f.object.errors[:password_confirmation].present?}" %>
+      <%= f.label :password_confirmation do %>
+        <i class="fas fa-lock"></i>&ensp;パスワード（確認用）
+      <% end %>
+    </div>
+
+    <div class="mb-5">
+      <h5 class="mb-2">reCAPTCHA認証</h5>
+      <div class="d-flex justify-content-sm-start justify-content-center">
+        <%# Turboを使用したまま本ページのrender後に recaptcha の判定が送信できるように noscript: false オプションを追加している %>
+        <%= recaptcha_tags(noscript: false) %>
+      </div>
+    </div>
+
+    <div>
+      <%= f.submit "ユーザー登録", class: "w-100 btn btn-lg btn-primary" %>
+    </div>
+  <% end %>
+  <div class="col-xl-6 col-lg-8 col-md-10 p-md-5 p-4 mx-auto rounded-3 form-other-bg">
+    <h4 class="mb-4">すでに登録済みの方はコチラ</h4>
+    <%= render "users/shared/links" %>
+  </div>
+</div>

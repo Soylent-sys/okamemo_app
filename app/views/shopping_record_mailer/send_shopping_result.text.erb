@@ -1,0 +1,39 @@
+<%= @notification_target_user.name %>（<%= @notification_target_user.email %>） 様
+
+買い物お助けサービスアプリ【 おかメchan 】です。
+
+<%= @notification_target_user.user.name %> さん が、お買い物しました。
+
+＋＋＋＋＋＋＋＋ お買い物結果 ＋＋＋＋＋＋＋＋
+
+【 買ったアイテム 】
+<% if @shopping_record.buys.purchased.present? %>
+  <% @shopping_record.buys.purchased.each do |buy| %>
+　<%= "・ #{buy.item_name}" %>
+  <% end %>
+<% else %>
+　<%= "買ったアイテムはありません" %>
+<% end %>
+
+【 買わなかったアイテム 】
+<% if @shopping_record.buys.unpurchased.present? %>
+  <% @shopping_record.buys.unpurchased.each do |buy| %>
+　<%= "・ #{buy.item_name}" %>
+  <% end %>
+<% else %>
+　<%= "買わなかったアイテムはありません" %>
+<% end %>
+
+＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋
+
+【ご注意】
+※このメールはシステムより自動で送信されているメールです。このメールに返信することは出来ませんのでご注意ください。
+※このメールにお心当たりの無い場合は、このメールを破棄してください。
+
+
+＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+
+　買い物お助けサービスアプリ【 おかメchan 】
+　okamemo.com <%= Time.current.year %>
+
+＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊

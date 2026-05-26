@@ -1,0 +1,36 @@
+<% provide(:page_title, "お買い物モード") %>
+<% provide(:help_path, "shopping_records/edit_help") %>
+<% provide(:okame_info, "お買い物を始めるよ！「買うものリスト」を見ながら手にとったアイテムのボタンを押して「OK！」をつけていこう！\nお買い物が終わったら「お買い物完了」を押して進めてね。") %>
+<%= render "shared/error_messages", model: @shopping_record_form %>
+<%= render "shared/navigation" %>
+<%= render "shared/page_title" %>
+<%= render "shared/help_modal" %>
+<div class="col-xl-7 col-md-9 col-12 pt-4 px-sm-2 px-3 mt-5 mx-auto rounded-top-5 buy-check-window-bg">
+  <div class="col-sm-11 text-center mx-auto">
+    <h2 class="mb-5"><%= @shopping_record.title %><br>買うものリスト</h2>
+    <h6 class="m-0"><i class="fas fa-circle-info"></i> アイテムを押すと <span class="ok-text">OK!</span> を付け外しできます</h6>
+  </div>
+</div>
+<%= form_with model: @shopping_record_form, url: shopping_progress_confirm_path, local: true do |f| %>
+  <%= f.hidden_field :shopping_record_hashid, value: @shopping_record.hashid %>
+  <div class="col-xl-7 col-md-9 col-12 py-4 mb-5 mx-auto d-flex flex-wrap flex-fill justify-content-evenly rounded-bottom-5 buy-check-window-bg">
+    <% @shopping_record.buys.each do |buy| %>
+      <div class="p-0 mx-3 mb-3 rounded-4 buy-item-space buy-item-bg">
+        <label class="d-block item-pointer" for="shopping_record_form_hashids_<%= buy.hashid %>">
+          <div class="d-flex flex-column text-center px-3 pt-sm-3 pb-sm-2 pt-2 pb-1">
+            <div class="h5 mb-0"><%= display_item_name_of_buy(buy) %></div>
+            <div class="custom-checkbox-ok">
+              <%= f.check_box :hashids, { multiple: true }, buy.hashid, false %>
+            </div>
+          </div>
+        </label>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-xl-7 col-md-9 col-12 mb-5 mx-auto">
+    <div class="text-center">
+      <%= f.submit "お買い物完了", class: "btn btn-lg btn-custom-send me-5" %>
+      <%= link_to "中止", shopping_index_path, class: "btn btn-lg btn-secondary" %>
+    </div>
+  </div>
+<% end %>

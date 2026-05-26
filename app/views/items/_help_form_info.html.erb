@@ -1,0 +1,28 @@
+<h3 class="mb-3">フォームについて</h3>
+<h4>入力項目の説明</h4>
+<ul class="px-3 mb-5">
+  <li class="row p-2 mb-3 rounded-3 help-list-form-bg">
+    <div class="col-12">
+      <h5>カテゴリーを選択</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">アイテムのカテゴリーを選択します。ここで選択したカテゴリーのアイテムとして登録されます。どのカテゴリーを選択すればよいかわからない時はこのヘルプに記載の「各カテゴリーの説明」を参考にしてください。</p>
+    </div>
+  </li>
+  <li class="row p-2 mb-3 rounded-3 help-list-form-bg">
+    <div class="col-12">
+      <h5>アイテム名</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">アイテムの名前を入力します。最大<%= Item::MAX_LENGTH_NAME %>文字まで入力できます。同じカテゴリーの中で既に登録済みのアイテム名は登録できません。</p>
+    </div>
+  </li>
+  <li class="row p-2 mb-3 rounded-3 help-list-form-bg">
+    <div class="col-12">
+      <h5>ひらがな（アイテム名）</h5>
+    </div>
+    <div class="col-12">
+      <p class="m-0">アイテム名をひらがなで入力します（半角数字も使えます）。最大<%= Item::MAX_LENGTH_HIRAGANA %>文字まで入力できます。同じカテゴリーの中で既に登録済みのひらがな名は登録できません。ここで入力したひらがな名はアイテムの並び順や「ひらがなモード」をONにした時に使われます。</p>
+    </div>
+  </li>
+</ul>

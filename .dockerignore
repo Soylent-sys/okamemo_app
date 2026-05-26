@@ -1,6 +1,11 @@
 # 環境変数の除外
 .env
+.env.test
 **/.env
+
+# 環境変数のサンプルファイルの除外
+.env.sample
+.env.test.sample
 
 # git関係のファイル除外
 .git/
@@ -12,3 +17,9 @@ tmp
 
 # node_modulesの除外
 node_modules/
+
+# Terraform関連ファイルを除外
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfplan

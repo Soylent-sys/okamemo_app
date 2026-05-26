@@ -1,0 +1,56 @@
+<% provide(:page_title, "お買い物履歴") %>
+<% provide(:help_path, "shopping_records/result_help") %>
+<% provide(:okame_info, "ここではお買い物履歴を見ることができるよ！\n買い物結果を見たいお買い物の青色の「リスト」ボタンを押してね。赤色の「ゴミ箱」のボタンを押すと履歴を削除することもできるよ。") %>
+<%= render "shared/navigation" %>
+<% provide(:back_link_path, shopping_result_group_path) %>
+<% provide(:back_link_text, "年月選択 にもどる") %>
+<%= render "shared/back_link" %>
+<%= render "shared/page_title" %>
+<%= render "shared/help_modal" %>
+<div class="col-xl-7 col-md-9 col-11 py-4 px-sm-2 px-3 my-5 mx-auto rounded-2 shopping-record-window-bg">
+  <div class="col-sm-11 text-md-start text-center mx-auto mb-4">
+    <h2 class="mb-4"><%= date_change_format_ja(params[:date]) %>の履歴一覧</h2>
+  </div>
+  <% if @shopping_records.size > ConstantsHelper::ONE_RECORD %>
+    <div class="h5 d-inline-block text-muted text-center latest-oldest-icon">
+      <div class="latest-color px-sm-2 px-1 py-3 rounded-top-5">
+        <div><i class="fas fa-arrow-up"></i></div>
+        <div>新</div>
+      </div>
+      <div class="oldest-color px-sm-2 px-1 py-3 rounded-bottom-5">
+        <div>古</div>
+        <div><i class="fas fa-arrow-down"></i></div>
+      </div>
+    </div>
+  <% end %>
+  <% @shopping_records.each do |shopping_record| %>
+    <div class="col-11 py-3 px-3 mb-4 mx-auto rounded-2 shopping-record-bg">
+      <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+        <div>
+          <h4 class="mb-2"><%= shopping_record.title %></h4>
+          <h5 class="mb-sm-0 mb-3 text-muted">完了： <%= shopping_record.updated_at.to_fs(:date_ymd_ja) %></h5>
+        </div>
+        <div class="d-flex justify-content-end">
+          <div class="me-sm-4 me-3">
+            <%= link_to shopping_results_path(shopping_record.hashid) do %>
+              <i class="h3 fas fa-rectangle-list m-0 show-icon"></i>
+            <% end %>
+          </div>
+          <div>
+            <%= button_to shopping_record_path(shopping_record.hashid), method: :delete, form: { data: { turbo_confirm: t(".confirm_to_delete"), turbo_confirm_title: "お買い物履歴の削除", turbo_confirm_submit_text: "削除する", turbo_confirm_button_class: "btn btn-danger" } } do %>
+              <i class="h3 fas fa-trash-can m-0 delete-icon"></i>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <% if @pagy.pages > ConstantsHelper::SINGLE_PAGE %>
+    <div class="d-flex justify-content-center">
+      <%== pagy_bootstrap_nav(@pagy) %>
+    </div>
+  <% end %>
+</div>
+<% if @pagy.count == ConstantsHelper::ONE_RECORD %>
+  <div class="one-record-margin"></div>
+<% end %>

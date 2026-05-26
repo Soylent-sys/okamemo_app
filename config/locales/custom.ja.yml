@@ -1,0 +1,76 @@
+ja:
+  activerecord:
+    attributes:
+      category:
+        name: カテゴリー名
+        hiragana: ひらがな（カテゴリー名）
+      item:
+        user: 登録されているユーザーID
+        category: カテゴリー
+        name: アイテム名
+        hiragana: ひらがな（アイテム名）
+      notification_target_user:
+        user: 登録されているユーザーID
+        name: ニックネーム
+        email: Eメールアドレス
+        notification_target_user: 通知メールアドレス
+        confirmation_status: 認証区分
+        confirmation_statuses:
+          unconfirmed: 未認証
+          confirmed: 認証完了
+  activemodel:
+    attributes:
+      shopping_record_form:
+        title: タイトル
+        hashids: アイテム
+        shopping_record: お買い物
+      contact:
+        name: お名前
+        email: Eメールアドレス
+        subject: 件名
+        message: お問い合わせ内容
+  home:
+    login_home:
+      confirm_to_logout: ログアウトしますか？
+  users:
+    registrations:
+      edit:
+        hiragana_view_true: 使う
+        hiragana_view_false: 使わない
+  items:
+    index:
+      confirm_to_delete: 本当に削除しますか？
+  layouts:
+    header:
+      confirm_to_logout: ログアウトしますか？
+  shopping_records:
+    index:
+      confirm_to_delete: 本当に削除しますか？
+    result:
+      confirm_to_delete: 本当に削除しますか？
+    show:
+      confirm_to_delete: 本当に削除しますか？
+  notification_target_users:
+    index:
+      confirm_to_delete: 本当に削除しますか？
+  management:
+    users:
+      index:
+        confirm_to_delete: 本当に削除しますか？
+      new:
+        user_admin_true: 管理者
+        user_admin_false: 一般
+      edit:
+        user_admin_true: 管理者
+        user_admin_false: 一般
+        hiragana_view_true: "ON"
+        hiragana_view_false: "OFF"
+    notification_target_users:
+      index:
+        confirm_to_delete: 本当に削除しますか？
+    items:
+      index:
+        confirm_to_delete: 本当に削除しますか？
+    shopping_records:
+      index:
+        confirm_to_delete: 本当に削除しますか？

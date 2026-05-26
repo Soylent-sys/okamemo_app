@@ -1,0 +1,58 @@
+<% provide(:page_title, "お問い合わせ") %>
+<%= render "shared/error_messages", model: @contact %>
+<div class="mt-4">
+  <% provide(:back_link_path, root_path) %>
+  <% provide(:back_link_text, "トップページ にもどる") %>
+  <%= render "shared/back_link" %>
+</div>
+<%= render "shared/page_title" %>
+<div class="container my-4">
+  <%= form_with model: @contact, url: contact_confirm_path, class: "col-xl-6 col-lg-8 col-md-10 p-md-5 p-4 mx-auto mb-5 rounded-3 form-bg", local: true do |f| %>
+    <h2 class="mb-4">お問い合わせフォーム</h2>
+    <div class="field form-floating mb-3">
+      <%= f.text_field :name, autofocus: !user_signed_in?, autocomplete: "off", placeholder: "おかメちゃん", readonly: user_signed_in?, class: "form-control #{"is-invalid" if f.object.errors[:name].present?}" %>
+      <%= f.label :name do %>
+        <i class="fas fa-user"></i>&ensp;お名前
+      <% end %>
+      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> <%= form_info_text_name %></small>
+    </div>
+
+    <div class="field form-floating mb-3">
+      <%= f.email_field :email, autocomplete: "email", placeholder: "email@example.com", readonly: user_signed_in?, class: "form-control #{"is-invalid" if f.object.errors[:email].present?}" %>
+      <%= f.label :email do %>
+        <i class="far fa-envelope"></i>&ensp;Eメールアドレス
+      <% end %>
+      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> <%= form_info_text_email %></small>
+    </div>
+
+    <div class="field form-floating mb-3">
+      <%= f.text_field :subject, autofocus: user_signed_in?, autocomplete: "subject", placeholder: "subject", class: "form-control #{"is-invalid" if f.object.errors[:subject].present?}" %>
+      <%= f.label :subject do %>
+        <i class="fas fa-book"></i>&ensp;件名
+      <% end %>
+      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> 件名は最大<%= Contact::MAX_LENGTH_SUBJECT %>文字まで入力できます</small>
+    </div>
+
+    <div class="field form-floating <%= user_signed_in? ? "mb-5" : "mb-4" %>">
+      <%= f.text_area :message, autocomplete: "message", placeholder: "message", class: "form-control #{"is-invalid" if f.object.errors[:message].present?}", style: "height: 200px" %>
+      <%= f.label :message do %>
+        <i class="fas fa-book-open"></i>&ensp;お問い合わせ内容
+      <% end %>
+      <small class="form-text text-muted"><i class="fas fa-circle-info"></i> お問い合わせ内容は最大<%= Contact::MAX_LENGTH_MESSAGE %>文字まで入力できます</small>
+    </div>
+
+    <% unless user_signed_in? %>
+      <div class="mb-5">
+        <h5 class="mb-2">reCAPTCHA認証</h5>
+        <div class="d-flex justify-content-sm-start justify-content-center">
+          <%# Turboを使用したまま本ページのrender後に recaptcha の判定が送信できるように noscript: false オプションを追加している %>
+          <%= recaptcha_tags(noscript: false) %>
+        </div>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.submit "送信内容の確認", disabled: current_user&.guest?, class: "w-100 btn btn-lg btn-custom-send" %>
+    </div>
+  <% end %>
+</div>

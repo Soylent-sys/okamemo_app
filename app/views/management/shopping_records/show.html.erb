@@ -1,0 +1,101 @@
+<div class="container-fluid g-0 bg-white">
+  <%= render "management/shared/caution" %>
+  <div class="d-flex">
+    <%= render "management/shared/sidebar" %>
+    <div class="management-main p-4 bg-body-secondary">
+      <h2 class="d-inline-block px-4 py-2 mb-3 rounded-2 bg-white">お買い物詳細</h2>
+      <%= render "management/shared/back_link" %>
+      <div class="col-xl-7 col-md-9 col-11 p-md-5 p-4 mb-5 mx-auto rounded-2 bg-light">
+        <div class="p-3 mb-3 rounded-2 confirm-window">
+          <h5><i class="fas fa-cart-shopping"></i>&ensp;お買い物ID（ID）</h5>
+          <span class="h5 d-block ps-3"><%= @shopping_record.id %></span>
+        </div>
+        <div class="p-3 mb-3 rounded-2 confirm-window">
+          <h5><i class="fas fa-id-card"></i>&ensp;登録ユーザーID（User_id）</h5>
+          <span class="h5 d-block ps-3"><%= @shopping_record.user_id %></span>
+        </div>
+        <div class="p-3 mb-3 rounded-2 confirm-window">
+          <h5><i class="fas fa-book"></i>&ensp;お買い物タイトル（Title）</h5>
+          <span class="h5 d-block ps-3"><%= @shopping_record.title %></span>
+        </div>
+        <div class="p-3 mb-3 rounded-2 confirm-window">
+          <h5><i class="fas fa-calendar-check"></i>&ensp;お買い物状態（Closed）</h5>
+          <span class="h5 d-block ps-3"><%= @shopping_record.closed? ? "完了" : "未完了" %></span>
+        </div>
+        <div class="p-3 mb-3 rounded-2 confirm-window">
+          <h5><i class="fas fa-pen-to-square"></i>&ensp;登録日時（Created_at）</h5>
+          <span class="h5 d-block ps-3"><%= @shopping_record.created_at.to_fs(:date_time) %></span>
+        </div>
+        <div class="p-3 mb-3 rounded-2 confirm-window">
+          <h5><i class="fas fa-calendar-days"></i>&ensp;完了日時（Updated_at）</h5>
+          <span class="h5 d-block ps-3"><%= @shopping_record.updated_at.to_fs(:date_time) %></span>
+        </div>
+        <div class="p-3 mb-3 rounded-2 confirm-window">
+          <h5 class="py-2 mb-0"><i class="fas fa-apple-whole"></i>&ensp;アイテム</h5>
+          <ul class="h5">
+            <% @shopping_record.buys.each do |buy| %>
+              <li class="ps-2 mb-2"><%= "#{buy.item_name}（#{buy.item_hiragana}）〈#{buy.purchased? ? "購入" : "未購入"}〉" %></li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="p-3 rounded-2 confirm-window">
+          <h5 class="py-2 mb-0"><i class="fas fa-map-location-dot"></i>&ensp;お買い物した場所</h5>
+          <% if @shopping_location.present? %>
+            <div id="map"></div>
+          <% else %>
+            <h5>&ensp;登録なし</h5>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%# お買い物場所が登録されている場合のみGoogleMap関連のjsを読み込む %>
+<% if @shopping_location.present? %>
+  <%# 強制ページ全体リロードのmetaタグ追加 %>
+  <% provide(:map_js, "true") %>
+  <%# Maps JavaScript API 読込 %>
+  <script>
+    (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+      key: "<%= ENV["GOOGLE_MAP_API_KEY"] %>",
+      v: "weekly",
+    });
+  </script>
+  <%# GoogleMapの構築スクリプト（詳細ページ用） %>
+  <script>
+    async function initMap() {
+      // google.mapsのライブラリを取得する
+      const { Map } = await google.maps.importLibrary("maps");
+      const { Marker } = await google.maps.importLibrary("marker");
+      const { Animation } = await google.maps.importLibrary("marker");
+
+      // 緯度経度を設定
+      const latlng = { lat: gon.lat, lng: gon.lng };
+
+      // 設定した緯度経度を中心にマップを表示
+      const gMap = new Map(document.getElementById('map'), {
+        center: latlng,
+        zoom: 17,
+      });
+
+      // 設定した緯度経度の地点にマーカーを立てる
+      const marker = new Marker({
+        map: gMap,
+        position: latlng,
+        label: {
+          text: 'ここで買ったよ！',
+          fontSize: '15px',
+          fontWeight: '900',
+        },
+        animation: Animation.DROP,
+      });
+
+      // テスト環境のみグローバルにエクスポート
+      if (gon.env === "test") {
+        window.test = { gMap, marker };
+      }
+    }
+
+    initMap();
+  </script>
+<% end %>
