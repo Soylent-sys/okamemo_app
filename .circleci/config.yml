@@ -79,6 +79,11 @@ workflows:
       - rubocop
       # ECRにWebサーバー用のDockerイメージをビルドしてプッシュ
       - aws-ecr/build_and_push_image:
+          # CircleCI環境変数を自動読取して認証する
+          auth:
+            - aws-cli/setup
+          # リージョンを指定
+          region: ap-northeast-1
           # ジョブ名を設定
           name: build-and-push-image-web
           # Dockerfileのパス
@@ -95,6 +100,11 @@ workflows:
               only: main
       # ECRにアプリ用のDockerイメージをビルドしてプッシュ
       - aws-ecr/build_and_push_image:
+          # CircleCI環境変数を自動読取して認証する
+          auth:
+            - aws-cli/setup
+          # リージョンを指定
+          region: ap-northeast-1
           # ジョブ名を設定
           name: build-and-push-image-app
           # Dockerfileのパス
@@ -107,6 +117,11 @@ workflows:
             - build-and-push-image-web
       # ECRにsidekiq用のDockerイメージをビルドしてプッシュ
       - aws-ecr/build_and_push_image:
+          # CircleCI環境変数を自動読取して認証する
+          auth:
+            - aws-cli/setup
+          # リージョンを指定
+          region: ap-northeast-1
           # ジョブ名を設定
           name: build-and-push-image-worker
           # Dockerfileのパス
@@ -119,6 +134,11 @@ workflows:
             - build-and-push-image-app
       # ECSのサービスを更新
       - aws-ecs/deploy_service_update:
+          # CircleCI環境変数を自動読取して認証する
+          auth:
+            - aws-cli/setup
+          # リージョンを指定
+          region: ap-northeast-1
           # ジョブ名を設定
           name: deploy-ecs
           # クラスター名
