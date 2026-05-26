@@ -82,8 +82,10 @@ workflows:
           # CircleCI環境変数を自動読取して認証する
           auth:
             - aws-cli/setup
-          # リージョンを指定
-          region: ap-northeast-1
+          # AWSアカウントを環境変数から取得
+          account_id: ${AWS_ACCOUNT_ID}
+          # リージョンを環境変数から取得
+          region: ${AWS_DEFAULT_REGION}
           # ジョブ名を設定
           name: build-and-push-image-web
           # Dockerfileのパス
@@ -103,8 +105,10 @@ workflows:
           # CircleCI環境変数を自動読取して認証する
           auth:
             - aws-cli/setup
-          # リージョンを指定
-          region: ap-northeast-1
+          # AWSアカウントを環境変数から取得
+          account_id: ${AWS_ACCOUNT_ID}
+          # リージョンを環境変数から取得
+          region: ${AWS_DEFAULT_REGION}
           # ジョブ名を設定
           name: build-and-push-image-app
           # Dockerfileのパス
@@ -120,8 +124,10 @@ workflows:
           # CircleCI環境変数を自動読取して認証する
           auth:
             - aws-cli/setup
-          # リージョンを指定
-          region: ap-northeast-1
+          # AWSアカウントを環境変数から取得
+          account_id: ${AWS_ACCOUNT_ID}
+          # リージョンを環境変数から取得
+          region: ${AWS_DEFAULT_REGION}
           # ジョブ名を設定
           name: build-and-push-image-worker
           # Dockerfileのパス
@@ -137,8 +143,8 @@ workflows:
           # CircleCI環境変数を自動読取して認証する
           auth:
             - aws-cli/setup
-          # リージョンを指定
-          region: ap-northeast-1
+          # リージョンを環境変数から取得
+          region: ${AWS_DEFAULT_REGION}
           # ジョブ名を設定
           name: deploy-ecs
           # クラスター名
