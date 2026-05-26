@@ -2,8 +2,9 @@ version: 2.1
 
 # AWS用のorbsを利用する(バージョンは最新のものを使う)
 orbs:
-  aws-ecr: circleci/aws-ecr@8.5.1
-  aws-ecs: circleci/aws-ecs@3.2.0
+  aws-ecr: circleci/aws-ecr@9.8.1
+  aws-ecs: circleci/aws-ecs@7.2.2
+  aws-cli: circleci/aws-cli@5.4.1
 
 jobs:
   # rspec用のジョブ
@@ -77,7 +78,7 @@ workflows:
       - rspec
       - rubocop
       # ECRにWebサーバー用のDockerイメージをビルドしてプッシュ
-      - aws-ecr/build-and-push-image:
+      - aws-ecr/build_and_push_image:
           # ジョブ名を設定
           name: build-and-push-image-web
           # Dockerfileのパス
@@ -93,7 +94,7 @@ workflows:
             branches:
               only: main
       # ECRにアプリ用のDockerイメージをビルドしてプッシュ
-      - aws-ecr/build-and-push-image:
+      - aws-ecr/build_and_push_image:
           # ジョブ名を設定
           name: build-and-push-image-app
           # Dockerfileのパス
@@ -105,7 +106,7 @@ workflows:
           requires:
             - build-and-push-image-web
       # ECRにsidekiq用のDockerイメージをビルドしてプッシュ
-      - aws-ecr/build-and-push-image:
+      - aws-ecr/build_and_push_image:
           # ジョブ名を設定
           name: build-and-push-image-worker
           # Dockerfileのパス
@@ -117,13 +118,13 @@ workflows:
           requires:
             - build-and-push-image-app
       # ECSのサービスを更新
-      - aws-ecs/deploy-service-update:
+      - aws-ecs/deploy_service_update:
           # ジョブ名を設定
           name: deploy-ecs
           # クラスター名
           cluster: okamemo-app-cluster
           # サービス名
-          service-name: okamemo-app-service
+          service_name: okamemo-app-service
           # タスク定義名
           family: okamemo-app-task
           # build-and-push-image-appが完了後に実行
