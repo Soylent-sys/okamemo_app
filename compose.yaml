@@ -21,7 +21,7 @@ services:
       SELENIUM_DRIVER_URL: http://selenium_chrome:4444/wd/hub
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s"
   db:
-    image: mysql:8.0.33
+    image: mysql:8.0.46
     platform: linux/arm64
     environment:
       MYSQL_ROOT_PASSWORD: password

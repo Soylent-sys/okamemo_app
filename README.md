@@ -80,7 +80,7 @@
 ### バックエンド
 - `Ruby 3.2.2`
 - `Ruby on Rails 7.0.6`
-- `MySQL 8.0.33`
+- `MySQL 8.0.46`
 - `Redis`（ElastiCache）
 - `Sidekiq`（非同期処理）
 - `Google reCAPTCHA`（スパム対策）
@@ -163,8 +163,8 @@
 - `docker-compose` により以下のコンテナを構成：
   - `app`：アプリケーション本体（Rails 7.0.6 + Ruby 3.2.2）  
     使用イメージ：`ruby:3.2.2-bullseye`
-  - `db`：データベース（MySQL 8.0.33）  
-    使用イメージ：`mysql:8.0.33`
+  - `db`：データベース（MySQL 8.0.46）  
+    使用イメージ：`mysql:8.0.46`
   - `redis`：キャッシュ・ジョブ管理用（Redis）  
     使用イメージ：`redis:bullseye`
   - `sidekiq`：バックグラウンドジョブ実行  

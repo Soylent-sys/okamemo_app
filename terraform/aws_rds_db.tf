@@ -46,7 +46,8 @@ resource "aws_db_subnet_group" "rds" {
 resource "aws_db_instance" "db" {
   allocated_storage                   = 20
   engine                              = "mysql"
-  engine_version                      = "8.0.33"
+  engine_version                      = "8.0.46"
+  auto_minor_version_upgrade          = true
   instance_class                      = "db.t3.micro"
   identifier                          = "okamemo-app-production"
   username                            = "${local.secrets.MYSQL_USERNAME}"

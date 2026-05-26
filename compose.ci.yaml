@@ -23,7 +23,7 @@ services:
       - '3000:3000'
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s"
   db:
-    image: mysql:8.0.33
+    image: mysql:8.0.46
     environment:
       MYSQL_ROOT_PASSWORD: password
     ports:
