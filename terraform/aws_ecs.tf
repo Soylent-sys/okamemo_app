@@ -50,6 +50,8 @@ resource "aws_ecs_task_definition" "main" {
   # Fargateを使用する場合は"awsvpc"決め打ち
   network_mode = "awsvpc"
 
+  # タスクロールをecsTaskRoleとする（railsコンテナでexecute-commandで接続するために必要）
+  task_role_arn = "arn:aws:iam::${data.aws_caller_identity.self.account_id}:role/ecsTaskRole"
   # タスク実行ロールをecsTaskExecutionRoleとする
   execution_role_arn = "arn:aws:iam::${data.aws_caller_identity.self.account_id}:role/ecsTaskExecutionRole"
 
