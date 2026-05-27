@@ -44,12 +44,14 @@ resource "aws_ecs_task_definition" "main" {
   # ECSタスクが使用可能なリソースの上限
   # タスク内のコンテナはこの上限内に使用するリソースを収める必要があり、メモリが上限に達した場合OOM Killer にタスクがキルされる
   cpu    = "256"
-  memory = "512"
+  memory = "1024"
 
   # ECSタスクのネットワークドライバ
   # Fargateを使用する場合は"awsvpc"決め打ち
   network_mode = "awsvpc"
 
+  # タスクロールをecsTaskRoleとする（railsコンテナでexecute-commandで接続するために必要）
+  task_role_arn = "arn:aws:iam::${data.aws_caller_identity.self.account_id}:role/ecsTaskRole"
   # タスク実行ロールをecsTaskExecutionRoleとする
   execution_role_arn = "arn:aws:iam::${data.aws_caller_identity.self.account_id}:role/ecsTaskExecutionRole"
 
