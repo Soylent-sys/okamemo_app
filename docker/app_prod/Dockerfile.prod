@@ -54,6 +54,8 @@ RUN mkdir -p tmp/sockets
 # 本番環境（AWS ECS）でNginxへのファイル共有用ボリューム
 VOLUME $APP_ROOT/public
 VOLUME $APP_ROOT/tmp
+# アセットのプリコンパイル用環境変数
+ENV SECRET_KEY_BASE=dummy_secret_key_base
 # アセットのプリコンパイル
 RUN bundle exec rails assets:precompile
 # コンテナ起動時に実行するスクリプト
