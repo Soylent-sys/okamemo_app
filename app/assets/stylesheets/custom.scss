@@ -737,6 +737,11 @@ body {
   display: inline-block;
 }
 
+.instructions {
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
 .instructions-1 {
   background-color: rgb(255, 247, 165);
 }
@@ -883,6 +888,12 @@ body {
   width: 100%;
   height: 500px;
   object-fit: cover;
+}
+
+.home-okame-box {
+  @media screen and (max-width: 992px) {
+    max-width: 900px;
+  }
 }
 
 /* user registrations edit */
