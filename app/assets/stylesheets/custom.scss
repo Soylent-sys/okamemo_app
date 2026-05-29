@@ -891,7 +891,7 @@ body {
 }
 
 .home-okame-box {
-  @media screen and (max-width: 992px) {
+  @media screen and (min-width: 992px) {
     max-width: 900px;
   }
 }
