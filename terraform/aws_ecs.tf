@@ -323,4 +323,7 @@ resource "aws_ecs_service" "main" {
     container_name = "nginx"
     container_port = "80"
   }
+
+  # ECS Exec をオンにする（ローカルのAWS CLIからコンテナに接続可能にする）
+  enable_execute_command = true
 }
