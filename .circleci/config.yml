@@ -153,6 +153,6 @@ workflows:
           service_name: okamemo-app-service
           # タスク定義名
           family: okamemo-app-task
-          # build-and-push-image-appが完了後に実行
+          # build-and-push-image-workerが完了後に実行
           requires:
             - build-and-push-image-worker
