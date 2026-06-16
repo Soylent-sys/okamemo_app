@@ -77,6 +77,16 @@ workflows:
       # テストを実行
       - rspec
       - rubocop
+      # AWS環境が構築済みの場合のみCircleCI上で本番デプロイを手動承認する
+      - approve-production:
+          type: approval
+          requires:
+            - rspec
+            - rubocop
+          # ジョブの実行条件
+          filters:
+            branches:
+              only: main
       # ECRにWebサーバー用のDockerイメージをビルドしてプッシュ
       - aws-ecr/build_and_push_image:
           # CircleCI環境変数を自動読取して認証する
@@ -95,8 +105,7 @@ workflows:
           tag: "latest"
           # ジョブの実行条件
           requires:
-            - rspec
-            - rubocop
+            - approve-production
           filters:
             branches:
               only: main
