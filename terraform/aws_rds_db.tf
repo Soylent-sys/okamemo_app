@@ -46,13 +46,13 @@ resource "aws_db_subnet_group" "rds" {
 resource "aws_db_instance" "db" {
   allocated_storage                   = 20
   engine                              = "mysql"
-  engine_version                      = "8.0.46"
+  engine_version                      = "8.4.8"
   auto_minor_version_upgrade          = false
   instance_class                      = "db.t3.micro"
   identifier                          = "okamemo-app-production"
   username                            = "${local.secrets.MYSQL_USERNAME}"
   password                            = "${local.secrets.MYSQL_PASSWORD}"
-  parameter_group_name                = "default.mysql8.0"
+  parameter_group_name                = "default.mysql8.4"
   skip_final_snapshot                 = true
   customer_owned_ip_enabled           = false
   deletion_protection                 = false
