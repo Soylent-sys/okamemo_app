@@ -1,4 +1,4 @@
-FROM nginx:mainline-bullseye
+FROM nginx:1.30.7-trixie
 
 RUN rm -f /etc/nginx/conf.d/*
 
