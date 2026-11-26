@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.2.2"
+ruby "3.4.13"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.6"
@@ -49,7 +49,7 @@ gem "sassc-rails"
 # gem "image_processing", "~> 1.2"
 
 gem "bootstrap", "~> 5.3.1"
-gem "mini_racer", "~> 0.8.0"
+gem "mini_racer", "~> 0.22.2"
 gem "devise", "~> 4.9.2"
 gem "devise-i18n", "~> 1.11.0"
 gem "aws-sdk-rails", "~> 3.8.0"
@@ -60,6 +60,9 @@ gem "gon", "~> 6.4"
 gem "sidekiq", "~> 7.2.2"
 gem "recaptcha", "~> 5.16", require: "recaptcha/rails"
 gem "ransack", "~> 4.1"
+gem "mutex_m"
+gem "observer"
+gem "drb"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
