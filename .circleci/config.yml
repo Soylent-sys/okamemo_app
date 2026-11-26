@@ -62,7 +62,7 @@ jobs:
       - run: bundle config --local path vendor/bundle
       - run:
           name: bundle install
-          command: bundle check || bundle install --jobs=8 --clean
+          command: bundle check || bundle install --jobs=8
       - run:
           name: Run rubocop
           command: bundle exec rubocop --require rubocop-airbnb --parallel
